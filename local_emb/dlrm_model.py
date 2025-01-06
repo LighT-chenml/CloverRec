@@ -333,7 +333,7 @@ class GPUServer:
         for v in ly:
             ly_cuda.append(v.to(device))
         z = dlrm.interact_features(self.future.result(), ly_cuda)
-        return dlrm.apply_mlp(z, dlrm.top_l)
+        return dlrm.apply_mlp(z, dlrm.top_l).cpu()
 
     def handle_request(self):
         # check whether connection is alive

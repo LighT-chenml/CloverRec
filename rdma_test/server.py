@@ -47,10 +47,11 @@ class RPCServer:
 
         # prepare request response
         response_content = 'a' * 8
-        # response_content_2 = 'b' * 8
+        response_len = len(response_content)
         
-        self.mr.write(response_content, len(response_content), 0)
-        print("Response:" + self.read_mr(len(response_content), 0).decode())
+        self.mr.write(response_len.to_bytes(8, 'little'), 8, 0)
+        self.mr.write(response_content, response_len, 8)
+        print("Response:" + self.read_mr(len(response_content), 8).decode())
 
         # check client recv ready
         self.conn.handshake()
