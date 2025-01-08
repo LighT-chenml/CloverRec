@@ -1,5 +1,12 @@
-#!/usr/bin/python3.8
+import argparse
 
+import numpy as np
+
+import pickle
+
+import torch
+
+# RDMA
 from connection import SKT, CM
 
 from pyverbs.addr import AH, AHAttr, GlobalRoute
@@ -13,26 +20,29 @@ from pyverbs.wr import SGE, RecvWR, SendWR
 
 import time
 
-SERVER_RECV_WR = 1
-SERVER_SEND_WR = 2
-
-# TODO: Error handling
-
-print('-' * 80)
-print(' ' * 25, "Python test for RDMA")
-
-print("Running as server...")
-
-print('-' * 80)
-
-class RPCServer:
+class EmbServer:
+    def __init__(self, m, ln):
+        self.SERVER_RECV_WR = 1
+        self.SERVER_SEND_WR = 2
+        
+        print("m: " + f'{m}')
+        print("ln: " + f'{ln}')
+        
+        W_list = []
+        for n in ln:
+            low = -np.sqrt(1 / n)
+            high = np.sqrt(1 / n)
+            W = low + torch.rand(n, m ,dtype=torch.float32) * (high - low)
+            W_list.append(W)
+        self.content = np.array(W_list).tobytes()
+    
     def read_mr(self, length, offset):
         return self.mr.read(length, offset)
 
     def check_connection_alive(self):
         try:
             sgl = [SGE(self.mr.buf + self.mr.length - 1, 1, self.mr.lkey)]
-            wr = SendWR(SERVER_SEND_WR, opcode=IBV_WR_RDMA_READ, num_sge=1, sg=sgl)
+            wr = SendWR(self.SERVER_SEND_WR, opcode=IBV_WR_RDMA_READ, num_sge=1, sg=sgl)
             wr.set_wr_rdma(self.remote_info['rkey'], self.remote_info['addr'])
 
             self.qp.post_send(wr)
@@ -51,9 +61,9 @@ class RPCServer:
 
         ctx = Context(name='mlx5_0')
         self.pd = PD(ctx)
-        self.cq = CQ(ctx, 100)
+        self.cq = CQ(ctx, args.rdma_wr_capacity)
 
-        cap = QPCap(max_send_wr=16, max_recv_wr=16, max_send_sge=1, max_recv_sge=1, max_inline_data=0)
+        cap = QPCap(max_send_wr=args.rdma_wr_capacity, max_recv_wr=args.rdma_wr_capacity, max_send_sge=1, max_recv_sge=1, max_inline_data=0)
         qp_init_attr = QPInitAttr(qp_type=IBV_QPT_RC, scq=self.cq, rcq=self.cq, cap=cap, sq_sig_all=True)
         self.qp = QP(self.pd, qp_init_attr)
 
@@ -75,11 +85,10 @@ class RPCServer:
 
         self.qp.to_rts(qa)
 
-        mr_size = 32
-        content = '123456789abcd'
-
+        mr_size = len(self.content) + 16
         self.mr = MR(self.pd, mr_size, IBV_ACCESS_LOCAL_WRITE | IBV_ACCESS_REMOTE_WRITE | IBV_ACCESS_REMOTE_READ)
-        self.mr.write(content, len(content))
+        self.sgl = [SGE(self.mr.buf, self.mr.length, self.mr.lkey)]
+        self.mr.write(self.content, len(self.content))
 
         self.remote_info = self.conn.handshake(addr=self.mr.buf, rkey=self.mr.rkey)
 
@@ -89,10 +98,6 @@ class RPCServer:
             ret = self.check_connection_alive()
             if ret != True:
                 break
-            
-            # num_iter += 1
-            # print("Iter: " + f"{num_iter}")
-            # print("Init Server MR Content:" + self.read_mr(self.mr.length, 0).decode())
 
             time.sleep(0.001) # 1 ms
 
@@ -101,7 +106,38 @@ class RPCServer:
         print("Close connection...")
         print('-' * 80)
 
-server = RPCServer()
+def dash_separated_ints(value):
+    vals = value.split("-")
+    for val in vals:
+        try:
+            int(val)
+        except ValueError:
+            raise argparse.ArgumentTypeError(
+                "%s is not a valid dash separated list of ints" % value
+            )
+
+    return value
+
+parser = argparse.ArgumentParser(
+    description="Train Deep Learning Recommendation Model (DLRM)"
+)
+# model related parameters
+parser.add_argument("--arch-sparse-feature-size", type=int, default=2)
+parser.add_argument(
+    "--arch-embedding-size", type=dash_separated_ints, default="4-3-2"
+)
+parser.add_argument("--rdma-wr-capacity", type=int, default=16)
+
+global args
+args = parser.parse_args()
+ln_emb = np.fromstring(args.arch_embedding_size, dtype=int, sep="-")
+ln_emb = np.asarray(ln_emb)
+m_spa = args.arch_sparse_feature_size
+
+server = EmbServer(m_spa, ln_emb)
+
+print("start emb pool")
 
 while True:
     server.start_connection()
+

@@ -62,7 +62,6 @@ class RPCClient:
         self.content = '.' * 16
 
         self.mr = MR(self.pd, mr_size, IBV_ACCESS_LOCAL_WRITE | IBV_ACCESS_REMOTE_WRITE | IBV_ACCESS_REMOTE_READ)
-        self.sgl = [SGE(self.mr.buf, self.mr.length, self.mr.lkey)]
         
         self.remote_info = self.conn.handshake(addr=self.mr.buf, rkey=self.mr.rkey)
 

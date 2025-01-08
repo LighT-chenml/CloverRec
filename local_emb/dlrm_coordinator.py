@@ -58,7 +58,7 @@ import argparse
 # emb storage
 from dlrm_emb_storage import EmbStorage
 
-# rpc
+# RDMA
 import socket
 import pickle
 import rpyc
