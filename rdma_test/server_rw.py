@@ -29,6 +29,20 @@ class RPCServer:
     def read_mr(self, length, offset):
         return self.mr.read(length, offset)
 
+    def check_connection_alive(self):
+        try:
+            sgl = [SGE(self.mr.buf + self.mr.length - 1, 1, self.mr.lkey)]
+            wr = SendWR(SERVER_SEND_WR, opcode=IBV_WR_RDMA_READ, num_sge=1, sg=sgl)
+            wr.set_wr_rdma(self.remote_info['rkey'], self.remote_info['addr'])
+
+            self.qp.post_send(wr)
+            
+            wc_num, wc_list = self.cq.poll()
+            
+            return True
+        except:
+            return False
+
     def start_connection(self):
         
         self.conn = CM(8000, None)
@@ -59,7 +73,7 @@ class RPCServer:
         qa.max_dest_rd_atomic = 1
         qa.qp_access_flags = IBV_ACCESS_REMOTE_WRITE | IBV_ACCESS_REMOTE_READ | IBV_ACCESS_LOCAL_WRITE
 
-        self.qp.to_rtr(qa)
+        self.qp.to_rts(qa)
 
         mr_size = 32
         content = '123456789abcd'
@@ -68,16 +82,20 @@ class RPCServer:
         self.sgl = [SGE(self.mr.buf, self.mr.length, self.mr.lkey)]
         self.mr.write(content, len(content))
 
-        remote_info = self.conn.handshake(addr=self.mr.buf, rkey=self.mr.rkey)
+        self.remote_info = self.conn.handshake(addr=self.mr.buf, rkey=self.mr.rkey)
 
         num_iter = 0
 
         while True:
-            num_iter += 1
-            print("Iter: " + f"{num_iter}")
-            print("Init Server MR Content:" + self.read_mr(self.mr.length, 0).decode())
+            ret = self.check_connection_alive()
+            if ret != True:
+                break
+            
+            # num_iter += 1
+            # print("Iter: " + f"{num_iter}")
+            # print("Init Server MR Content:" + self.read_mr(self.mr.length, 0).decode())
 
-            time.sleep(0.5) # 0.5 sec
+            time.sleep(0.001) # 1 ms
 
         self.conn.close()
         

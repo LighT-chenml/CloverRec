@@ -94,8 +94,10 @@ class RPCClient:
 client = RPCClient()
 client.connect()
 
-for i in range(10):
-    print("Iter: " + f"{i + 1}/{10}")
+num_iters = 10
+
+for i in range(num_iters):
+    print("Iter: " + f"{i + 1}/{num_iters}")
     print("Response:" + client.send_request())
 
 client.close()
