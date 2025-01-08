@@ -1,6 +1,6 @@
 #!/usr/bin/python3.8
 
-from connection import SKT
+from connection import SKT, CM
 
 from pyverbs.addr import AH, AHAttr, GlobalRoute
 from pyverbs.cq import CQ
@@ -28,8 +28,7 @@ class RPCClient:
         return self.mr.read(length, offset)
 
     def connect(self):
-        self.conn = SKT(8000, '10.0.0.5')
-        self.conn.handshake()
+        self.conn = SKT(8000, '10.0.0.7')
 
         print("New connection...")
 
@@ -45,11 +44,8 @@ class RPCClient:
         lid = ctx.query_port(port_num=1).lid
 
         # Handshake to exchange information such as QP Number
-        # remote_info = conn.handshake(gid=gid, qpn=qp.qp_num)
         remote_info = self.conn.handshake(gid=gid, lid=lid, qpn=self.qp.qp_num)
 
-        # gr = GlobalRoute(dgid=remote_info['gid'], sgid_index=args['gid_index'])
-        # ah_attr = AHAttr(gr=gr, is_global=1, port_num=1)
         ah_attr = AHAttr(dlid=remote_info['lid'], is_global=0, port_num=1)
 
         qa = QPAttr()
@@ -61,7 +57,6 @@ class RPCClient:
         qa.qp_access_flags = IBV_ACCESS_REMOTE_WRITE | IBV_ACCESS_REMOTE_READ | IBV_ACCESS_LOCAL_WRITE
 
         self.qp.to_rts(qa)
-        self.conn.handshake()
 
         mr_size = 32
         self.content = 'c' * 16
@@ -100,7 +95,6 @@ class RPCClient:
         return self.read_mr(res_len, 8).decode()
 
     def close(self):
-        # conn.handshake()
         self.conn.close()
 
 

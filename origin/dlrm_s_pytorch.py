@@ -186,6 +186,8 @@ def calculate_and_write_cdf(cdf_output_dir, arr_time_start):
     output = os.path.join(cdf_output_dir, "b" + str(args.mini_batch_size) + "-cdf.csv")
     df.to_csv( output, sep=',', index=False)
     print("CDF Latency data points is written to: " + output )
+    
+    return arr_latency
 
 class LRPolicyScheduler(_LRScheduler):
     def __init__(self, optimizer, num_warmup_steps, decay_start_step, num_decay_steps):
@@ -574,6 +576,9 @@ def inference(
 
     # recording the completion time of the last request
     arr_time_start.append(time.time())
+
+    # eliminate overheads of some first-time loading
+    arr_time_start = arr_time_start[1:]
 
     acc_test = test_accu / test_samp
 
@@ -999,13 +1004,20 @@ def run():
             device,
             use_gpu,
         )
-        seconds = round(time.time() - start_time, 2)
+        seconds = round(time.time() - arr_time_start[0], 2)
 
-        if (args.get_cdf_lat):
-            calculate_and_write_cdf(args.cdf_output_dir, arr_time_start)
+        arr_latency = calculate_and_write_cdf(args.cdf_output_dir, arr_time_start)
+        
+        avg_latency = 0
+        for latency in arr_latency:
+            avg_latency += latency
+        avg_latency /= len(arr_latency)
+        avg_latency *= 1000
 
         print("Time elapsed (FINAL) : " + str(seconds) + " secs (" + str(int(seconds/60)) + " mins)")
         print("Throughput (Req/sec) : " + str(args.mini_batch_size * args.num_batches / seconds))
+        print("Avg latency (ms) : " + str(avg_latency))
+        
     # profiling
     if args.enable_profiling:
         time_stamp = str(datetime.datetime.now()).replace(" ", "_")

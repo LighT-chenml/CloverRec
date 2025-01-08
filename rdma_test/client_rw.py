@@ -1,6 +1,6 @@
 #!/usr/bin/python3.8
 
-from connection import SKT
+from connection import SKT, CM
 
 from pyverbs.addr import AH, AHAttr, GlobalRoute
 from pyverbs.cq import CQ
@@ -11,64 +11,24 @@ from pyverbs.pd import PD
 from pyverbs.qp import QP, QPCap, QPInitAttr, QPAttr
 from pyverbs.wr import SGE, RecvWR, SendWR
 
-SERVER_RECV_WR = 1
-SERVER_SEND_WR = 2
+CLIENT_RECV_WR = 3
+CLIENT_SEND_WR = 4
 
 # TODO: Error handling
 
 print('-' * 80)
 print(' ' * 25, "Python test for RDMA")
 
-print("Running as server...")
+print("Running as client...")
 
 print('-' * 80)
 
-class RPCServer:
+class RPCClient:
     def read_mr(self, length, offset):
         return self.mr.read(length, offset)
 
-    def handle_request(self):
-        wr = RecvWR(SERVER_RECV_WR, num_sge=1, sg=self.sgl)
-        self.qp.post_recv(wr)
-
-        # check server recv ready (handle connection close error)
-        ret = self.conn.handshake()
-        if ret != True:
-            return False
-
-        # check client send ready
-        self.conn.handshake()
-
-        wc_num, wc_list = self.cq.poll()
-
-        # load request
-
-        print("Request:" + self.read_mr(self.mr.length, 0).decode())
-
-        # prepare request response
-        response_content = 'a' * 8
-        response_len = len(response_content)
-        
-        self.mr.write(response_len.to_bytes(8, 'little'), 8, 0)
-        self.mr.write(response_content, response_len, 8)
-        print("Response:" + self.read_mr(len(response_content), 8).decode())
-
-        # check client recv ready
-        self.conn.handshake()
-
-        wr = SendWR(SERVER_SEND_WR, opcode=IBV_WR_SEND, num_sge=1, sg=self.sgl)
-        self.qp.post_send(wr)
-
-        # check server send ready
-        self.conn.handshake()
-
-        wc_num, wc_list = self.cq.poll()
-
-        return True
-
-    def start_connection(self):
-        
-        self.conn = SKT(8000, None)
+    def connect(self):
+        self.conn = CM(8000, '10.0.0.7')
 
         print("New connection...")
 
@@ -99,30 +59,46 @@ class RPCServer:
         self.qp.to_rts(qa)
 
         mr_size = 32
-        content = 's' * 16
+        self.content = '.' * 16
 
         self.mr = MR(self.pd, mr_size, IBV_ACCESS_LOCAL_WRITE | IBV_ACCESS_REMOTE_WRITE | IBV_ACCESS_REMOTE_READ)
         self.sgl = [SGE(self.mr.buf, self.mr.length, self.mr.lkey)]
+        
+        self.remote_info = self.conn.handshake(addr=self.mr.buf, rkey=self.mr.rkey)
 
-        num_iter = 0
+    def send_request(self):
 
-        while True:
-            num_iter += 1
-            print("Iter: " + f"{num_iter}")
+        self.mr.write(self.content, len(self.content))
+        print("Request:" + self.read_mr(self.mr.length, 0).decode())
 
-            self.mr.write(content, len(content))
-            print("Init Server MR Content:" + self.read_mr(self.mr.length, 0).decode())
+        sgl = [SGE(self.mr.buf, 3, self.mr.lkey)]
+        wr = SendWR(CLIENT_SEND_WR, opcode=IBV_WR_RDMA_READ, num_sge=1, sg=sgl)
+        wr.set_wr_rdma(self.remote_info['rkey'], self.remote_info['addr'])
 
-            ret = self.handle_request()
+        self.qp.post_send(wr)
 
-            if ret == False:
-                break
+        sgl = [SGE(self.mr.buf + 10, 3, self.mr.lkey)]
+        wr = SendWR(CLIENT_SEND_WR, opcode=IBV_WR_RDMA_READ, num_sge=1, sg=sgl)
+        wr.set_wr_rdma(self.remote_info['rkey'], self.remote_info['addr'] + 10)
+        
+        self.qp.post_send(wr)
 
+        wc_num, wc_list = self.cq.poll(num_entries=2)
+        
+        return self.read_mr(self.mr.length, 0).decode()
+
+    def close(self):
         self.conn.close()
 
-        print('-' * 80)
 
-server = RPCServer()
+client = RPCClient()
+client.connect()
 
-while True:
-    server.start_connection()
+for i in range(10):
+    print("Iter: " + f"{i + 1}/{10}")
+    print("Response:" + client.send_request())
+
+client.close()
+
+print("Close connection...")
+print('-' * 80)
