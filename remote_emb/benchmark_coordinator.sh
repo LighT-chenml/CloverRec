@@ -23,7 +23,7 @@ nindices=80
 emb="1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000"
 interaction="dot"
 rpc_type="coordinator"
-rdma_wr_capacity=256
+rdma_wr_capacity=16
 
 _args="--num-batches="${nbatches}\
 " --data-generation="${data}\
