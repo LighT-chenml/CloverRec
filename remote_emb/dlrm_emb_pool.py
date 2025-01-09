@@ -55,7 +55,7 @@ class EmbServer:
 
     def start_connection(self):
         
-        self.conn = CM(8000, None)
+        self.conn = CM(1234, None)
 
         print("New connection...")
 
@@ -87,7 +87,6 @@ class EmbServer:
 
         mr_size = len(self.content) + 16
         self.mr = MR(self.pd, mr_size, IBV_ACCESS_LOCAL_WRITE | IBV_ACCESS_REMOTE_WRITE | IBV_ACCESS_REMOTE_READ)
-        self.sgl = [SGE(self.mr.buf, self.mr.length, self.mr.lkey)]
         self.mr.write(self.content, len(self.content))
 
         self.remote_info = self.conn.handshake(addr=self.mr.buf, rkey=self.mr.rkey)

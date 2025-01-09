@@ -461,7 +461,7 @@ def inference(
 
     arr_time_start = []
 
-    n_progress_indicator = 10 # 40
+    n_progress_indicator = 100 # 40
 
     if (args.inference_only):
         print("==== ==== Progress bar (nWorkload: " + str(len(test_ld)) + ") shown below:")
@@ -619,7 +619,7 @@ def run():
     # inference
     parser.add_argument("--inference-only", action="store_true", default=False)
     parser.add_argument("--get-cdf-lat", type=str, default="False")
-    parser.add_argument("--cdf-output-dir", type=str, default="../latency/")
+    parser.add_argument("--cdf-output-dir", type=str, default="./latency/")
     # quantize
     parser.add_argument("--quantize-mlp-with-bit", type=int, default=32)
     parser.add_argument("--quantize-emb-with-bit", type=int, default=32)

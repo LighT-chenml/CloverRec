@@ -179,7 +179,7 @@ class CM(CommBase):
             size = len(send_msg)
 
             # Recv Message
-            self.cmid.post_recv(self.recv_mr, size)
+            self.cmid.post_recv(self.recv_mr, size + RESERVED_LEN)
 
             # Send Message
             self.send_mr.write(send_msg.encode('utf-8'), size)

@@ -12,7 +12,7 @@ dlrm_pt_bin="python dlrm_emb_pool.py"
 #Model param
 emb_size=64
 emb="1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000"
-rdma_wr_capacity=16
+rdma_wr_capacity=128
 
 # GPU Benchmarking
 echo "--------------------------------------------"

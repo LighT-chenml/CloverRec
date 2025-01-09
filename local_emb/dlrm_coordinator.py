@@ -619,7 +619,7 @@ def run():
     # inference
     parser.add_argument("--inference-only", action="store_true", default=False)
     parser.add_argument("--get-cdf-lat", type=str, default="False")
-    parser.add_argument("--cdf-output-dir", type=str, default="../latency/")
+    parser.add_argument("--cdf-output-dir", type=str, default="./latency/")
     # quantize
     parser.add_argument("--quantize-mlp-with-bit", type=int, default=32)
     parser.add_argument("--quantize-emb-with-bit", type=int, default=32)
