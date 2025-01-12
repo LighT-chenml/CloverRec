@@ -311,17 +311,16 @@ class DLRM_Net(nn.Module):
         # process dense features (using bottom mlp), resulting in a row vector
         client.send_request(0, {'dense_x': dense_x})
 
-        # start_time = time.time()
+        start_time = time.time()
 
         # process sparse features(using embeddings), resulting in a list of row vectors
         # ly = self.apply_emb(lS_o, lS_i, self.emb_l, self.v_W_l)
         ly = self.emb_storage.apply_emb(lS_o, lS_i)
         
-        # end_time = time.time()
-        # total_time = end_time - start_time
-        # total_time *= 1000
-        
-        # print("ev lookup time (ms): " + f"{total_time}")
+        end_time = time.time()
+        total_time = end_time - start_time
+        total_time *= 1000
+        print("ev lookup time (ms): " + f"{total_time}")
 
         # obtain probability of a click (using top mlp)
         p = client.send_request(1, {'ly': ly})['data']

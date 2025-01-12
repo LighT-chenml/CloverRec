@@ -135,13 +135,6 @@ class EmbStorage():
         # 2. for each embedding the lookups are further organized into a batch
         # 3. for a list of embedding tables there is a list of batched lookups
 
-        start_time = time.time()
-
         ly = self.client.send_request({'lS_o': lS_o, 'lS_i': lS_i})['data']
-
-        end_time = time.time()
-        total_time = end_time - start_time
-        total_time *= 1000
-        print("total apply_emb time (ms): " + f"{total_time}")
 
         return ly

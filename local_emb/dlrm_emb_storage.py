@@ -21,6 +21,8 @@ class EmbStorage():
             W = low + torch.rand(n, m ,dtype=torch.float32) * (high - low)
             
             self.emb_l.append(W)
+
+        torch.set_num_threads(16)
     
     def apply_emb(self, lS_o, lS_i):
         # WARNING: notice that we are processing the batch at once. We implicitly
@@ -29,7 +31,10 @@ class EmbStorage():
         #   corresponding to a single lookup
         # 2. for each embedding the lookups are further organized into a batch
         # 3. for a list of embedding tables there is a list of batched lookups
-        
+
+        # num_threads = torch.get_num_threads()
+        # print(f"num threads: {num_threads}")
+
         ly = []
         for k, sparse_index_group_batch in enumerate(lS_i):
             sparse_offset_group_batch = lS_o[k]
