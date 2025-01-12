@@ -18,6 +18,9 @@ from pyverbs.pd import PD
 from pyverbs.qp import QP, QPCap, QPInitAttr, QPAttr
 from pyverbs.wr import SGE, RecvWR, SendWR
 
+# PIM
+from pim_module import PIMEmbStorage
+
 import time
 
 class EmbServer:
@@ -28,36 +31,38 @@ class EmbServer:
         print("m: " + f'{m}')
         print("ln: " + f'{ln}')
         
+        start_time = time.time()
+
         self.emb_l = []
-        for i in range(0, ln.size):
-            n = ln[i]
-            # initialize embeddings
-            # W = np.random.uniform(
-            #     low=-np.sqrt(1 / n), high=np.sqrt(1 / n), size=(n, m)
-            # ).astype(np.float32)
-            
+        for n in ln:
             low = -np.sqrt(1 / n)
             high = np.sqrt(1 / n)
             W = low + torch.rand(n, m ,dtype=torch.float32) * (high - low)
-            
             self.emb_l.append(W)
-    
+
+        end_time = time.time()
+        total_time = end_time - start_time
+        print("generate emb time (s): " + f"{total_time}")
+
+        start_time = time.time()
+
+        content = torch.flatten(torch.tensor(np.array(self.emb_l))).numpy().tolist()
+
+        end_time = time.time()
+        total_time = end_time - start_time
+        print("convertion time (s): " + f"{total_time}")
+
+        start_time = time.time()
+
+        self.pim_emb_storage = PIMEmbStorage()
+        self.pim_emb_storage.initialize(m, np.array(ln).tolist(), content)
+
+        end_time = time.time()
+        total_time = end_time - start_time
+        print("pim module init time (s): " + f"{total_time}")
+
     def read_mr(self, length, offset):
         return self.mr.read(length, offset)
-
-    def check_connection_alive(self):
-        try:
-            sgl = [SGE(self.mr.buf + self.mr.length - 1, 1, self.mr.lkey)]
-            wr = SendWR(self.SERVER_SEND_WR, opcode=IBV_WR_RDMA_READ, num_sge=1, sg=sgl)
-            wr.set_wr_rdma(self.remote_info['rkey'], self.remote_info['addr'])
-
-            self.qp.post_send(wr)
-            
-            wc_num, wc_list = self.cq.poll()
-            
-            return True
-        except:
-            return False
 
     def start_connection(self):
         
@@ -136,21 +141,18 @@ class EmbServer:
         header = request['header']
         input_data = request['data']
 
-        if (type(input_data) == list):
-            print(input_data)
-
         lS_o = input_data['lS_o']
         lS_i = input_data['lS_i']
 
-        # start_time = time.time()
+        start_time = time.time()
 
         # prepare request response
         ret = self.apply_emb(lS_o, lS_i)
         
-        # end_time = time.time()
-        # total_time = end_time - start_time
-        # total_time *= 1000
-        # print("ev lookup time (ms): " + f"{total_time}")
+        end_time = time.time()
+        total_time = end_time - start_time
+        total_time *= 1000
+        print("ev lookup time (ms): " + f"{total_time}")
 
         header = {}
         output_data = ret
@@ -175,24 +177,15 @@ class EmbServer:
 
     def apply_emb(self, lS_o, lS_i):
         ly = []
+
+        indices = []
         for k, sparse_index_group_batch in enumerate(lS_i):
-            sparse_offset_group_batch = lS_o[k]
-            
-            E = self.emb_l[k]
-            batch_size = len(sparse_offset_group_batch)
-            evs = []
-            
-            for i in range(batch_size):
-                
-                start = sparse_offset_group_batch[i]
-                end = sparse_offset_group_batch[i + 1] if i + 1 < batch_size else len(sparse_index_group_batch)
-            
-                ev = E[sparse_index_group_batch[start:end]]
-                
-                # mode = "sum"
-                evs.append(ev.sum(dim=0))    
-            
-            V = torch.tensor(np.array(evs))
+            indices.append(np.array(sparse_index_group_batch).tolist())
+
+        ret = self.pim_emb_storage.apply_emb(np.array(lS_o).tolist(), indices)
+
+        for k, evs in enumerate(ret):
+            V = torch.tensor(np.array(evs, dtype=np.float32))
             ly.append(V)
 
         return ly

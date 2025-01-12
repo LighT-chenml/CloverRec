@@ -142,6 +142,6 @@ class EmbStorage():
         end_time = time.time()
         total_time = end_time - start_time
         total_time *= 1000
-        print("total time (ms): " + f"{total_time}")
+        print("total apply_emb time (ms): " + f"{total_time}")
 
         return ly
