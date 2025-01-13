@@ -3,6 +3,17 @@
 #
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
+
+dpu-upmem-dpurte-clang -o pim_dpu pim_dpu.c
+echo "--------------------------------------------"
+echo "Finish Compiling pim_dpu"
+echo "--------------------------------------------"
+
+python setup.py install
+echo "--------------------------------------------"
+echo "Finish Compiling pim_module"
+echo "--------------------------------------------"
+
 ncores=26 #12 #6
 nsockets="0"
 
@@ -11,7 +22,8 @@ dlrm_pt_bin="python dlrm_emb_pool.py"
 
 #Model param
 emb_size=64
-emb="1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000"
+# emb="1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000"
+emb="100-100-100-100-100-100-100-100-100-100"
 
 # GPU Benchmarking
 echo "--------------------------------------------"

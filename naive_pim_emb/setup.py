@@ -3,8 +3,10 @@ from pybind11.setup_helpers import Pybind11Extension, build_ext
 
 ext_modules = [
     Pybind11Extension(
-        "pim_module",        # Python 模块名称
-        ["pim_module.cpp"],  # C++ 源文件
+        name="pim_module",        # Python 模块名称
+        sources=["pim_module.cpp"],  # C++ 源文件
+        extra_compile_args=["-std=c++11","-I/usr/include/dpu"],
+        extra_link_args=["-ldpu"],
     ),
 ]
 

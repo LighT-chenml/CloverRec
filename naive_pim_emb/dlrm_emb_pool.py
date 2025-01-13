@@ -46,7 +46,7 @@ class EmbServer:
 
         start_time = time.time()
 
-        content = torch.flatten(torch.tensor(np.array(self.emb_l))).numpy().tolist()
+        content = torch.flatten(torch.stack(self.emb_l, dim=0)).numpy().tolist()
 
         end_time = time.time()
         total_time = end_time - start_time
@@ -60,6 +60,10 @@ class EmbServer:
         end_time = time.time()
         total_time = end_time - start_time
         print("pim module init time (s): " + f"{total_time}")
+        
+        self.pim_emb_storage.init_pim()
+        self.pim_emb_storage.run_pim()
+        self.pim_emb_storage.output_pim()
 
     def read_mr(self, length, offset):
         return self.mr.read(length, offset)

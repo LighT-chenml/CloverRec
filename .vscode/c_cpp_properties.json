@@ -4,11 +4,16 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
+                "/usr/share/upmem/include",
+                "/usr/include/dpu",
                 "/usr/include/c++/11",
                 "/usr/include/x86_64-linux-gnu/c++/11",
                 "/usr/lib/gcc/x86_64-linux-gnu/11/include",
                 "/home/cml/miniconda3/envs/CloverRec/include/python3.12",
-                "/home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/pybind11/include"
+                "/home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/pybind11/include",
+                "/usr/include/dpu",
+                "/usr/include/libmemcached-1.0",
+                "/usr/share/upmem/include/syslib"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

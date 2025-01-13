@@ -4,6 +4,11 @@
 #include <cstddef>
 #include <bits/stdc++.h>
 
+// dpu
+#include <dpu>
+
+#define DPU_BINARY "pim_dpu"
+
 namespace py = pybind11;
 
 using namespace std;
@@ -11,6 +16,13 @@ using namespace std;
 class PIMEmbStorage
 {
     const int MAX_BATCH_SIZE = 256;
+private:
+    long long emb_dim;
+    vector<long long> table_sizes;
+    vector<float> tables;
+    
+    std::vector<std::vector<float>> buffer;
+    dpu::DpuSet dpuset = dpu::DpuSet::allocate();
 
 public:
     void initialize(long long m, py::list ln, py::list emb_tables)
@@ -18,6 +30,52 @@ public:
         emb_dim = m;
         table_sizes = ln.cast<vector<long long>>();
         tables = emb_tables.cast<vector<float>>();
+
+        auto dpus = dpuset.dpus();
+        printf("num dpu: %ld\n", dpus.size());
+
+        dpuset.load(DPU_BINARY);
+    }
+
+    void init_pim()
+    {
+        auto &dpus = dpuset.dpus();
+        float v = 0;
+        for (auto &dpu : dpus)
+        {
+            std::vector<float> a;
+            a.push_back(v);
+            a.push_back(v + 0.1);
+            v += 1.0;
+            buffer.push_back(a);
+        }
+        dpuset.copy("buffer", buffer);
+
+        printf("finish init!\n");
+    }
+
+    void run_pim()
+    {
+        dpuset.exec();
+
+        printf("finish run!\n");
+    }
+
+    void output_pim()
+    {
+        auto &dpus = dpuset.dpus();
+        buffer.clear();
+        for (auto &dpu : dpus)
+        {
+            std::vector<float> a(2,0);
+            buffer.push_back(a);
+        }
+        dpuset.copy(buffer, "buffer", 2 * sizeof(float));
+
+        for (int i=0;i<dpus.size();++i)
+        {
+            printf("%.2lf\n", buffer[i][0]);
+        }
     }
 
     void sum_emb(vector<float> &x, float *v)
@@ -65,11 +123,6 @@ public:
 
         return ret;
     }
-
-private:
-    long long emb_dim;
-    vector<long long> table_sizes;
-    vector<float> tables;
 };
 
 PYBIND11_MODULE(pim_module, m)
@@ -79,5 +132,8 @@ PYBIND11_MODULE(pim_module, m)
     py::class_<PIMEmbStorage>(m, "PIMEmbStorage")
         .def(py::init<>())
         .def("initialize", &PIMEmbStorage::initialize, "Initialize PIMEmbStorage")
+        .def("init_pim", &PIMEmbStorage::init_pim, "")
+        .def("run_pim", &PIMEmbStorage::run_pim, "")
+        .def("output_pim", &PIMEmbStorage::output_pim, "")
         .def("apply_emb", &PIMEmbStorage::apply_emb, "Apply Embedding");
 }
