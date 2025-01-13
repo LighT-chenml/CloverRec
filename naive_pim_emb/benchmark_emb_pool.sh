@@ -4,7 +4,7 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
-dpu-upmem-dpurte-clang -o pim_dpu pim_dpu.c
+dpu-upmem-dpurte-clang -DNR_TASKLETS=16 -DSTACK_SIZE_DEFAULT=256 -O2 -o pim_dpu pim_dpu.c
 echo "--------------------------------------------"
 echo "Finish Compiling pim_dpu"
 echo "--------------------------------------------"

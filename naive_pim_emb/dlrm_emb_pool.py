@@ -61,9 +61,14 @@ class EmbServer:
         total_time = end_time - start_time
         print("pim module init time (s): " + f"{total_time}")
         
+        
+        start_time = time.time()
+        
         self.pim_emb_storage.init_pim()
-        self.pim_emb_storage.run_pim()
-        self.pim_emb_storage.output_pim()
+        
+        end_time = time.time()
+        total_time = end_time - start_time
+        print("pim emb loading time (s): " + f"{total_time}")
 
     def read_mr(self, length, offset):
         return self.mr.read(length, offset)
