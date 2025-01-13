@@ -150,6 +150,7 @@ public:
                 IndexGroup ig;
                 auto start = sparse_offset_group_batch[j];
                 auto end = j + 1 < batch_size ? sparse_offset_group_batch[j + 1] : sparse_index_group_batch.size();
+
                 int gid = index_groups.size();
                 for (int k = start; k < end; ++k)
                 {
@@ -178,6 +179,8 @@ public:
 
         dpuset.copy("buffer", buffer);
         dpuset.exec();
+
+        printf("Finish PIM calc.\n");
 
         vector<vector<float>> ret_buffer(dpus.size());
         for (int i = 0; i < dpus.size(); ++i)
