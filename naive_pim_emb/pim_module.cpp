@@ -3,6 +3,7 @@
 #include <pybind11/stl.h>
 #include <cstddef>
 #include <bits/stdc++.h>
+#include <chrono>
 
 // dpu
 #include <dpu>
@@ -16,7 +17,7 @@ using namespace std;
 class PIMEmbStorage
 {
     const int MAX_BATCH_SIZE = 256;
-    const int DPU_NUM = 64;
+    const int DPU_NUM = 256;
     const int TASKLET_NUM = 16;
 
 private:
@@ -126,8 +127,11 @@ public:
         auto offsets = lS_o.cast<vector<vector<long long>>>();
         auto indices = lS_i.cast<vector<vector<long long>>>();
 
-        vector<IndexGroup> index_groups;
+        auto end2end_start_time = chrono::high_resolution_clock::now();
 
+        auto start_time = chrono::high_resolution_clock::now();
+
+        vector<IndexGroup> index_groups;
         auto dpus = dpuset.dpus();
         vector<vector<uint32_t>> buffer;
         for (int i = 0; i < dpus.size(); ++i)
@@ -170,6 +174,12 @@ public:
             table_offset += table_sizes[i];
         }
 
+        auto end_time = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+        printf("Task distribution time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+
+        start_time = chrono::high_resolution_clock::now();
+
         uint32_t max_size = 0;
         for (int i = 0; i < dpus.size(); ++i)
         {
@@ -181,13 +191,25 @@ public:
             buffer[i][2] = index_groups.size();
             buffer[i].resize(max_size);
         }
-
         dpuset.copy("buffer", buffer);
+
+        end_time = chrono::high_resolution_clock::now();
+        duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+        printf("Task tranfer time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+
+        start_time = chrono::high_resolution_clock::now();
+
         dpuset.exec();
 
-        // dpuset.log(std::cout);
+        end_time = chrono::high_resolution_clock::now();
+        duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+        printf("PIM cal. time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+
+        // dpuset.log(cout);
 
         printf("Finish PIM calc.\n");
+
+        start_time = chrono::high_resolution_clock::now();
 
         vector<vector<float>> ret_buffer(dpus.size());
         for (int i = 0; i < dpus.size(); ++i)
@@ -195,6 +217,12 @@ public:
             ret_buffer[i].resize(index_groups.size() * emb_dim);
         }
         dpuset.copy(ret_buffer, "buffer", 8 * 1024 * 1024);
+
+        end_time = chrono::high_resolution_clock::now();
+        duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+        printf("Result tranfer time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+
+        start_time = chrono::high_resolution_clock::now();
 
         for (int i = 0; i < index_groups.size();)
         {
@@ -215,6 +243,14 @@ public:
             }
             result.push_back(evs);
         }
+
+        end_time = chrono::high_resolution_clock::now();
+        duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+        printf("CPU cal. time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+
+        auto end2end_end_time = chrono::high_resolution_clock::now();
+        auto end2end_duration = chrono::duration_cast<chrono::microseconds>(end2end_end_time - end2end_start_time);
+        printf("Total apply emb time (ms): %.2lf\n", 1.0 * end2end_duration.count() / 1000);
 
         auto ret = py::cast(result);
 
