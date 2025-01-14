@@ -16,7 +16,7 @@ using namespace std;
 class PIMEmbStorage
 {
     const int MAX_BATCH_SIZE = 256;
-    const int DPU_NUM = 16;
+    const int DPU_NUM = 64;
     const int TASKLET_NUM = 16;
 
 private:
@@ -31,10 +31,10 @@ private:
         int dpu_id;
         int dpu_emb_id;
         EmbMetadata() {}
-        EmbMetadata(int dpu_id_, int dpu_emb_id)
+        EmbMetadata(int dpu_id_, int dpu_emb_id_)
         {
             dpu_id = dpu_id_;
-            dpu_emb_id = dpu_emb_id;
+            dpu_emb_id = dpu_emb_id_;
         }
     };
     vector<EmbMetadata> emb_metadata;
@@ -51,8 +51,8 @@ public:
 
         dpuset.load(DPU_BINARY);
 
-        auto buffer = vector<vector<uint64_t>>(dpus.size(), vector<uint64_t>(1, emb_dim));
-        dpuset.copy("emb_dim", buffer);
+        auto buffer = vector<uint64_t>(dpus.size(), emb_dim);
+        dpuset.copy("emb_dim", buffer, 8);
 
         // pending
         uint64_t total_emb_num = 0;
@@ -92,6 +92,7 @@ public:
             a[1] = emb_num_per_dpu;
             for (int j = 0; j < emb_num_per_dpu; ++j, ++p)
             {
+                // printf("gid %d dpu_id %d emb_index %d\n", emb_metadata.size(), i, j);
                 emb_metadata.push_back(EmbMetadata(i, j));
                 for (int k = 0; k < emb_dim; ++k)
                     a.push_back(tables[p * emb_dim + k]);
@@ -131,7 +132,7 @@ public:
         vector<vector<uint32_t>> buffer;
         for (int i = 0; i < dpus.size(); ++i)
         {
-            vector<uint32_t> a(2, 0);
+            vector<uint32_t> a(4, 0);
             a[0] = 1;
             buffer.push_back(a);
         }
@@ -156,7 +157,10 @@ public:
                 {
                     auto index = sparse_index_group_batch[k];
                     index += table_offset;
-                    auto dpu_index = emb_metadata[index];
+                    auto &dpu_index = emb_metadata[index];
+
+                    // printf("gid %d index %lu dpu_id %d emb_index %d\n", gid, index, dpu_index.dpu_id, dpu_index.dpu_emb_id);
+                    
                     buffer[dpu_index.dpu_id].push_back(gid);
                     buffer[dpu_index.dpu_id].push_back(dpu_index.dpu_emb_id);
                     ig.dpu_ids.push_back(dpu_index.dpu_id);
@@ -173,44 +177,24 @@ public:
         }
         for (int i = 0; i < dpus.size(); ++i)
         {
-            buffer[i][1] = max_size;
+            buffer[i][1] = buffer[i].size();
+            buffer[i][2] = index_groups.size();
             buffer[i].resize(max_size);
         }
 
         dpuset.copy("buffer", buffer);
         dpuset.exec();
 
+        // dpuset.log(std::cout);
+
         printf("Finish PIM calc.\n");
 
         vector<vector<float>> ret_buffer(dpus.size());
         for (int i = 0; i < dpus.size(); ++i)
         {
-            buffer[i].resize(2);
+            ret_buffer[i].resize(index_groups.size() * emb_dim);
         }
-        dpuset.copy(buffer, "buffer");
-
-        max_size = 0;
-        for (int i = 0; i < dpus.size(); ++i)
-        {
-            max_size = max(max_size, (uint32_t)ret_buffer[i][0]);
-        }
-        for (int i = 0; i < dpus.size(); ++i)
-        {
-            ret_buffer[i].resize(max_size);
-        }
-        dpuset.copy(ret_buffer, "buffer");
-
-        for (int i = 0; i < dpus.size(); ++i)
-        {
-            uint32_t num = (ret_buffer[i][0] - 2) / (emb_dim + 2);
-            for (int j = 0; j < num; ++j)
-            {
-                int gid = ret_buffer[i][2 + j * (emb_dim + 2)];
-                vector<float> ev;
-                for (int k = 0; k < emb_dim; ++k)
-                    ev.push_back(ret_buffer[i][2 + j * (emb_dim + 2) + 2 + k]);
-            }
-        }
+        dpuset.copy(ret_buffer, "buffer", 8 * 1024 * 1024);
 
         for (int i = 0; i < index_groups.size();)
         {
@@ -218,10 +202,14 @@ public:
             for (int j = 0; j < batch_size; ++j, ++i)
             {
                 vector<float> sum(emb_dim, 0.0);
-                for (auto &ev : index_groups[i].evs)
+                auto &ig = index_groups[i];
+                sort(ig.dpu_ids.begin(), ig.dpu_ids.end());
+                auto last = std::unique(ig.dpu_ids.begin(), ig.dpu_ids.end());
+                ig.dpu_ids.erase(last, ig.dpu_ids.end());
+                for (auto &id : ig.dpu_ids)
                 {
                     for (int k = 0; k < emb_dim; ++k)
-                        sum[k] += ev[k];
+                        sum[k] += ret_buffer[id][i * emb_dim + k];
                 }
                 evs.push_back(sum);
             }

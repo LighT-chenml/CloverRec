@@ -61,7 +61,6 @@ class EmbServer:
         total_time = end_time - start_time
         print("pim module init time (s): " + f"{total_time}")
         
-        
         start_time = time.time()
         
         self.pim_emb_storage.init_pim()
