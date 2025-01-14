@@ -40,6 +40,8 @@ class EmbServer:
         end_time = time.time()
         total_time = end_time - start_time
         print("generate emb time (s): " + f"{total_time}")
+        
+        torch.set_num_threads(1)
 
     def read_mr(self, length, offset):
         return self.mr.read(length, offset)
@@ -156,6 +158,9 @@ class EmbServer:
         return True
 
     def apply_emb(self, lS_o, lS_i):
+        # num_threads = torch.get_num_threads()
+        # print(f"num threads: {num_threads}")
+        
         ly = []
 
         for k, sparse_index_group_batch in enumerate(lS_i):
