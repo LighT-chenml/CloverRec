@@ -28,6 +28,7 @@ rdma_wr_capacity=128
 
 _args="--num-batches="${nbatches}\
 " --data-generation="${data}\
+" --rand-data-dist=zipfian"\
 " --arch-mlp-bot="${bot_mlp}\
 " --arch-mlp-top="${top_mlp}\
 " --arch-sparse-feature-size="${emb_size}\

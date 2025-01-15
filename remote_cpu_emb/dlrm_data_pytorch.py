@@ -38,6 +38,7 @@ import torch
 from numpy import random as ra
 from torch.utils.data import Dataset, RandomSampler
 
+from scipy.stats import zipfian
 
 # Kaggle Display Advertising Challenge Dataset
 # dataset (str): name of dataset (Kaggle or Terabyte)
@@ -933,12 +934,18 @@ def generate_dist_input_batch(
             if rand_data_dist == "gaussian":
                 if rand_data_mu == -1:
                     rand_data_mu = (rand_data_max + rand_data_min) / 2.0
+                rand_data_sigma = 0.2
                 r = ra.normal(rand_data_mu, rand_data_sigma, sparse_group_size)
-                sparse_group = np.clip(r, rand_data_min, rand_data_max)
-                sparse_group = np.unique(sparse_group).astype(np.int64)
+                sparse_group = np.unique(np.round(r * (size - 1)).astype(np.int64))
+                sparse_group = np.clip(sparse_group, 0, size - 1)
             elif rand_data_dist == "uniform":
                 r = ra.random(sparse_group_size)
                 sparse_group = np.unique(np.round(r * (size - 1)).astype(np.int64))
+            elif rand_data_dist == 'zipfian':
+                r = ra.zipf(1.01, sparse_group_size)
+                r = r - 1
+                r = r % size
+                sparse_group = np.unique(r)
             else:
                 raise (
                     rand_data_dist,

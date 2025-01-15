@@ -162,14 +162,8 @@ def unpack_batch(b):
         return b[0], b[1], b[2], b[3], torch.ones(b[3].size()), None
 
 
-def calculate_and_write_cdf(cdf_output_dir, arr_time_start):
+def calculate_and_write_cdf(cdf_output_dir, arr_latency):
     Path(cdf_output_dir).mkdir(parents=True, exist_ok=True)
-    arr_latency = []
-    # the length of arr_time_start is +1 to accomodate the timing when the 
-    # last request is completed
-    for i in range(0, len(arr_time_start) - 1):
-        # Calculate Finish time of a single inference
-        arr_latency.append(arr_time_start[i+1] - arr_time_start[i])
 
     # arr_latency.sort()
     # reduce the number of point
@@ -525,9 +519,9 @@ def inference(
     log_iter=-1,
 ):
     test_accu = 0
-    test_samp = 0
+    test_samp = 1
 
-    arr_time_start = []
+    arr_time_latency = []
 
     n_progress_indicator = 100 # 40
 
@@ -544,12 +538,11 @@ def inference(
         if (i % progress_bar_freq == 0):
             print(".", end ="", flush=True)
 
-        # Calculate start time per inference
-        arr_time_start.append(time.time())
-
         X_test, lS_o_test, lS_i_test, T_test, W_test, CBPP_test = unpack_batch(
             testBatch
         )
+
+        infer_time_start = time.time()
 
         # forward pass
         Z_test = dlrm_wrap(
@@ -560,25 +553,12 @@ def inference(
             device,
             ndevices=ndevices,
         )
-
-        with record_function("DLRM accuracy compute"):
-            # compute loss and accuracy
-            S_test = Z_test.detach().cpu().numpy()  # numpy array
-            T_test = T_test.detach().cpu().numpy()  # numpy array
-
-            mbs_test = T_test.shape[0]  # = mini_batch_size except last
-            A_test = np.sum((np.round(S_test, 0) == T_test).astype(np.uint8))
-
-            test_accu += A_test
-            test_samp += mbs_test
+        
+        infer_time_end = time.time()
+        
+        arr_time_latency.append(infer_time_end - infer_time_start)
 
     print("") # printing enter for the progress bar
-
-    # recording the completion time of the last request
-    arr_time_start.append(time.time())
-
-    # eliminate overheads of some first-time loading
-    arr_time_start = arr_time_start[1:]
 
     acc_test = test_accu / test_samp
 
@@ -599,7 +579,7 @@ def inference(
         ),
         flush=True,
     )
-    return model_metrics_dict, is_best, arr_time_start
+    return model_metrics_dict, is_best, arr_time_latency
 
 
 def run():
@@ -994,8 +974,7 @@ def run():
         args.enable_profiling, use_cuda=use_gpu, record_shapes=True
     ) as prof:
         print("Testing for inference only")
-        start_time = time.time()
-        model_metrics_dict, is_best, arr_time_start = inference(
+        model_metrics_dict, is_best, arr_time_latency = inference(
             args,
             dlrm,
             best_acc_test,
@@ -1004,15 +983,14 @@ def run():
             device,
             use_gpu,
         )
-        seconds = round(time.time() - arr_time_start[0], 2)
-
-        arr_latency = calculate_and_write_cdf(args.cdf_output_dir, arr_time_start)
         
-        avg_latency = 0
-        for latency in arr_latency:
-            avg_latency += latency
-        avg_latency /= len(arr_latency)
-        avg_latency *= 1000
+        seconds = 0
+        for latency in arr_time_latency:
+            seconds += latency
+
+        arr_latency = calculate_and_write_cdf(args.cdf_output_dir, arr_time_latency)
+
+        avg_latency = seconds / len(arr_latency) * 1000
 
         print("Time elapsed (FINAL) : " + str(seconds) + " secs (" + str(int(seconds/60)) + " mins)")
         print("Throughput (Req/sec) : " + str(args.mini_batch_size * args.num_batches / seconds))

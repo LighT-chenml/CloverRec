@@ -15,7 +15,7 @@ rand_seed=727
 
 #Model param
 batch_size=$1
-nbatches=100
+nbatches=500
 bot_mlp="256-128-64"
 top_mlp="256-64-1"
 emb_size=64
@@ -26,6 +26,7 @@ rpc_type="coordinator"
 
 _args="--num-batches="${nbatches}\
 " --data-generation="${data}\
+" --rand-data-dist=zipfian"\
 " --arch-mlp-bot="${bot_mlp}\
 " --arch-mlp-top="${top_mlp}\
 " --arch-sparse-feature-size="${emb_size}\
