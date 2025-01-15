@@ -371,7 +371,7 @@ class DLRM_Net(nn.Module):
 
             # create operators
             # self.emb_l, self.v_W_l = self.create_emb(m_spa, ln_emb)
-            self.emb_storage = EmbStorage(m_spa, ln_emb)
+            self.emb_storage = EmbStorage(m_spa, ln_emb, args.num_indices_per_lookup, args.mini_batch_size, args.emb_pool_ip, args.emb_pool_port, args.rdma_wr_capacity)
 
             # specify the loss function
             if self.loss_function == "mse":
@@ -407,7 +407,7 @@ class DLRM_Net(nn.Module):
         total_time = end_time - start_time
         total_time *= 1000
         print("ev lookup time (ms): " + f"{total_time}")
-
+        
         ly_cuda = []
         for v in ly:
             ly_cuda.append(v.to(device))
@@ -652,6 +652,9 @@ def run():
     # rpc
     parser.add_argument("--server-ip", type=str, default='localhost')
     parser.add_argument("--server-port", type=int, default=8000)
+    parser.add_argument("--emb-pool-ip", type=str, default='localhost')
+    parser.add_argument("--emb-pool-port", type=int, default=8000)
+    parser.add_argument("--rdma-wr-capacity", type=int, default=16)
 
     global args
     global nbatches
@@ -706,7 +709,7 @@ def run():
     else:
         device = torch.device("cpu")
         print("Using CPU...")
-        
+
     ### prepare training data ###
     ln_bot = np.fromstring(args.arch_mlp_bot, dtype=int, sep="-")
     # input data
@@ -852,7 +855,7 @@ def run():
         # the mlps are replicated and use data parallelism, while
         # the embeddings are distributed and use model parallelism
         dlrm = dlrm.to(device)  # .cuda()
-
+    
     ### main loop ###
 
     # training or inference
