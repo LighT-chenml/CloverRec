@@ -5,7 +5,7 @@ ext_modules = [
     Pybind11Extension(
         name="pim_module",       
         sources=["pim_module.cpp"], 
-        extra_compile_args=["-std=c++11","-w","-I/usr/include/dpu"],
+        extra_compile_args=["-std=c++11","-O2","-w","-I/usr/include/dpu"],
         extra_link_args=["-ldpu"],
     ),
 ]

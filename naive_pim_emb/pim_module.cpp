@@ -123,7 +123,6 @@ public:
 
     py::list apply_emb(py::list lS_o, py::list lS_i)
     {
-        vector<vector<vector<float>>> result;
         auto offsets = lS_o.cast<vector<vector<long long>>>();
         auto indices = lS_i.cast<vector<vector<long long>>>();
 
@@ -143,6 +142,8 @@ public:
 
         uint32_t batch_size = 0;
 
+        uint32_t total_index_num = 0;
+
         for (int i = 0, table_offset = 0; i < offsets.size(); ++i)
         {
             auto &sparse_offset_group_batch = offsets[i];
@@ -155,6 +156,8 @@ public:
                 IndexGroup ig;
                 auto start = sparse_offset_group_batch[j];
                 auto end = j + 1 < batch_size ? sparse_offset_group_batch[j + 1] : sparse_index_group_batch.size();
+
+                total_index_num += end - start;
 
                 int gid = index_groups.size();
                 for (int k = start; k < end; ++k)
@@ -173,6 +176,8 @@ public:
             }
             table_offset += table_sizes[i];
         }
+
+        // printf("total index num: %u\n", total_index_num);
 
         auto end_time = chrono::high_resolution_clock::now();
         auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
@@ -224,6 +229,8 @@ public:
 
         start_time = chrono::high_resolution_clock::now();
 
+        vector<vector<vector<float>>> result;
+        
         for (int i = 0; i < index_groups.size();)
         {
             vector<vector<float>> evs;
@@ -256,46 +263,6 @@ public:
 
         return ret;
     }
-
-    // py::list apply_emb(py::list lS_o, py::list lS_i)
-    // {
-    //     vector<vector<vector<float>>> result;
-    //     auto offsets = lS_o.cast<vector<vector<long long>>>();
-    //     auto indices = lS_i.cast<vector<vector<long long>>>();
-
-    //     float *table = tables.data();
-
-    //     for (int i = 0; i < offsets.size(); ++i)
-    //     {
-    //         auto &sparse_offset_group_batch = offsets[i];
-    //         auto &sparse_index_group_batch = indices[i];
-
-    //         auto batch_size = sparse_offset_group_batch.size();
-
-    //         vector<vector<float>> evs;
-
-    //         for (int j = 0; j < batch_size; ++j)
-    //         {
-    //             auto start = sparse_offset_group_batch[j];
-    //             auto end = j + 1 < batch_size ? sparse_offset_group_batch[j + 1] : sparse_index_group_batch.size();
-
-    //             vector<float> sum(emb_dim, 0.0);
-    //             for (int k = start; k < end; ++k)
-    //             {
-    //                 auto index = sparse_index_group_batch[k];
-    //                 sum_emb(sum, table + index * emb_dim);
-    //             }
-    //             evs.push_back(sum);
-    //         }
-    //         result.push_back(evs);
-
-    //         table += table_sizes[i];
-    //     }
-
-    //     auto ret = py::cast(result);
-
-    //     return ret;
-    // }
 };
 
 PYBIND11_MODULE(pim_module, m)
