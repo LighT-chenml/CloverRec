@@ -16,8 +16,7 @@ using namespace std;
 
 class PIMEmbStorage
 {
-    const int MAX_BATCH_SIZE = 256;
-    const int DPU_NUM = 256;
+    const int DPU_NUM = 128;
     const int TASKLET_NUM = 16;
 
 private:
@@ -230,7 +229,9 @@ public:
         start_time = chrono::high_resolution_clock::now();
 
         vector<vector<vector<float>>> result;
-        
+
+        uint32_t total_cpu_sum_emb = 0;
+
         for (int i = 0; i < index_groups.size();)
         {
             vector<vector<float>> evs;
@@ -241,6 +242,9 @@ public:
                 sort(ig.dpu_ids.begin(), ig.dpu_ids.end());
                 auto last = std::unique(ig.dpu_ids.begin(), ig.dpu_ids.end());
                 ig.dpu_ids.erase(last, ig.dpu_ids.end());
+
+                total_cpu_sum_emb += ig.dpu_ids.size();
+
                 for (auto &id : ig.dpu_ids)
                 {
                     for (int k = 0; k < emb_dim; ++k)
@@ -250,6 +254,8 @@ public:
             }
             result.push_back(evs);
         }
+
+        printf("avg cpu sum emb: %.2lf\n", 1.0 * total_cpu_sum_emb / index_groups.size());
 
         end_time = chrono::high_resolution_clock::now();
         duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);

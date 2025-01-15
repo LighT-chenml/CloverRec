@@ -186,15 +186,36 @@ class EmbServer:
     def apply_emb(self, lS_o, lS_i):
         ly = []
 
+        start_time = time.time()
+
         indices = []
         for k, sparse_index_group_batch in enumerate(lS_i):
             indices.append(np.array(sparse_index_group_batch).tolist())
+            
+        end_time = time.time()
+        total_time = end_time - start_time
+        total_time *= 1000
+        print("input convertion time (ms): " + f"{total_time}")
+
+        start_time = time.time()
 
         ret = self.pim_emb_storage.apply_emb(np.array(lS_o).tolist(), indices)
+
+        end_time = time.time()
+        total_time = end_time - start_time
+        total_time *= 1000
+        print("PIM module time (ms): " + f"{total_time}")
+
+        start_time = time.time()
 
         for k, evs in enumerate(ret):
             V = torch.tensor(np.array(evs, dtype=np.float32))
             ly.append(V)
+            
+        end_time = time.time()
+        total_time = end_time - start_time
+        total_time *= 1000
+        print("result convertion time (ms): " + f"{total_time}")
 
         return ly
 
