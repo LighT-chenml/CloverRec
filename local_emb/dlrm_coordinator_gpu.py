@@ -97,6 +97,9 @@ import numpy as np
 import torch
 import torch.nn as nn
 
+from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ProcessPoolExecutor
+
 # dataloader
 try:
     from internals import fbDataLoader, fbInputBatchFormatter
@@ -392,11 +395,15 @@ class DLRM_Net(nn.Module):
         # single device run
         return self.sequential_forward(dense_x, lS_o, lS_i)
 
+    def async_apply_bot_mlp(self, dense_x):
+        return self.apply_mlp(dense_x, self.bot_l)
+
     def sequential_forward(self, dense_x, lS_o, lS_i):
         device = torch.device("cuda", 0)
         
         # process dense features (using bottom mlp), resulting in a row vector
-        x = dlrm.apply_mlp(dense_x.to(device), dlrm.bot_l)
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            future = executor.submit(self.async_apply_bot_mlp, dense_x.to(device))
 
         start_time = time.time()
 
@@ -412,10 +419,10 @@ class DLRM_Net(nn.Module):
         for v in ly:
             ly_cuda.append(v.to(device))
 
-        z = dlrm.interact_features(x, ly_cuda)
+        z = self.interact_features(future.result(), ly_cuda)
 
         # obtain probability of a click (using top mlp)
-        p = dlrm.apply_mlp(z, dlrm.top_l)
+        p = self.apply_mlp(z, self.top_l)
 
         # clamp output if needed
         if 0.0 < self.loss_threshold and self.loss_threshold < 1.0:
