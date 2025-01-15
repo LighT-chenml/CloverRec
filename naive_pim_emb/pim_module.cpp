@@ -195,6 +195,9 @@ public:
             buffer[i][2] = index_groups.size();
             buffer[i].resize(max_size);
         }
+        
+        printf("max_index_num: %u\n", (max_size - 4) / 2);
+
         dpuset.copy("buffer", buffer);
 
         end_time = chrono::high_resolution_clock::now();
@@ -210,8 +213,6 @@ public:
         printf("PIM cal. time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
 
         // dpuset.log(cout);
-
-        printf("Finish PIM calc.\n");
 
         start_time = chrono::high_resolution_clock::now();
 
