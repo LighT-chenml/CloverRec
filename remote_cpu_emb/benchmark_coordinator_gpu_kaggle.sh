@@ -25,6 +25,7 @@ nindices=80
 emb="1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572"
 interaction="dot"
 rpc_type="coordinator"
+rdma_wr_capacity=128
 
 _args="--num-batches="${nbatches}\
 " --data-generation="${data}\
@@ -46,7 +47,10 @@ _args="--num-batches="${nbatches}\
 " --inference-only"\
 " --get-cdf-lat=True"\
 " --server-ip=10.0.0.5"\
-" --server-port=8000"
+" --server-port=8000"\
+" --emb-pool-ip=10.0.0.11"\
+" --emb-pool-port=1238"\
+" --rdma-wr-capacity="${rdma_wr_capacity}
 
 # GPU Benchmarking
 echo "--------------------------------------------"

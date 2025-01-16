@@ -23,6 +23,7 @@ nindices=80
 emb="1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000"
 interaction="dot"
 rpc_type="coordinator"
+rdma_wr_capacity=128
 
 _args="--num-batches="${nbatches}\
 " --data-generation="${data}\
@@ -40,7 +41,10 @@ _args="--num-batches="${nbatches}\
 " --inference-only"\
 " --get-cdf-lat=True"\
 " --server-ip=10.0.0.5"\
-" --server-port=8000"
+" --server-port=8000"\
+" --emb-pool-ip=10.0.0.11"\
+" --emb-pool-port=1236"\
+" --rdma-wr-capacity="${rdma_wr_capacity}
 
 # GPU Benchmarking
 echo "--------------------------------------------"
