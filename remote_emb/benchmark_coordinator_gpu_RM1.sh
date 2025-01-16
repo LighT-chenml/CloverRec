@@ -9,7 +9,7 @@ nsockets="0"
 numa_cmd="numactl --physcpubind=0-$((ncores-1)) -m $nsockets" #run on one socket, without HT
 dlrm_pt_bin="python dlrm_coordinator_gpu.py"
 
-data=random #synthetic
+data=random 
 print_freq=10
 rand_seed=727
 

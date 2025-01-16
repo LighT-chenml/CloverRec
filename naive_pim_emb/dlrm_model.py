@@ -127,11 +127,6 @@ with warnings.catch_warnings():
 
 exc = getattr(builtins, "IOError", "FileNotFoundError")
 
-def time_wrap(use_gpu):
-    if use_gpu:
-        torch.cuda.synchronize()
-    return time.time()
-
 ### define dlrm in PyTorch ###
 class DLRM_Net(nn.Module):
     def create_mlp(self, ln, sigmoid_layer):
@@ -447,6 +442,7 @@ def run():
     parser.add_argument(
         "--arch-embedding-size", type=dash_separated_ints, default="4-3-2"
     )
+    parser.add_argument("--num-int", type=int, default=119)
     # j will be replaced with the table number
     parser.add_argument("--arch-mlp-bot", type=dash_separated_ints, default="4-3-2")
     parser.add_argument("--arch-mlp-top", type=dash_separated_ints, default="4-2-1")
@@ -618,7 +614,7 @@ def run():
     ln_bot = np.fromstring(args.arch_mlp_bot, dtype=int, sep="-")
 
     ### broadcast num_int
-    num_int = 119 # RM 1
+    num_int = args.num_int
 
     arch_mlp_top_adjusted = str(num_int) + "-" + args.arch_mlp_top
     ln_top = np.fromstring(arch_mlp_top_adjusted, dtype=int, sep="-")

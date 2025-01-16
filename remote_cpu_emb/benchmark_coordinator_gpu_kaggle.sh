@@ -8,11 +8,9 @@ nsockets="0"
 
 numa_cmd="numactl --physcpubind=0-$((ncores-1)) -m $nsockets" #run on one socket, without HT
 dlrm_pt_bin="python dlrm_coordinator_gpu.py"
-raw_file_path="/home/cml/data/Kaggle/train"
-processed_file_path="/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz"
 
-data=dataset #synthetic
-raw_file_path="/home/cml/data/Kaggle/train"
+data=dataset
+raw_file_path="/home/cml/data/Kaggle/train.txt"
 processed_file_path="/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz"
 print_freq=10
 rand_seed=727
@@ -20,11 +18,11 @@ rand_seed=727
 #Model param
 batch_size=$1
 nbatches=100
-bot_mlp="256-128-64"
-top_mlp="256-64-1"
+bot_mlp="13-512-256-64"
+top_mlp="512-256-1"
 emb_size=64
 nindices=80
-emb="1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000"
+emb="1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572"
 interaction="dot"
 rpc_type="coordinator"
 

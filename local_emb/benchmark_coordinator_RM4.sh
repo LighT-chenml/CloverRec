@@ -7,20 +7,20 @@ ncores=26 #12 #6
 nsockets="0"
 
 numa_cmd="numactl --physcpubind=0-$((ncores-1)) -m $nsockets" #run on one socket, without HT
-dlrm_pt_bin="python dlrm_coordinator_gpu.py"
+dlrm_pt_bin="python dlrm_coordinator.py"
 
-data=random 
+data=random
 print_freq=10
 rand_seed=727
 
 #Model param
 batch_size=$1
 nbatches=100
-bot_mlp="2560-512-64"
+bot_mlp="512-256-128"
 top_mlp="512-128-1"
-emb_size=64
-nindices=80
-emb="1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000"
+emb_size=128
+nindices=160
+emb="1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000"
 interaction="dot"
 rpc_type="coordinator"
 
@@ -54,6 +54,6 @@ echo "Batch Size: "$batch_size
 echo "-------------------"
 
 # cmd="$cuda_arg $dlrm_pt_bin --mini-batch-size=$_mb_size --test-mini-batch-size=$tmb_size --test-num-workers=$tnworkers $_args --use-gpu $dlrm_extra_option > $outf"
-cmd="$cuda_arg $dlrm_pt_bin --mini-batch-size $batch_size --use-gpu $_args"
+cmd="$cuda_arg $dlrm_pt_bin --mini-batch-size $batch_size $_args"
 echo $cmd
 eval $cmd

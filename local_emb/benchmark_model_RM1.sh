@@ -3,19 +3,19 @@
 #
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
-
 ncores=26 #12 #6
 nsockets="0"
 
 numa_cmd="numactl --physcpubind=0-$((ncores-1)) -m $nsockets" #run on one socket, without HT
 dlrm_pt_bin="python dlrm_model.py"
 
-data=random #synthetic
+data=random
 print_freq=10
 rand_seed=727
 
 #Model param
 nbatches=500
+num_int=119
 bot_mlp="256-128-64"
 top_mlp="256-64-1"
 emb_size=64
@@ -26,6 +26,7 @@ rpc_type="model"
 
 _args="--num-batches="${nbatches}\
 " --data-generation="${data}\
+" --num-int="${num_int}\
 " --arch-mlp-bot="${bot_mlp}\
 " --arch-mlp-top="${top_mlp}\
 " --arch-sparse-feature-size="${emb_size}\

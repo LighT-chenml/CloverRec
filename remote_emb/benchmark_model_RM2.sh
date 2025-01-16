@@ -9,14 +9,15 @@ nsockets="0"
 numa_cmd="numactl --physcpubind=0-$((ncores-1)) -m $nsockets" #run on one socket, without HT
 dlrm_pt_bin="python dlrm_model.py"
 
-data=random #synthetic
+data=random
 print_freq=10
 rand_seed=727
 
 #Model param
 nbatches=500
+num_int=884
 bot_mlp="256-128-64"
-top_mlp="256-64-1"
+top_mlp="512-128-1"
 emb_size=64
 nindices=80
 emb="1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000"
@@ -25,6 +26,7 @@ rpc_type="model"
 
 _args="--num-batches="${nbatches}\
 " --data-generation="${data}\
+" --num-int="${num_int}\
 " --arch-mlp-bot="${bot_mlp}\
 " --arch-mlp-top="${top_mlp}\
 " --arch-sparse-feature-size="${emb_size}\
