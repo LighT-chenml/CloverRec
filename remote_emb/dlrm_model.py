@@ -382,7 +382,7 @@ class GPUServer:
 
     def start_connection(self):
         
-        self.conn = SKT(8000, None)
+        self.conn = SKT(args.server_port, None)
         self.conn.handshake()
 
         print("New connection...")
@@ -555,6 +555,8 @@ def run():
     parser.add_argument("--lr-num-warmup-steps", type=int, default=0)
     parser.add_argument("--lr-decay-start-step", type=int, default=0)
     parser.add_argument("--lr-num-decay-steps", type=int, default=0)
+    # rpc
+    parser.add_argument("--server-port", type=int, default=8000)
 
     global args
     global nbatches

@@ -39,8 +39,8 @@ _args="--num-batches="${nbatches}\
 " --print-time"\
 " --inference-only"\
 " --get-cdf-lat=True"\
-" --use-gpu"
-
+" --use-gpu"\
+" --server-port=8001"
 
 # GPU Benchmarking
 echo "--------------------------------------------"

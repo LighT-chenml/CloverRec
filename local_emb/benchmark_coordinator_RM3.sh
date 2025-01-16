@@ -40,7 +40,7 @@ _args="--num-batches="${nbatches}\
 " --inference-only"\
 " --get-cdf-lat=True"\
 " --server-ip=10.0.0.5"\
-" --server-port=8000"
+" --server-port=8002"
 
 # GPU Benchmarking
 echo "--------------------------------------------"
