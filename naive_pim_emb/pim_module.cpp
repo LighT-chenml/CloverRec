@@ -16,7 +16,7 @@ using namespace std;
 
 class PIMEmbStorage
 {
-    const int DPU_NUM = 128;
+    const int DPU_NUM = 1020;
     const int TASKLET_NUM = 16;
 
 private:

@@ -48,7 +48,7 @@ class EmbServer:
 
     def start_connection(self):
         
-        self.conn = SKT(1234, None)
+        self.conn = SKT(args.emb_pool_port, None)
         self.conn.handshake()
 
         print("New connection...")

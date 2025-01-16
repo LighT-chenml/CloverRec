@@ -33,12 +33,12 @@ class EmbServer:
         
         start_time = time.time()
 
-        self.emb_l = []
+        emb_l = []
         for n in ln:
             low = -np.sqrt(1 / n)
             high = np.sqrt(1 / n)
             W = low + torch.rand(n, m ,dtype=torch.float32) * (high - low)
-            self.emb_l.append(W)
+            emb_l.append(W)
 
         end_time = time.time()
         total_time = end_time - start_time
@@ -46,7 +46,9 @@ class EmbServer:
 
         start_time = time.time()
 
-        content = torch.flatten(torch.stack(self.emb_l, dim=0)).numpy().tolist()
+        emb_l = torch.stack(emb_l, dim=0)
+        emb_l = torch.flatten(emb_l)
+        emb_l = emb_l.numpy().tolist()
 
         end_time = time.time()
         total_time = end_time - start_time
@@ -55,7 +57,7 @@ class EmbServer:
         start_time = time.time()
 
         self.pim_emb_storage = PIMEmbStorage()
-        self.pim_emb_storage.initialize(m, np.array(ln).tolist(), content)
+        self.pim_emb_storage.initialize(m, np.array(ln).tolist(), emb_l)
 
         end_time = time.time()
         total_time = end_time - start_time
@@ -74,7 +76,7 @@ class EmbServer:
 
     def start_connection(self):
         
-        self.conn = SKT(1234, None)
+        self.conn = SKT(args.emb_pool_port, None)
         self.conn.handshake()
 
         print("New connection...")
