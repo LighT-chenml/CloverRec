@@ -777,7 +777,6 @@ def run():
             + args.arch_interaction_op
             + " is not supported"
         )
-    print("num_int: " + f'{num_int}')
     arch_mlp_top_adjusted = str(num_int) + "-" + args.arch_mlp_top
     ln_top = np.fromstring(arch_mlp_top_adjusted, dtype=int, sep="-")
 
