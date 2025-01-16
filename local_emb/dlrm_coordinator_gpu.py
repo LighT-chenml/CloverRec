@@ -470,8 +470,8 @@ def inference(
     n_progress_indicator = 100 # 40
 
     if (args.inference_only):
-        print("==== ==== Progress bar (nWorkload: " + str(len(test_ld)) + ") shown below:")
-        progress_bar_freq = int(len(test_ld) / n_progress_indicator) 
+        print("==== ==== Progress bar (nWorkload: " + str(nbatches) + ") shown below:")
+        progress_bar_freq = int(nbatches / n_progress_indicator) 
 
     for i, testBatch in enumerate(test_ld):
         # early exit if nbatches was set by the user and was exceeded
@@ -709,13 +709,14 @@ def run():
     ln_bot = np.fromstring(args.arch_mlp_bot, dtype=int, sep="-")
     # input data
 
+    start_time = time.time()
+
     if args.data_generation == "dataset":
-        train_data, train_ld, test_data, test_ld = dp.make_criteo_data_and_loaders(args)
-        table_feature_map = {idx: idx for idx in range(len(train_data.counts))}
-        nbatches = args.num_batches if args.num_batches > 0 else len(train_ld)
+        test_data, test_ld = dp.make_criteo_data_and_loaders(args)
+        nbatches = args.num_batches if args.num_batches > 0 else len(test_ld)
         nbatches_test = len(test_ld)
 
-        ln_emb = train_data.counts
+        ln_emb = test_data.counts
         # enforce maximum limit on number of vectors per embedding
         if args.max_ind_range > 0:
             ln_emb = np.array(
@@ -728,7 +729,7 @@ def run():
             )
         else:
             ln_emb = np.array(ln_emb)
-        m_den = train_data.m_den
+        m_den = test_data.m_den
         ln_bot[0] = m_den
     elif args.data_generation == "internal":
         if not has_internal_libs:
@@ -747,6 +748,10 @@ def run():
         )
         nbatches = args.num_batches if args.num_batches > 0 else len(train_ld)
         nbatches_test = len(test_ld)
+
+    end_time = time.time()
+    total_time = end_time - start_time
+    print("Loading time (s) : " + str(total_time))
 
     args.ln_emb = ln_emb.tolist()
 
@@ -772,6 +777,7 @@ def run():
             + args.arch_interaction_op
             + " is not supported"
         )
+    print("num_int: " + f'{num_int}')
     arch_mlp_top_adjusted = str(num_int) + "-" + args.arch_mlp_top
     ln_top = np.fromstring(arch_mlp_top_adjusted, dtype=int, sep="-")
 
@@ -882,8 +888,6 @@ def run():
         print("Time elapsed (FINAL) : " + str(seconds) + " secs (" + str(int(seconds/60)) + " mins)")
         print("Throughput (Req/sec) : " + str(args.mini_batch_size * args.num_batches / seconds))
         print("Avg latency (ms) : " + str(avg_latency))
-       
-        print("Close connection...")
 
 if __name__ == "__main__":
     run()

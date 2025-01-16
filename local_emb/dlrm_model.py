@@ -614,6 +614,10 @@ def run():
 
     ### broadcast num_int
     num_int = 119 # RM 1
+    # num_int = 884 # RM 2
+    # num_int = 119 # RM 3
+    # num_int = 3368 # RM 4
+    # num_int = 415 # kaggle
 
     arch_mlp_top_adjusted = str(num_int) + "-" + args.arch_mlp_top
     ln_top = np.fromstring(arch_mlp_top_adjusted, dtype=int, sep="-")

@@ -516,17 +516,17 @@ def make_criteo_data_and_loaders(args, offset_to_length_converter=False):
                 split="test",
             )
     else:
-        train_data = CriteoDataset(
-            args.data_set,
-            args.max_ind_range,
-            args.data_sub_sample_rate,
-            args.data_randomize,
-            "train",
-            args.raw_data_file,
-            args.processed_data_file,
-            args.memory_map,
-            args.dataset_multiprocessing,
-        )
+        # train_data = CriteoDataset(
+        #     args.data_set,
+        #     args.max_ind_range,
+        #     args.data_sub_sample_rate,
+        #     args.data_randomize,
+        #     "train",
+        #     args.raw_data_file,
+        #     args.processed_data_file,
+        #     args.memory_map,
+        #     args.dataset_multiprocessing,
+        # )
 
         test_data = CriteoDataset(
             args.data_set,
@@ -544,15 +544,15 @@ def make_criteo_data_and_loaders(args, offset_to_length_converter=False):
         if offset_to_length_converter:
             collate_wrapper_criteo = collate_wrapper_criteo_length
 
-        train_loader = torch.utils.data.DataLoader(
-            train_data,
-            batch_size=args.mini_batch_size,
-            shuffle=False,
-            num_workers=args.num_workers,
-            collate_fn=collate_wrapper_criteo,
-            pin_memory=False,
-            drop_last=False,  # True
-        )
+        # train_loader = torch.utils.data.DataLoader(
+        #     train_data,
+        #     batch_size=args.mini_batch_size,
+        #     shuffle=False,
+        #     num_workers=args.num_workers,
+        #     collate_fn=collate_wrapper_criteo,
+        #     pin_memory=False,
+        #     drop_last=False,  # True
+        # )
 
         test_loader = torch.utils.data.DataLoader(
             test_data,
@@ -564,7 +564,8 @@ def make_criteo_data_and_loaders(args, offset_to_length_converter=False):
             drop_last=False,  # True
         )
 
-    return train_data, train_loader, test_data, test_loader
+    # return train_data, train_loader, test_data, test_loader
+    return test_data, test_loader
 
 
 # uniform ditribution (input data)

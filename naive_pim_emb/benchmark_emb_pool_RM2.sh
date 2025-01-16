@@ -11,8 +11,9 @@ dlrm_pt_bin="python dlrm_emb_pool.py"
 
 #Model param
 emb_size=64
-emb="1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000"
-# emb="100-100-100-100-100-100-100-100-100-100"
+# emb="1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000"
+emb="10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000-10000"
+rdma_wr_capacity=128
 
 # GPU Benchmarking
 echo "--------------------------------------------"
@@ -25,6 +26,6 @@ echo "Using GPUS: 0"
 echo "-------------------"
 
 # cmd="$cuda_arg $dlrm_pt_bin --mini-batch-size=$_mb_size --test-mini-batch-size=$tmb_size --test-num-workers=$tnworkers $_args --use-gpu $dlrm_extra_option > $outf"
-cmd="$cuda_arg $dlrm_pt_bin --arch-sparse-feature-size=${emb_size} --arch-embedding-size=${emb}"
+cmd="$cuda_arg $dlrm_pt_bin --arch-sparse-feature-size=${emb_size} --arch-embedding-size=${emb} --rdma-wr-capacity=${rdma_wr_capacity}"
 echo $cmd
 eval $cmd

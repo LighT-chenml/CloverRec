@@ -526,8 +526,8 @@ def inference(
     n_progress_indicator = 100 # 40
 
     if (args.inference_only):
-        print("==== ==== Progress bar (nWorkload: " + str(len(test_ld)) + ") shown below:")
-        progress_bar_freq = int(len(test_ld) / n_progress_indicator) 
+        print("==== ==== Progress bar (nWorkload: " + str(nbatches) + ") shown below:")
+        progress_bar_freq = int(nbatches / n_progress_indicator) 
 
     for i, testBatch in enumerate(test_ld):
         # early exit if nbatches was set by the user and was exceeded
@@ -764,12 +764,11 @@ def run():
     # input data
 
     if args.data_generation == "dataset":
-        train_data, train_ld, test_data, test_ld = dp.make_criteo_data_and_loaders(args)
-        table_feature_map = {idx: idx for idx in range(len(train_data.counts))}
-        nbatches = args.num_batches if args.num_batches > 0 else len(train_ld)
+        test_data, test_ld = dp.make_criteo_data_and_loaders(args)
+        nbatches = args.num_batches if args.num_batches > 0 else len(test_ld)
         nbatches_test = len(test_ld)
 
-        ln_emb = train_data.counts
+        ln_emb = test_data.counts
         # enforce maximum limit on number of vectors per embedding
         if args.max_ind_range > 0:
             ln_emb = np.array(
@@ -782,7 +781,7 @@ def run():
             )
         else:
             ln_emb = np.array(ln_emb)
-        m_den = train_data.m_den
+        m_den = test_data.m_den
         ln_bot[0] = m_den
     elif args.data_generation == "internal":
         if not has_internal_libs:

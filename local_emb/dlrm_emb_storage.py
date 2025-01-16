@@ -8,6 +8,7 @@ import time
 
 class EmbStorage():
     def __init__(self, m, ln):
+        print(ln)
         self.emb_l = []
         self.P_l = []
         for i in range(0, ln.size):
