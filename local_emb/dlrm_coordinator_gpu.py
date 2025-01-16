@@ -153,15 +153,15 @@ def calculate_and_write_cdf(cdf_output_dir, arr_latency):
     # n_points = 1000 # target number of points in this CDF
     # arr_latency = arr_latency[0::(int(n_rows/n_points))]
 
-    df = pd.DataFrame(arr_latency, columns =['latency_ms'])
-    df['latency_ms'] = df['latency_ms'] * 1000
-    # df['y'] = df.index.values # Get the index which will be y-axis
-    # df['y'] = df['y'] + 1
-    # df['y'] = df['y'] / df.shape[0]
-    # df = df[['y', 'latency_ms']]
-    output = os.path.join(cdf_output_dir, "b" + str(args.mini_batch_size) + "-cdf.csv")
-    df.to_csv( output, sep=',', index=False)
-    print("CDF Latency data points is written to: " + output )
+    # df = pd.DataFrame(arr_latency, columns =['latency_ms'])
+    # df['latency_ms'] = df['latency_ms'] * 1000
+    # # df['y'] = df.index.values # Get the index which will be y-axis
+    # # df['y'] = df['y'] + 1
+    # # df['y'] = df['y'] / df.shape[0]
+    # # df = df[['y', 'latency_ms']]
+    # output = os.path.join(cdf_output_dir, "b" + str(args.mini_batch_size) + "-cdf.csv")
+    # df.to_csv( output, sep=',', index=False)
+    # print("CDF Latency data points is written to: " + output )
     
     return arr_latency
 
@@ -885,8 +885,8 @@ def run():
         avg_latency = seconds / len(arr_latency) * 1000
 
         print("Time elapsed (FINAL) : " + str(seconds) + " secs (" + str(int(seconds/60)) + " mins)")
-        print("Throughput (Req/sec) : " + str(args.mini_batch_size * args.num_batches / seconds))
-        print("Avg latency (ms) : " + str(avg_latency))
+        print("Throughput (Req/sec) : " + str(round(args.mini_batch_size * args.num_batches / seconds, 2)))
+        print("Avg latency (ms) : " + str(round(avg_latency, 2)))
 
 if __name__ == "__main__":
     run()

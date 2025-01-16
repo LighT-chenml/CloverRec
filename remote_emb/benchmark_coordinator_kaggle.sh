@@ -29,6 +29,8 @@ rdma_wr_capacity=128
 
 _args="--num-batches="${nbatches}\
 " --data-generation="${data}\
+" --raw-data-file="${raw_file_path}\
+" --processed-data-file="${processed_file_path}\
 " --rand-data-dist=zipfian"\
 " --arch-mlp-bot="${bot_mlp}\
 " --arch-mlp-top="${top_mlp}\
@@ -45,7 +47,7 @@ _args="--num-batches="${nbatches}\
 " --server-ip=10.0.0.5"\
 " --server-port=8004"\
 " --emb-pool-ip=10.0.0.11"\
-" --emb-pool-port=1234"\
+" --emb-pool-port=1238"\
 " --rdma-wr-capacity="${rdma_wr_capacity}
 
 # GPU Benchmarking

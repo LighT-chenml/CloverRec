@@ -28,13 +28,13 @@ class EmbServer:
         print("m: " + f'{m}')
         print("ln: " + f'{ln}')
         
-        W_list = []
+        self.content = bytearray()
         for n in ln:
             low = -np.sqrt(1 / n)
             high = np.sqrt(1 / n)
             W = low + torch.rand(n, m ,dtype=torch.float32) * (high - low)
-            W_list.append(W)
-        self.content = np.array(W_list).tobytes()
+            self.content.extend(bytearray(np.array(W).tobytes()))
+        self.content = bytes(self.content)
     
     def read_mr(self, length, offset):
         return self.mr.read(length, offset)
@@ -55,7 +55,7 @@ class EmbServer:
 
     def start_connection(self):
         
-        self.conn = CM(1234, None)
+        self.conn = CM(args.emb_pool_port, None)
 
         print("New connection...")
 
@@ -126,6 +126,7 @@ parser.add_argument(
     "--arch-embedding-size", type=dash_separated_ints, default="4-3-2"
 )
 parser.add_argument("--rdma-wr-capacity", type=int, default=16)
+parser.add_argument("--emb-pool-port", type=int, default=1234)
 
 global args
 args = parser.parse_args()

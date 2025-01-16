@@ -43,7 +43,7 @@ _args="--num-batches="${nbatches}\
 " --server-ip=10.0.0.5"\
 " --server-port=8002"\
 " --emb-pool-ip=10.0.0.11"\
-" --emb-pool-port=1234"\
+" --emb-pool-port=1236"\
 " --rdma-wr-capacity="${rdma_wr_capacity}
 
 # GPU Benchmarking

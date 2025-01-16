@@ -240,6 +240,7 @@ parser.add_argument(
     "--arch-embedding-size", type=dash_separated_ints, default="4-3-2"
 )
 parser.add_argument("--rdma-wr-capacity", type=int, default=16)
+parser.add_argument("--emb-pool-port", type=int, default=1234)
 
 global args
 args = parser.parse_args()
