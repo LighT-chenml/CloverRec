@@ -469,38 +469,113 @@ def inference(
 
     n_progress_indicator = 100 # 40
 
-    if (args.inference_only):
-        print("==== ==== Progress bar (nWorkload: " + str(nbatches) + ") shown below:")
-        progress_bar_freq = int(nbatches / n_progress_indicator) 
-
-    for i, testBatch in enumerate(test_ld):
-        # early exit if nbatches was set by the user and was exceeded
-        if nbatches > 0 and i >= nbatches:
-            break
-
-        # print progress bar
-        if (i % progress_bar_freq == 0):
-            print(".", end ="", flush=True)
-
-        X_test, lS_o_test, lS_i_test, T_test, W_test, CBPP_test = unpack_batch(
-            testBatch
-        )
-
-        infer_time_start = time.time()
-
-        # forward pass
-        Z_test = dlrm_wrap(
-            X_test,
-            lS_o_test,
-            lS_i_test,
-            use_gpu,
-            device,
-            ndevices=ndevices,
-        )
+    if args.data_generation == "dataset":
+        if (args.inference_only):
+            print("==== ==== Progress bar (nWorkload: " + str(nbatches) + ") shown below:")
+            progress_bar_freq = int(nbatches * args.num_indices_per_lookup / n_progress_indicator)
         
-        infer_time_end = time.time()
+        batched_X_test = []
+        batched_lS_o_test = []
+        batched_lS_i_test = []
         
-        arr_time_latency.append(infer_time_end - infer_time_start)
+        for i, testBatch in enumerate(test_ld):
+            # early exit if nbatches was set by the user and was exceeded
+            if nbatches > 0 and i >= nbatches * args.num_indices_per_lookup:
+                break
+
+            # print progress bar
+            if (i % progress_bar_freq == 0):
+                print(".", end ="", flush=True)
+
+            X_test, lS_o_test, lS_i_test, T_test, W_test, CBPP_test = unpack_batch(
+                testBatch
+            )
+            
+            batched_X_test.append(X_test)
+            batched_lS_o_test.append(lS_o_test)
+            batched_lS_i_test.append(lS_i_test)
+            
+            if (i + 1) % args.num_indices_per_lookup == 0:
+                m_den = len(X_test[0])
+                X_test_l = []
+                for j in range(args.mini_batch_size):
+                    sum = torch.zeros(m_den, dtype=torch.float32)
+                    for k in range(args.num_indices_per_lookup):
+                        X_test = batched_X_test[k][j]
+                        sum = torch.add(sum, X_test)
+                    X_test_l.append(sum)
+                X_test = torch.stack(X_test_l, dim=0)
+                
+                lS_o_test_l = []
+                lS_i_test_l = []
+                for table_id in range(len(lS_i_test)):
+                    indices = []
+                    offsets = []
+                    for j in range(args.mini_batch_size):
+                        index_l = []
+                        for k in range(args.num_indices_per_lookup):
+                            index_l.append(batched_lS_i_test[k][table_id][j])
+                        index_l = np.unique(np.array(index_l))
+                        offsets.append(len(indices))
+                        indices.extend(index_l)
+                    indices = np.array(indices)
+                    lS_i_test_l.append(torch.tensor(indices))
+                    lS_o_test_l.append(offsets)
+                lS_o_test = torch.tensor(np.array(lS_o_test_l))
+                lS_i_test = lS_i_test_l
+
+                batched_X_test = []
+                batched_lS_o_test = []
+                batched_lS_i_test = []
+                
+                infer_time_start = time.time()
+
+                # forward pass
+                Z_test = dlrm_wrap(
+                    X_test,
+                    lS_o_test,
+                    lS_i_test,
+                    use_gpu,
+                    device,
+                    ndevices=ndevices,
+                )
+                
+                infer_time_end = time.time()
+                
+                arr_time_latency.append(infer_time_end - infer_time_start)
+    else:
+        if (args.inference_only):
+            print("==== ==== Progress bar (nWorkload: " + str(nbatches) + ") shown below:")
+            progress_bar_freq = int(nbatches / n_progress_indicator) 
+
+        for i, testBatch in enumerate(test_ld):
+            # early exit if nbatches was set by the user and was exceeded
+            if nbatches > 0 and i >= nbatches:
+                break
+
+            # print progress bar
+            if (i % progress_bar_freq == 0):
+                print(".", end ="", flush=True)
+
+            X_test, lS_o_test, lS_i_test, T_test, W_test, CBPP_test = unpack_batch(
+                testBatch
+            )
+
+            infer_time_start = time.time()
+
+            # forward pass
+            Z_test = dlrm_wrap(
+                X_test,
+                lS_o_test,
+                lS_i_test,
+                use_gpu,
+                device,
+                ndevices=ndevices,
+            )
+            
+            infer_time_end = time.time()
+            
+            arr_time_latency.append(infer_time_end - infer_time_start)
 
     print("") # printing enter for the progress bar
 
