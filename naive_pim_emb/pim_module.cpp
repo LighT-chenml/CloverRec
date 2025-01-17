@@ -1,6 +1,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/numpy.h>
 #include <pybind11/stl.h>
+#include <pybind11/numpy.h>
 #include <cstddef>
 #include <bits/stdc++.h>
 #include <chrono>
@@ -14,14 +15,53 @@ namespace py = pybind11;
 
 using namespace std;
 
+vector<vector<uint64_t>> numpy_to_vector_2D(py::array_t<uint64_t>& array) {
+
+    size_t rows = array.shape(0);  
+    size_t cols = array.shape(1);
+
+    std::vector<std::vector<uint64_t>> vec(rows, std::vector<uint64_t>(cols));
+
+    auto unchecked_array = array.unchecked<2>();
+    for (size_t i = 0; i < rows; ++i) {
+        for (size_t j = 0; j < cols; ++j) {
+            vec[i][j] = unchecked_array(i, j);
+        }
+    }
+
+    return vec;
+}
+
+py::array_t<float> vector_to_numpy_3D(const vector<vector<vector<float>>>& vec) {
+    size_t dim1 = vec.size();
+    size_t dim2 = vec.empty() ? 0 : vec[0].size();
+    size_t dim3 = (dim2 == 0 || vec[0].empty()) ? 0 : vec[0][0].size();
+
+    vector<float> flattened;
+    flattened.reserve(dim1 * dim2 * dim3);
+    for (const auto& mat : vec) {
+        for (const auto& row : mat) {
+            flattened.insert(flattened.end(), row.begin(), row.end());
+        }
+    }
+
+    return py::array_t<float>(
+        {dim1, dim2, dim3},                      // Shape (Three dimensions)
+        {dim2 * dim3 * sizeof(float),           // Strides for each dimension (row-major)
+         dim3 * sizeof(float),
+         sizeof(float)},
+        flattened.data()                        // Pointer to the flat data
+    );
+}
+
 class PIMEmbStorage
 {
     const int DPU_NUM = 1020;
     const int TASKLET_NUM = 16;
 
 private:
-    long long emb_dim;
-    vector<long long> table_sizes;
+    uint64_t emb_dim;
+    vector<uint64_t> table_sizes;
     vector<float> tables;
 
     dpu::DpuSet dpuset = dpu::DpuSet::allocate(DPU_NUM);
@@ -40,11 +80,13 @@ private:
     vector<EmbMetadata> emb_metadata;
 
 public:
-    void initialize(long long m, py::list ln, py::list emb_tables)
+    void initialize(uint64_t m, py::array_t<uint64_t> &ln, py::array_t<float> &emb_tables)
     {
         emb_dim = m;
-        table_sizes = ln.cast<vector<long long>>();
-        tables = emb_tables.cast<vector<float>>();
+        table_sizes.resize(ln.size());
+        copy(ln.data(), ln.data() + ln.size(), table_sizes.begin());
+        tables.resize(emb_tables.size());
+        copy(emb_tables.data(), emb_tables.data() + emb_tables.size(), tables.begin());
 
         auto dpus = dpuset.dpus();
         printf("num dpu: %ld\n", dpus.size());
@@ -120,10 +162,16 @@ public:
         vector<vector<float>> evs;
     };
 
-    py::list apply_emb(py::list lS_o, py::list lS_i)
+    py::array_t<float> apply_emb(py::array_t<uint64_t> &lS_o, py::array_t<uint64_t> &lS_i)
     {
-        auto offsets = lS_o.cast<vector<vector<long long>>>();
-        auto indices = lS_i.cast<vector<vector<long long>>>();
+        // auto start_convertion_time = chrono::high_resolution_clock::now();
+
+        auto offsets = numpy_to_vector_2D(lS_o);
+        auto indices = numpy_to_vector_2D(lS_i);
+
+        // auto end_convertion_time = chrono::high_resolution_clock::now();
+        // auto convertion_duration = chrono::duration_cast<chrono::microseconds>(end_convertion_time - start_convertion_time);
+        // printf("PIM module input convertion time (ms): %.2lf\n", 1.0 * convertion_duration.count() / 1000);
 
         auto end2end_start_time = chrono::high_resolution_clock::now();
 
@@ -165,8 +213,6 @@ public:
                     index += table_offset;
                     auto &dpu_index = emb_metadata[index];
 
-                    // printf("gid %d index %lu dpu_id %d emb_index %d\n", gid, index, dpu_index.dpu_id, dpu_index.dpu_emb_id);
-                    
                     buffer[dpu_index.dpu_id].push_back(gid);
                     buffer[dpu_index.dpu_id].push_back(dpu_index.dpu_emb_id);
                     ig.dpu_ids.push_back(dpu_index.dpu_id);
@@ -175,8 +221,6 @@ public:
             }
             table_offset += table_sizes[i];
         }
-
-        // printf("total index num: %u\n", total_index_num);
 
         auto end_time = chrono::high_resolution_clock::now();
         auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
@@ -266,7 +310,13 @@ public:
         auto end2end_duration = chrono::duration_cast<chrono::microseconds>(end2end_end_time - end2end_start_time);
         printf("Total apply emb time (ms): %.2lf\n", 1.0 * end2end_duration.count() / 1000);
 
-        auto ret = py::cast(result);
+        // start_time = chrono::high_resolution_clock::now();
+
+        auto ret = vector_to_numpy_3D(result);
+
+        // end_time = chrono::high_resolution_clock::now();
+        // duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+        // printf("PIM module result convertion time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
 
         return ret;
     }

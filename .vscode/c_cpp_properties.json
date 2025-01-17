@@ -13,7 +13,8 @@
                 "/home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/pybind11/include",
                 "/usr/include/dpu",
                 "/usr/include/libmemcached-1.0",
-                "/usr/share/upmem/include/syslib"
+                "/usr/share/upmem/include/syslib",
+                "/home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/torch/include/torch/csrc/api/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

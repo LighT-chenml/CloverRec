@@ -515,7 +515,7 @@ def inference(
                         index_l = []
                         for k in range(args.num_indices_per_lookup):
                             index_l.append(batched_lS_i_test[k][table_id][j])
-                        index_l = np.unique(np.array(index_l))
+                        # index_l = np.unique(np.array(index_l))
                         offsets.append(len(indices))
                         indices.extend(index_l)
                     indices = np.array(indices)
@@ -657,6 +657,7 @@ def run():
     parser.add_argument("--processed-data-file", type=str, default="")
     parser.add_argument("--data-randomize", type=str, default="total")  # or day or none
     parser.add_argument("--data-trace-enable-padding", type=bool, default=False)
+    parser.add_argument("--zipf-parameter", type=float, default=1.5)
     parser.add_argument("--max-ind-range", type=int, default=-1)
     parser.add_argument("--data-sub-sample-rate", type=float, default=0.0)  # in [0, 1]
     parser.add_argument("--num-indices-per-lookup", type=int, default=10)
@@ -819,10 +820,10 @@ def run():
         # input and target at random
         ln_emb = np.fromstring(args.arch_embedding_size, dtype=int, sep="-")
         m_den = ln_bot[0]
-        train_data, train_ld, test_data, test_ld = dp.make_random_data_and_loader(
+        test_data, test_ld = dp.make_random_data_and_loader(
             args, ln_emb, m_den
         )
-        nbatches = args.num_batches if args.num_batches > 0 else len(train_ld)
+        nbatches = args.num_batches if args.num_batches > 0 else len(test_ld)
         nbatches_test = len(test_ld)
 
     args.ln_emb = ln_emb.tolist()

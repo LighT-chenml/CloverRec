@@ -38,7 +38,7 @@ class EmbServer:
             low = -np.sqrt(1 / n)
             high = np.sqrt(1 / n)
             W = low + torch.rand(n, m ,dtype=torch.float32) * (high - low)
-            emb_l.append(W)
+            emb_l.append(torch.flatten(W))
 
         end_time = time.time()
         total_time = end_time - start_time
@@ -46,9 +46,7 @@ class EmbServer:
 
         start_time = time.time()
 
-        emb_l = torch.stack(emb_l, dim=0)
-        emb_l = torch.flatten(emb_l)
-        emb_l = emb_l.numpy().tolist()
+        emb_l = torch.cat(emb_l, dim=0).numpy()
 
         end_time = time.time()
         total_time = end_time - start_time
@@ -57,7 +55,7 @@ class EmbServer:
         start_time = time.time()
 
         self.pim_emb_storage = PIMEmbStorage()
-        self.pim_emb_storage.initialize(m, np.array(ln).tolist(), emb_l)
+        self.pim_emb_storage.initialize(m, ln, emb_l)
 
         end_time = time.time()
         total_time = end_time - start_time
@@ -190,18 +188,7 @@ class EmbServer:
 
         start_time = time.time()
 
-        indices = []
-        for k, sparse_index_group_batch in enumerate(lS_i):
-            indices.append(np.array(sparse_index_group_batch).tolist())
-            
-        end_time = time.time()
-        total_time = end_time - start_time
-        total_time *= 1000
-        print("input convertion time (ms): " + f"{total_time}")
-
-        start_time = time.time()
-
-        ret = self.pim_emb_storage.apply_emb(np.array(lS_o).tolist(), indices)
+        ret = self.pim_emb_storage.apply_emb(np.array(lS_o), np.array(lS_i))
 
         end_time = time.time()
         total_time = end_time - start_time
@@ -211,7 +198,7 @@ class EmbServer:
         start_time = time.time()
 
         for k, evs in enumerate(ret):
-            V = torch.tensor(np.array(evs, dtype=np.float32))
+            V = torch.tensor(evs)
             ly.append(V)
             
         end_time = time.time()

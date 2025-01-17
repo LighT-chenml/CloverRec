@@ -584,6 +584,7 @@ class RandomDataset(Dataset):
         data_generation="random",
         trace_file="",
         enable_padding=False,
+        zipf_parameter=1.5,
         reset_seed_on_access=False,
         rand_data_dist="uniform",
         rand_data_min=1,
@@ -612,6 +613,7 @@ class RandomDataset(Dataset):
         self.data_generation = data_generation
         self.trace_file = trace_file
         self.enable_padding = enable_padding
+        self.zipf_parameter = zipf_parameter
         self.reset_seed_on_access = reset_seed_on_access
         self.rand_seed = rand_seed
         self.rand_data_dist = rand_data_dist
@@ -654,6 +656,7 @@ class RandomDataset(Dataset):
                 rand_data_max=self.rand_data_max,
                 rand_data_mu=self.rand_data_mu,
                 rand_data_sigma=self.rand_data_sigma,
+                zipf_parameter=self.zipf_parameter,
             )
         elif self.data_generation == "synthetic":
             (X, lS_o, lS_i) = generate_synthetic_input_batch(
@@ -699,27 +702,27 @@ def make_random_data_and_loader(
     m_den,
     offset_to_length_converter=False,
 ):
-    train_data = RandomDataset(
-        m_den,
-        ln_emb,
-        args.data_size,
-        args.num_batches,
-        args.mini_batch_size,
-        args.num_indices_per_lookup,
-        args.num_indices_per_lookup_fixed,
-        1,  # num_targets
-        args.round_targets,
-        args.data_generation,
-        args.data_trace_file,
-        args.data_trace_enable_padding,
-        reset_seed_on_access=True,
-        rand_data_dist=args.rand_data_dist,
-        rand_data_min=args.rand_data_min,
-        rand_data_max=args.rand_data_max,
-        rand_data_mu=args.rand_data_mu,
-        rand_data_sigma=args.rand_data_sigma,
-        rand_seed=args.numpy_rand_seed,
-    )  # WARNING: generates a batch of lookups at once
+    # train_data = RandomDataset(
+    #     m_den,
+    #     ln_emb,
+    #     args.data_size,
+    #     args.num_batches,
+    #     args.mini_batch_size,
+    #     args.num_indices_per_lookup,
+    #     args.num_indices_per_lookup_fixed,
+    #     1,  # num_targets
+    #     args.round_targets,
+    #     args.data_generation,
+    #     args.data_trace_file,
+    #     args.data_trace_enable_padding,
+    #     reset_seed_on_access=True,
+    #     rand_data_dist=args.rand_data_dist,
+    #     rand_data_min=args.rand_data_min,
+    #     rand_data_max=args.rand_data_max,
+    #     rand_data_mu=args.rand_data_mu,
+    #     rand_data_sigma=args.rand_data_sigma,
+    #     rand_seed=args.numpy_rand_seed,
+    # )  # WARNING: generates a batch of lookups at once
 
     test_data = RandomDataset(
         m_den,
@@ -734,6 +737,7 @@ def make_random_data_and_loader(
         args.data_generation,
         args.data_trace_file,
         args.data_trace_enable_padding,
+        args.zipf_parameter,
         reset_seed_on_access=True,
         rand_data_dist=args.rand_data_dist,
         rand_data_min=args.rand_data_min,
@@ -747,15 +751,15 @@ def make_random_data_and_loader(
     if offset_to_length_converter:
         collate_wrapper_random = collate_wrapper_random_length
 
-    train_loader = torch.utils.data.DataLoader(
-        train_data,
-        batch_size=1,
-        shuffle=False,
-        num_workers=args.num_workers,
-        collate_fn=collate_wrapper_random,
-        pin_memory=False,
-        drop_last=False,  # True
-    )
+    # train_loader = torch.utils.data.DataLoader(
+    #     train_data,
+    #     batch_size=1,
+    #     shuffle=False,
+    #     num_workers=args.num_workers,
+    #     collate_fn=collate_wrapper_random,
+    #     pin_memory=False,
+    #     drop_last=False,  # True
+    # )
 
     test_loader = torch.utils.data.DataLoader(
         test_data,
@@ -766,8 +770,8 @@ def make_random_data_and_loader(
         pin_memory=False,
         drop_last=False,  # True
     )
-    return train_data, train_loader, test_data, test_loader
-
+    # return train_data, train_loader, test_data, test_loader
+    return test_data, test_loader
 
 def generate_random_data(
     m_den,
@@ -908,6 +912,7 @@ def generate_dist_input_batch(
     rand_data_max,
     rand_data_mu,
     rand_data_sigma,
+    zipf_parameter,
 ):
     # dense feature
     Xt = torch.tensor(ra.rand(n, m_den).astype(np.float32))
@@ -937,16 +942,19 @@ def generate_dist_input_batch(
                     rand_data_mu = (rand_data_max + rand_data_min) / 2.0
                 rand_data_sigma = 0.2
                 r = ra.normal(rand_data_mu, rand_data_sigma, sparse_group_size)
-                sparse_group = np.unique(np.round(r * (size - 1)).astype(np.int64))
+                # sparse_group = np.unique(np.round(r * (size - 1)).astype(np.int64))
+                sparse_group = np.round(r * (size - 1)).astype(np.int64)
                 sparse_group = np.clip(sparse_group, 0, size - 1)
             elif rand_data_dist == "uniform":
                 r = ra.random(sparse_group_size)
-                sparse_group = np.unique(np.round(r * (size - 1)).astype(np.int64))
+                # sparse_group = np.unique(np.round(r * (size - 1)).astype(np.int64))
+                sparse_group = np.round(r * (size - 1)).astype(np.int64)
             elif rand_data_dist == 'zipfian':
-                r = ra.zipf(1.01, sparse_group_size)
+                r = ra.zipf(zipf_parameter, sparse_group_size)
                 r = r - 1
                 r = r % size
-                sparse_group = np.unique(r)
+                # sparse_group = np.unique(r)
+                sparse_group = r
             else:
                 raise (
                     rand_data_dist,
