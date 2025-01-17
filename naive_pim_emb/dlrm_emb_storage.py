@@ -138,3 +138,6 @@ class EmbStorage():
         ly = self.client.send_request({'lS_o': lS_o, 'lS_i': lS_i})['data']
 
         return ly
+    
+    def close(self):
+        self.client.close()

@@ -66,18 +66,7 @@ private:
 
     dpu::DpuSet dpuset = dpu::DpuSet::allocate(DPU_NUM);
 
-    struct EmbMetadata
-    {
-        int dpu_id;
-        int dpu_emb_id;
-        EmbMetadata() {}
-        EmbMetadata(int dpu_id_, int dpu_emb_id_)
-        {
-            dpu_id = dpu_id_;
-            dpu_emb_id = dpu_emb_id_;
-        }
-    };
-    vector<EmbMetadata> emb_metadata;
+    uint64_t emb_num_per_dpu;
 
 public:
     void initialize(uint64_t m, py::array_t<uint64_t> &ln, py::array_t<float> &emb_tables)
@@ -120,10 +109,12 @@ public:
         uint64_t emb_num = 0;
         for (auto size : table_sizes)
             emb_num += size;
-        uint64_t emb_num_per_dpu = emb_num / dpus.size();
+        emb_num_per_dpu = emb_num / dpus.size();
 
         printf("emb_num %lld\n", emb_num);
         printf("emb_num_per_dpu %lld\n", emb_num_per_dpu);
+
+        auto start_time = chrono::high_resolution_clock::now();
 
         uint64_t p = 0;
         for (int i = 0; i < dpus.size(); ++i)
@@ -134,8 +125,6 @@ public:
             a[1] = emb_num_per_dpu;
             for (int j = 0; j < emb_num_per_dpu; ++j, ++p)
             {
-                // printf("gid %d dpu_id %d emb_index %d\n", emb_metadata.size(), i, j);
-                emb_metadata.push_back(EmbMetadata(i, j));
                 for (int k = 0; k < emb_dim; ++k)
                     a.push_back(tables[p * emb_dim + k]);
             }
@@ -143,11 +132,19 @@ public:
         }
         dpuset.copy("buffer", buffer);
 
-        printf("finish transfer!\n");
+        auto end_time = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+        printf("Emb distribution time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+
+        start_time = chrono::high_resolution_clock::now();
 
         dpuset.exec();
 
-        printf("finish loading!\n");
+        end_time = chrono::high_resolution_clock::now();
+        duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+        printf("Emb loading time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+
+        vector<float>().swap(tables);
     }
 
     void sum_emb(vector<float> &x, float *v)
@@ -211,11 +208,12 @@ public:
                 {
                     auto index = sparse_index_group_batch[k];
                     index += table_offset;
-                    auto &dpu_index = emb_metadata[index];
+                    auto dpu_id = index / emb_num_per_dpu;
+                    auto dpu_emb_id = index % emb_num_per_dpu;
 
-                    buffer[dpu_index.dpu_id].push_back(gid);
-                    buffer[dpu_index.dpu_id].push_back(dpu_index.dpu_emb_id);
-                    ig.dpu_ids.push_back(dpu_index.dpu_id);
+                    buffer[dpu_id].push_back(gid);
+                    buffer[dpu_id].push_back(dpu_emb_id);
+                    ig.dpu_ids.push_back(dpu_id);
                 }
                 index_groups.push_back(ig);
             }

@@ -68,6 +68,8 @@ class EmbServer:
         end_time = time.time()
         total_time = end_time - start_time
         print("pim emb loading time (s): " + f"{total_time}")
+        
+        torch.set_num_threads(1)
 
     def read_mr(self, length, offset):
         return self.mr.read(length, offset)

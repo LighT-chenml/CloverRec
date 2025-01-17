@@ -2,11 +2,16 @@ import subprocess
 import argparse
 import asyncio
 
-def start_coordinator(batch_size):
-    command = f"./benchmark_coordinator.sh {batch_size}"
+def start_coordinator(model, batch_size):
+    command = f"./benchmark_coordinator_{model}.sh {batch_size}"
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     print(f"Output: {result.stdout}")
     print(f"Error: {result.stderr}")
+
+def clean_env():
+    command = f"pkill -f dlrm"
+    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+    print(f"All clean.")
 
 def run():
     ### parse arguments ###
@@ -15,11 +20,30 @@ def run():
     )
     # model related parameters
     parser.add_argument("--arch-batch-size", type=int, default=2)
-
-    batch_sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256] # RM 1
+    parser.add_argument("--model", type=str, default="RM1")
     
-    for batch_size in batch_sizes:
-        start_coordinator(batch_size)
+    global args
+    args = parser.parse_args()
+
+    models = [args.model]
+    models = ['RM3', 'RM4', 'kaggle']
+    batch_sizes = {}
+    batch_sizes['RM1'] = [1, 2, 4, 8, 16, 32, 64, 128]
+    batch_sizes['RM2'] = [1, 2, 4, 8, 16, 32, 64, 128]
+    batch_sizes['RM3'] = [1, 2, 4, 8, 16, 32, 64, 128]
+    batch_sizes['RM4'] = [1, 2, 4, 8, 16, 32]
+    batch_sizes['kaggle'] = [1, 2, 4, 8, 16, 32]
+    
+    clean_env()
+    
+    for model in models:
+        
+        print("----------------------------------------------------------------")
+        print("current model: " + model)
+        print("----------------------------------------------------------------")
+        
+        for batch_size in batch_sizes[model]:
+            start_coordinator(model, batch_size)
 
 if __name__ == "__main__":
     run()

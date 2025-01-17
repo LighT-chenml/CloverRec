@@ -326,6 +326,9 @@ class DLRM_Net(nn.Module):
             z = p
 
         return z
+    
+    def close(self):
+        self.emb_storage.close()
 
 class GPUClient:
     def __init__(self):
@@ -954,6 +957,7 @@ def run():
         print("Avg latency (ms) : " + str(round(avg_latency, 2)))
        
         client.close()
+        dlrm.close()
         print("Close connection...")
 
 if __name__ == "__main__":

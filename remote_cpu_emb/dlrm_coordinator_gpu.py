@@ -425,6 +425,9 @@ class DLRM_Net(nn.Module):
             z = p
 
         return z
+    
+    def close(self):
+        self.emb_storage.close()
 
 def dash_separated_ints(value):
     vals = value.split("-")
@@ -960,6 +963,8 @@ def run():
         print("Time elapsed (FINAL) : " + str(seconds) + " secs (" + str(int(seconds/60)) + " mins)")
         print("Throughput (Req/sec) : " + str(round(args.mini_batch_size * args.num_batches / seconds, 2)))
         print("Avg latency (ms) : " + str(round(avg_latency, 2)))
+        
+        dlrm.close()
 
 if __name__ == "__main__":
     run()
