@@ -15,16 +15,19 @@ namespace py = pybind11;
 
 using namespace std;
 
-vector<vector<uint64_t>> numpy_to_vector_2D(py::array_t<uint64_t>& array) {
+vector<vector<uint64_t>> numpy_to_vector_2D(py::array_t<uint64_t> &array)
+{
 
-    size_t rows = array.shape(0);  
+    size_t rows = array.shape(0);
     size_t cols = array.shape(1);
 
     std::vector<std::vector<uint64_t>> vec(rows, std::vector<uint64_t>(cols));
 
     auto unchecked_array = array.unchecked<2>();
-    for (size_t i = 0; i < rows; ++i) {
-        for (size_t j = 0; j < cols; ++j) {
+    for (size_t i = 0; i < rows; ++i)
+    {
+        for (size_t j = 0; j < cols; ++j)
+        {
             vec[i][j] = unchecked_array(i, j);
         }
     }
@@ -32,26 +35,92 @@ vector<vector<uint64_t>> numpy_to_vector_2D(py::array_t<uint64_t>& array) {
     return vec;
 }
 
-py::array_t<float> vector_to_numpy_3D(const vector<vector<vector<float>>>& vec) {
+py::array_t<float> vector_to_numpy_1D(const std::vector<float> &vec)
+{
+    return py::array_t<float>(
+        vec.size(),
+        vec.data());
+}
+
+py::array_t<float> vector_to_numpy_2D(const vector<vector<float>> &vec)
+{
+    size_t dim1 = vec.size();
+    size_t dim2 = vec.empty() ? 0 : vec[0].size();
+
+    vector<float> flattened;
+    flattened.reserve(dim1 * dim2);
+    for (const auto &row : vec)
+    {
+        flattened.insert(flattened.end(), row.begin(), row.end());
+    }
+
+    return py::array_t<float>(
+        {dim1, dim2},          // Shape (Three dimensions)
+        {dim2 * sizeof(float), // Strides for each dimension (row-major)
+         sizeof(float)},
+        flattened.data() // Pointer to the flat data
+    );
+}
+
+py::array_t<float> vector_to_numpy_3D(const vector<vector<vector<float>>> &vec)
+{
     size_t dim1 = vec.size();
     size_t dim2 = vec.empty() ? 0 : vec[0].size();
     size_t dim3 = (dim2 == 0 || vec[0].empty()) ? 0 : vec[0][0].size();
 
     vector<float> flattened;
     flattened.reserve(dim1 * dim2 * dim3);
-    for (const auto& mat : vec) {
-        for (const auto& row : mat) {
+    for (const auto &mat : vec)
+    {
+        for (const auto &row : mat)
+        {
             flattened.insert(flattened.end(), row.begin(), row.end());
         }
     }
 
     return py::array_t<float>(
-        {dim1, dim2, dim3},                      // Shape (Three dimensions)
-        {dim2 * dim3 * sizeof(float),           // Strides for each dimension (row-major)
+        {dim1, dim2, dim3},           // Shape (Three dimensions)
+        {dim2 * dim3 * sizeof(float), // Strides for each dimension (row-major)
          dim3 * sizeof(float),
          sizeof(float)},
-        flattened.data()                        // Pointer to the flat data
+        flattened.data() // Pointer to the flat data
     );
+}
+
+float cal_vec_avg_float(vector<float> &vec)
+{
+    if (vec.size() == 0) return 0;
+
+    float sum = 0.0;
+    for (auto v : vec) sum += v;
+    return sum / vec.size();
+}
+
+float cal_vec_avg_int(vector<uint32_t> &vec)
+{
+    if (vec.size() == 0) return 0;
+    
+    float sum = 0.0;
+    for (auto v : vec) sum += v;
+    return sum / vec.size();
+}
+
+uint32_t cal_vec_max(vector<uint32_t> &vec)
+{
+    if (vec.size() == 0) return 0;
+    
+    uint32_t max_v = vec[0];
+    for (auto v : vec) max_v = max(max_v, v);
+    return max_v;
+}
+
+uint32_t cal_vec_min(vector<uint32_t> &vec)
+{
+    if (vec.size() == 0) return 0;
+    
+    uint32_t min_v = vec[0];
+    for (auto v : vec) min_v = min(min_v, v);
+    return min_v;
 }
 
 class PIMEmbStorage
@@ -68,7 +137,79 @@ private:
 
     uint64_t emb_num_per_dpu;
 
+    vector<float> PIM_input_convertion_time;
+    vector<float> task_distribution_time;
+    vector<float> task_tranfer_time;
+    vector<float> PIM_cal_time;
+    vector<float> result_transfer_time;
+    vector<float> CPU_cal_time;
+    vector<float> total_apply_emb_time;
+
+    vector<vector<uint32_t>> index_nums;
+    vector<float> CPU_sum_emb_num;
+
 public:
+    void profiling()
+    {
+        auto avg_PIM_input_convertion_time = cal_vec_avg_float(PIM_input_convertion_time);
+        auto avg_task_distribution_time = cal_vec_avg_float(task_distribution_time);
+        auto avg_task_tranfer_time = cal_vec_avg_float(task_tranfer_time);
+        auto avg_PIM_cal_time = cal_vec_avg_float(PIM_cal_time);
+        auto avg_result_transfer_time = cal_vec_avg_float(result_transfer_time);
+        auto avg_CPU_cal_time = cal_vec_avg_float(CPU_cal_time);
+        auto avg_total_apply_emb_time = cal_vec_avg_float(total_apply_emb_time);
+
+        float avg_index_num = 0;
+        float avg_max_index_num = 0;
+        float avg_min_index_num = 0;
+
+        for (auto &index_num : index_nums)
+        {
+            avg_index_num += cal_vec_avg_int(index_num);
+            avg_max_index_num += cal_vec_max(index_num);
+            avg_min_index_num += cal_vec_min(index_num);
+        }
+
+        avg_index_num /= index_nums.size();
+        avg_max_index_num /= index_nums.size();
+        avg_min_index_num /= index_nums.size();
+
+        auto avg_CPU_sum_emb_num = cal_vec_avg_float(CPU_sum_emb_num);
+
+        printf("---------------------------------------------------------------------\n");
+
+        printf("avg_PIM_input_convertion_time: %.2lf\n", avg_PIM_input_convertion_time);
+        printf("avg_task_distribution_time: %.2lf\n", avg_task_distribution_time);
+        printf("avg_task_tranfer_time: %.2lf\n", avg_task_tranfer_time);
+        printf("avg_PIM_cal_time: %.2lf\n", avg_PIM_cal_time);
+        printf("avg_result_transfer_time: %.2lf\n", avg_result_transfer_time);
+        printf("avg_CPU_cal_time: %.2lf\n", avg_CPU_cal_time);
+        printf("avg_total_apply_emb_time: %.2lf\n", avg_total_apply_emb_time);
+
+        printf("\n");
+
+        printf("avg_index_num: %.2lf\n", avg_index_num);
+        printf("avg_max_index_num: %.2lf\n", avg_max_index_num);
+        printf("avg_min_index_num: %.2lf\n", avg_min_index_num);
+        printf("avg_CPU_sum_emb_num: %.2lf\n", avg_CPU_sum_emb_num);
+
+        printf("---------------------------------------------------------------------\n");
+    }
+
+    void clear_profiling_data()
+    {
+        vector<float>().swap(PIM_input_convertion_time);
+        vector<float>().swap(task_distribution_time);
+        vector<float>().swap(task_tranfer_time);
+        vector<float>().swap(PIM_cal_time);
+        vector<float>().swap(result_transfer_time);
+        vector<float>().swap(CPU_cal_time);
+        vector<float>().swap(total_apply_emb_time);
+
+        vector<vector<uint32_t>>().swap(index_nums);
+        vector<float>().swap(CPU_sum_emb_num);
+    }
+
     void initialize(uint64_t m, py::array_t<uint64_t> &ln, py::array_t<float> &emb_tables)
     {
         emb_dim = m;
@@ -161,14 +302,15 @@ public:
 
     py::array_t<float> apply_emb(py::array_t<uint64_t> &lS_o, py::array_t<uint64_t> &lS_i)
     {
-        // auto start_convertion_time = chrono::high_resolution_clock::now();
+        auto start_convertion_time = chrono::high_resolution_clock::now();
 
         auto offsets = numpy_to_vector_2D(lS_o);
         auto indices = numpy_to_vector_2D(lS_i);
 
-        // auto end_convertion_time = chrono::high_resolution_clock::now();
-        // auto convertion_duration = chrono::duration_cast<chrono::microseconds>(end_convertion_time - start_convertion_time);
+        auto end_convertion_time = chrono::high_resolution_clock::now();
+        auto convertion_duration = chrono::duration_cast<chrono::microseconds>(end_convertion_time - start_convertion_time);
         // printf("PIM module input convertion time (ms): %.2lf\n", 1.0 * convertion_duration.count() / 1000);
+        PIM_input_convertion_time.push_back(1.0 * convertion_duration.count() / 1000);
 
         auto end2end_start_time = chrono::high_resolution_clock::now();
 
@@ -222,14 +364,17 @@ public:
 
         auto end_time = chrono::high_resolution_clock::now();
         auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
-        printf("Task distribution time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+        // printf("Task distribution time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+        task_distribution_time.push_back(1.0 * duration.count() / 1000);
 
         start_time = chrono::high_resolution_clock::now();
 
+        vector<uint32_t> index_num;
         uint32_t max_size = 0;
         for (int i = 0; i < dpus.size(); ++i)
         {
             max_size = max(max_size, (uint32_t)buffer[i].size());
+            index_num.push_back(((uint32_t)buffer[i].size() - 4) / 2);
         }
         for (int i = 0; i < dpus.size(); ++i)
         {
@@ -237,14 +382,14 @@ public:
             buffer[i][2] = index_groups.size();
             buffer[i].resize(max_size);
         }
-        
-        printf("max_index_num: %u\n", (max_size - 4) / 2);
+        index_nums.push_back(index_num);
 
         dpuset.copy("buffer", buffer);
 
         end_time = chrono::high_resolution_clock::now();
         duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
-        printf("Task tranfer time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+        // printf("Task tranfer time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+        task_tranfer_time.push_back(1.0 * duration.count() / 1000);
 
         start_time = chrono::high_resolution_clock::now();
 
@@ -252,7 +397,8 @@ public:
 
         end_time = chrono::high_resolution_clock::now();
         duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
-        printf("PIM cal. time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+        // printf("PIM cal. time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+        PIM_cal_time.push_back(1.0 * duration.count() / 1000);
 
         // dpuset.log(cout);
 
@@ -267,7 +413,8 @@ public:
 
         end_time = chrono::high_resolution_clock::now();
         duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
-        printf("Result tranfer time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+        // printf("Result transfer time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+        result_transfer_time.push_back(1.0 * duration.count() / 1000);
 
         start_time = chrono::high_resolution_clock::now();
 
@@ -298,15 +445,18 @@ public:
             result.push_back(evs);
         }
 
-        printf("avg cpu sum emb: %.2lf\n", 1.0 * total_cpu_sum_emb / index_groups.size());
+        // printf("avg CPU sum emb: %.2lf\n", 1.0 * total_cpu_sum_emb / index_groups.size());
+        CPU_sum_emb_num.push_back(1.0 * total_cpu_sum_emb / index_groups.size());
 
         end_time = chrono::high_resolution_clock::now();
         duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
-        printf("CPU cal. time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+        // printf("CPU cal. time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+        CPU_cal_time.push_back(1.0 * duration.count() / 1000);
 
         auto end2end_end_time = chrono::high_resolution_clock::now();
         auto end2end_duration = chrono::duration_cast<chrono::microseconds>(end2end_end_time - end2end_start_time);
-        printf("Total apply emb time (ms): %.2lf\n", 1.0 * end2end_duration.count() / 1000);
+        // printf("Total apply emb time (ms): %.2lf\n", 1.0 * end2end_duration.count() / 1000);
+        total_apply_emb_time.push_back(1.0 * end2end_duration.count() / 1000);
 
         // start_time = chrono::high_resolution_clock::now();
 
@@ -326,7 +476,9 @@ PYBIND11_MODULE(pim_module, m)
 
     py::class_<PIMEmbStorage>(m, "PIMEmbStorage")
         .def(py::init<>())
+        .def("profiling", &PIMEmbStorage::profiling, "Profiling")
+        .def("clear_profiling_data", &PIMEmbStorage::clear_profiling_data, "Clear Profiling Data")
         .def("initialize", &PIMEmbStorage::initialize, "Initialize PIMEmbStorage")
-        .def("init_pim", &PIMEmbStorage::init_pim, "")
+        .def("init_pim", &PIMEmbStorage::init_pim, "Loading Embs to PIM")
         .def("apply_emb", &PIMEmbStorage::apply_emb, "Apply Embedding");
 }

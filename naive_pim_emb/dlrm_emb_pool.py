@@ -121,6 +121,9 @@ class EmbServer:
             if ret != True:
                 break
 
+        self.pim_emb_storage.profiling()
+        self.pim_emb_storage.clear_profiling_data()
+
         self.conn.close()
         
         print("Close connection...")
@@ -195,7 +198,7 @@ class EmbServer:
         end_time = time.time()
         total_time = end_time - start_time
         total_time *= 1000
-        print("PIM module time (ms): " + f"{total_time}")
+        # print("PIM module time (ms): " + f"{total_time}")
 
         start_time = time.time()
 
@@ -206,7 +209,7 @@ class EmbServer:
         end_time = time.time()
         total_time = end_time - start_time
         total_time *= 1000
-        print("result convertion time (ms): " + f"{total_time}")
+        # print("result convertion time (ms): " + f"{total_time}")
 
         return ly
 
