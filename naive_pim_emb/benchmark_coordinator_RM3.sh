@@ -43,7 +43,8 @@ _args="--num-batches="${nbatches}\
 " --server-ip=10.0.0.5"\
 " --server-port=8002"\
 " --emb-pool-ip=10.0.0.11"\
-" --emb-pool-port=1236"
+" --emb-pool-port=1236"\
+" --zipf-parameter=1.5"
 
 # GPU Benchmarking
 echo "--------------------------------------------"

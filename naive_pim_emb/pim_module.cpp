@@ -89,37 +89,45 @@ py::array_t<float> vector_to_numpy_3D(const vector<vector<vector<float>>> &vec)
 
 float cal_vec_avg_float(vector<float> &vec)
 {
-    if (vec.size() == 0) return 0;
+    if (vec.size() == 0)
+        return 0;
 
     float sum = 0.0;
-    for (auto v : vec) sum += v;
+    for (auto v : vec)
+        sum += v;
     return sum / vec.size();
 }
 
 float cal_vec_avg_int(vector<uint32_t> &vec)
 {
-    if (vec.size() == 0) return 0;
-    
+    if (vec.size() == 0)
+        return 0;
+
     float sum = 0.0;
-    for (auto v : vec) sum += v;
+    for (auto v : vec)
+        sum += v;
     return sum / vec.size();
 }
 
 uint32_t cal_vec_max(vector<uint32_t> &vec)
 {
-    if (vec.size() == 0) return 0;
-    
+    if (vec.size() == 0)
+        return 0;
+
     uint32_t max_v = vec[0];
-    for (auto v : vec) max_v = max(max_v, v);
+    for (auto v : vec)
+        max_v = max(max_v, v);
     return max_v;
 }
 
 uint32_t cal_vec_min(vector<uint32_t> &vec)
 {
-    if (vec.size() == 0) return 0;
-    
+    if (vec.size() == 0)
+        return 0;
+
     uint32_t min_v = vec[0];
-    for (auto v : vec) min_v = min(min_v, v);
+    for (auto v : vec)
+        min_v = min(min_v, v);
     return min_v;
 }
 
@@ -129,6 +137,8 @@ class PIMEmbStorage
     const int TASKLET_NUM = 16;
 
 private:
+    int transfer_type;
+
     uint64_t emb_dim;
     vector<uint64_t> table_sizes;
     vector<float> tables;
@@ -146,6 +156,7 @@ private:
     vector<float> total_apply_emb_time;
 
     vector<vector<uint32_t>> index_nums;
+    vector<vector<uint32_t>> index_group_nums;
     vector<float> CPU_sum_emb_num;
 
 public:
@@ -169,10 +180,23 @@ public:
             avg_max_index_num += cal_vec_max(index_num);
             avg_min_index_num += cal_vec_min(index_num);
         }
-
         avg_index_num /= index_nums.size();
         avg_max_index_num /= index_nums.size();
         avg_min_index_num /= index_nums.size();
+
+        float avg_index_group_num = 0;
+        float avg_max_index_group_num = 0;
+        float avg_min_index_group_num = 0;
+
+        for (auto &index_group_num : index_group_nums)
+        {
+            avg_index_group_num += cal_vec_avg_int(index_group_num);
+            avg_max_index_group_num += cal_vec_max(index_group_num);
+            avg_min_index_group_num += cal_vec_min(index_group_num);
+        }
+        avg_index_group_num /= index_group_nums.size();
+        avg_max_index_group_num /= index_group_nums.size();
+        avg_min_index_group_num /= index_group_nums.size();
 
         auto avg_CPU_sum_emb_num = cal_vec_avg_float(CPU_sum_emb_num);
 
@@ -191,6 +215,9 @@ public:
         printf("avg_index_num: %.2lf\n", avg_index_num);
         printf("avg_max_index_num: %.2lf\n", avg_max_index_num);
         printf("avg_min_index_num: %.2lf\n", avg_min_index_num);
+        printf("avg_index_group_num: %.2lf\n", avg_index_group_num);
+        printf("avg_max_index_group_num: %.2lf\n", avg_max_index_group_num);
+        printf("avg_min_index_group_num: %.2lf\n", avg_min_index_group_num);
         printf("avg_CPU_sum_emb_num: %.2lf\n", avg_CPU_sum_emb_num);
 
         printf("---------------------------------------------------------------------\n");
@@ -207,11 +234,14 @@ public:
         vector<float>().swap(total_apply_emb_time);
 
         vector<vector<uint32_t>>().swap(index_nums);
+        vector<vector<uint32_t>>().swap(index_group_nums);
         vector<float>().swap(CPU_sum_emb_num);
     }
 
     void initialize(uint64_t m, py::array_t<uint64_t> &ln, py::array_t<float> &emb_tables)
     {
+        transfer_type = 0;
+
         emb_dim = m;
         table_sizes.resize(ln.size());
         copy(ln.data(), ln.data() + ln.size(), table_sizes.begin());
@@ -321,7 +351,7 @@ public:
         vector<vector<uint32_t>> buffer;
         for (int i = 0; i < dpus.size(); ++i)
         {
-            vector<uint32_t> a(4, 0);
+            vector<uint32_t> a(4 + offsets.size() * offsets[0].size(), 0);
             a[0] = 1;
             buffer.push_back(a);
         }
@@ -355,6 +385,7 @@ public:
 
                     buffer[dpu_id].push_back(gid);
                     buffer[dpu_id].push_back(dpu_emb_id);
+                    buffer[dpu_id][4 + gid] = 1;
                     ig.dpu_ids.push_back(dpu_id);
                 }
                 index_groups.push_back(ig);
@@ -369,22 +400,48 @@ public:
 
         start_time = chrono::high_resolution_clock::now();
 
+        vector<uint32_t> index_group_num;
         vector<uint32_t> index_num;
         uint32_t max_size = 0;
         for (int i = 0; i < dpus.size(); ++i)
         {
             max_size = max(max_size, (uint32_t)buffer[i].size());
-            index_num.push_back(((uint32_t)buffer[i].size() - 4) / 2);
+            index_num.push_back(((uint32_t)buffer[i].size() - 4 - index_groups.size()) / 2);
+
+            uint32_t sum = 0;
+            for (int j = 0; j < index_groups.size(); ++j)
+            {
+                uint32_t v = buffer[i][4 + j];
+                if (v)
+                {
+                    buffer[i][4 + j] = sum;
+                    sum += v;
+                }
+            }
+            index_group_num.push_back(sum);
         }
-        for (int i = 0; i < dpus.size(); ++i)
-        {
-            buffer[i][1] = buffer[i].size();
-            buffer[i][2] = index_groups.size();
-            buffer[i].resize(max_size);
-        }
+        index_group_nums.push_back(index_group_num);
         index_nums.push_back(index_num);
 
-        dpuset.copy("buffer", buffer);
+        if (transfer_type == 0)
+        {
+            for (int i = 0; i < dpus.size(); ++i)
+            {
+                buffer[i][1] = ((uint32_t)buffer[i].size() - 4 - index_groups.size()) / 2;
+                buffer[i][2] = index_groups.size();
+                buffer[i].resize(max_size);
+            }
+            dpuset.copy("buffer", buffer);
+        }
+        else if (transfer_type == 1)
+        {
+            for (int i = 0; i < dpus.size(); ++i)
+            {
+                buffer[i][1] = ((uint32_t)buffer[i].size() - 4 - index_groups.size()) / 2;
+                buffer[i][2] = index_groups.size();
+                dpuset.dpus()[i]->copy("buffer", buffer[i]);
+            }
+        }
 
         end_time = chrono::high_resolution_clock::now();
         duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
@@ -405,11 +462,29 @@ public:
         start_time = chrono::high_resolution_clock::now();
 
         vector<vector<float>> ret_buffer(dpus.size());
-        for (int i = 0; i < dpus.size(); ++i)
+        if (transfer_type == 0)
         {
-            ret_buffer[i].resize(index_groups.size() * emb_dim);
+            max_size = 0;
+            for (int i = 0; i < dpus.size(); ++i)
+            {
+                max_size = max(max_size, index_group_num[i]);
+            }
+            for (int i = 0; i < dpus.size(); ++i)
+            {
+                ret_buffer[i].resize(max_size * emb_dim);
+            }
+            dpuset.copy(ret_buffer, "buffer", 8 * 1024 * 1024);
         }
-        dpuset.copy(ret_buffer, "buffer", 8 * 1024 * 1024);
+        else if (transfer_type == 1)
+        {
+            for (int i = 0; i < dpus.size(); ++i)
+            {
+                vector<vector<float>> a;
+                a.push_back(vector<float>(index_group_num[i] * emb_dim));
+                dpuset.dpus()[i]->copy(a, "buffer", 8 * 1024 * 1024);
+                ret_buffer[i] = a[0];
+            }
+        }
 
         end_time = chrono::high_resolution_clock::now();
         duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
@@ -437,8 +512,9 @@ public:
 
                 for (auto &id : ig.dpu_ids)
                 {
+                    uint32_t result_index = buffer[id][4 + i];
                     for (int k = 0; k < emb_dim; ++k)
-                        sum[k] += ret_buffer[id][i * emb_dim + k];
+                        sum[k] += ret_buffer[id][result_index * emb_dim + k];
                 }
                 evs.push_back(sum);
             }
