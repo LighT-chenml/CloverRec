@@ -301,7 +301,6 @@ public:
             }
             buffer.push_back(a);
         }
-        dpuset.copy("buffer", buffer);
 
         auto end_time = chrono::high_resolution_clock::now();
         auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
@@ -309,13 +308,13 @@ public:
 
         start_time = chrono::high_resolution_clock::now();
 
-        dpuset.exec();
+        dpuset.copy("buffer", 2 * 1024 * 1024, buffer);
 
         end_time = chrono::high_resolution_clock::now();
         duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
         printf("Emb loading time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
 
-        vector<float>().swap(tables);
+        // vector<float>().swap(tables);
     }
 
     void sum_emb(vector<float> &x, float *v)
@@ -352,7 +351,7 @@ public:
         for (int i = 0; i < dpus.size(); ++i)
         {
             vector<uint32_t> a(4 + offsets.size() * offsets[0].size(), 0);
-            a[0] = 1;
+            a[0] = 0;
             buffer.push_back(a);
         }
 
@@ -393,13 +392,6 @@ public:
             table_offset += table_sizes[i];
         }
 
-        auto end_time = chrono::high_resolution_clock::now();
-        auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
-        // printf("Task distribution time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
-        task_distribution_time.push_back(1.0 * duration.count() / 1000);
-
-        start_time = chrono::high_resolution_clock::now();
-
         vector<uint32_t> index_group_num;
         vector<uint32_t> index_num;
         uint32_t max_size = 0;
@@ -422,6 +414,13 @@ public:
         }
         index_group_nums.push_back(index_group_num);
         index_nums.push_back(index_num);
+
+        auto end_time = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+        // printf("Task distribution time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+        task_distribution_time.push_back(1.0 * duration.count() / 1000);
+
+        start_time = chrono::high_resolution_clock::now();
 
         if (transfer_type == 0)
         {
@@ -473,7 +472,7 @@ public:
             {
                 ret_buffer[i].resize(max_size * emb_dim);
             }
-            dpuset.copy(ret_buffer, "buffer", 8 * 1024 * 1024);
+            dpuset.copy(ret_buffer, "buffer", 1 * 1024 * 1024);
         }
         else if (transfer_type == 1)
         {
@@ -481,7 +480,7 @@ public:
             {
                 vector<vector<float>> a;
                 a.push_back(vector<float>(index_group_num[i] * emb_dim));
-                dpuset.dpus()[i]->copy(a, "buffer", 8 * 1024 * 1024);
+                dpuset.dpus()[i]->copy(a, "buffer", 1 * 1024 * 1024);
                 ret_buffer[i] = a[0];
             }
         }

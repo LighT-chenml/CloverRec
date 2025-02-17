@@ -131,10 +131,26 @@ uint32_t cal_vec_min(vector<uint32_t> &vec)
     return min_v;
 }
 
+struct FreqSetItem
+{
+    uint32_t id;
+    uint32_t freq;
+    FreqSetItem(uint32_t id_, uint32_t freq_)
+    {
+        id = id_;
+        freq = freq_;
+    }
+    bool operator<(const FreqSetItem &t) const { return freq < t.freq || freq == t.freq && id < t.id; }
+};
+
 class PIMEmbStorage
 {
-    const int DPU_NUM = 1020;
+    const static int DPU_NUM = 1020;
     const int TASKLET_NUM = 16;
+    const float REDUNDANT_RATIO = 0.01;
+    const float SPLIT_EMB_NUM_RATIO = 0.001;
+
+    const int SELECT_EMB_ITER = 100;
 
 private:
     int transfer_type;
@@ -142,17 +158,35 @@ private:
     uint64_t emb_dim;
     vector<uint64_t> table_sizes;
     vector<float> tables;
+    vector<uint32_t> emb_freqs;
+    uint32_t dpu_freqs[DPU_NUM];
+    uint32_t dpu_emb_nums[DPU_NUM];
+    vector<uint32_t> dpu_redundant_emb_ids[DPU_NUM];
+    set<FreqSetItem> hot_dpu_ids;
 
     dpu::DpuSet dpuset = dpu::DpuSet::allocate(DPU_NUM);
 
+    uint64_t total_emb_num;
     uint64_t emb_num_per_dpu;
+    uint64_t global_total_index_num;
 
+    uint32_t max_redundant_emb_size;
+    uint32_t cur_redundant_emb_size;
+    struct RedundantEmb
+    {
+        vector<uint32_t> dpu_ids;
+        vector<uint32_t> dpu_emb_ids;
+    };
+    unordered_map<uint32_t, RedundantEmb> redundant_embs;
+
+    // profiling data
     vector<float> PIM_input_convertion_time;
-    vector<float> task_distribution_time;
+    vector<float> task_dispatch_time;
     vector<float> task_tranfer_time;
     vector<float> PIM_cal_time;
     vector<float> result_transfer_time;
     vector<float> CPU_cal_time;
+    vector<float> split_emb_time;
     vector<float> total_apply_emb_time;
 
     vector<vector<uint32_t>> index_nums;
@@ -163,11 +197,12 @@ public:
     void profiling()
     {
         auto avg_PIM_input_convertion_time = cal_vec_avg_float(PIM_input_convertion_time);
-        auto avg_task_distribution_time = cal_vec_avg_float(task_distribution_time);
+        auto avg_task_dispatch_time = cal_vec_avg_float(task_dispatch_time);
         auto avg_task_tranfer_time = cal_vec_avg_float(task_tranfer_time);
         auto avg_PIM_cal_time = cal_vec_avg_float(PIM_cal_time);
         auto avg_result_transfer_time = cal_vec_avg_float(result_transfer_time);
         auto avg_CPU_cal_time = cal_vec_avg_float(CPU_cal_time);
+        auto avg_split_emb_time = cal_vec_avg_float(split_emb_time);
         auto avg_total_apply_emb_time = cal_vec_avg_float(total_apply_emb_time);
 
         float avg_index_num = 0;
@@ -203,11 +238,12 @@ public:
         printf("---------------------------------------------------------------------\n");
 
         printf("avg_PIM_input_convertion_time: %.2lf\n", avg_PIM_input_convertion_time);
-        printf("avg_task_distribution_time: %.2lf\n", avg_task_distribution_time);
+        printf("avg_task_dispatch_time: %.2lf\n", avg_task_dispatch_time);
         printf("avg_task_tranfer_time: %.2lf\n", avg_task_tranfer_time);
         printf("avg_PIM_cal_time: %.2lf\n", avg_PIM_cal_time);
         printf("avg_result_transfer_time: %.2lf\n", avg_result_transfer_time);
         printf("avg_CPU_cal_time: %.2lf\n", avg_CPU_cal_time);
+        printf("avg_split_emb_time: %.2lf\n", avg_split_emb_time);
         printf("avg_total_apply_emb_time: %.2lf\n", avg_total_apply_emb_time);
 
         printf("\n");
@@ -225,17 +261,35 @@ public:
 
     void clear_profiling_data()
     {
+        auto &dpus = dpuset.dpus();
+
         vector<float>().swap(PIM_input_convertion_time);
-        vector<float>().swap(task_distribution_time);
+        vector<float>().swap(task_dispatch_time);
         vector<float>().swap(task_tranfer_time);
         vector<float>().swap(PIM_cal_time);
         vector<float>().swap(result_transfer_time);
         vector<float>().swap(CPU_cal_time);
+        vector<float>().swap(split_emb_time);
         vector<float>().swap(total_apply_emb_time);
 
         vector<vector<uint32_t>>().swap(index_nums);
         vector<vector<uint32_t>>().swap(index_group_nums);
         vector<float>().swap(CPU_sum_emb_num);
+
+        global_total_index_num = 0;
+
+        hot_dpu_ids.clear();
+        redundant_embs.clear();
+        cur_redundant_emb_size = 0;
+        for (int i = 0; i < emb_freqs.size(); ++i)
+            emb_freqs[i] = 0;
+        for (int i = 0; i < dpus.size(); ++i)
+        {
+            dpu_freqs[i] = 0;
+            dpu_emb_nums[i] = emb_num_per_dpu;
+            hot_dpu_ids.insert(FreqSetItem(i, 0));
+            vector<uint32_t>().swap(dpu_redundant_emb_ids[i]);
+        }
     }
 
     void initialize(uint64_t m, py::array_t<uint64_t> &ln, py::array_t<float> &emb_tables)
@@ -248,7 +302,7 @@ public:
         tables.resize(emb_tables.size());
         copy(emb_tables.data(), emb_tables.data() + emb_tables.size(), tables.begin());
 
-        auto dpus = dpuset.dpus();
+        auto &dpus = dpuset.dpus();
         printf("num dpu: %ld\n", dpus.size());
 
         dpuset.load(DPU_BINARY);
@@ -257,7 +311,7 @@ public:
         dpuset.copy("emb_dim", buffer, 8);
 
         // pending
-        uint64_t total_emb_num = 0;
+        total_emb_num = 0;
         for (auto size : table_sizes)
         {
             total_emb_num += size;
@@ -271,6 +325,13 @@ public:
             for (int i = 0; i < num; ++i)
                 tables.push_back(0.0);
         }
+
+        global_total_index_num = 0;
+
+        max_redundant_emb_size = 1.0 * total_emb_num * REDUNDANT_RATIO;
+        cur_redundant_emb_size = 0;
+
+        printf("max_redundant_emb_size: %u\n", max_redundant_emb_size);
     }
 
     void init_pim()
@@ -285,15 +346,20 @@ public:
         printf("emb_num %lld\n", emb_num);
         printf("emb_num_per_dpu %lld\n", emb_num_per_dpu);
 
+        emb_freqs = vector<uint32_t>(total_emb_num, 0);
+        for (int i = 0; i < dpus.size(); ++i)
+        {
+            dpu_freqs[i] = 0;
+            dpu_emb_nums[i] = emb_num_per_dpu;
+            hot_dpu_ids.insert(FreqSetItem(i, 0));
+        }
+
         auto start_time = chrono::high_resolution_clock::now();
 
         uint64_t p = 0;
         for (int i = 0; i < dpus.size(); ++i)
         {
-            auto &dpu = dpus[i];
-            vector<float> a(2, 0);
-            a[0] = 0;
-            a[1] = emb_num_per_dpu;
+            vector<float> a;
             for (int j = 0; j < emb_num_per_dpu; ++j, ++p)
             {
                 for (int k = 0; k < emb_dim; ++k)
@@ -301,27 +367,173 @@ public:
             }
             buffer.push_back(a);
         }
-        dpuset.copy("buffer", buffer);
 
         auto end_time = chrono::high_resolution_clock::now();
         auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
-        printf("Emb distribution time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+        printf("Emb dispatch time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
 
         start_time = chrono::high_resolution_clock::now();
 
-        dpuset.exec();
+        dpuset.copy("buffer", 2 * 1024 * 1024, buffer);
 
         end_time = chrono::high_resolution_clock::now();
         duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
         printf("Emb loading time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
 
-        vector<float>().swap(tables);
+        // vector<float>().swap(tables);
     }
 
     void sum_emb(vector<float> &x, float *v)
     {
         for (int i = 0; i < x.size(); ++i)
             x[i] += *(v + i);
+    }
+
+    void update_dpu_freq(uint32_t dpu_id, uint32_t new_freq)
+    {
+        uint32_t old_freq = dpu_freqs[dpu_id];
+        hot_dpu_ids.erase(FreqSetItem(dpu_id, old_freq));
+        hot_dpu_ids.insert(FreqSetItem(dpu_id, new_freq));
+        dpu_freqs[dpu_id] = new_freq;
+    }
+
+    uint32_t cal_emb_freq(uint32_t emb_id)
+    {
+        auto it = redundant_embs.find(emb_id);
+        if (it != redundant_embs.end())
+        {
+            return emb_freqs[emb_id] / (it->second).dpu_ids.size();
+        }
+        return emb_freqs[emb_id];
+    }
+
+    uint32_t cal_emb_delta_freq(uint32_t emb_id)
+    {
+        auto it = redundant_embs.find(emb_id);
+        if (it != redundant_embs.end())
+        {
+            auto copy_num = (it->second).dpu_ids.size();
+            return emb_freqs[emb_id] / copy_num - emb_freqs[emb_id] / (copy_num + 1);
+        }
+        return emb_freqs[emb_id] / 2;
+    }
+
+    uint32_t select_hot_emb(uint32_t dpu_id)
+    {
+        uint32_t ret_emb_id = total_emb_num;
+        uint32_t ret_emb_freq = 0;
+        for (int _ = 0; _ < SELECT_EMB_ITER; ++_)
+        {
+            uint32_t p = rand() % dpu_emb_nums[dpu_id];
+            uint32_t emb_id;
+            if (p < emb_num_per_dpu)
+            {
+                emb_id = dpu_id * emb_num_per_dpu + p;
+            }
+            else
+            {
+                emb_id = dpu_redundant_emb_ids[dpu_id][p - emb_num_per_dpu];
+            }
+
+            uint32_t emb_freq = cal_emb_delta_freq(emb_id); // priority
+
+            if (ret_emb_id == total_emb_num || ret_emb_freq < emb_freq)
+            {
+                ret_emb_id = emb_id;
+                ret_emb_freq = emb_freq;
+            }
+        }
+        return ret_emb_id;
+    }
+
+    uint32_t select_cold_dpu(uint32_t emb_id)
+    {
+        bool static flag[DPU_NUM] = {false};
+        auto &dpus = dpuset.dpus();
+        auto it = redundant_embs.find(emb_id);
+        if (it != redundant_embs.end())
+        {
+            for (auto id : (it->second).dpu_ids)
+                flag[id] = true;
+        }
+        uint32_t ret_dpu_id = dpus.size();
+        auto it_dpu = hot_dpu_ids.begin();
+        for (; it_dpu != hot_dpu_ids.end(); ++it_dpu)
+            if (flag[it_dpu->id] == false)
+            {
+                ret_dpu_id = it_dpu->id;
+                break;
+            }
+        if (it != redundant_embs.end())
+        {
+            for (auto id : (it->second).dpu_ids)
+                flag[id] = false;
+        }
+        return ret_dpu_id;
+    }
+
+    void split_emb(uint32_t split_emb_num)
+    {
+        auto start_time = chrono::high_resolution_clock::now();
+
+        auto &dpus = dpuset.dpus();
+
+        for (int _ = 0; _ < split_emb_num; ++_)
+        {
+            if (cur_redundant_emb_size >= max_redundant_emb_size)
+                return;
+            auto it_dpu = hot_dpu_ids.end();
+            --it_dpu;
+            uint32_t hot_dpu_id = it_dpu->id;
+            if (dpu_freqs[hot_dpu_id] < global_total_index_num / dpus.size())
+                return;
+
+            printf("hot_dpu_id %u freq %u dpu_emb_nums %u\n", hot_dpu_id, dpu_freqs[hot_dpu_id], dpu_emb_nums[hot_dpu_id]);
+            
+            uint32_t emb_id = select_hot_emb(hot_dpu_id);
+            if (emb_id == total_emb_num)
+                return;
+
+            printf("emb_id %u freq %u\n", emb_id, cal_emb_freq(emb_id));
+            
+            uint32_t cold_dpu_id = select_cold_dpu(emb_id);
+            if (cold_dpu_id == dpus.size())
+                return;
+
+            vector<float> buffer(emb_dim);
+            for (int i = 0; i < emb_dim; ++i)
+                buffer[i] = tables[emb_id * emb_dim + i];
+
+            dpuset.dpus()[cold_dpu_id]->copy("buffer", 2 * 1024 * 1024 + dpu_emb_nums[cold_dpu_id] * emb_dim * 4, buffer);
+
+            auto it = redundant_embs.find(emb_id);
+            if (it == redundant_embs.end())
+            {
+                redundant_embs[emb_id] = RedundantEmb();
+                redundant_embs[emb_id].dpu_ids.push_back(hot_dpu_id);
+                redundant_embs[emb_id].dpu_emb_ids.push_back(emb_id % emb_num_per_dpu);
+            }
+            auto &redundant_emb = redundant_embs[emb_id];
+            cur_redundant_emb_size++;
+            redundant_emb.dpu_ids.push_back(cold_dpu_id);
+            redundant_emb.dpu_emb_ids.push_back(dpu_emb_nums[cold_dpu_id]++);
+            dpu_redundant_emb_ids[cold_dpu_id].push_back(emb_id);
+
+            uint32_t delta_freq = emb_freqs[emb_id] / (redundant_emb.dpu_ids.size() - 1) - emb_freqs[emb_id] / redundant_emb.dpu_ids.size();
+            printf("redundant_emb_num %u delta_freq %u\n", redundant_emb.dpu_ids.size(), delta_freq);
+            for (auto id : redundant_emb.dpu_ids)
+            {
+                if (id == cold_dpu_id)
+                    continue;
+                update_dpu_freq(id, dpu_freqs[id] - delta_freq);
+            }
+            update_dpu_freq(cold_dpu_id, dpu_freqs[cold_dpu_id] + emb_freqs[emb_id] / redundant_emb.dpu_ids.size());
+        }
+
+        auto end_time = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+        // printf("Split emb time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+        split_emb_time.push_back(1.0 * duration.count() / 1000);
     }
 
     struct IndexGroup
@@ -332,6 +544,8 @@ public:
 
     py::array_t<float> apply_emb(py::array_t<uint64_t> &lS_o, py::array_t<uint64_t> &lS_i)
     {
+        auto &dpus = dpuset.dpus();
+
         auto start_convertion_time = chrono::high_resolution_clock::now();
 
         auto offsets = numpy_to_vector_2D(lS_o);
@@ -347,12 +561,11 @@ public:
         auto start_time = chrono::high_resolution_clock::now();
 
         vector<IndexGroup> index_groups;
-        auto dpus = dpuset.dpus();
         vector<vector<uint32_t>> buffer;
         for (int i = 0; i < dpus.size(); ++i)
         {
             vector<uint32_t> a(4 + offsets.size() * offsets[0].size(), 0);
-            a[0] = 1;
+            a[0] = 0;
             buffer.push_back(a);
         }
 
@@ -380,8 +593,21 @@ public:
                 {
                     auto index = sparse_index_group_batch[k];
                     index += table_offset;
+
                     auto dpu_id = index / emb_num_per_dpu;
                     auto dpu_emb_id = index % emb_num_per_dpu;
+
+                    auto it = redundant_embs.find(index);
+                    if (it != redundant_embs.end())
+                    {
+                        int p = rand() % (it->second).dpu_ids.size();
+                        dpu_id = (it->second).dpu_ids[p];
+                        dpu_emb_id = (it->second).dpu_emb_ids[p];
+                    }
+
+                    emb_freqs[index]++;
+
+                    update_dpu_freq(dpu_id, dpu_freqs[dpu_id] + 1);
 
                     buffer[dpu_id].push_back(gid);
                     buffer[dpu_id].push_back(dpu_emb_id);
@@ -392,13 +618,7 @@ public:
             }
             table_offset += table_sizes[i];
         }
-
-        auto end_time = chrono::high_resolution_clock::now();
-        auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
-        // printf("Task distribution time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
-        task_distribution_time.push_back(1.0 * duration.count() / 1000);
-
-        start_time = chrono::high_resolution_clock::now();
+        global_total_index_num += total_index_num;
 
         vector<uint32_t> index_group_num;
         vector<uint32_t> index_num;
@@ -423,6 +643,13 @@ public:
         index_group_nums.push_back(index_group_num);
         index_nums.push_back(index_num);
 
+        auto end_time = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+        // printf("Task dispatch time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+        task_dispatch_time.push_back(1.0 * duration.count() / 1000);
+
+        start_time = chrono::high_resolution_clock::now();
+
         if (transfer_type == 0)
         {
             for (int i = 0; i < dpus.size(); ++i)
@@ -440,6 +667,14 @@ public:
                 buffer[i][1] = ((uint32_t)buffer[i].size() - 4 - index_groups.size()) / 2;
                 buffer[i][2] = index_groups.size();
                 dpuset.dpus()[i]->copy("buffer", buffer[i]);
+            }
+        }
+        else if (transfer_type == 2)
+        {
+            for (int i = 0; i < dpus.size(); ++i)
+            {
+                buffer[i][1] = ((uint32_t)buffer[i].size() - 4 - index_groups.size()) / 2;
+                buffer[i][2] = index_groups.size();
             }
         }
 
@@ -473,7 +708,7 @@ public:
             {
                 ret_buffer[i].resize(max_size * emb_dim);
             }
-            dpuset.copy(ret_buffer, "buffer", 8 * 1024 * 1024);
+            dpuset.copy(ret_buffer, "buffer", 1 * 1024 * 1024);
         }
         else if (transfer_type == 1)
         {
@@ -481,7 +716,7 @@ public:
             {
                 vector<vector<float>> a;
                 a.push_back(vector<float>(index_group_num[i] * emb_dim));
-                dpuset.dpus()[i]->copy(a, "buffer", 8 * 1024 * 1024);
+                dpuset.dpus()[i]->copy(a, "buffer", 1 * 1024 * 1024);
                 ret_buffer[i] = a[0];
             }
         }
@@ -528,6 +763,8 @@ public:
         duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
         // printf("CPU cal. time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
         CPU_cal_time.push_back(1.0 * duration.count() / 1000);
+
+        split_emb(total_index_num * SPLIT_EMB_NUM_RATIO);
 
         auto end2end_end_time = chrono::high_resolution_clock::now();
         auto end2end_duration = chrono::duration_cast<chrono::microseconds>(end2end_end_time - end2end_start_time);
