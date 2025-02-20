@@ -295,6 +295,8 @@ public:
         printf("avg_CPU_sum_emb_num: %.2lf\n", avg_CPU_sum_emb_num);
         printf("cur_redundant_emb_size: %u\n", cur_redundant_emb_size);
         printf("split_emb_num: %u\n", split_emb_num);
+        printf("merge_emb_num: %u\n", merge_emb_num);
+        printf("redundant_emb_num: %u\n", (uint32_t)redundant_emb_ids.size());
 
         printf("---------------------------------------------------------------------\n");
     }
@@ -494,16 +496,18 @@ public:
 
     uint32_t select_hot_emb(uint32_t dpu_id)
     {
+        static std::mt19937 random_num_generation(std::random_device{}());
+
         uint32_t ret_emb_id = total_emb_num;
         uint32_t ret_emb_freq = 0;
         for (int i = 0; i < min(dpu_emb_nums[dpu_id], SELECT_EMB_ITER); ++i)
         {
             uint32_t p;
 
-            if (dpu_emb_nums[dpu_id] < SELECT_EMB_ITER)
+            if (dpu_emb_nums[dpu_id] <= SELECT_EMB_ITER)
                 p = i;
             else
-                p = rand() % dpu_emb_nums[dpu_id];
+                p = random_num_generation() % dpu_emb_nums[dpu_id];
 
             uint32_t emb_id;
             if (p < emb_num_per_dpu)
@@ -620,7 +624,7 @@ public:
         for (int _ = 0; _ < split_emb_num; ++_)
         {
             if (cur_redundant_emb_size >= max_redundant_emb_size)
-                return;
+                break;
 
             auto start_time = chrono::high_resolution_clock::now();
 
@@ -712,6 +716,35 @@ public:
 
     uint32_t select_cold_redundant_emb()
     {
+        static std::mt19937 random_num_generation(std::random_device{}());
+
+        uint32_t ret_emb_id = total_emb_num;
+        uint32_t ret_delta_freq = 0;
+
+        for (int i = 0; i < min((uint32_t)redundant_emb_ids.size(), SELECT_EMB_ITER); ++i)
+        {
+            int p;
+            if (redundant_emb_ids.size() <= SELECT_EMB_ITER)
+            {
+                p = i;
+            }
+            else
+            {
+                p = random_num_generation() % redundant_emb_ids.size();
+            }
+            uint32_t emb_id = redundant_emb_ids[p];
+
+            uint32_t copy_num = redundant_embs[emb_id].dpu_ids.size();
+            uint32_t delta_freq = emb_freqs[emb_id] / (copy_num - 1) - emb_freqs[emb_id] / copy_num;
+
+            if (ret_emb_id == total_emb_num || ret_delta_freq > delta_freq)
+            {
+                ret_emb_id = emb_id;
+                ret_delta_freq = delta_freq;
+            }
+        }
+
+        return ret_emb_id;
     }
 
     void merge_emb()
@@ -722,35 +755,75 @@ public:
 
         for (int _ = 0; _ < merge_emb_num; ++_)
         {
-            if (cur_redundant_emb_size < max_redundant_emb_size * 0.8)
-                return;
+            if (cur_redundant_emb_size < max_redundant_emb_size * 0.95)
+                break;
 
-            uint32_t cold_emb_id = select_cold_redundant_emb();
-
-            auto &redundant_emb = redundant_embs[cold_emb_id];
-
-            if (redundant_emb.dpu_ids.size() == 1)
-            {
-
+            uint32_t emb_id = select_cold_redundant_emb();
+            if (emb_id == total_emb_num)
                 continue;
-            }
+
+            auto &redundant_emb = redundant_embs[emb_id];
 
             vector<uint32_t> dpu_ids = redundant_emb.dpu_ids;
             swap(dpu_ids[0], *dpu_ids.rbegin());
             dpu_ids.pop_back();
-            
+
             uint32_t hot_dpu_id = select_hot_dpu(dpu_ids);
-            
-            for (int i=0;i<redundant_emb.dpu_ids.size();++i)
+
+            uint32_t copy_num = redundant_embs[emb_id].dpu_ids.size();
+            uint32_t delta_freq = emb_freqs[emb_id] / (copy_num - 1) - emb_freqs[emb_id] / copy_num;
+
+            bool flag = true;
+            for (auto id : redundant_emb.dpu_ids)
+            {
+                if (id == hot_dpu_id)
+                    continue;
+                if (dpu_freqs[hot_dpu_id] < dpu_freqs[id] + delta_freq)
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (!flag)
+                continue;
+
+            --cur_redundant_emb_size;
+
+            if (redundant_emb.dpu_ids.size() == 2)
+            {
+                for (int i = 0; i < redundant_emb_ids.size(); ++i)
+                    if (redundant_emb_ids[i] == emb_id)
+                    {
+                        swap(redundant_emb_ids[i], *redundant_emb_ids.rbegin());
+                        redundant_emb_ids.pop_back();
+                        break;
+                    }
+                dpu_freqs[redundant_emb.dpu_ids[0]] += emb_freqs[emb_id] / 2;
+                dpu_freqs[redundant_emb.dpu_ids[1]] -= emb_freqs[emb_id] / 2;
+                auto it = redundant_embs.find(emb_id);
+                redundant_embs.erase(it);
+                continue;
+            }
+
+            for (int i = 0; i < redundant_emb.dpu_ids.size(); ++i)
                 if (redundant_emb.dpu_ids[i] == hot_dpu_id)
                 {
-
+                    swap(redundant_emb.dpu_ids[i], *redundant_emb.dpu_ids.rbegin());
+                    redundant_emb.dpu_ids.pop_back();
+                    swap(redundant_emb.dpu_emb_ids[i], *redundant_emb.dpu_emb_ids.rbegin());
+                    redundant_emb.dpu_emb_ids.pop_back();
+                    break;
                 }
+
+            for (auto id : redundant_emb.dpu_ids)
+            {
+                dpu_freqs[id] += delta_freq;
+            }
+            dpu_freqs[hot_dpu_id] -= emb_freqs[emb_id] / (redundant_emb.dpu_ids.size() + 1);
         }
 
         auto total_end_time = chrono::high_resolution_clock::now();
         auto total_duration = chrono::duration_cast<chrono::microseconds>(total_end_time - total_start_time);
-        // printf("Split emb time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
         merge_emb_time.push_back(1.0 * total_duration.count() / 1000);
     }
 
@@ -991,6 +1064,8 @@ public:
             split_emb_num = total_index_num * SPLIT_EMB_NUM_RATIO;
         split_emb();
 
+        if (merge_emb_num == 0)
+            merge_emb_num = total_index_num * MERGE_EMB_NUM_RATIO;
         merge_emb();
 
         auto end2end_end_time = chrono::high_resolution_clock::now();
@@ -998,13 +1073,24 @@ public:
         // printf("Total apply emb time (ms): %.2lf\n", 1.0 * end2end_duration.count() / 1000);
         total_apply_emb_time.push_back(1.0 * end2end_duration.count() / 1000);
 
-        if (split_emb_time.back() / total_apply_emb_time.back() * 100 > 5)
+        float time_ratio = split_emb_time.back() / total_apply_emb_time.back() * 100;
+        if (split_emb_num > 0 && time_ratio > 5)
         {
             split_emb_num--;
         }
-        else if (cur_redundant_emb_size < max_redundant_emb_size * 0.95)
+        else if (time_ratio < 3 && cur_redundant_emb_size < max_redundant_emb_size * 0.95)
         {
             split_emb_num++;
+        }
+
+        time_ratio = merge_emb_time.back() / total_apply_emb_time.back() * 100;
+        if (merge_emb_num > 0 && time_ratio > 1)
+        {
+            merge_emb_num--;
+        }
+        else if (time_ratio < 0.5 && cur_redundant_emb_size > max_redundant_emb_size * 0.95)
+        {
+            merge_emb_num++;
         }
 
         // start_time = chrono::high_resolution_clock::now();
