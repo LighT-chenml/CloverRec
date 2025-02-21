@@ -283,6 +283,7 @@ class DLRM_Net(nn.Module):
             self.emb_storage = EmbStorage(m_spa, ln_emb, args.num_indices_per_lookup, args.mini_batch_size, args.emb_pool_ip, args.emb_pool_port, args.rdma_wr_capacity)
 
             self.ev_lookup_time = []
+            self.apply_emb_time = []
 
             # specify the loss function
             if self.loss_function == "mse":
@@ -305,6 +306,9 @@ class DLRM_Net(nn.Module):
 
     def sequential_forward(self, dense_x, lS_o, lS_i):
         # process dense features (using bottom mlp), resulting in a row vector
+        
+        total_start_time = time.time()
+        
         client.send_request(0, {'dense_x': dense_x})
 
         start_time = time.time()
@@ -321,6 +325,11 @@ class DLRM_Net(nn.Module):
 
         # obtain probability of a click (using top mlp)
         p = client.send_request(1, {'ly': ly})['data']
+        
+        end_time = time.time()
+        total_time = end_time - total_start_time
+        total_time *= 1000
+        self.apply_emb_time.append(total_time)
 
         # clamp output if needed
         if 0.0 < self.loss_threshold and self.loss_threshold < 1.0:
@@ -957,6 +966,8 @@ def run():
         print("Avg latency (ms) : " + str(round(avg_latency, 2)))
         avg_ev_lookup_time = sum(dlrm.ev_lookup_time) / len(dlrm.ev_lookup_time)
         print("Avg ev lookup time (ms) : " + str(round(avg_ev_lookup_time, 2)))
+        avg_apply_emb_time = sum(dlrm.apply_emb_time) / len(dlrm.apply_emb_time)
+        print("Avg apply emb time (ms) : " + str(round(avg_apply_emb_time, 2)))
         avg_transmission_time = sum(dlrm.emb_storage.transmission_time) / len(dlrm.emb_storage.transmission_time)
         print("Avg transmission time (ms) : " + str(round(avg_transmission_time, 2)))
         avg_ev_lookup_time2 = sum(dlrm.emb_storage.ev_lookup_time) / len(dlrm.emb_storage.ev_lookup_time)

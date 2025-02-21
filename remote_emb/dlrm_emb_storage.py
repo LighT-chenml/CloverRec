@@ -141,9 +141,7 @@ class EmbStorage():
         end_time = time.time()
         total_time = end_time - start_time
         total_time *= 1000
-        print("transmission time (ms): " + f"{total_time}")
         self.transmission_time.append(total_time)
-        
         
         # start_time = time.time()
         
@@ -204,7 +202,6 @@ class EmbStorage():
         end_time_g = time.time()
         total_time = end_time_g - start_time_g
         total_time *= 1000
-        print("end to end time (ms): " + f"{total_time}")
         self.ev_lookup_time.append(total_time)
 
         # print("lookup time (ms): " + f"{total_lookup_time}")
