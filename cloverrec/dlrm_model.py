@@ -362,13 +362,14 @@ class GPUServer:
         if func_type == 0:
             ret = self.apply_bot_mlp(input_data['dense_x'])
         elif func_type == 1:
+            start_time = time.time()
+            
             ret = self.interact_features_and_apply_top_mlp(input_data['ly'])
             
-        end_time = time.time()
-        total_time = end_time - start_time
-        total_time *= 1000
-        print("GPU model time (ms): " + f"{total_time}")
-        self.GPU_model_time.append(total_time)
+            end_time = time.time()
+            total_time = end_time - start_time
+            total_time *= 1000
+            self.GPU_model_time.append(total_time)
         
         header = {}
         output_data = ret
@@ -439,6 +440,7 @@ class GPUServer:
 
         self.conn.close()
         
+        self.GPU_model_time = self.GPU_model_time[1:]
         avg_GPU_model_time = sum(self.GPU_model_time) / len(self.GPU_model_time)
         print("Avg GPU model time (ms) : " + str(round(avg_GPU_model_time, 2)))
         self.GPU_model_time = []

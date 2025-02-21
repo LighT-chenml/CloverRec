@@ -283,7 +283,7 @@ class DLRM_Net(nn.Module):
             self.emb_storage = EmbStorage(m_spa, ln_emb)
             
             self.ev_lookup_time = []
-            self.GPU_model_time = []
+            self.apply_emb_time = []
 
             # specify the loss function
             if self.loss_function == "mse":
@@ -306,6 +306,8 @@ class DLRM_Net(nn.Module):
 
     def sequential_forward(self, dense_x, lS_o, lS_i):
         # process dense features (using bottom mlp), resulting in a row vector
+        total_start_time = time.time()
+        
         client.send_request(0, {'dense_x': dense_x})
 
         start_time = time.time()
@@ -319,15 +321,13 @@ class DLRM_Net(nn.Module):
         total_time *= 1000
         self.ev_lookup_time.append(total_time)
 
-        start_time = time.time()
-
         # obtain probability of a click (using top mlp)
         p = client.send_request(1, {'ly': ly})['data']
         
         end_time = time.time()
-        total_time = end_time - start_time
+        total_time = end_time - total_start_time
         total_time *= 1000
-        self.GPU_model_time.append(total_time)
+        self.apply_emb_time.append(total_time)
 
         # clamp output if needed
         if 0.0 < self.loss_threshold and self.loss_threshold < 1.0:
@@ -961,8 +961,8 @@ def run():
         print("Avg latency (ms) : " + str(round(avg_latency, 2)))
         avg_ev_lookup_time = sum(dlrm.ev_lookup_time) / len(dlrm.ev_lookup_time)
         print("Avg ev lookup time (ms) : " + str(round(avg_ev_lookup_time, 2)))
-        avg_GPU_model_time = sum(dlrm.GPU_model_time) / len(dlrm.GPU_model_time)
-        print("Avg GPU model time (ms) : " + str(round(avg_GPU_model_time, 2)))
+        avg_apply_emb_time = sum(dlrm.apply_emb_time) / len(dlrm.apply_emb_time)
+        print("Avg apply emb time (ms) : " + str(round(avg_apply_emb_time, 2)))
        
         client.close()
         print("Close connection...")
