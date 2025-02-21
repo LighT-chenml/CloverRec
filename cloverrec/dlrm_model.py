@@ -312,6 +312,8 @@ class GPUServer:
     def __init__(self):
         self.SERVER_RECV_WR = 1
         self.SERVER_SEND_WR = 2
+        
+        self.GPU_model_time = []
     
     def read_mr(self, length, offset):
         return self.mr.read(length, offset)
@@ -353,12 +355,20 @@ class GPUServer:
         header = request['header']
         input_data = request['data']
 
+        start_time = time.time()
+
         # prepare request response
         func_type = header['func_type']
         if func_type == 0:
             ret = self.apply_bot_mlp(input_data['dense_x'])
         elif func_type == 1:
             ret = self.interact_features_and_apply_top_mlp(input_data['ly'])
+            
+        end_time = time.time()
+        total_time = end_time - start_time
+        total_time *= 1000
+        print("GPU model time (ms): " + f"{total_time}")
+        self.GPU_model_time.append(total_time)
         
         header = {}
         output_data = ret
@@ -429,6 +439,9 @@ class GPUServer:
 
         self.conn.close()
         
+        avg_GPU_model_time = sum(self.GPU_model_time) / len(self.GPU_model_time)
+        print("Avg GPU model time (ms) : " + str(round(avg_GPU_model_time, 2)))
+        self.GPU_model_time = []
         print("Close connection...")
         print('-' * 80)
 

@@ -97,6 +97,8 @@ class EmbStorage():
     def __init__(self, m, ln, num_indices_per_lookup, batch_size, emb_pool_ip, emb_pool_port, wr_capacity):
         self.m = m
         self.ln = ln
+        self.transmission_time = []
+        self.ev_lookup_time = []
         
         self.client = EmbClient()
         mr_size = len(ln) * num_indices_per_lookup * batch_size * m * 4
@@ -121,7 +123,7 @@ class EmbStorage():
         # 2. for each embedding the lookups are further organized into a batch
         # 3. for a list of embedding tables there is a list of batched lookups
     
-        # start_time_g = time.time()
+        start_time_g = time.time()
     
         emb_size = self.m * 4
     
@@ -132,14 +134,16 @@ class EmbStorage():
             table_offset += self.ln[k]
         offset_list = torch.cat(offset_list,dim=0) * emb_size
 
-        # start_time = time.time()
+        start_time = time.time()
 
         evs_bytes = self.client.send_request(offset_list, emb_size)
         
-        # end_time = time.time()
-        # total_time = end_time - start_time
-        # total_time *= 1000
-        # print("transmission time (ms): " + f"{total_time}")
+        end_time = time.time()
+        total_time = end_time - start_time
+        total_time *= 1000
+        print("transmission time (ms): " + f"{total_time}")
+        self.transmission_time.append(total_time)
+        
         
         # start_time = time.time()
         
@@ -197,10 +201,11 @@ class EmbStorage():
             ly.append(V)
             ev_offset += len(sparse_index_group_batch)
             
-        # end_time_g = time.time()
-        # total_time = end_time_g - start_time_g
-        # total_time *= 1000
-        # print("end to end time (ms): " + f"{total_time}")
+        end_time_g = time.time()
+        total_time = end_time_g - start_time_g
+        total_time *= 1000
+        print("end to end time (ms): " + f"{total_time}")
+        self.ev_lookup_time.append(total_time)
 
         # print("lookup time (ms): " + f"{total_lookup_time}")
         # print("sum time (ms): " + f"{total_sum_time}")
