@@ -382,6 +382,7 @@ public:
                     auto dpu_id = index / emb_num_per_dpu;
                     auto dpu_emb_id = index % emb_num_per_dpu;
 
+                    if (buffer[dpu_id][4 + gid] == 0) buffer[dpu_id][2]++;
                     buffer[dpu_id].push_back(gid);
                     buffer[dpu_id].push_back(dpu_emb_id);
                     buffer[dpu_id][4 + gid] = 1;
@@ -427,7 +428,6 @@ public:
             for (int i = 0; i < dpus.size(); ++i)
             {
                 buffer[i][1] = ((uint32_t)buffer[i].size() - 4 - index_groups.size()) / 2;
-                buffer[i][2] = index_groups.size();
                 buffer[i].resize(max_size);
             }
             dpuset.copy("buffer", buffer);
@@ -437,7 +437,6 @@ public:
             for (int i = 0; i < dpus.size(); ++i)
             {
                 buffer[i][1] = ((uint32_t)buffer[i].size() - 4 - index_groups.size()) / 2;
-                buffer[i][2] = index_groups.size();
                 dpuset.dpus()[i]->copy("buffer", buffer[i]);
             }
         }
