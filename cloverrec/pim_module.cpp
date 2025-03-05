@@ -155,10 +155,18 @@ class PIMEmbStorage
     const uint32_t SELECT_DPU_ITER = 100;
 
 private:
-    int transfer_type;
+    int exec_type;     // 0: sync 1: rank async 2: dpu async
+    int transfer_type; // 0: all 1: rank 2: dpu
+
+    // dpu
+    dpu::DpuSet dpuset = dpu::DpuSet::allocate(DPU_NUM);
+    pair<int, int> dpu_rank_ids[DPU_NUM];
 
     // emb data
     uint64_t emb_dim;
+    uint64_t total_emb_num;
+    uint64_t emb_num_per_dpu;
+    uint64_t global_total_index_num;
     vector<uint64_t> table_sizes;
     vector<float> tables;
 
@@ -171,12 +179,6 @@ private:
     vector<uint32_t> dpu_redundant_emb_ids[DPU_NUM];
     uint32_t dpu_table_num[DPU_NUM];
     vector<uint32_t> dpu_table_emb_nums[DPU_NUM];
-
-    dpu::DpuSet dpuset = dpu::DpuSet::allocate(DPU_NUM);
-
-    uint64_t total_emb_num;
-    uint64_t emb_num_per_dpu;
-    uint64_t global_total_index_num;
 
     uint32_t split_emb_num;
     uint32_t merge_emb_num;
@@ -351,7 +353,11 @@ public:
 
     void initialize(uint64_t m, py::array_t<uint64_t> &ln, py::array_t<float> &emb_tables)
     {
-        transfer_type = 0;
+        exec_type = 1;
+        transfer_type = 2;
+
+        if (exec_type != 0)
+            transfer_type = exec_type;
 
         emb_dim = m;
         table_sizes.resize(ln.size());
@@ -361,6 +367,16 @@ public:
 
         auto &dpus = dpuset.dpus();
         printf("num dpu: %ld\n", dpus.size());
+
+        auto &ranks = dpuset.ranks();
+        for (int i = 0, l = 0, r; i < ranks.size(); ++i, l = r)
+        {
+            r = l + ranks[i]->dpus().size();
+            for (int j = l, k = 0; j < r; ++j, ++k)
+            {
+                dpu_rank_ids[j] = make_pair(i, k);
+            }
+        }
 
         dpuset.load(DPU_BINARY);
 
@@ -838,6 +854,7 @@ public:
         static std::mt19937 random_num_generation(std::random_device{}());
 
         auto &dpus = dpuset.dpus();
+        auto &ranks = dpuset.ranks();
 
         apply_emb_num++;
         if (apply_emb_num % 20 == 0)
@@ -859,11 +876,20 @@ public:
 
         vector<IndexGroup> index_groups;
         vector<vector<uint32_t>> buffer;
+        vector<vector<vector<uint32_t>>> rank_buffer(ranks.size());
         for (int i = 0; i < dpus.size(); ++i)
         {
             vector<uint32_t> a(4 + offsets.size() * offsets[0].size(), 0);
             a[0] = 0;
-            buffer.push_back(a);
+            if (transfer_type == 0 || transfer_type == 2)
+            {
+                buffer.push_back(a);
+            }
+            else
+            {
+                auto &p = dpu_rank_ids[i];
+                rank_buffer[p.first].push_back(a);
+            }
         }
 
         uint32_t batch_size = 0;
@@ -904,12 +930,25 @@ public:
 
                     emb_freqs[index] += freq_base;
                     dpu_freqs[dpu_id] += freq_base;
-
-                    if (buffer[dpu_id][4 + gid] == 0) buffer[dpu_id][2]++;
-                    buffer[dpu_id].push_back(gid);
-                    buffer[dpu_id].push_back(dpu_emb_id);
-                    buffer[dpu_id][4 + gid] = 1;
                     ig.dpu_ids.push_back(dpu_id);
+
+                    if (transfer_type == 0 || transfer_type == 2)
+                    {
+                        if (buffer[dpu_id][4 + gid] == 0)
+                            buffer[dpu_id][2]++;
+                        buffer[dpu_id].push_back(gid);
+                        buffer[dpu_id].push_back(dpu_emb_id);
+                        buffer[dpu_id][4 + gid] = 1;
+                    }
+                    else if (transfer_type == 1)
+                    {
+                        auto &p = dpu_rank_ids[dpu_id];
+                        if (rank_buffer[p.first][p.second][4 + gid] == 0)
+                            rank_buffer[p.first][p.second][2]++;
+                        rank_buffer[p.first][p.second].push_back(gid);
+                        rank_buffer[p.first][p.second].push_back(dpu_emb_id);
+                        rank_buffer[p.first][p.second][4 + gid] = 1;
+                    }
                 }
                 index_groups.push_back(ig);
             }
@@ -924,102 +963,225 @@ public:
 
         vector<uint32_t> index_group_num;
         vector<uint32_t> index_num;
-        uint32_t max_size = 0;
         for (int i = 0; i < dpus.size(); ++i)
         {
-            max_size = max(max_size, (uint32_t)buffer[i].size());
-            index_num.push_back(((uint32_t)buffer[i].size() - 4 - index_groups.size()) / 2);
-
-            uint32_t sum = 0;
-            for (int j = 0; j < index_groups.size(); ++j)
+            if (transfer_type == 0 || transfer_type == 2)
             {
-                uint32_t v = buffer[i][4 + j];
-                if (v)
+                index_num.push_back(((uint32_t)buffer[i].size() - 4 - index_groups.size()) / 2);
+
+                uint32_t sum = 0;
+                for (int j = 0; j < index_groups.size(); ++j)
                 {
-                    buffer[i][4 + j] = sum;
-                    sum += v;
+                    uint32_t v = buffer[i][4 + j];
+                    if (v)
+                    {
+                        buffer[i][4 + j] = sum;
+                        sum += v;
+                    }
                 }
+                index_group_num.push_back(sum);
             }
-            index_group_num.push_back(sum);
+            else if (transfer_type == 1)
+            {
+                auto &p = dpu_rank_ids[i];
+
+                index_num.push_back(((uint32_t)rank_buffer[p.first][p.second].size() - 4 - index_groups.size()) / 2);
+
+                uint32_t sum = 0;
+                for (int j = 0; j < index_groups.size(); ++j)
+                {
+                    uint32_t v = rank_buffer[p.first][p.second][4 + j];
+                    if (v)
+                    {
+                        rank_buffer[p.first][p.second][4 + j] = sum;
+                        sum += v;
+                    }
+                }
+                index_group_num.push_back(sum);
+            }
         }
         index_group_nums.push_back(index_group_num);
         index_nums.push_back(index_num);
 
-        start_time = chrono::high_resolution_clock::now();
-
+        vector<vector<float>> ret_buffer(dpus.size());
+        vector<vector<vector<float>>> rank_ret_buffer(ranks.size());
+        vector<vector<vector<float>>> dpu_ret_buffer(dpus.size());
         if (transfer_type == 0)
         {
+            uint32_t max_size = 0, max_ret_size = 0;
             for (int i = 0; i < dpus.size(); ++i)
             {
-                buffer[i][1] = ((uint32_t)buffer[i].size() - 4 - index_groups.size()) / 2;
-                buffer[i].resize(max_size);
+                buffer[i][1] = index_num[i];
+                max_size = max(max_size, (uint32_t)buffer[i].size());
+                max_ret_size = max(max_ret_size, index_group_num[i]);
             }
-            dpuset.copy("buffer", buffer);
+            for (int i = 0; i < dpus.size(); ++i)
+            {
+                buffer[i].resize(max_size);
+                ret_buffer[i].resize(max_ret_size * emb_dim);
+            }
         }
         else if (transfer_type == 1)
         {
-            for (int i = 0; i < dpus.size(); ++i)
+            for (int i = 0, l = 0, r; i < ranks.size(); ++i, l = r)
             {
-                buffer[i][1] = ((uint32_t)buffer[i].size() - 4 - index_groups.size()) / 2;
-                dpuset.dpus()[i]->copy("buffer", buffer[i]);
+                r = l + ranks[i]->dpus().size();
+                uint32_t max_size = 0, max_ret_size = 0;
+                for (int j = l, k = 0; j < r; ++j, ++k)
+                {
+                    rank_buffer[i][k][1] = ((uint32_t)rank_buffer[i][k].size() - 4 - index_groups.size()) / 2;
+                    max_size = max(max_size, (uint32_t)rank_buffer[i][k].size());
+                    max_ret_size = max(max_ret_size, index_group_num[j]);
+                }
+                for (int j = l, k = 0; j < r; ++j, ++k)
+                {
+                    rank_buffer[i][k].resize(max_size);
+                    rank_ret_buffer[i].push_back(vector<float>(max_ret_size * emb_dim));
+                }
             }
         }
         else if (transfer_type == 2)
         {
             for (int i = 0; i < dpus.size(); ++i)
             {
-                buffer[i][1] = ((uint32_t)buffer[i].size() - 4 - index_groups.size()) / 2;
-                dpuset.dpus()[i]->copy("buffer", buffer[i]);
+                buffer[i][1] = index_num[i];
+                dpu_ret_buffer[i].push_back(vector<float>(index_group_num[i] * emb_dim));
             }
         }
 
-        end_time = chrono::high_resolution_clock::now();
-        duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
-        // printf("Task tranfer time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
-        task_tranfer_time.push_back(1.0 * duration.count() / 1000);
-
-        start_time = chrono::high_resolution_clock::now();
-
-        dpuset.exec();
-
-        end_time = chrono::high_resolution_clock::now();
-        duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
-        // printf("PIM cal. time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
-        PIM_cal_time.push_back(1.0 * duration.count() / 1000);
-
-        // dpuset.log(cout);
-
-        start_time = chrono::high_resolution_clock::now();
-
-        vector<vector<float>> ret_buffer(dpus.size());
-        if (transfer_type == 0)
+        if (exec_type == 0)
         {
-            max_size = 0;
-            for (int i = 0; i < dpus.size(); ++i)
-            {
-                max_size = max(max_size, index_group_num[i]);
-            }
-            for (int i = 0; i < dpus.size(); ++i)
-            {
-                ret_buffer[i].resize(max_size * emb_dim);
-            }
-            dpuset.copy(ret_buffer, "buffer", 1 * 1024 * 1024);
-        }
-        else if (transfer_type == 1)
-        {
-            for (int i = 0; i < dpus.size(); ++i)
-            {
-                vector<vector<float>> a;
-                a.push_back(vector<float>(index_group_num[i] * emb_dim));
-                dpuset.dpus()[i]->copy(a, "buffer", 1 * 1024 * 1024);
-                ret_buffer[i] = a[0];
-            }
-        }
+            start_time = chrono::high_resolution_clock::now();
 
-        end_time = chrono::high_resolution_clock::now();
-        duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
-        // printf("Result transfer time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
-        result_transfer_time.push_back(1.0 * duration.count() / 1000);
+            if (transfer_type == 0)
+            {
+                dpuset.copy("buffer", buffer);
+            }
+            else if (transfer_type == 1)
+            {
+                vector<dpu::DpuSetAsync> async_ranks;
+                for (int i = 0, l = 0, r; i < ranks.size(); ++i, l = r)
+                {
+                    async_ranks.push_back(ranks[i]->async());
+                    async_ranks.back().copy("buffer", rank_buffer[i]);
+                }
+                for (int i = 0; i < ranks.size(); ++i)
+                {
+                    async_ranks[i].sync();
+                }
+            }
+            else if (transfer_type == 2)
+            {
+                vector<dpu::DpuSetAsync> async_dpus;
+                for (int i = 0; i < dpus.size(); ++i)
+                {
+                    async_dpus.push_back(dpus[i]->async());
+                    async_dpus.back().copy("buffer", buffer[i]);
+                }
+                for (int i = 0; i < dpus.size(); ++i)
+                {
+                    async_dpus[i].sync();
+                }
+            }
+
+            end_time = chrono::high_resolution_clock::now();
+            duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+            // printf("Task tranfer time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+            task_tranfer_time.push_back(1.0 * duration.count() / 1000);
+
+            start_time = chrono::high_resolution_clock::now();
+
+            dpuset.exec();
+
+            end_time = chrono::high_resolution_clock::now();
+            duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+            // printf("PIM cal. time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+            PIM_cal_time.push_back(1.0 * duration.count() / 1000);
+
+            // dpuset.log(cout);
+
+            start_time = chrono::high_resolution_clock::now();
+
+            if (transfer_type == 0)
+            {
+                dpuset.copy(ret_buffer, "buffer", 1 * 1024 * 1024);
+            }
+            else if (transfer_type == 1)
+            {
+                vector<dpu::DpuSetAsync> async_ranks;
+                for (int i = 0, l = 0, r; i < ranks.size(); ++i, l = r)
+                {
+                    async_ranks.push_back(ranks[i]->async());
+                    async_ranks.back().copy(rank_ret_buffer[i], "buffer", 1 * 1024 * 1024);
+                }
+                for (int i = 0; i < ranks.size(); ++i)
+                {
+                    async_ranks[i].sync();
+                }
+            }
+            else if (transfer_type == 2)
+            {
+                vector<dpu::DpuSetAsync> async_dpus;
+                for (int i = 0; i < dpus.size(); ++i)
+                {
+                    async_dpus.push_back(dpus[i]->async());
+                    async_dpus.back().copy(dpu_ret_buffer[i], "buffer", 1 * 1024 * 1024);
+                }
+                for (int i = 0; i < dpus.size(); ++i)
+                {
+                    async_dpus[i].sync();
+                }
+            }
+
+            end_time = chrono::high_resolution_clock::now();
+            duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+            // printf("Result transfer time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+            result_transfer_time.push_back(1.0 * duration.count() / 1000);
+        }
+        else if (exec_type == 1)
+        {
+            start_time = chrono::high_resolution_clock::now();
+
+            vector<dpu::DpuSetAsync> async_ranks;
+            for (int i = 0, l = 0, r; i < ranks.size(); ++i, l = r)
+            {
+                async_ranks.push_back(ranks[i]->async());
+                async_ranks.back().copy("buffer", rank_buffer[i]);
+                async_ranks.back().exec();
+                async_ranks.back().copy(rank_ret_buffer[i], "buffer", 1 * 1024 * 1024);
+            }
+            for (int i = 0; i < ranks.size(); ++i)
+            {
+                async_ranks[i].sync();
+            }
+
+            end_time = chrono::high_resolution_clock::now();
+            duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+            // printf("PIM cal. time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+            PIM_cal_time.push_back(1.0 * duration.count() / 1000);
+        }
+        else if (exec_type == 2)
+        {
+            start_time = chrono::high_resolution_clock::now();
+
+            vector<dpu::DpuSetAsync> async_dpus;
+            for (int i = 0; i < dpus.size(); ++i)
+            {
+                async_dpus.push_back(dpus[i]->async());
+                async_dpus.back().copy("buffer", buffer[i]);
+                async_dpus.back().exec();
+                async_dpus.back().copy(dpu_ret_buffer[i], "buffer", 1 * 1024 * 1024);
+            }
+            for (int i = 0; i < dpus.size(); ++i)
+            {
+                async_dpus[i].sync();
+            }
+
+            end_time = chrono::high_resolution_clock::now();
+            duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+            // printf("PIM cal. time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+            PIM_cal_time.push_back(1.0 * duration.count() / 1000);
+        }
 
         start_time = chrono::high_resolution_clock::now();
 
@@ -1042,9 +1204,25 @@ public:
 
                 for (auto &id : ig.dpu_ids)
                 {
-                    uint32_t result_index = buffer[id][4 + i];
-                    for (int k = 0; k < emb_dim; ++k)
-                        sum[k] += ret_buffer[id][result_index * emb_dim + k];
+                    if (transfer_type == 0)
+                    {
+                        uint32_t result_index = buffer[id][4 + i];
+                        for (int k = 0; k < emb_dim; ++k)
+                            sum[k] += ret_buffer[id][result_index * emb_dim + k];
+                    }
+                    else if (transfer_type == 1)
+                    {
+                        auto &p = dpu_rank_ids[id];
+                        uint32_t result_index = rank_buffer[p.first][p.second][4 + i];
+                        for (int k = 0; k < emb_dim; ++k)
+                            sum[k] += rank_ret_buffer[p.first][p.second][result_index * emb_dim + k];
+                    }
+                    else if (transfer_type == 2)
+                    {
+                        uint32_t result_index = buffer[id][4 + i];
+                        for (int k = 0; k < emb_dim; ++k)
+                            sum[k] += dpu_ret_buffer[id].back()[result_index * emb_dim + k];
+                    }
                 }
                 evs.push_back(sum);
             }
