@@ -28,6 +28,8 @@ rpc_type="coordinator"
 
 _args="--num-batches="${nbatches}\
 " --data-generation="${data}\
+" --data-set=kaggle"\
+" --dataset-multiprocessing"\
 " --raw-data-file="${raw_file_path}\
 " --processed-data-file="${processed_file_path}\
 " --rand-data-dist=zipfian"\

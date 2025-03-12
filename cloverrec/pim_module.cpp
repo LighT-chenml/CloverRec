@@ -1207,21 +1207,24 @@ public:
                     if (transfer_type == 0)
                     {
                         uint32_t result_index = buffer[id][4 + i];
+                        auto &v = ret_buffer[id];
                         for (int k = 0; k < emb_dim; ++k)
-                            sum[k] += ret_buffer[id][result_index * emb_dim + k];
+                            sum[k] += v[result_index * emb_dim + k];
                     }
                     else if (transfer_type == 1)
                     {
                         auto &p = dpu_rank_ids[id];
                         uint32_t result_index = rank_buffer[p.first][p.second][4 + i];
+                        auto &v = rank_ret_buffer[p.first][p.second];
                         for (int k = 0; k < emb_dim; ++k)
-                            sum[k] += rank_ret_buffer[p.first][p.second][result_index * emb_dim + k];
+                            sum[k] += v[result_index * emb_dim + k];
                     }
                     else if (transfer_type == 2)
                     {
                         uint32_t result_index = buffer[id][4 + i];
+                        auto &v = dpu_ret_buffer[id].back();
                         for (int k = 0; k < emb_dim; ++k)
-                            sum[k] += dpu_ret_buffer[id].back()[result_index * emb_dim + k];
+                            sum[k] += v[result_index * emb_dim + k];
                     }
                 }
                 evs.push_back(sum);

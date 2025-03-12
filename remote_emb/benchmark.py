@@ -46,11 +46,11 @@ def run():
     models = [args.model]
     models = ['RM1', 'RM2', 'RM3', 'RM4', 'kaggle']
     batch_sizes = {}
-    batch_sizes['RM1'] = [1, 2, 4, 8, 16, 32]
+    batch_sizes['RM1'] = [1, 2, 4, 8, 16, 32, 64]
     batch_sizes['RM2'] = [1, 2, 4, 8, 16, 32]
-    batch_sizes['RM3'] = [1, 2, 4, 8, 16, 32]
-    batch_sizes['RM4'] = [1, 2, 4, 8, 16, 32]
-    batch_sizes['kaggle'] = [1, 2, 4, 8, 16, 32]
+    batch_sizes['RM3'] = [1, 2, 4, 8, 16, 32, 64]
+    batch_sizes['RM4'] = [1, 2, 4, 8]
+    batch_sizes['kaggle'] = [1, 2, 4, 8, 16, 32, 64]
     
     clean_env()
     

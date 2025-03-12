@@ -1,3 +1,522 @@
+All clean.
+----------------------------------------------------------------
+current model: RM1
+----------------------------------------------------------------
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 1
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 1 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 197
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7129
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 1.9325611591339111 secs (0 mins)
+Throughput (Req/sec) : 51.74
+Avg latency (ms) : 19.33
+Avg ev lookup time (ms) : 2.82
+Avg apply emb time (ms) : 19.08
+Close connection...
+
+Error: 
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 2
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 2 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 198
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7130
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 1.3268985748291016 secs (0 mins)
+Throughput (Req/sec) : 150.73
+Avg latency (ms) : 13.27
+Avg ev lookup time (ms) : 3.87
+Avg apply emb time (ms) : 13.05
+Close connection...
+
+Error: 
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 4
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 4 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 199
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7131
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 1.3776092529296875 secs (0 mins)
+Throughput (Req/sec) : 290.36
+Avg latency (ms) : 13.78
+Avg ev lookup time (ms) : 4.19
+Avg apply emb time (ms) : 13.6
+Close connection...
+
+Error: 
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 8
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 8 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 200
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7132
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 1.3018989562988281 secs (0 mins)
+Throughput (Req/sec) : 614.49
+Avg latency (ms) : 13.02
+Avg ev lookup time (ms) : 5.11
+Avg apply emb time (ms) : 12.89
+Close connection...
+
+Error: 
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 16
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 16 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 201
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7133
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 2.0469284057617188 secs (0 mins)
+Throughput (Req/sec) : 781.66
+Avg latency (ms) : 20.47
+Avg ev lookup time (ms) : 12.5
+Avg apply emb time (ms) : 20.33
+Close connection...
+
+Error: 
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 32
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 202
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7134
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 2.64060640335083 secs (0 mins)
+Throughput (Req/sec) : 1211.84
+Avg latency (ms) : 26.41
+Avg ev lookup time (ms) : 18.0
+Avg apply emb time (ms) : 26.29
+Close connection...
+
+Error: 
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 64
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 64 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 203
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7135
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 4.246355772018433 secs (0 mins)
+Throughput (Req/sec) : 1507.17
+Avg latency (ms) : 42.46
+Avg ev lookup time (ms) : 34.22
+Avg apply emb time (ms) : 42.34
+Close connection...
+
+Error: 
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 128
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 128 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 204
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7136
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 7.752670764923096 secs (0 mins)
+Throughput (Req/sec) : 1651.04
+Avg latency (ms) : 77.53
+Avg ev lookup time (ms) : 68.65
+Avg apply emb time (ms) : 77.41
+Close connection...
+
+Error: 
+----------------------------------------------------------------
+current model: RM2
+----------------------------------------------------------------
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 1
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 1 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8001
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 205
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7137
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 3.4574904441833496 secs (0 mins)
+Throughput (Req/sec) : 28.92
+Avg latency (ms) : 34.57
+Avg ev lookup time (ms) : 8.34
+Avg apply emb time (ms) : 34.38
+Close connection...
+
+Error: 
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 2
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 2 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8001
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 206
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7138
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 2.5228590965270996 secs (0 mins)
+Throughput (Req/sec) : 79.28
+Avg latency (ms) : 25.23
+Avg ev lookup time (ms) : 8.03
+Avg apply emb time (ms) : 25.06
+Close connection...
+
+Error: 
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 4
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 4 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8001
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 207
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7139
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 2.9921505451202393 secs (0 mins)
+Throughput (Req/sec) : 133.68
+Avg latency (ms) : 29.92
+Avg ev lookup time (ms) : 12.29
+Avg apply emb time (ms) : 29.75
+Close connection...
+
+Error: 
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 8
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 8 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8001
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 208
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7140
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 3.9831950664520264 secs (0 mins)
+Throughput (Req/sec) : 200.84
+Avg latency (ms) : 39.83
+Avg ev lookup time (ms) : 21.5
+Avg apply emb time (ms) : 39.67
+Close connection...
+
+Error: 
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 16
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 16 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8001
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 209
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7141
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 5.657485723495483 secs (0 mins)
+Throughput (Req/sec) : 282.81
+Avg latency (ms) : 56.57
+Avg ev lookup time (ms) : 39.1
+Avg apply emb time (ms) : 56.4
+Close connection...
+
+Error: 
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 32
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8001
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 210
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7142
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 8.960636138916016 secs (0 mins)
+Throughput (Req/sec) : 357.12
+Avg latency (ms) : 89.61
+Avg ev lookup time (ms) : 71.82
+Avg apply emb time (ms) : 89.43
+Close connection...
+
+Error: 
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 64
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 64 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8001
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 211
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7143
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 15.366488933563232 secs (0 mins)
+Throughput (Req/sec) : 416.49
+Avg latency (ms) : 153.66
+Avg ev lookup time (ms) : 134.14
+Avg apply emb time (ms) : 153.48
+Close connection...
+
+Error: 
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 128
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 128 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8001
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 212
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7144
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 37.076807498931885 secs (0 mins)
+Throughput (Req/sec) : 345.23
+Avg latency (ms) : 370.77
+Avg ev lookup time (ms) : 350.34
+Avg apply emb time (ms) : 370.51
+Close connection...
+
+Error: 
 ----------------------------------------------------------------
 current model: RM3
 ----------------------------------------------------------------
@@ -14,120 +533,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82454
+qpn : 213
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6478
+qpn : 7145
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 4.964590072631836
-.ev lookup time (ms): 3.1960010528564453
-.ev lookup time (ms): 3.0455589294433594
-.ev lookup time (ms): 2.9726028442382812
-.ev lookup time (ms): 2.8905868530273438
-.ev lookup time (ms): 2.892017364501953
-.ev lookup time (ms): 2.9070377349853516
-.ev lookup time (ms): 2.6769638061523438
-.ev lookup time (ms): 2.8104782104492188
-.ev lookup time (ms): 2.804994583129883
-.ev lookup time (ms): 2.9366016387939453
-.ev lookup time (ms): 2.7916431427001953
-.ev lookup time (ms): 2.370119094848633
-.ev lookup time (ms): 2.839803695678711
-.ev lookup time (ms): 2.8388500213623047
-.ev lookup time (ms): 2.8052330017089844
-.ev lookup time (ms): 2.5675296783447266
-.ev lookup time (ms): 2.835512161254883
-.ev lookup time (ms): 2.500295639038086
-.ev lookup time (ms): 2.557039260864258
-.ev lookup time (ms): 2.8672218322753906
-.ev lookup time (ms): 1.890420913696289
-.ev lookup time (ms): 2.348184585571289
-.ev lookup time (ms): 2.148151397705078
-.ev lookup time (ms): 2.5336742401123047
-.ev lookup time (ms): 2.8603076934814453
-.ev lookup time (ms): 2.5513172149658203
-.ev lookup time (ms): 2.797365188598633
-.ev lookup time (ms): 2.7303695678710938
-.ev lookup time (ms): 2.836465835571289
-.ev lookup time (ms): 2.884387969970703
-.ev lookup time (ms): 2.840757369995117
-.ev lookup time (ms): 2.878427505493164
-.ev lookup time (ms): 2.404451370239258
-.ev lookup time (ms): 2.7811527252197266
-.ev lookup time (ms): 2.2852420806884766
-.ev lookup time (ms): 2.8181076049804688
-.ev lookup time (ms): 3.2415390014648438
-.ev lookup time (ms): 2.5043487548828125
-.ev lookup time (ms): 2.8731822967529297
-.ev lookup time (ms): 2.603292465209961
-.ev lookup time (ms): 2.779245376586914
-.ev lookup time (ms): 2.584218978881836
-.ev lookup time (ms): 2.7790069580078125
-.ev lookup time (ms): 2.8409957885742188
-.ev lookup time (ms): 2.8374195098876953
-.ev lookup time (ms): 2.856016159057617
-.ev lookup time (ms): 2.8145313262939453
-.ev lookup time (ms): 2.8586387634277344
-.ev lookup time (ms): 2.5510787963867188
-.ev lookup time (ms): 2.8879642486572266
-.ev lookup time (ms): 2.5146007537841797
-.ev lookup time (ms): 2.7484893798828125
-.ev lookup time (ms): 2.5072097778320312
-.ev lookup time (ms): 2.847433090209961
-.ev lookup time (ms): 2.523660659790039
-.ev lookup time (ms): 2.7747154235839844
-.ev lookup time (ms): 2.4831295013427734
-.ev lookup time (ms): 2.5780200958251953
-.ev lookup time (ms): 2.799510955810547
-.ev lookup time (ms): 2.482175827026367
-.ev lookup time (ms): 2.8600692749023438
-.ev lookup time (ms): 2.549886703491211
-.ev lookup time (ms): 2.8181076049804688
-.ev lookup time (ms): 2.7751922607421875
-.ev lookup time (ms): 2.764463424682617
-.ev lookup time (ms): 2.6776790618896484
-.ev lookup time (ms): 2.816438674926758
-.ev lookup time (ms): 2.804279327392578
-.ev lookup time (ms): 2.600431442260742
-.ev lookup time (ms): 2.7675628662109375
-.ev lookup time (ms): 2.2308826446533203
-.ev lookup time (ms): 2.844572067260742
-.ev lookup time (ms): 2.320528030395508
-.ev lookup time (ms): 2.793550491333008
-.ev lookup time (ms): 2.4726390838623047
-.ev lookup time (ms): 2.487659454345703
-.ev lookup time (ms): 2.7968883514404297
-.ev lookup time (ms): 2.5413036346435547
-.ev lookup time (ms): 2.8357505798339844
-.ev lookup time (ms): 2.8667449951171875
-.ev lookup time (ms): 2.7709007263183594
-.ev lookup time (ms): 2.746105194091797
-.ev lookup time (ms): 2.746105194091797
-.ev lookup time (ms): 2.400636672973633
-.ev lookup time (ms): 2.8257369995117188
-.ev lookup time (ms): 6.772518157958984
-.ev lookup time (ms): 2.502918243408203
-.ev lookup time (ms): 2.4933815002441406
-.ev lookup time (ms): 2.802610397338867
-.ev lookup time (ms): 2.8061866760253906
-.ev lookup time (ms): 2.2428035736083984
-.ev lookup time (ms): 2.8679370880126953
-.ev lookup time (ms): 2.298116683959961
-.ev lookup time (ms): 2.5098323822021484
-.ev lookup time (ms): 2.8259754180908203
-.ev lookup time (ms): 2.5548934936523438
-.ev lookup time (ms): 2.834796905517578
-.ev lookup time (ms): 2.8734207153320312
-.ev lookup time (ms): 2.8171539306640625
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 1.9314329624176025 secs (0 mins)
-Throughput (Req/sec) : 51.78
-Avg latency (ms) : 19.31
+Time elapsed (FINAL) : 2.008193016052246 secs (0 mins)
+Throughput (Req/sec) : 49.8
+Avg latency (ms) : 20.08
+Avg ev lookup time (ms) : 3.1
+Avg apply emb time (ms) : 19.83
 Close connection...
 
 Error: 
@@ -144,120 +565,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82455
+qpn : 214
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6479
+qpn : 7146
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 3.7598609924316406
-.ev lookup time (ms): 2.1860599517822266
-.ev lookup time (ms): 2.1734237670898438
-.ev lookup time (ms): 2.355813980102539
-.ev lookup time (ms): 2.895355224609375
-.ev lookup time (ms): 3.142833709716797
-.ev lookup time (ms): 3.767251968383789
-.ev lookup time (ms): 3.141164779663086
-.ev lookup time (ms): 3.3969879150390625
-.ev lookup time (ms): 3.113985061645508
-.ev lookup time (ms): 3.3676624298095703
-.ev lookup time (ms): 3.068685531616211
-.ev lookup time (ms): 3.398895263671875
-.ev lookup time (ms): 3.3540725708007812
-.ev lookup time (ms): 3.094911575317383
-.ev lookup time (ms): 3.420591354370117
-.ev lookup time (ms): 3.094911575317383
-.ev lookup time (ms): 3.7059783935546875
-.ev lookup time (ms): 3.7755966186523438
-.ev lookup time (ms): 3.581523895263672
-.ev lookup time (ms): 3.772735595703125
-.ev lookup time (ms): 3.1659603118896484
-.ev lookup time (ms): 3.4995079040527344
-.ev lookup time (ms): 3.1642913818359375
-.ev lookup time (ms): 3.105640411376953
-.ev lookup time (ms): 3.503084182739258
-.ev lookup time (ms): 3.0748844146728516
-.ev lookup time (ms): 4.028797149658203
-.ev lookup time (ms): 3.342866897583008
-.ev lookup time (ms): 3.7169456481933594
-.ev lookup time (ms): 3.1714439392089844
-.ev lookup time (ms): 3.101348876953125
-.ev lookup time (ms): 3.367900848388672
-.ev lookup time (ms): 3.2651424407958984
-.ev lookup time (ms): 3.698587417602539
-.ev lookup time (ms): 3.5600662231445312
-.ev lookup time (ms): 4.197597503662109
-.ev lookup time (ms): 4.111766815185547
-.ev lookup time (ms): 3.443479537963867
-.ev lookup time (ms): 3.2105445861816406
-.ev lookup time (ms): 3.789663314819336
-.ev lookup time (ms): 3.358602523803711
-.ev lookup time (ms): 2.9153823852539062
-.ev lookup time (ms): 3.1757354736328125
-.ev lookup time (ms): 2.847909927368164
-.ev lookup time (ms): 3.4711360931396484
-.ev lookup time (ms): 3.659486770629883
-.ev lookup time (ms): 3.755331039428711
-.ev lookup time (ms): 3.125905990600586
-.ev lookup time (ms): 3.6995410919189453
-.ev lookup time (ms): 3.3788681030273438
-.ev lookup time (ms): 3.107309341430664
-.ev lookup time (ms): 4.172325134277344
-.ev lookup time (ms): 3.006458282470703
-.ev lookup time (ms): 3.576040267944336
-.ev lookup time (ms): 3.1938552856445312
-.ev lookup time (ms): 3.2460689544677734
-.ev lookup time (ms): 3.5123825073242188
-.ev lookup time (ms): 3.2868385314941406
-.ev lookup time (ms): 3.777027130126953
-.ev lookup time (ms): 3.4189224243164062
-.ev lookup time (ms): 3.7462711334228516
-.ev lookup time (ms): 3.3066272735595703
-.ev lookup time (ms): 3.291606903076172
-.ev lookup time (ms): 3.2477378845214844
-.ev lookup time (ms): 3.2105445861816406
-.ev lookup time (ms): 3.2286643981933594
-.ev lookup time (ms): 3.51715087890625
-.ev lookup time (ms): 3.8063526153564453
-.ev lookup time (ms): 3.7775039672851562
-.ev lookup time (ms): 3.674745559692383
-.ev lookup time (ms): 3.3004283905029297
-.ev lookup time (ms): 3.1723976135253906
-.ev lookup time (ms): 7.713079452514648
-.ev lookup time (ms): 3.338336944580078
-.ev lookup time (ms): 3.591299057006836
-.ev lookup time (ms): 3.9777755737304688
-.ev lookup time (ms): 3.5619735717773438
-.ev lookup time (ms): 3.3757686614990234
-.ev lookup time (ms): 3.8716793060302734
-.ev lookup time (ms): 3.6156177520751953
-.ev lookup time (ms): 3.846406936645508
-.ev lookup time (ms): 3.27301025390625
-.ev lookup time (ms): 3.394603729248047
-.ev lookup time (ms): 3.615140914916992
-.ev lookup time (ms): 3.3385753631591797
-.ev lookup time (ms): 3.9713382720947266
-.ev lookup time (ms): 3.6170482635498047
-.ev lookup time (ms): 4.101991653442383
-.ev lookup time (ms): 3.3195018768310547
-.ev lookup time (ms): 3.0660629272460938
-.ev lookup time (ms): 3.280162811279297
-.ev lookup time (ms): 3.689289093017578
-.ev lookup time (ms): 3.8008689880371094
-.ev lookup time (ms): 4.028081893920898
-.ev lookup time (ms): 3.8712024688720703
-.ev lookup time (ms): 4.277706146240234
-.ev lookup time (ms): 3.7202835083007812
-.ev lookup time (ms): 3.2758712768554688
-.ev lookup time (ms): 3.890514373779297
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 1.2879269123077393 secs (0 mins)
-Throughput (Req/sec) : 155.29
-Avg latency (ms) : 12.88
+Time elapsed (FINAL) : 1.3890433311462402 secs (0 mins)
+Throughput (Req/sec) : 143.98
+Avg latency (ms) : 13.89
+Avg ev lookup time (ms) : 3.47
+Avg apply emb time (ms) : 13.68
 Close connection...
 
 Error: 
@@ -274,120 +597,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82456
+qpn : 215
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6480
+qpn : 7147
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 4.80198860168457
-.ev lookup time (ms): 3.2303333282470703
-.ev lookup time (ms): 3.4949779510498047
-.ev lookup time (ms): 3.6864280700683594
-.ev lookup time (ms): 4.229068756103516
-.ev lookup time (ms): 4.224061965942383
-.ev lookup time (ms): 4.231929779052734
-.ev lookup time (ms): 4.23884391784668
-.ev lookup time (ms): 3.766775131225586
-.ev lookup time (ms): 4.120111465454102
-.ev lookup time (ms): 3.734111785888672
-.ev lookup time (ms): 3.5483837127685547
-.ev lookup time (ms): 4.260778427124023
-.ev lookup time (ms): 4.037380218505859
-.ev lookup time (ms): 4.143714904785156
-.ev lookup time (ms): 4.047870635986328
-.ev lookup time (ms): 4.160881042480469
-.ev lookup time (ms): 4.355907440185547
-.ev lookup time (ms): 4.032135009765625
-.ev lookup time (ms): 3.8175582885742188
-.ev lookup time (ms): 4.177570343017578
-.ev lookup time (ms): 3.92913818359375
-.ev lookup time (ms): 4.139184951782227
-.ev lookup time (ms): 4.2724609375
-.ev lookup time (ms): 3.630399703979492
-.ev lookup time (ms): 4.114866256713867
-.ev lookup time (ms): 4.049062728881836
-.ev lookup time (ms): 4.389762878417969
-.ev lookup time (ms): 4.270792007446289
-.ev lookup time (ms): 4.306316375732422
-.ev lookup time (ms): 4.119396209716797
-.ev lookup time (ms): 4.235506057739258
-.ev lookup time (ms): 4.27699089050293
-.ev lookup time (ms): 3.875255584716797
-.ev lookup time (ms): 4.155635833740234
-.ev lookup time (ms): 3.9894580841064453
-.ev lookup time (ms): 4.100799560546875
-.ev lookup time (ms): 4.507303237915039
-.ev lookup time (ms): 4.076480865478516
-.ev lookup time (ms): 4.527568817138672
-.ev lookup time (ms): 4.435539245605469
-.ev lookup time (ms): 4.308462142944336
-.ev lookup time (ms): 3.839254379272461
-.ev lookup time (ms): 4.020929336547852
-.ev lookup time (ms): 4.0187835693359375
-.ev lookup time (ms): 4.331827163696289
-.ev lookup time (ms): 3.977537155151367
-.ev lookup time (ms): 3.9217472076416016
-.ev lookup time (ms): 4.543781280517578
-.ev lookup time (ms): 3.9687156677246094
-.ev lookup time (ms): 4.075527191162109
-.ev lookup time (ms): 4.2705535888671875
-.ev lookup time (ms): 7.02357292175293
-.ev lookup time (ms): 3.954648971557617
-.ev lookup time (ms): 4.169464111328125
-.ev lookup time (ms): 3.854036331176758
-.ev lookup time (ms): 3.6704540252685547
-.ev lookup time (ms): 4.400014877319336
-.ev lookup time (ms): 3.8809776306152344
-.ev lookup time (ms): 4.1408538818359375
-.ev lookup time (ms): 4.065275192260742
-.ev lookup time (ms): 4.235267639160156
-.ev lookup time (ms): 4.411458969116211
-.ev lookup time (ms): 4.125833511352539
-.ev lookup time (ms): 4.182577133178711
-.ev lookup time (ms): 4.6062469482421875
-.ev lookup time (ms): 4.383325576782227
-.ev lookup time (ms): 4.685163497924805
-.ev lookup time (ms): 4.387855529785156
-.ev lookup time (ms): 3.987550735473633
-.ev lookup time (ms): 4.510641098022461
-.ev lookup time (ms): 4.001617431640625
-.ev lookup time (ms): 3.8280487060546875
-.ev lookup time (ms): 4.30750846862793
-.ev lookup time (ms): 3.8542747497558594
-.ev lookup time (ms): 4.259347915649414
-.ev lookup time (ms): 4.573822021484375
-.ev lookup time (ms): 3.8347244262695312
-.ev lookup time (ms): 4.052877426147461
-.ev lookup time (ms): 4.220724105834961
-.ev lookup time (ms): 3.8688182830810547
-.ev lookup time (ms): 4.048585891723633
-.ev lookup time (ms): 3.9925575256347656
-.ev lookup time (ms): 3.8650035858154297
-.ev lookup time (ms): 4.579305648803711
-.ev lookup time (ms): 3.992795944213867
-.ev lookup time (ms): 3.8154125213623047
-.ev lookup time (ms): 4.236936569213867
-.ev lookup time (ms): 3.7949085235595703
-.ev lookup time (ms): 4.499673843383789
-.ev lookup time (ms): 4.44483757019043
-.ev lookup time (ms): 4.259586334228516
-.ev lookup time (ms): 3.957509994506836
-.ev lookup time (ms): 5.730867385864258
-.ev lookup time (ms): 4.260778427124023
-.ev lookup time (ms): 3.225088119506836
-.ev lookup time (ms): 3.7202835083007812
-.ev lookup time (ms): 3.562450408935547
-.ev lookup time (ms): 3.909587860107422
-.ev lookup time (ms): 4.233598709106445
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 1.4074389934539795 secs (0 mins)
-Throughput (Req/sec) : 284.2
-Avg latency (ms) : 14.07
+Time elapsed (FINAL) : 1.358372449874878 secs (0 mins)
+Throughput (Req/sec) : 294.47
+Avg latency (ms) : 13.58
+Avg ev lookup time (ms) : 4.57
+Avg apply emb time (ms) : 13.41
 Close connection...
 
 Error: 
@@ -404,120 +629,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82457
+qpn : 216
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6481
+qpn : 7148
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 8.449077606201172
-.ev lookup time (ms): 16.21699333190918
-.ev lookup time (ms): 5.99217414855957
-.ev lookup time (ms): 5.927324295043945
-.ev lookup time (ms): 6.250619888305664
-.ev lookup time (ms): 6.481647491455078
-.ev lookup time (ms): 6.482601165771484
-.ev lookup time (ms): 5.819797515869141
-.ev lookup time (ms): 5.6896209716796875
-.ev lookup time (ms): 5.752086639404297
-.ev lookup time (ms): 5.781888961791992
-.ev lookup time (ms): 6.085634231567383
-.ev lookup time (ms): 5.650043487548828
-.ev lookup time (ms): 5.712270736694336
-.ev lookup time (ms): 5.776405334472656
-.ev lookup time (ms): 6.142616271972656
-.ev lookup time (ms): 6.717920303344727
-.ev lookup time (ms): 5.764961242675781
-.ev lookup time (ms): 5.673885345458984
-.ev lookup time (ms): 5.781888961791992
-.ev lookup time (ms): 5.713939666748047
-.ev lookup time (ms): 5.687713623046875
-.ev lookup time (ms): 5.579710006713867
-.ev lookup time (ms): 5.709648132324219
-.ev lookup time (ms): 5.65791130065918
-.ev lookup time (ms): 6.265878677368164
-.ev lookup time (ms): 5.586862564086914
-.ev lookup time (ms): 5.654573440551758
-.ev lookup time (ms): 5.721569061279297
-.ev lookup time (ms): 6.157159805297852
-.ev lookup time (ms): 5.57255744934082
-.ev lookup time (ms): 5.585432052612305
-.ev lookup time (ms): 5.698919296264648
-.ev lookup time (ms): 5.523920059204102
-.ev lookup time (ms): 5.646228790283203
-.ev lookup time (ms): 5.611419677734375
-.ev lookup time (ms): 5.841255187988281
-.ev lookup time (ms): 5.522966384887695
-.ev lookup time (ms): 5.623817443847656
-.ev lookup time (ms): 5.616426467895508
-.ev lookup time (ms): 6.341218948364258
-.ev lookup time (ms): 6.1817169189453125
-.ev lookup time (ms): 5.619049072265625
-.ev lookup time (ms): 5.627155303955078
-.ev lookup time (ms): 5.707740783691406
-.ev lookup time (ms): 6.060361862182617
-.ev lookup time (ms): 6.382942199707031
-.ev lookup time (ms): 5.590677261352539
-.ev lookup time (ms): 5.608081817626953
-.ev lookup time (ms): 5.6743621826171875
-.ev lookup time (ms): 9.853363037109375
-.ev lookup time (ms): 5.71751594543457
-.ev lookup time (ms): 5.848407745361328
-.ev lookup time (ms): 6.248712539672852
-.ev lookup time (ms): 5.458354949951172
-.ev lookup time (ms): 5.361080169677734
-.ev lookup time (ms): 5.375862121582031
-.ev lookup time (ms): 6.1092376708984375
-.ev lookup time (ms): 5.846977233886719
-.ev lookup time (ms): 5.547285079956055
-.ev lookup time (ms): 5.354166030883789
-.ev lookup time (ms): 5.391120910644531
-.ev lookup time (ms): 8.12983512878418
-.ev lookup time (ms): 5.591154098510742
-.ev lookup time (ms): 6.605386734008789
-.ev lookup time (ms): 5.558967590332031
-.ev lookup time (ms): 5.430459976196289
-.ev lookup time (ms): 5.427122116088867
-.ev lookup time (ms): 6.280660629272461
-.ev lookup time (ms): 6.694793701171875
-.ev lookup time (ms): 5.761861801147461
-.ev lookup time (ms): 5.431890487670898
-.ev lookup time (ms): 9.590864181518555
-.ev lookup time (ms): 5.584955215454102
-.ev lookup time (ms): 5.531787872314453
-.ev lookup time (ms): 5.840063095092773
-.ev lookup time (ms): 6.1798095703125
-.ev lookup time (ms): 6.079435348510742
-.ev lookup time (ms): 5.564689636230469
-.ev lookup time (ms): 5.532264709472656
-.ev lookup time (ms): 5.543231964111328
-.ev lookup time (ms): 6.166696548461914
-.ev lookup time (ms): 10.708332061767578
-.ev lookup time (ms): 5.706548690795898
-.ev lookup time (ms): 6.885766983032227
-.ev lookup time (ms): 6.013631820678711
-.ev lookup time (ms): 5.610466003417969
-.ev lookup time (ms): 5.626916885375977
-.ev lookup time (ms): 5.666017532348633
-.ev lookup time (ms): 6.337642669677734
-.ev lookup time (ms): 11.126518249511719
-.ev lookup time (ms): 5.674600601196289
-.ev lookup time (ms): 6.549358367919922
-.ev lookup time (ms): 6.066322326660156
-.ev lookup time (ms): 5.828142166137695
-.ev lookup time (ms): 12.207508087158203
-.ev lookup time (ms): 6.569147109985352
-.ev lookup time (ms): 6.595134735107422
-.ev lookup time (ms): 6.287574768066406
-.ev lookup time (ms): 5.915164947509766
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 1.4724304676055908 secs (0 mins)
-Throughput (Req/sec) : 543.32
-Avg latency (ms) : 14.72
+Time elapsed (FINAL) : 1.3648958206176758 secs (0 mins)
+Throughput (Req/sec) : 586.13
+Avg latency (ms) : 13.65
+Avg ev lookup time (ms) : 5.35
+Avg apply emb time (ms) : 13.52
 Close connection...
 
 Error: 
@@ -534,120 +661,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82458
+qpn : 217
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6482
+qpn : 7149
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 11.66391372680664
-.ev lookup time (ms): 8.522272109985352
-.ev lookup time (ms): 8.52513313293457
-.ev lookup time (ms): 8.395195007324219
-.ev lookup time (ms): 8.38017463684082
-.ev lookup time (ms): 8.313655853271484
-.ev lookup time (ms): 8.25190544128418
-.ev lookup time (ms): 8.338212966918945
-.ev lookup time (ms): 8.376836776733398
-.ev lookup time (ms): 8.605718612670898
-.ev lookup time (ms): 12.849092483520508
-.ev lookup time (ms): 8.538961410522461
-.ev lookup time (ms): 8.383750915527344
-.ev lookup time (ms): 8.284330368041992
-.ev lookup time (ms): 8.385896682739258
-.ev lookup time (ms): 8.24284553527832
-.ev lookup time (ms): 8.292675018310547
-.ev lookup time (ms): 8.507251739501953
-.ev lookup time (ms): 8.309125900268555
-.ev lookup time (ms): 8.344888687133789
-.ev lookup time (ms): 8.740663528442383
-.ev lookup time (ms): 8.385181427001953
-.ev lookup time (ms): 8.415699005126953
-.ev lookup time (ms): 8.337020874023438
-.ev lookup time (ms): 8.278131484985352
-.ev lookup time (ms): 8.257389068603516
-.ev lookup time (ms): 8.270740509033203
-.ev lookup time (ms): 14.19830322265625
-.ev lookup time (ms): 8.297443389892578
-.ev lookup time (ms): 8.29768180847168
-.ev lookup time (ms): 8.325338363647461
-.ev lookup time (ms): 8.31913948059082
-.ev lookup time (ms): 8.255481719970703
-.ev lookup time (ms): 8.491039276123047
-.ev lookup time (ms): 8.424520492553711
-.ev lookup time (ms): 8.228302001953125
-.ev lookup time (ms): 8.265256881713867
-.ev lookup time (ms): 8.354425430297852
-.ev lookup time (ms): 8.208036422729492
-.ev lookup time (ms): 8.160114288330078
-.ev lookup time (ms): 8.2244873046875
-.ev lookup time (ms): 8.24737548828125
-.ev lookup time (ms): 8.210182189941406
-.ev lookup time (ms): 8.131027221679688
-.ev lookup time (ms): 8.184432983398438
-.ev lookup time (ms): 8.148193359375
-.ev lookup time (ms): 8.223533630371094
-.ev lookup time (ms): 8.132457733154297
-.ev lookup time (ms): 8.24284553527832
-.ev lookup time (ms): 8.248329162597656
-.ev lookup time (ms): 8.646011352539062
-.ev lookup time (ms): 8.218526840209961
-.ev lookup time (ms): 8.291006088256836
-.ev lookup time (ms): 8.222579956054688
-.ev lookup time (ms): 8.36181640625
-.ev lookup time (ms): 8.283615112304688
-.ev lookup time (ms): 8.238792419433594
-.ev lookup time (ms): 8.224725723266602
-.ev lookup time (ms): 8.239269256591797
-.ev lookup time (ms): 8.097410202026367
-.ev lookup time (ms): 8.244514465332031
-.ev lookup time (ms): 8.28242301940918
-.ev lookup time (ms): 8.123159408569336
-.ev lookup time (ms): 8.257389068603516
-.ev lookup time (ms): 8.300304412841797
-.ev lookup time (ms): 8.145570755004883
-.ev lookup time (ms): 8.762121200561523
-.ev lookup time (ms): 8.212089538574219
-.ev lookup time (ms): 8.249282836914062
-.ev lookup time (ms): 8.336305618286133
-.ev lookup time (ms): 8.241415023803711
-.ev lookup time (ms): 8.122682571411133
-.ev lookup time (ms): 8.29625129699707
-.ev lookup time (ms): 8.118391036987305
-.ev lookup time (ms): 8.610248565673828
-.ev lookup time (ms): 8.303403854370117
-.ev lookup time (ms): 8.275985717773438
-.ev lookup time (ms): 8.202791213989258
-.ev lookup time (ms): 8.207321166992188
-.ev lookup time (ms): 8.17418098449707
-.ev lookup time (ms): 8.127212524414062
-.ev lookup time (ms): 8.266210556030273
-.ev lookup time (ms): 8.13746452331543
-.ev lookup time (ms): 8.239269256591797
-.ev lookup time (ms): 8.177042007446289
-.ev lookup time (ms): 8.21232795715332
-.ev lookup time (ms): 8.149385452270508
-.ev lookup time (ms): 8.4075927734375
-.ev lookup time (ms): 8.197784423828125
-.ev lookup time (ms): 8.251667022705078
-.ev lookup time (ms): 8.163690567016602
-.ev lookup time (ms): 8.104324340820312
-.ev lookup time (ms): 8.095026016235352
-.ev lookup time (ms): 8.176088333129883
-.ev lookup time (ms): 8.257865905761719
-.ev lookup time (ms): 8.22305679321289
-.ev lookup time (ms): 8.276939392089844
-.ev lookup time (ms): 8.264780044555664
-.ev lookup time (ms): 8.25357437133789
-.ev lookup time (ms): 8.213043212890625
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 1.6557178497314453 secs (0 mins)
-Throughput (Req/sec) : 966.35
-Avg latency (ms) : 16.56
+Time elapsed (FINAL) : 2.003156900405884 secs (0 mins)
+Throughput (Req/sec) : 798.74
+Avg latency (ms) : 20.03
+Avg ev lookup time (ms) : 11.76
+Avg apply emb time (ms) : 19.89
 Close connection...
 
 Error: 
@@ -664,120 +693,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82459
+qpn : 218
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6483
+qpn : 7150
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 22.6743221282959
-.ev lookup time (ms): 18.08762550354004
-.ev lookup time (ms): 18.745899200439453
-.ev lookup time (ms): 17.76576042175293
-.ev lookup time (ms): 17.76742935180664
-.ev lookup time (ms): 17.63772964477539
-.ev lookup time (ms): 17.427444458007812
-.ev lookup time (ms): 17.60101318359375
-.ev lookup time (ms): 17.49277114868164
-.ev lookup time (ms): 17.58599281311035
-.ev lookup time (ms): 17.261266708374023
-.ev lookup time (ms): 21.23856544494629
-.ev lookup time (ms): 18.97907257080078
-.ev lookup time (ms): 16.597986221313477
-.ev lookup time (ms): 16.391277313232422
-.ev lookup time (ms): 17.162322998046875
-.ev lookup time (ms): 16.840696334838867
-.ev lookup time (ms): 16.730785369873047
-.ev lookup time (ms): 16.96157455444336
-.ev lookup time (ms): 17.958879470825195
-.ev lookup time (ms): 17.27604866027832
-.ev lookup time (ms): 17.07148551940918
-.ev lookup time (ms): 17.580032348632812
-.ev lookup time (ms): 17.808914184570312
-.ev lookup time (ms): 17.472267150878906
-.ev lookup time (ms): 22.485017776489258
-.ev lookup time (ms): 17.546892166137695
-.ev lookup time (ms): 17.813682556152344
-.ev lookup time (ms): 17.47441291809082
-.ev lookup time (ms): 22.9494571685791
-.ev lookup time (ms): 17.549991607666016
-.ev lookup time (ms): 17.545700073242188
-.ev lookup time (ms): 18.760204315185547
-.ev lookup time (ms): 18.155813217163086
-.ev lookup time (ms): 17.92621612548828
-.ev lookup time (ms): 18.109560012817383
-.ev lookup time (ms): 17.943620681762695
-.ev lookup time (ms): 17.531394958496094
-.ev lookup time (ms): 17.627954483032227
-.ev lookup time (ms): 17.813920974731445
-.ev lookup time (ms): 17.61603355407715
-.ev lookup time (ms): 17.702579498291016
-.ev lookup time (ms): 17.575502395629883
-.ev lookup time (ms): 17.51852035522461
-.ev lookup time (ms): 17.548561096191406
-.ev lookup time (ms): 17.94123649597168
-.ev lookup time (ms): 18.00084114074707
-.ev lookup time (ms): 17.510175704956055
-.ev lookup time (ms): 17.567157745361328
-.ev lookup time (ms): 17.52495765686035
-.ev lookup time (ms): 17.55976676940918
-.ev lookup time (ms): 17.32802391052246
-.ev lookup time (ms): 17.999887466430664
-.ev lookup time (ms): 17.831087112426758
-.ev lookup time (ms): 17.99774169921875
-.ev lookup time (ms): 18.221378326416016
-.ev lookup time (ms): 17.668962478637695
-.ev lookup time (ms): 23.1935977935791
-.ev lookup time (ms): 17.973661422729492
-.ev lookup time (ms): 17.960309982299805
-.ev lookup time (ms): 18.198490142822266
-.ev lookup time (ms): 18.534421920776367
-.ev lookup time (ms): 18.013715744018555
-.ev lookup time (ms): 18.715381622314453
-.ev lookup time (ms): 17.97318458557129
-.ev lookup time (ms): 17.870187759399414
-.ev lookup time (ms): 18.67985725402832
-.ev lookup time (ms): 17.937898635864258
-.ev lookup time (ms): 17.91524887084961
-.ev lookup time (ms): 18.34869384765625
-.ev lookup time (ms): 17.45295524597168
-.ev lookup time (ms): 17.50969886779785
-.ev lookup time (ms): 18.206119537353516
-.ev lookup time (ms): 17.667055130004883
-.ev lookup time (ms): 17.92454719543457
-.ev lookup time (ms): 17.656326293945312
-.ev lookup time (ms): 18.06473731994629
-.ev lookup time (ms): 17.44985580444336
-.ev lookup time (ms): 17.526865005493164
-.ev lookup time (ms): 18.004894256591797
-.ev lookup time (ms): 21.09670639038086
-.ev lookup time (ms): 17.41933822631836
-.ev lookup time (ms): 17.82512664794922
-.ev lookup time (ms): 17.374277114868164
-.ev lookup time (ms): 17.56000518798828
-.ev lookup time (ms): 17.671823501586914
-.ev lookup time (ms): 17.639636993408203
-.ev lookup time (ms): 17.41337776184082
-.ev lookup time (ms): 17.231225967407227
-.ev lookup time (ms): 17.379045486450195
-.ev lookup time (ms): 17.90142059326172
-.ev lookup time (ms): 17.417430877685547
-.ev lookup time (ms): 17.518997192382812
-.ev lookup time (ms): 17.485857009887695
-.ev lookup time (ms): 18.021583557128906
-.ev lookup time (ms): 17.68207550048828
-.ev lookup time (ms): 17.297029495239258
-.ev lookup time (ms): 17.520427703857422
-.ev lookup time (ms): 17.850160598754883
-.ev lookup time (ms): 17.632007598876953
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 2.637044906616211 secs (0 mins)
-Throughput (Req/sec) : 1213.48
-Avg latency (ms) : 26.37
+Time elapsed (FINAL) : 2.4957809448242188 secs (0 mins)
+Throughput (Req/sec) : 1282.16
+Avg latency (ms) : 24.96
+Avg ev lookup time (ms) : 16.75
+Avg apply emb time (ms) : 24.85
 Close connection...
 
 Error: 
@@ -794,120 +725,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82460
+qpn : 219
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6484
+qpn : 7151
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 48.29549789428711
-.ev lookup time (ms): 36.3919734954834
-.ev lookup time (ms): 36.427974700927734
-.ev lookup time (ms): 34.21783447265625
-.ev lookup time (ms): 35.665035247802734
-.ev lookup time (ms): 34.74688529968262
-.ev lookup time (ms): 34.546852111816406
-.ev lookup time (ms): 34.53230857849121
-.ev lookup time (ms): 35.98427772521973
-.ev lookup time (ms): 31.7533016204834
-.ev lookup time (ms): 32.08518028259277
-.ev lookup time (ms): 33.254146575927734
-.ev lookup time (ms): 33.38789939880371
-.ev lookup time (ms): 38.4068489074707
-.ev lookup time (ms): 32.53960609436035
-.ev lookup time (ms): 35.53485870361328
-.ev lookup time (ms): 34.049034118652344
-.ev lookup time (ms): 34.001827239990234
-.ev lookup time (ms): 33.850908279418945
-.ev lookup time (ms): 34.296512603759766
-.ev lookup time (ms): 33.85043144226074
-.ev lookup time (ms): 33.74028205871582
-.ev lookup time (ms): 33.684730529785156
-.ev lookup time (ms): 33.47921371459961
-.ev lookup time (ms): 33.67733955383301
-.ev lookup time (ms): 33.356666564941406
-.ev lookup time (ms): 32.76681900024414
-.ev lookup time (ms): 33.89739990234375
-.ev lookup time (ms): 39.922475814819336
-.ev lookup time (ms): 34.61194038391113
-.ev lookup time (ms): 46.51188850402832
-.ev lookup time (ms): 41.612863540649414
-.ev lookup time (ms): 34.932613372802734
-.ev lookup time (ms): 40.46344757080078
-.ev lookup time (ms): 35.80665588378906
-.ev lookup time (ms): 40.27438163757324
-.ev lookup time (ms): 35.50004959106445
-.ev lookup time (ms): 35.70365905761719
-.ev lookup time (ms): 35.40349006652832
-.ev lookup time (ms): 35.38322448730469
-.ev lookup time (ms): 35.56251525878906
-.ev lookup time (ms): 35.17746925354004
-.ev lookup time (ms): 35.59374809265137
-.ev lookup time (ms): 34.55686569213867
-.ev lookup time (ms): 34.96432304382324
-.ev lookup time (ms): 34.20877456665039
-.ev lookup time (ms): 33.85281562805176
-.ev lookup time (ms): 37.7347469329834
-.ev lookup time (ms): 34.86061096191406
-.ev lookup time (ms): 34.25025939941406
-.ev lookup time (ms): 33.67137908935547
-.ev lookup time (ms): 34.15250778198242
-.ev lookup time (ms): 33.644676208496094
-.ev lookup time (ms): 34.28912162780762
-.ev lookup time (ms): 34.61480140686035
-.ev lookup time (ms): 33.88214111328125
-.ev lookup time (ms): 34.21187400817871
-.ev lookup time (ms): 34.23953056335449
-.ev lookup time (ms): 33.42771530151367
-.ev lookup time (ms): 33.92839431762695
-.ev lookup time (ms): 34.197092056274414
-.ev lookup time (ms): 33.80131721496582
-.ev lookup time (ms): 33.86998176574707
-.ev lookup time (ms): 33.85162353515625
-.ev lookup time (ms): 34.0273380279541
-.ev lookup time (ms): 33.99372100830078
-.ev lookup time (ms): 33.79559516906738
-.ev lookup time (ms): 34.14726257324219
-.ev lookup time (ms): 33.843040466308594
-.ev lookup time (ms): 33.857107162475586
-.ev lookup time (ms): 33.895015716552734
-.ev lookup time (ms): 33.884286880493164
-.ev lookup time (ms): 34.50918197631836
-.ev lookup time (ms): 33.83231163024902
-.ev lookup time (ms): 35.1109504699707
-.ev lookup time (ms): 34.166812896728516
-.ev lookup time (ms): 35.12763977050781
-.ev lookup time (ms): 34.12437438964844
-.ev lookup time (ms): 34.15822982788086
-.ev lookup time (ms): 34.44266319274902
-.ev lookup time (ms): 34.36589241027832
-.ev lookup time (ms): 34.02090072631836
-.ev lookup time (ms): 33.04004669189453
-.ev lookup time (ms): 32.78541564941406
-.ev lookup time (ms): 33.33473205566406
-.ev lookup time (ms): 33.78915786743164
-.ev lookup time (ms): 34.13724899291992
-.ev lookup time (ms): 33.60295295715332
-.ev lookup time (ms): 34.04355049133301
-.ev lookup time (ms): 33.591270446777344
-.ev lookup time (ms): 33.72359275817871
-.ev lookup time (ms): 33.70213508605957
-.ev lookup time (ms): 33.5085391998291
-.ev lookup time (ms): 33.0042839050293
-.ev lookup time (ms): 32.90438652038574
-.ev lookup time (ms): 33.14042091369629
-.ev lookup time (ms): 33.12039375305176
-.ev lookup time (ms): 32.938480377197266
-.ev lookup time (ms): 33.461570739746094
-.ev lookup time (ms): 33.4324836730957
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 4.38070011138916 secs (0 mins)
-Throughput (Req/sec) : 1460.95
-Avg latency (ms) : 43.81
+Time elapsed (FINAL) : 5.407820224761963 secs (0 mins)
+Throughput (Req/sec) : 1183.47
+Avg latency (ms) : 54.08
+Avg ev lookup time (ms) : 45.1
+Avg apply emb time (ms) : 53.94
 Close connection...
 
 Error: 
@@ -924,120 +757,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82461
+qpn : 220
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6485
+qpn : 7152
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 69.57602500915527
-.ev lookup time (ms): 70.80721855163574
-.ev lookup time (ms): 68.38870048522949
-.ev lookup time (ms): 64.35918807983398
-.ev lookup time (ms): 63.76981735229492
-.ev lookup time (ms): 65.23466110229492
-.ev lookup time (ms): 63.71021270751953
-.ev lookup time (ms): 64.08524513244629
-.ev lookup time (ms): 64.02111053466797
-.ev lookup time (ms): 63.076019287109375
-.ev lookup time (ms): 63.91739845275879
-.ev lookup time (ms): 62.798500061035156
-.ev lookup time (ms): 63.29798698425293
-.ev lookup time (ms): 63.08293342590332
-.ev lookup time (ms): 63.87042999267578
-.ev lookup time (ms): 63.52543830871582
-.ev lookup time (ms): 62.28137016296387
-.ev lookup time (ms): 63.60912322998047
-.ev lookup time (ms): 62.714576721191406
-.ev lookup time (ms): 63.65633010864258
-.ev lookup time (ms): 63.523054122924805
-.ev lookup time (ms): 63.17639350891113
-.ev lookup time (ms): 63.90810012817383
-.ev lookup time (ms): 63.013553619384766
-.ev lookup time (ms): 63.32135200500488
-.ev lookup time (ms): 63.95411491394043
-.ev lookup time (ms): 63.802242279052734
-.ev lookup time (ms): 63.611745834350586
-.ev lookup time (ms): 62.93082237243652
-.ev lookup time (ms): 63.55643272399902
-.ev lookup time (ms): 64.27884101867676
-.ev lookup time (ms): 62.557220458984375
-.ev lookup time (ms): 63.50564956665039
-.ev lookup time (ms): 62.66450881958008
-.ev lookup time (ms): 62.24513053894043
-.ev lookup time (ms): 69.26822662353516
-.ev lookup time (ms): 70.1591968536377
-.ev lookup time (ms): 70.31440734863281
-.ev lookup time (ms): 70.22643089294434
-.ev lookup time (ms): 73.34017753601074
-.ev lookup time (ms): 73.89020919799805
-.ev lookup time (ms): 74.2642879486084
-.ev lookup time (ms): 70.6186294555664
-.ev lookup time (ms): 69.22578811645508
-.ev lookup time (ms): 68.42732429504395
-.ev lookup time (ms): 68.57895851135254
-.ev lookup time (ms): 67.19517707824707
-.ev lookup time (ms): 67.32869148254395
-.ev lookup time (ms): 68.15648078918457
-.ev lookup time (ms): 66.99156761169434
-.ev lookup time (ms): 67.19517707824707
-.ev lookup time (ms): 67.06809997558594
-.ev lookup time (ms): 66.52474403381348
-.ev lookup time (ms): 66.85233116149902
-.ev lookup time (ms): 66.79821014404297
-.ev lookup time (ms): 67.04139709472656
-.ev lookup time (ms): 67.16775894165039
-.ev lookup time (ms): 68.50123405456543
-.ev lookup time (ms): 67.82793998718262
-.ev lookup time (ms): 67.95191764831543
-.ev lookup time (ms): 69.06819343566895
-.ev lookup time (ms): 67.6887035369873
-.ev lookup time (ms): 67.31629371643066
-.ev lookup time (ms): 66.98393821716309
-.ev lookup time (ms): 66.78533554077148
-.ev lookup time (ms): 66.33377075195312
-.ev lookup time (ms): 66.19763374328613
-.ev lookup time (ms): 66.00284576416016
-.ev lookup time (ms): 66.35570526123047
-.ev lookup time (ms): 66.47729873657227
-.ev lookup time (ms): 66.52569770812988
-.ev lookup time (ms): 66.40887260437012
-.ev lookup time (ms): 67.1989917755127
-.ev lookup time (ms): 68.93348693847656
-.ev lookup time (ms): 67.69657135009766
-.ev lookup time (ms): 65.80185890197754
-.ev lookup time (ms): 65.74726104736328
-.ev lookup time (ms): 65.80853462219238
-.ev lookup time (ms): 66.91622734069824
-.ev lookup time (ms): 66.01834297180176
-.ev lookup time (ms): 65.69075584411621
-.ev lookup time (ms): 65.28449058532715
-.ev lookup time (ms): 65.37795066833496
-.ev lookup time (ms): 66.27416610717773
-.ev lookup time (ms): 65.99140167236328
-.ev lookup time (ms): 65.81425666809082
-.ev lookup time (ms): 65.67811965942383
-.ev lookup time (ms): 66.43486022949219
-.ev lookup time (ms): 66.12515449523926
-.ev lookup time (ms): 66.43557548522949
-.ev lookup time (ms): 64.60928916931152
-.ev lookup time (ms): 65.35887718200684
-.ev lookup time (ms): 66.2374496459961
-.ev lookup time (ms): 66.04886054992676
-.ev lookup time (ms): 66.24865531921387
-.ev lookup time (ms): 66.192626953125
-.ev lookup time (ms): 65.9630298614502
-.ev lookup time (ms): 65.25015830993652
-.ev lookup time (ms): 65.38653373718262
-.ev lookup time (ms): 65.88482856750488
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 7.68129825592041 secs (0 mins)
-Throughput (Req/sec) : 1666.38
-Avg latency (ms) : 76.81
+Time elapsed (FINAL) : 8.326908826828003 secs (0 mins)
+Throughput (Req/sec) : 1537.19
+Avg latency (ms) : 83.27
+Avg ev lookup time (ms) : 71.3
+Avg apply emb time (ms) : 83.15
 Close connection...
 
 Error: 
@@ -1057,120 +792,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82462
+qpn : 221
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6486
+qpn : 7153
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 31.47745132446289
-.ev lookup time (ms): 16.577959060668945
-.ev lookup time (ms): 19.167184829711914
-.ev lookup time (ms): 15.730142593383789
-.ev lookup time (ms): 21.080732345581055
-.ev lookup time (ms): 12.365579605102539
-.ev lookup time (ms): 11.57236099243164
-.ev lookup time (ms): 12.572765350341797
-.ev lookup time (ms): 11.939764022827148
-.ev lookup time (ms): 15.472888946533203
-.ev lookup time (ms): 12.397527694702148
-.ev lookup time (ms): 12.24207878112793
-.ev lookup time (ms): 12.11857795715332
-.ev lookup time (ms): 11.924982070922852
-.ev lookup time (ms): 10.891914367675781
-.ev lookup time (ms): 11.627435684204102
-.ev lookup time (ms): 10.93602180480957
-.ev lookup time (ms): 14.673948287963867
-.ev lookup time (ms): 10.7421875
-.ev lookup time (ms): 15.05136489868164
-.ev lookup time (ms): 11.009931564331055
-.ev lookup time (ms): 12.874364852905273
-.ev lookup time (ms): 11.312007904052734
-.ev lookup time (ms): 11.480331420898438
-.ev lookup time (ms): 11.532306671142578
-.ev lookup time (ms): 11.507272720336914
-.ev lookup time (ms): 11.484146118164062
-.ev lookup time (ms): 11.664152145385742
-.ev lookup time (ms): 11.586189270019531
-.ev lookup time (ms): 11.938810348510742
-.ev lookup time (ms): 11.177778244018555
-.ev lookup time (ms): 15.523195266723633
-.ev lookup time (ms): 12.631893157958984
-.ev lookup time (ms): 12.51220703125
-.ev lookup time (ms): 11.739015579223633
-.ev lookup time (ms): 12.560367584228516
-.ev lookup time (ms): 11.790037155151367
-.ev lookup time (ms): 12.085676193237305
-.ev lookup time (ms): 12.2528076171875
-.ev lookup time (ms): 11.898279190063477
-.ev lookup time (ms): 11.908292770385742
-.ev lookup time (ms): 11.91258430480957
-.ev lookup time (ms): 10.816812515258789
-.ev lookup time (ms): 11.349678039550781
-.ev lookup time (ms): 11.630535125732422
-.ev lookup time (ms): 11.820316314697266
-.ev lookup time (ms): 11.372804641723633
-.ev lookup time (ms): 15.214204788208008
-.ev lookup time (ms): 10.338306427001953
-.ev lookup time (ms): 10.634660720825195
-.ev lookup time (ms): 15.30003547668457
-.ev lookup time (ms): 10.910272598266602
-.ev lookup time (ms): 10.257244110107422
-.ev lookup time (ms): 14.930486679077148
-.ev lookup time (ms): 11.038780212402344
-.ev lookup time (ms): 12.089252471923828
-.ev lookup time (ms): 11.982440948486328
-.ev lookup time (ms): 10.532379150390625
-.ev lookup time (ms): 10.580062866210938
-.ev lookup time (ms): 10.648727416992188
-.ev lookup time (ms): 10.617494583129883
-.ev lookup time (ms): 15.412569046020508
-.ev lookup time (ms): 11.900663375854492
-.ev lookup time (ms): 12.56251335144043
-.ev lookup time (ms): 11.778831481933594
-.ev lookup time (ms): 12.354373931884766
-.ev lookup time (ms): 11.764764785766602
-.ev lookup time (ms): 12.384653091430664
-.ev lookup time (ms): 11.332273483276367
-.ev lookup time (ms): 11.82866096496582
-.ev lookup time (ms): 12.310981750488281
-.ev lookup time (ms): 14.338254928588867
-.ev lookup time (ms): 11.402368545532227
-.ev lookup time (ms): 12.018203735351562
-.ev lookup time (ms): 12.250661849975586
-.ev lookup time (ms): 12.115716934204102
-.ev lookup time (ms): 12.130975723266602
-.ev lookup time (ms): 12.34889030456543
-.ev lookup time (ms): 11.77215576171875
-.ev lookup time (ms): 14.876842498779297
-.ev lookup time (ms): 10.992288589477539
-.ev lookup time (ms): 10.901927947998047
-.ev lookup time (ms): 11.755704879760742
-.ev lookup time (ms): 11.728763580322266
-.ev lookup time (ms): 11.743307113647461
-.ev lookup time (ms): 11.634588241577148
-.ev lookup time (ms): 11.72947883605957
-.ev lookup time (ms): 11.101484298706055
-.ev lookup time (ms): 11.849164962768555
-.ev lookup time (ms): 11.068344116210938
-.ev lookup time (ms): 11.215686798095703
-.ev lookup time (ms): 11.13128662109375
-.ev lookup time (ms): 11.118412017822266
-.ev lookup time (ms): 10.564565658569336
-.ev lookup time (ms): 10.556459426879883
-.ev lookup time (ms): 10.614395141601562
-.ev lookup time (ms): 10.640859603881836
-.ev lookup time (ms): 10.549545288085938
-.ev lookup time (ms): 10.671615600585938
-.ev lookup time (ms): 10.653018951416016
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 4.751927614212036 secs (0 mins)
-Throughput (Req/sec) : 21.04
-Avg latency (ms) : 47.52
+Time elapsed (FINAL) : 4.822738170623779 secs (0 mins)
+Throughput (Req/sec) : 20.74
+Avg latency (ms) : 48.23
+Avg ev lookup time (ms) : 11.71
+Avg apply emb time (ms) : 47.98
 Close connection...
 
 Error: 
@@ -1187,120 +824,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82463
+qpn : 222
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6487
+qpn : 7154
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 24.029016494750977
-.ev lookup time (ms): 21.682024002075195
-.ev lookup time (ms): 21.384000778198242
-.ev lookup time (ms): 21.60930633544922
-.ev lookup time (ms): 21.380901336669922
-.ev lookup time (ms): 23.365497589111328
-.ev lookup time (ms): 19.33145523071289
-.ev lookup time (ms): 19.139528274536133
-.ev lookup time (ms): 22.223711013793945
-.ev lookup time (ms): 19.467592239379883
-.ev lookup time (ms): 20.398378372192383
-.ev lookup time (ms): 19.327878952026367
-.ev lookup time (ms): 18.354415893554688
-.ev lookup time (ms): 18.833160400390625
-.ev lookup time (ms): 18.04661750793457
-.ev lookup time (ms): 18.703222274780273
-.ev lookup time (ms): 18.3103084564209
-.ev lookup time (ms): 22.861957550048828
-.ev lookup time (ms): 19.083738327026367
-.ev lookup time (ms): 18.35012435913086
-.ev lookup time (ms): 18.87679100036621
-.ev lookup time (ms): 18.26786994934082
-.ev lookup time (ms): 19.46544647216797
-.ev lookup time (ms): 21.46601676940918
-.ev lookup time (ms): 18.236398696899414
-.ev lookup time (ms): 18.734216690063477
-.ev lookup time (ms): 18.813610076904297
-.ev lookup time (ms): 18.995285034179688
-.ev lookup time (ms): 18.848896026611328
-.ev lookup time (ms): 17.968416213989258
-.ev lookup time (ms): 18.892526626586914
-.ev lookup time (ms): 17.833232879638672
-.ev lookup time (ms): 18.06020736694336
-.ev lookup time (ms): 18.798828125
-.ev lookup time (ms): 18.039464950561523
-.ev lookup time (ms): 17.922639846801758
-.ev lookup time (ms): 22.56298065185547
-.ev lookup time (ms): 18.03112030029297
-.ev lookup time (ms): 18.838882446289062
-.ev lookup time (ms): 18.179893493652344
-.ev lookup time (ms): 18.694639205932617
-.ev lookup time (ms): 18.70107650756836
-.ev lookup time (ms): 21.36707305908203
-.ev lookup time (ms): 17.96889305114746
-.ev lookup time (ms): 18.32723617553711
-.ev lookup time (ms): 21.503686904907227
-.ev lookup time (ms): 18.14413070678711
-.ev lookup time (ms): 19.0885066986084
-.ev lookup time (ms): 17.914772033691406
-.ev lookup time (ms): 20.312070846557617
-.ev lookup time (ms): 18.115758895874023
-.ev lookup time (ms): 18.871545791625977
-.ev lookup time (ms): 18.00823211669922
-.ev lookup time (ms): 17.815589904785156
-.ev lookup time (ms): 22.572755813598633
-.ev lookup time (ms): 18.531084060668945
-.ev lookup time (ms): 21.480798721313477
-.ev lookup time (ms): 17.94123649597168
-.ev lookup time (ms): 18.507957458496094
-.ev lookup time (ms): 22.024869918823242
-.ev lookup time (ms): 17.975807189941406
-.ev lookup time (ms): 18.111705780029297
-.ev lookup time (ms): 18.40806007385254
-.ev lookup time (ms): 17.82083511352539
-.ev lookup time (ms): 18.60332489013672
-.ev lookup time (ms): 17.783641815185547
-.ev lookup time (ms): 18.16082000732422
-.ev lookup time (ms): 21.64936065673828
-.ev lookup time (ms): 18.336772918701172
-.ev lookup time (ms): 18.703937530517578
-.ev lookup time (ms): 18.215417861938477
-.ev lookup time (ms): 17.82369613647461
-.ev lookup time (ms): 19.86217498779297
-.ev lookup time (ms): 18.6917781829834
-.ev lookup time (ms): 18.927335739135742
-.ev lookup time (ms): 17.83156394958496
-.ev lookup time (ms): 19.019365310668945
-.ev lookup time (ms): 18.319368362426758
-.ev lookup time (ms): 17.923831939697266
-.ev lookup time (ms): 18.627166748046875
-.ev lookup time (ms): 17.691850662231445
-.ev lookup time (ms): 17.67253875732422
-.ev lookup time (ms): 18.095731735229492
-.ev lookup time (ms): 17.655372619628906
-.ev lookup time (ms): 18.169879913330078
-.ev lookup time (ms): 17.871379852294922
-.ev lookup time (ms): 18.413543701171875
-.ev lookup time (ms): 20.200729370117188
-.ev lookup time (ms): 19.688844680786133
-.ev lookup time (ms): 19.555330276489258
-.ev lookup time (ms): 19.88673210144043
-.ev lookup time (ms): 20.01357078552246
-.ev lookup time (ms): 20.19786834716797
-.ev lookup time (ms): 20.1265811920166
-.ev lookup time (ms): 18.674373626708984
-.ev lookup time (ms): 19.17266845703125
-.ev lookup time (ms): 18.17941665649414
-.ev lookup time (ms): 18.58377456665039
-.ev lookup time (ms): 19.043684005737305
-.ev lookup time (ms): 19.018888473510742
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 4.726365566253662 secs (0 mins)
-Throughput (Req/sec) : 42.32
-Avg latency (ms) : 47.26
+Time elapsed (FINAL) : 4.669385671615601 secs (0 mins)
+Throughput (Req/sec) : 42.83
+Avg latency (ms) : 46.69
+Avg ev lookup time (ms) : 18.69
+Avg apply emb time (ms) : 46.45
 Close connection...
 
 Error: 
@@ -1317,120 +856,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82464
+qpn : 223
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6488
+qpn : 7155
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 42.69218444824219
-.ev lookup time (ms): 33.31351280212402
-.ev lookup time (ms): 32.14621543884277
-.ev lookup time (ms): 35.94398498535156
-.ev lookup time (ms): 31.650781631469727
-.ev lookup time (ms): 31.560897827148438
-.ev lookup time (ms): 32.12547302246094
-.ev lookup time (ms): 35.24327278137207
-.ev lookup time (ms): 31.778812408447266
-.ev lookup time (ms): 31.174659729003906
-.ev lookup time (ms): 30.91263771057129
-.ev lookup time (ms): 32.06682205200195
-.ev lookup time (ms): 33.553123474121094
-.ev lookup time (ms): 30.90524673461914
-.ev lookup time (ms): 33.13493728637695
-.ev lookup time (ms): 31.587839126586914
-.ev lookup time (ms): 32.01866149902344
-.ev lookup time (ms): 31.407594680786133
-.ev lookup time (ms): 30.58767318725586
-.ev lookup time (ms): 36.08584403991699
-.ev lookup time (ms): 31.51416778564453
-.ev lookup time (ms): 31.32462501525879
-.ev lookup time (ms): 31.580686569213867
-.ev lookup time (ms): 30.838966369628906
-.ev lookup time (ms): 35.672903060913086
-.ev lookup time (ms): 31.007766723632812
-.ev lookup time (ms): 31.38279914855957
-.ev lookup time (ms): 31.17847442626953
-.ev lookup time (ms): 35.363197326660156
-.ev lookup time (ms): 30.78460693359375
-.ev lookup time (ms): 30.76171875
-.ev lookup time (ms): 30.95102310180664
-.ev lookup time (ms): 31.14914894104004
-.ev lookup time (ms): 34.90567207336426
-.ev lookup time (ms): 31.573772430419922
-.ev lookup time (ms): 31.914472579956055
-.ev lookup time (ms): 31.530141830444336
-.ev lookup time (ms): 31.577110290527344
-.ev lookup time (ms): 32.254695892333984
-.ev lookup time (ms): 35.85696220397949
-.ev lookup time (ms): 34.0421199798584
-.ev lookup time (ms): 31.34942054748535
-.ev lookup time (ms): 31.358957290649414
-.ev lookup time (ms): 31.169652938842773
-.ev lookup time (ms): 31.626224517822266
-.ev lookup time (ms): 36.199092864990234
-.ev lookup time (ms): 31.426429748535156
-.ev lookup time (ms): 31.77618980407715
-.ev lookup time (ms): 31.77356719970703
-.ev lookup time (ms): 31.943798065185547
-.ev lookup time (ms): 35.44735908508301
-.ev lookup time (ms): 31.830549240112305
-.ev lookup time (ms): 31.774282455444336
-.ev lookup time (ms): 36.48638725280762
-.ev lookup time (ms): 31.368732452392578
-.ev lookup time (ms): 31.859874725341797
-.ev lookup time (ms): 32.009124755859375
-.ev lookup time (ms): 32.63449668884277
-.ev lookup time (ms): 35.95471382141113
-.ev lookup time (ms): 34.36160087585449
-.ev lookup time (ms): 32.540082931518555
-.ev lookup time (ms): 35.93325614929199
-.ev lookup time (ms): 35.457611083984375
-.ev lookup time (ms): 35.298824310302734
-.ev lookup time (ms): 31.96430206298828
-.ev lookup time (ms): 31.28814697265625
-.ev lookup time (ms): 31.140804290771484
-.ev lookup time (ms): 31.800031661987305
-.ev lookup time (ms): 34.854888916015625
-.ev lookup time (ms): 34.317731857299805
-.ev lookup time (ms): 32.174110412597656
-.ev lookup time (ms): 36.81373596191406
-.ev lookup time (ms): 35.11357307434082
-.ev lookup time (ms): 32.06348419189453
-.ev lookup time (ms): 36.47613525390625
-.ev lookup time (ms): 31.085491180419922
-.ev lookup time (ms): 31.496763229370117
-.ev lookup time (ms): 31.7840576171875
-.ev lookup time (ms): 32.31954574584961
-.ev lookup time (ms): 32.231807708740234
-.ev lookup time (ms): 31.876325607299805
-.ev lookup time (ms): 36.4222526550293
-.ev lookup time (ms): 34.12342071533203
-.ev lookup time (ms): 32.37748146057129
-.ev lookup time (ms): 32.0582389831543
-.ev lookup time (ms): 31.970977783203125
-.ev lookup time (ms): 32.15599060058594
-.ev lookup time (ms): 31.438112258911133
-.ev lookup time (ms): 31.74448013305664
-.ev lookup time (ms): 31.369924545288086
-.ev lookup time (ms): 31.78262710571289
-.ev lookup time (ms): 31.83770179748535
-.ev lookup time (ms): 34.54422950744629
-.ev lookup time (ms): 32.6228141784668
-.ev lookup time (ms): 32.16981887817383
-.ev lookup time (ms): 32.55724906921387
-.ev lookup time (ms): 31.96573257446289
-.ev lookup time (ms): 31.792879104614258
-.ev lookup time (ms): 31.577348709106445
-.ev lookup time (ms): 40.02571105957031
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 6.163408994674683 secs (0 mins)
-Throughput (Req/sec) : 64.9
-Avg latency (ms) : 61.63
+Time elapsed (FINAL) : 5.970592498779297 secs (0 mins)
+Throughput (Req/sec) : 67.0
+Avg latency (ms) : 59.71
+Avg ev lookup time (ms) : 31.41
+Avg apply emb time (ms) : 59.54
 Close connection...
 
 Error: 
@@ -1447,120 +888,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82465
+qpn : 224
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6489
+qpn : 7156
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 57.8608512878418
-.ev lookup time (ms): 54.689645767211914
-.ev lookup time (ms): 55.954694747924805
-.ev lookup time (ms): 52.10757255554199
-.ev lookup time (ms): 53.050994873046875
-.ev lookup time (ms): 51.10883712768555
-.ev lookup time (ms): 51.99265480041504
-.ev lookup time (ms): 54.72302436828613
-.ev lookup time (ms): 52.2305965423584
-.ev lookup time (ms): 49.971818923950195
-.ev lookup time (ms): 51.35822296142578
-.ev lookup time (ms): 50.56452751159668
-.ev lookup time (ms): 52.61707305908203
-.ev lookup time (ms): 52.57368087768555
-.ev lookup time (ms): 50.35734176635742
-.ev lookup time (ms): 50.977230072021484
-.ev lookup time (ms): 50.8420467376709
-.ev lookup time (ms): 50.74644088745117
-.ev lookup time (ms): 50.77052116394043
-.ev lookup time (ms): 52.81257629394531
-.ev lookup time (ms): 50.272464752197266
-.ev lookup time (ms): 49.90720748901367
-.ev lookup time (ms): 50.19187927246094
-.ev lookup time (ms): 50.62985420227051
-.ev lookup time (ms): 50.45366287231445
-.ev lookup time (ms): 48.621177673339844
-.ev lookup time (ms): 49.974918365478516
-.ev lookup time (ms): 52.34527587890625
-.ev lookup time (ms): 50.269365310668945
-.ev lookup time (ms): 49.03054237365723
-.ev lookup time (ms): 49.07870292663574
-.ev lookup time (ms): 49.89767074584961
-.ev lookup time (ms): 50.56643486022949
-.ev lookup time (ms): 50.260066986083984
-.ev lookup time (ms): 50.2924919128418
-.ev lookup time (ms): 51.661014556884766
-.ev lookup time (ms): 50.043344497680664
-.ev lookup time (ms): 48.78878593444824
-.ev lookup time (ms): 48.880577087402344
-.ev lookup time (ms): 49.92318153381348
-.ev lookup time (ms): 50.753116607666016
-.ev lookup time (ms): 50.71687698364258
-.ev lookup time (ms): 50.23670196533203
-.ev lookup time (ms): 50.850868225097656
-.ev lookup time (ms): 50.28271675109863
-.ev lookup time (ms): 50.327301025390625
-.ev lookup time (ms): 49.752235412597656
-.ev lookup time (ms): 49.3166446685791
-.ev lookup time (ms): 49.05891418457031
-.ev lookup time (ms): 50.49276351928711
-.ev lookup time (ms): 50.67801475524902
-.ev lookup time (ms): 50.91238021850586
-.ev lookup time (ms): 50.68659782409668
-.ev lookup time (ms): 49.64637756347656
-.ev lookup time (ms): 51.247358322143555
-.ev lookup time (ms): 51.190853118896484
-.ev lookup time (ms): 49.41534996032715
-.ev lookup time (ms): 48.7213134765625
-.ev lookup time (ms): 49.73721504211426
-.ev lookup time (ms): 50.75645446777344
-.ev lookup time (ms): 50.23455619812012
-.ev lookup time (ms): 50.48561096191406
-.ev lookup time (ms): 50.481319427490234
-.ev lookup time (ms): 49.98493194580078
-.ev lookup time (ms): 49.982547760009766
-.ev lookup time (ms): 50.923824310302734
-.ev lookup time (ms): 50.025224685668945
-.ev lookup time (ms): 50.62580108642578
-.ev lookup time (ms): 49.716949462890625
-.ev lookup time (ms): 49.25823211669922
-.ev lookup time (ms): 50.037384033203125
-.ev lookup time (ms): 48.39205741882324
-.ev lookup time (ms): 49.06439781188965
-.ev lookup time (ms): 50.429582595825195
-.ev lookup time (ms): 49.90530014038086
-.ev lookup time (ms): 50.21381378173828
-.ev lookup time (ms): 50.8570671081543
-.ev lookup time (ms): 50.43983459472656
-.ev lookup time (ms): 50.36735534667969
-.ev lookup time (ms): 50.33373832702637
-.ev lookup time (ms): 50.45056343078613
-.ev lookup time (ms): 48.913002014160156
-.ev lookup time (ms): 50.75550079345703
-.ev lookup time (ms): 50.00185966491699
-.ev lookup time (ms): 50.62437057495117
-.ev lookup time (ms): 49.697160720825195
-.ev lookup time (ms): 50.33469200134277
-.ev lookup time (ms): 50.03762245178223
-.ev lookup time (ms): 50.84395408630371
-.ev lookup time (ms): 50.96316337585449
-.ev lookup time (ms): 50.3697395324707
-.ev lookup time (ms): 50.121307373046875
-.ev lookup time (ms): 49.52383041381836
-.ev lookup time (ms): 49.26586151123047
-.ev lookup time (ms): 50.693511962890625
-.ev lookup time (ms): 49.226999282836914
-.ev lookup time (ms): 49.67021942138672
-.ev lookup time (ms): 48.97594451904297
-.ev lookup time (ms): 48.03943634033203
-.ev lookup time (ms): 49.24821853637695
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 7.921452283859253 secs (0 mins)
-Throughput (Req/sec) : 100.99
-Avg latency (ms) : 79.21
+Time elapsed (FINAL) : 8.164315223693848 secs (0 mins)
+Throughput (Req/sec) : 97.99
+Avg latency (ms) : 81.64
+Avg ev lookup time (ms) : 53.26
+Avg apply emb time (ms) : 81.36
 Close connection...
 
 Error: 
@@ -1577,120 +920,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82466
+qpn : 225
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6490
+qpn : 7157
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 106.87136650085449
-.ev lookup time (ms): 105.50475120544434
-.ev lookup time (ms): 86.34543418884277
-.ev lookup time (ms): 87.33344078063965
-.ev lookup time (ms): 84.25521850585938
-.ev lookup time (ms): 86.34209632873535
-.ev lookup time (ms): 83.81772041320801
-.ev lookup time (ms): 86.15994453430176
-.ev lookup time (ms): 84.73634719848633
-.ev lookup time (ms): 87.18228340148926
-.ev lookup time (ms): 84.65743064880371
-.ev lookup time (ms): 85.47401428222656
-.ev lookup time (ms): 83.59932899475098
-.ev lookup time (ms): 85.67380905151367
-.ev lookup time (ms): 86.69710159301758
-.ev lookup time (ms): 86.9283676147461
-.ev lookup time (ms): 84.02228355407715
-.ev lookup time (ms): 87.31865882873535
-.ev lookup time (ms): 85.85643768310547
-.ev lookup time (ms): 86.56454086303711
-.ev lookup time (ms): 83.10127258300781
-.ev lookup time (ms): 87.57519721984863
-.ev lookup time (ms): 83.95957946777344
-.ev lookup time (ms): 86.03215217590332
-.ev lookup time (ms): 83.30059051513672
-.ev lookup time (ms): 83.74142646789551
-.ev lookup time (ms): 83.61196517944336
-.ev lookup time (ms): 84.67507362365723
-.ev lookup time (ms): 83.95814895629883
-.ev lookup time (ms): 83.65082740783691
-.ev lookup time (ms): 87.43906021118164
-.ev lookup time (ms): 83.40764045715332
-.ev lookup time (ms): 86.25388145446777
-.ev lookup time (ms): 84.2287540435791
-.ev lookup time (ms): 84.49649810791016
-.ev lookup time (ms): 83.36472511291504
-.ev lookup time (ms): 84.90777015686035
-.ev lookup time (ms): 83.9235782623291
-.ev lookup time (ms): 83.96506309509277
-.ev lookup time (ms): 87.53204345703125
-.ev lookup time (ms): 86.33685111999512
-.ev lookup time (ms): 86.83943748474121
-.ev lookup time (ms): 87.78190612792969
-.ev lookup time (ms): 84.23423767089844
-.ev lookup time (ms): 95.40247917175293
-.ev lookup time (ms): 94.00606155395508
-.ev lookup time (ms): 89.84112739562988
-.ev lookup time (ms): 90.64531326293945
-.ev lookup time (ms): 89.82992172241211
-.ev lookup time (ms): 90.39926528930664
-.ev lookup time (ms): 91.8123722076416
-.ev lookup time (ms): 90.47317504882812
-.ev lookup time (ms): 93.80292892456055
-.ev lookup time (ms): 93.84870529174805
-.ev lookup time (ms): 92.50020980834961
-.ev lookup time (ms): 92.66996383666992
-.ev lookup time (ms): 89.81585502624512
-.ev lookup time (ms): 93.18923950195312
-.ev lookup time (ms): 91.40634536743164
-.ev lookup time (ms): 91.66145324707031
-.ev lookup time (ms): 90.22188186645508
-.ev lookup time (ms): 90.44003486633301
-.ev lookup time (ms): 92.37456321716309
-.ev lookup time (ms): 91.31765365600586
-.ev lookup time (ms): 90.12365341186523
-.ev lookup time (ms): 92.60153770446777
-.ev lookup time (ms): 92.03267097473145
-.ev lookup time (ms): 91.4158821105957
-.ev lookup time (ms): 90.88730812072754
-.ev lookup time (ms): 91.12310409545898
-.ev lookup time (ms): 90.8193588256836
-.ev lookup time (ms): 91.76516532897949
-.ev lookup time (ms): 90.76786041259766
-.ev lookup time (ms): 89.93721008300781
-.ev lookup time (ms): 90.35348892211914
-.ev lookup time (ms): 97.84841537475586
-.ev lookup time (ms): 98.73509407043457
-.ev lookup time (ms): 93.34897994995117
-.ev lookup time (ms): 93.59216690063477
-.ev lookup time (ms): 94.24161911010742
-.ev lookup time (ms): 99.08890724182129
-.ev lookup time (ms): 97.72658348083496
-.ev lookup time (ms): 96.64368629455566
-.ev lookup time (ms): 98.11854362487793
-.ev lookup time (ms): 98.0224609375
-.ev lookup time (ms): 95.40915489196777
-.ev lookup time (ms): 97.63026237487793
-.ev lookup time (ms): 95.81327438354492
-.ev lookup time (ms): 96.96435928344727
-.ev lookup time (ms): 95.75724601745605
-.ev lookup time (ms): 96.26054763793945
-.ev lookup time (ms): 96.5430736541748
-.ev lookup time (ms): 95.90911865234375
-.ev lookup time (ms): 96.43936157226562
-.ev lookup time (ms): 96.00400924682617
-.ev lookup time (ms): 95.40081024169922
-.ev lookup time (ms): 96.51780128479004
-.ev lookup time (ms): 96.32611274719238
-.ev lookup time (ms): 96.25744819641113
-.ev lookup time (ms): 98.18148612976074
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 11.956560134887695 secs (0 mins)
-Throughput (Req/sec) : 133.82
-Avg latency (ms) : 119.57
+Time elapsed (FINAL) : 12.43123459815979 secs (0 mins)
+Throughput (Req/sec) : 128.71
+Avg latency (ms) : 124.31
+Avg ev lookup time (ms) : 93.91
+Avg apply emb time (ms) : 124.05
 Close connection...
 
 Error: 
@@ -1707,120 +952,54 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82467
+qpn : 226
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6491
+qpn : 7158
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 183.58588218688965
-.ev lookup time (ms): 171.3716983795166
-.ev lookup time (ms): 167.17290878295898
-.ev lookup time (ms): 170.58658599853516
-.ev lookup time (ms): 165.1756763458252
-.ev lookup time (ms): 162.50991821289062
-.ev lookup time (ms): 162.3697280883789
-.ev lookup time (ms): 160.2189540863037
-.ev lookup time (ms): 164.53003883361816
-.ev lookup time (ms): 164.67595100402832
-.ev lookup time (ms): 167.3722267150879
-.ev lookup time (ms): 165.02809524536133
-.ev lookup time (ms): 162.1553897857666
-.ev lookup time (ms): 160.05969047546387
-.ev lookup time (ms): 161.25178337097168
-.ev lookup time (ms): 162.68587112426758
-.ev lookup time (ms): 163.63239288330078
-.ev lookup time (ms): 159.6064567565918
-.ev lookup time (ms): 161.17024421691895
-.ev lookup time (ms): 160.5062484741211
-.ev lookup time (ms): 159.2566967010498
-.ev lookup time (ms): 158.79058837890625
-.ev lookup time (ms): 163.09452056884766
-.ev lookup time (ms): 164.60585594177246
-.ev lookup time (ms): 158.70165824890137
-.ev lookup time (ms): 164.57486152648926
-.ev lookup time (ms): 162.0011329650879
-.ev lookup time (ms): 161.8056297302246
-.ev lookup time (ms): 164.1676425933838
-.ev lookup time (ms): 161.13805770874023
-.ev lookup time (ms): 160.84837913513184
-.ev lookup time (ms): 163.91372680664062
-.ev lookup time (ms): 162.98437118530273
-.ev lookup time (ms): 163.15793991088867
-.ev lookup time (ms): 158.6475372314453
-.ev lookup time (ms): 161.00382804870605
-.ev lookup time (ms): 165.19784927368164
-.ev lookup time (ms): 164.45088386535645
-.ev lookup time (ms): 161.73100471496582
-.ev lookup time (ms): 160.4905128479004
-.ev lookup time (ms): 160.7346534729004
-.ev lookup time (ms): 160.6466770172119
-.ev lookup time (ms): 160.1083278656006
-.ev lookup time (ms): 159.4843864440918
-.ev lookup time (ms): 160.7813835144043
-.ev lookup time (ms): 159.92069244384766
-.ev lookup time (ms): 159.28888320922852
-.ev lookup time (ms): 158.41007232666016
-.ev lookup time (ms): 160.48431396484375
-.ev lookup time (ms): 158.49781036376953
-.ev lookup time (ms): 158.0038070678711
-.ev lookup time (ms): 160.00056266784668
-.ev lookup time (ms): 159.97076034545898
-.ev lookup time (ms): 159.7421169281006
-.ev lookup time (ms): 161.49544715881348
-.ev lookup time (ms): 160.21084785461426
-.ev lookup time (ms): 160.02559661865234
-.ev lookup time (ms): 158.88214111328125
-.ev lookup time (ms): 158.674955368042
-.ev lookup time (ms): 160.58731079101562
-.ev lookup time (ms): 157.87172317504883
-.ev lookup time (ms): 159.00278091430664
-.ev lookup time (ms): 159.83176231384277
-.ev lookup time (ms): 158.9376926422119
-.ev lookup time (ms): 161.5607738494873
-.ev lookup time (ms): 159.9283218383789
-.ev lookup time (ms): 158.48636627197266
-.ev lookup time (ms): 158.51378440856934
-.ev lookup time (ms): 159.23142433166504
-.ev lookup time (ms): 158.65755081176758
-.ev lookup time (ms): 158.74433517456055
-.ev lookup time (ms): 160.95995903015137
-.ev lookup time (ms): 161.0705852508545
-.ev lookup time (ms): 159.8517894744873
-.ev lookup time (ms): 158.79130363464355
-.ev lookup time (ms): 158.0953598022461
-.ev lookup time (ms): 159.33847427368164
-.ev lookup time (ms): 159.06453132629395
-.ev lookup time (ms): 158.82205963134766
-.ev lookup time (ms): 158.78534317016602
-.ev lookup time (ms): 157.79423713684082
-.ev lookup time (ms): 157.06658363342285
-.ev lookup time (ms): 158.4763526916504
-.ev lookup time (ms): 157.6383113861084
-.ev lookup time (ms): 158.30159187316895
-.ev lookup time (ms): 157.64689445495605
-.ev lookup time (ms): 157.04798698425293
-.ev lookup time (ms): 157.83286094665527
-.ev lookup time (ms): 158.51616859436035
-.ev lookup time (ms): 157.34171867370605
-.ev lookup time (ms): 158.23674201965332
-.ev lookup time (ms): 157.98473358154297
-.ev lookup time (ms): 161.7875099182129
-.ev lookup time (ms): 158.13374519348145
-.ev lookup time (ms): 158.08343887329102
-.ev lookup time (ms): 156.96144104003906
-.ev lookup time (ms): 157.94920921325684
-.ev lookup time (ms): 158.08749198913574
-.ev lookup time (ms): 158.72883796691895
-.ev lookup time (ms): 156.4927101135254
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 19.36038088798523 secs (0 mins)
-Throughput (Req/sec) : 165.29
-Avg latency (ms) : 193.6
+Time elapsed (FINAL) : 21.402390480041504 secs (0 mins)
+Throughput (Req/sec) : 149.52
+Avg latency (ms) : 214.02
+Avg ev lookup time (ms) : 181.83
+Avg apply emb time (ms) : 213.74
+Close connection...
+
+Error: 
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 64
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 64 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=512-256-128 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=128 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=160 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8003
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 227
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7159
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 36.18196201324463 secs (0 mins)
+Throughput (Req/sec) : 176.88
+Avg latency (ms) : 361.82
+Avg ev lookup time (ms) : 328.56
+Avg apply emb time (ms) : 361.44
 Close connection...
 
 Error: 
@@ -1834,7 +1013,7 @@ GPU Benchmarking - running on 1 GPUs
 Using GPUS: 0
 Batch Size: 1
 -------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 1 --num-batches=100 --data-generation=dataset --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 1 --num-batches=100 --data-generation=dataset --data-set=kaggle --dataset-multiprocessing --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
 Using CPU...
 Reading pre-processed data=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz
 Sparse fea = 26, Dense fea = 13
@@ -1845,120 +1024,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82468
+qpn : 228
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6492
+qpn : 7160
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 10.275840759277344
-.ev lookup time (ms): 3.765583038330078
-.ev lookup time (ms): 3.6928653717041016
-.ev lookup time (ms): 3.667116165161133
-.ev lookup time (ms): 3.6954879760742188
-.ev lookup time (ms): 3.690481185913086
-.ev lookup time (ms): 3.681182861328125
-.ev lookup time (ms): 3.606081008911133
-.ev lookup time (ms): 3.603696823120117
-.ev lookup time (ms): 3.6590099334716797
-.ev lookup time (ms): 3.6711692810058594
-.ev lookup time (ms): 3.6008358001708984
-.ev lookup time (ms): 3.5779476165771484
-.ev lookup time (ms): 3.6165714263916016
-.ev lookup time (ms): 3.596782684326172
-.ev lookup time (ms): 3.556489944458008
-.ev lookup time (ms): 3.5648345947265625
-.ev lookup time (ms): 3.6034584045410156
-.ev lookup time (ms): 3.586292266845703
-.ev lookup time (ms): 3.5996437072753906
-.ev lookup time (ms): 3.5734176635742188
-.ev lookup time (ms): 3.532886505126953
-.ev lookup time (ms): 3.614664077758789
-.ev lookup time (ms): 3.556966781616211
-.ev lookup time (ms): 3.582477569580078
-.ev lookup time (ms): 3.610849380493164
-.ev lookup time (ms): 3.5941600799560547
-.ev lookup time (ms): 3.5920143127441406
-.ev lookup time (ms): 3.5393238067626953
-.ev lookup time (ms): 3.5505294799804688
-.ev lookup time (ms): 3.5974979400634766
-.ev lookup time (ms): 3.5657882690429688
-.ev lookup time (ms): 3.5393238067626953
-.ev lookup time (ms): 3.5805702209472656
-.ev lookup time (ms): 3.582000732421875
-.ev lookup time (ms): 3.5729408264160156
-.ev lookup time (ms): 3.6432743072509766
-.ev lookup time (ms): 3.627777099609375
-.ev lookup time (ms): 3.5529136657714844
-.ev lookup time (ms): 3.5440921783447266
-.ev lookup time (ms): 3.536701202392578
-.ev lookup time (ms): 3.5982131958007812
-.ev lookup time (ms): 3.5698413848876953
-.ev lookup time (ms): 3.5278797149658203
-.ev lookup time (ms): 3.912687301635742
-.ev lookup time (ms): 3.810405731201172
-.ev lookup time (ms): 3.9191246032714844
-.ev lookup time (ms): 3.9119720458984375
-.ev lookup time (ms): 3.8115978240966797
-.ev lookup time (ms): 3.9131641387939453
-.ev lookup time (ms): 3.832578659057617
-.ev lookup time (ms): 3.751516342163086
-.ev lookup time (ms): 3.9145946502685547
-.ev lookup time (ms): 3.785371780395508
-.ev lookup time (ms): 3.7856101989746094
-.ev lookup time (ms): 3.875255584716797
-.ev lookup time (ms): 3.8657188415527344
-.ev lookup time (ms): 3.8187503814697266
-.ev lookup time (ms): 3.9577484130859375
-.ev lookup time (ms): 3.737926483154297
-.ev lookup time (ms): 3.7353038787841797
-.ev lookup time (ms): 3.821849822998047
-.ev lookup time (ms): 3.772735595703125
-.ev lookup time (ms): 3.835916519165039
-.ev lookup time (ms): 3.8118362426757812
-.ev lookup time (ms): 3.740072250366211
-.ev lookup time (ms): 3.839254379272461
-.ev lookup time (ms): 3.8628578186035156
-.ev lookup time (ms): 3.8950443267822266
-.ev lookup time (ms): 3.769397735595703
-.ev lookup time (ms): 3.823995590209961
-.ev lookup time (ms): 3.7450790405273438
-.ev lookup time (ms): 3.6973953247070312
-.ev lookup time (ms): 3.964662551879883
-.ev lookup time (ms): 3.8003921508789062
-.ev lookup time (ms): 3.7953853607177734
-.ev lookup time (ms): 3.7717819213867188
-.ev lookup time (ms): 3.8499832153320312
-.ev lookup time (ms): 3.804922103881836
-.ev lookup time (ms): 3.8199424743652344
-.ev lookup time (ms): 3.6804676055908203
-.ev lookup time (ms): 3.627300262451172
-.ev lookup time (ms): 3.5986900329589844
-.ev lookup time (ms): 4.536151885986328
-.ev lookup time (ms): 4.132270812988281
-.ev lookup time (ms): 4.13203239440918
-.ev lookup time (ms): 4.078865051269531
-.ev lookup time (ms): 3.9985179901123047
-.ev lookup time (ms): 3.963470458984375
-.ev lookup time (ms): 3.9899349212646484
-.ev lookup time (ms): 3.9196014404296875
-.ev lookup time (ms): 3.9200782775878906
-.ev lookup time (ms): 3.8747787475585938
-.ev lookup time (ms): 3.906726837158203
-.ev lookup time (ms): 3.9243698120117188
-.ev lookup time (ms): 3.8344860076904297
-.ev lookup time (ms): 3.8390159606933594
-.ev lookup time (ms): 3.9033889770507812
-.ev lookup time (ms): 3.858804702758789
-.ev lookup time (ms): 3.7910938262939453
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 2.4474899768829346 secs (0 mins)
-Throughput (Req/sec) : 40.86
-Avg latency (ms) : 24.47
+Time elapsed (FINAL) : 1.6044340133666992 secs (0 mins)
+Throughput (Req/sec) : 62.33
+Avg latency (ms) : 16.04
+Avg ev lookup time (ms) : 2.94
+Avg apply emb time (ms) : 15.9
 Close connection...
 
 Error: /home/cml/CloverRec/local_emb/dlrm_data_pytorch.py:327: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
@@ -1971,7 +1052,7 @@ GPU Benchmarking - running on 1 GPUs
 Using GPUS: 0
 Batch Size: 2
 -------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 2 --num-batches=100 --data-generation=dataset --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 2 --num-batches=100 --data-generation=dataset --data-set=kaggle --dataset-multiprocessing --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
 Using CPU...
 Reading pre-processed data=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz
 Sparse fea = 26, Dense fea = 13
@@ -1982,120 +1063,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82469
+qpn : 229
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6493
+qpn : 7161
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 5.747795104980469
-.ev lookup time (ms): 4.932880401611328
-.ev lookup time (ms): 4.96983528137207
-.ev lookup time (ms): 4.844903945922852
-.ev lookup time (ms): 4.83250617980957
-.ev lookup time (ms): 4.807710647583008
-.ev lookup time (ms): 4.84466552734375
-.ev lookup time (ms): 4.760026931762695
-.ev lookup time (ms): 4.731416702270508
-.ev lookup time (ms): 4.820108413696289
-.ev lookup time (ms): 4.670619964599609
-.ev lookup time (ms): 4.746913909912109
-.ev lookup time (ms): 4.836797714233398
-.ev lookup time (ms): 4.764080047607422
-.ev lookup time (ms): 4.653453826904297
-.ev lookup time (ms): 4.686117172241211
-.ev lookup time (ms): 4.764556884765625
-.ev lookup time (ms): 4.754543304443359
-.ev lookup time (ms): 4.7626495361328125
-.ev lookup time (ms): 4.609584808349609
-.ev lookup time (ms): 4.70423698425293
-.ev lookup time (ms): 4.593133926391602
-.ev lookup time (ms): 4.68134880065918
-.ev lookup time (ms): 4.689693450927734
-.ev lookup time (ms): 4.719257354736328
-.ev lookup time (ms): 4.631996154785156
-.ev lookup time (ms): 4.7149658203125
-.ev lookup time (ms): 4.738807678222656
-.ev lookup time (ms): 4.664421081542969
-.ev lookup time (ms): 4.602193832397461
-.ev lookup time (ms): 4.627227783203125
-.ev lookup time (ms): 4.717826843261719
-.ev lookup time (ms): 4.620552062988281
-.ev lookup time (ms): 4.659414291381836
-.ev lookup time (ms): 4.589080810546875
-.ev lookup time (ms): 4.6291351318359375
-.ev lookup time (ms): 4.708051681518555
-.ev lookup time (ms): 4.596233367919922
-.ev lookup time (ms): 4.686117172241211
-.ev lookup time (ms): 4.626274108886719
-.ev lookup time (ms): 4.5909881591796875
-.ev lookup time (ms): 4.636049270629883
-.ev lookup time (ms): 4.655122756958008
-.ev lookup time (ms): 4.690885543823242
-.ev lookup time (ms): 4.698753356933594
-.ev lookup time (ms): 4.679679870605469
-.ev lookup time (ms): 4.724740982055664
-.ev lookup time (ms): 4.711627960205078
-.ev lookup time (ms): 4.701375961303711
-.ev lookup time (ms): 4.647016525268555
-.ev lookup time (ms): 4.675865173339844
-.ev lookup time (ms): 4.698514938354492
-.ev lookup time (ms): 4.709959030151367
-.ev lookup time (ms): 4.708766937255859
-.ev lookup time (ms): 4.644155502319336
-.ev lookup time (ms): 4.6291351318359375
-.ev lookup time (ms): 4.713773727416992
-.ev lookup time (ms): 4.609107971191406
-.ev lookup time (ms): 4.670143127441406
-.ev lookup time (ms): 4.637002944946289
-.ev lookup time (ms): 4.673004150390625
-.ev lookup time (ms): 4.696369171142578
-.ev lookup time (ms): 4.658937454223633
-.ev lookup time (ms): 4.721403121948242
-.ev lookup time (ms): 4.66609001159668
-.ev lookup time (ms): 4.595279693603516
-.ev lookup time (ms): 11.946916580200195
-.ev lookup time (ms): 5.248546600341797
-.ev lookup time (ms): 5.277395248413086
-.ev lookup time (ms): 5.220174789428711
-.ev lookup time (ms): 5.247831344604492
-.ev lookup time (ms): 5.237340927124023
-.ev lookup time (ms): 5.238771438598633
-.ev lookup time (ms): 5.198955535888672
-.ev lookup time (ms): 5.29170036315918
-.ev lookup time (ms): 5.291223526000977
-.ev lookup time (ms): 5.262136459350586
-.ev lookup time (ms): 5.234718322753906
-.ev lookup time (ms): 5.28407096862793
-.ev lookup time (ms): 5.273342132568359
-.ev lookup time (ms): 5.343437194824219
-.ev lookup time (ms): 5.313634872436523
-.ev lookup time (ms): 5.232572555541992
-.ev lookup time (ms): 5.237579345703125
-.ev lookup time (ms): 5.255222320556641
-.ev lookup time (ms): 5.234718322753906
-.ev lookup time (ms): 5.208015441894531
-.ev lookup time (ms): 5.284786224365234
-.ev lookup time (ms): 5.337715148925781
-.ev lookup time (ms): 5.276203155517578
-.ev lookup time (ms): 5.316495895385742
-.ev lookup time (ms): 5.3615570068359375
-.ev lookup time (ms): 5.331516265869141
-.ev lookup time (ms): 5.2433013916015625
-.ev lookup time (ms): 5.307197570800781
-.ev lookup time (ms): 5.3119659423828125
-.ev lookup time (ms): 6.104230880737305
-.ev lookup time (ms): 6.011247634887695
-.ev lookup time (ms): 6.003141403198242
-.ev lookup time (ms): 5.882024765014648
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 1.9735612869262695 secs (0 mins)
-Throughput (Req/sec) : 101.34
-Avg latency (ms) : 19.74
+Time elapsed (FINAL) : 1.9842824935913086 secs (0 mins)
+Throughput (Req/sec) : 100.79
+Avg latency (ms) : 19.84
+Avg ev lookup time (ms) : 6.77
+Avg apply emb time (ms) : 19.69
 Close connection...
 
 Error: /home/cml/CloverRec/local_emb/dlrm_data_pytorch.py:327: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
@@ -2108,7 +1091,7 @@ GPU Benchmarking - running on 1 GPUs
 Using GPUS: 0
 Batch Size: 4
 -------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 4 --num-batches=100 --data-generation=dataset --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 4 --num-batches=100 --data-generation=dataset --data-set=kaggle --dataset-multiprocessing --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
 Using CPU...
 Reading pre-processed data=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz
 Sparse fea = 26, Dense fea = 13
@@ -2119,120 +1102,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82470
+qpn : 230
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6494
+qpn : 7162
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 8.938074111938477
-.ev lookup time (ms): 8.151054382324219
-.ev lookup time (ms): 8.10384750366211
-.ev lookup time (ms): 7.996320724487305
-.ev lookup time (ms): 7.996559143066406
-.ev lookup time (ms): 9.051084518432617
-.ev lookup time (ms): 7.978677749633789
-.ev lookup time (ms): 8.06570053100586
-.ev lookup time (ms): 7.997751235961914
-.ev lookup time (ms): 7.921457290649414
-.ev lookup time (ms): 7.898569107055664
-.ev lookup time (ms): 7.955312728881836
-.ev lookup time (ms): 7.873058319091797
-.ev lookup time (ms): 7.96818733215332
-.ev lookup time (ms): 7.766485214233398
-.ev lookup time (ms): 7.809638977050781
-.ev lookup time (ms): 7.796764373779297
-.ev lookup time (ms): 7.814884185791016
-.ev lookup time (ms): 7.753133773803711
-.ev lookup time (ms): 7.760763168334961
-.ev lookup time (ms): 7.720708847045898
-.ev lookup time (ms): 7.877826690673828
-.ev lookup time (ms): 7.759809494018555
-.ev lookup time (ms): 7.743358612060547
-.ev lookup time (ms): 7.746458053588867
-.ev lookup time (ms): 7.81702995300293
-.ev lookup time (ms): 7.74383544921875
-.ev lookup time (ms): 7.757663726806641
-.ev lookup time (ms): 7.6618194580078125
-.ev lookup time (ms): 7.6961517333984375
-.ev lookup time (ms): 7.81702995300293
-.ev lookup time (ms): 7.895231246948242
-.ev lookup time (ms): 7.68733024597168
-.ev lookup time (ms): 7.734537124633789
-.ev lookup time (ms): 7.758140563964844
-.ev lookup time (ms): 7.685422897338867
-.ev lookup time (ms): 7.60197639465332
-.ev lookup time (ms): 8.32986831665039
-.ev lookup time (ms): 7.785558700561523
-.ev lookup time (ms): 7.901906967163086
-.ev lookup time (ms): 7.925987243652344
-.ev lookup time (ms): 7.747411727905273
-.ev lookup time (ms): 7.848978042602539
-.ev lookup time (ms): 7.834434509277344
-.ev lookup time (ms): 7.800102233886719
-.ev lookup time (ms): 7.835149765014648
-.ev lookup time (ms): 7.81559944152832
-.ev lookup time (ms): 7.867336273193359
-.ev lookup time (ms): 7.832765579223633
-.ev lookup time (ms): 7.8792572021484375
-.ev lookup time (ms): 7.800817489624023
-.ev lookup time (ms): 7.78651237487793
-.ev lookup time (ms): 7.775783538818359
-.ev lookup time (ms): 7.795572280883789
-.ev lookup time (ms): 7.845878601074219
-.ev lookup time (ms): 7.848501205444336
-.ev lookup time (ms): 8.057832717895508
-.ev lookup time (ms): 7.747650146484375
-.ev lookup time (ms): 7.664203643798828
-.ev lookup time (ms): 7.687568664550781
-.ev lookup time (ms): 7.735252380371094
-.ev lookup time (ms): 7.743358612060547
-.ev lookup time (ms): 7.840871810913086
-.ev lookup time (ms): 7.670402526855469
-.ev lookup time (ms): 7.773160934448242
-.ev lookup time (ms): 7.758140563964844
-.ev lookup time (ms): 7.674217224121094
-.ev lookup time (ms): 7.691860198974609
-.ev lookup time (ms): 7.713556289672852
-.ev lookup time (ms): 7.701396942138672
-.ev lookup time (ms): 7.699012756347656
-.ev lookup time (ms): 7.717370986938477
-.ev lookup time (ms): 7.689952850341797
-.ev lookup time (ms): 7.868766784667969
-.ev lookup time (ms): 7.82012939453125
-.ev lookup time (ms): 8.365392684936523
-.ev lookup time (ms): 7.800817489624023
-.ev lookup time (ms): 7.752418518066406
-.ev lookup time (ms): 7.748126983642578
-.ev lookup time (ms): 7.744789123535156
-.ev lookup time (ms): 7.736682891845703
-.ev lookup time (ms): 7.752180099487305
-.ev lookup time (ms): 7.691144943237305
-.ev lookup time (ms): 7.798910140991211
-.ev lookup time (ms): 7.67064094543457
-.ev lookup time (ms): 7.765769958496094
-.ev lookup time (ms): 7.661104202270508
-.ev lookup time (ms): 7.686614990234375
-.ev lookup time (ms): 7.749080657958984
-.ev lookup time (ms): 7.754087448120117
-.ev lookup time (ms): 7.691144943237305
-.ev lookup time (ms): 7.750749588012695
-.ev lookup time (ms): 7.735252380371094
-.ev lookup time (ms): 7.837533950805664
-.ev lookup time (ms): 7.683038711547852
-.ev lookup time (ms): 7.757902145385742
-.ev lookup time (ms): 7.720708847045898
-.ev lookup time (ms): 7.7877044677734375
-.ev lookup time (ms): 7.726430892944336
-.ev lookup time (ms): 7.669925689697266
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 2.1663241386413574 secs (0 mins)
-Throughput (Req/sec) : 184.64
-Avg latency (ms) : 21.66
+Time elapsed (FINAL) : 2.413443088531494 secs (0 mins)
+Throughput (Req/sec) : 165.74
+Avg latency (ms) : 24.13
+Avg ev lookup time (ms) : 10.72
+Avg apply emb time (ms) : 23.89
 Close connection...
 
 Error: /home/cml/CloverRec/local_emb/dlrm_data_pytorch.py:327: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
@@ -2245,7 +1130,7 @@ GPU Benchmarking - running on 1 GPUs
 Using GPUS: 0
 Batch Size: 8
 -------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 8 --num-batches=100 --data-generation=dataset --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 8 --num-batches=100 --data-generation=dataset --data-set=kaggle --dataset-multiprocessing --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
 Using CPU...
 Reading pre-processed data=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz
 Sparse fea = 26, Dense fea = 13
@@ -2256,120 +1141,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82471
+qpn : 231
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6495
+qpn : 7163
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 16.185760498046875
-.ev lookup time (ms): 15.327692031860352
-.ev lookup time (ms): 15.37775993347168
-.ev lookup time (ms): 15.459775924682617
-.ev lookup time (ms): 14.969110488891602
-.ev lookup time (ms): 15.015602111816406
-.ev lookup time (ms): 18.627166748046875
-.ev lookup time (ms): 17.61603355407715
-.ev lookup time (ms): 17.890214920043945
-.ev lookup time (ms): 17.737150192260742
-.ev lookup time (ms): 17.88330078125
-.ev lookup time (ms): 17.77195930480957
-.ev lookup time (ms): 17.618656158447266
-.ev lookup time (ms): 17.770051956176758
-.ev lookup time (ms): 17.5323486328125
-.ev lookup time (ms): 17.307043075561523
-.ev lookup time (ms): 16.95728302001953
-.ev lookup time (ms): 16.61992073059082
-.ev lookup time (ms): 17.61603355407715
-.ev lookup time (ms): 17.59195327758789
-.ev lookup time (ms): 16.635894775390625
-.ev lookup time (ms): 17.145872116088867
-.ev lookup time (ms): 17.157554626464844
-.ev lookup time (ms): 17.346858978271484
-.ev lookup time (ms): 16.844511032104492
-.ev lookup time (ms): 17.163515090942383
-.ev lookup time (ms): 16.600608825683594
-.ev lookup time (ms): 17.738819122314453
-.ev lookup time (ms): 17.20905303955078
-.ev lookup time (ms): 16.35432243347168
-.ev lookup time (ms): 16.881465911865234
-.ev lookup time (ms): 16.496896743774414
-.ev lookup time (ms): 17.3647403717041
-.ev lookup time (ms): 16.294479370117188
-.ev lookup time (ms): 16.461849212646484
-.ev lookup time (ms): 16.357898712158203
-.ev lookup time (ms): 17.238140106201172
-.ev lookup time (ms): 17.120838165283203
-.ev lookup time (ms): 16.62421226501465
-.ev lookup time (ms): 16.316652297973633
-.ev lookup time (ms): 17.024993896484375
-.ev lookup time (ms): 16.331195831298828
-.ev lookup time (ms): 17.142534255981445
-.ev lookup time (ms): 16.382455825805664
-.ev lookup time (ms): 16.386747360229492
-.ev lookup time (ms): 16.74509048461914
-.ev lookup time (ms): 16.507625579833984
-.ev lookup time (ms): 16.602039337158203
-.ev lookup time (ms): 17.008304595947266
-.ev lookup time (ms): 16.348838806152344
-.ev lookup time (ms): 16.66259765625
-.ev lookup time (ms): 16.490459442138672
-.ev lookup time (ms): 16.745328903198242
-.ev lookup time (ms): 16.425132751464844
-.ev lookup time (ms): 16.183853149414062
-.ev lookup time (ms): 15.96379280090332
-.ev lookup time (ms): 16.399383544921875
-.ev lookup time (ms): 15.995025634765625
-.ev lookup time (ms): 16.602277755737305
-.ev lookup time (ms): 16.466379165649414
-.ev lookup time (ms): 16.551971435546875
-.ev lookup time (ms): 15.755176544189453
-.ev lookup time (ms): 16.255855560302734
-.ev lookup time (ms): 16.093015670776367
-.ev lookup time (ms): 16.693115234375
-.ev lookup time (ms): 16.344547271728516
-.ev lookup time (ms): 16.329050064086914
-.ev lookup time (ms): 15.779256820678711
-.ev lookup time (ms): 16.340017318725586
-.ev lookup time (ms): 18.560409545898438
-.ev lookup time (ms): 24.6737003326416
-.ev lookup time (ms): 20.484209060668945
-.ev lookup time (ms): 19.212722778320312
-.ev lookup time (ms): 18.17464828491211
-.ev lookup time (ms): 18.068552017211914
-.ev lookup time (ms): 22.57061004638672
-.ev lookup time (ms): 17.7462100982666
-.ev lookup time (ms): 18.477916717529297
-.ev lookup time (ms): 17.63772964477539
-.ev lookup time (ms): 17.809152603149414
-.ev lookup time (ms): 18.230438232421875
-.ev lookup time (ms): 18.77284049987793
-.ev lookup time (ms): 20.908594131469727
-.ev lookup time (ms): 22.39990234375
-.ev lookup time (ms): 21.80624008178711
-.ev lookup time (ms): 17.800569534301758
-.ev lookup time (ms): 18.227338790893555
-.ev lookup time (ms): 19.488096237182617
-.ev lookup time (ms): 22.497892379760742
-.ev lookup time (ms): 19.621610641479492
-.ev lookup time (ms): 19.941091537475586
-.ev lookup time (ms): 18.92852783203125
-.ev lookup time (ms): 20.91836929321289
-.ev lookup time (ms): 18.799543380737305
-.ev lookup time (ms): 18.77617835998535
-.ev lookup time (ms): 19.238948822021484
-.ev lookup time (ms): 19.242525100708008
-.ev lookup time (ms): 24.08456802368164
-.ev lookup time (ms): 20.16448974609375
-.ev lookup time (ms): 19.92654800415039
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 3.167062997817993 secs (0 mins)
-Throughput (Req/sec) : 252.6
-Avg latency (ms) : 31.67
+Time elapsed (FINAL) : 3.123032808303833 secs (0 mins)
+Throughput (Req/sec) : 256.16
+Avg latency (ms) : 31.23
+Avg ev lookup time (ms) : 17.03
+Avg apply emb time (ms) : 31.07
 Close connection...
 
 Error: /home/cml/CloverRec/local_emb/dlrm_data_pytorch.py:327: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
@@ -2382,7 +1169,7 @@ GPU Benchmarking - running on 1 GPUs
 Using GPUS: 0
 Batch Size: 16
 -------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 16 --num-batches=100 --data-generation=dataset --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 16 --num-batches=100 --data-generation=dataset --data-set=kaggle --dataset-multiprocessing --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
 Using CPU...
 Reading pre-processed data=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz
 Sparse fea = 26, Dense fea = 13
@@ -2393,120 +1180,22 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82472
+qpn : 232
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6496
+qpn : 7164
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 38.2997989654541
-.ev lookup time (ms): 32.95588493347168
-.ev lookup time (ms): 32.68265724182129
-.ev lookup time (ms): 31.8906307220459
-.ev lookup time (ms): 32.17768669128418
-.ev lookup time (ms): 31.008005142211914
-.ev lookup time (ms): 31.919240951538086
-.ev lookup time (ms): 30.9755802154541
-.ev lookup time (ms): 31.13412857055664
-.ev lookup time (ms): 30.81059455871582
-.ev lookup time (ms): 30.284404754638672
-.ev lookup time (ms): 31.215906143188477
-.ev lookup time (ms): 30.644655227661133
-.ev lookup time (ms): 30.968666076660156
-.ev lookup time (ms): 30.344009399414062
-.ev lookup time (ms): 29.750823974609375
-.ev lookup time (ms): 29.99711036682129
-.ev lookup time (ms): 30.267715454101562
-.ev lookup time (ms): 30.4718017578125
-.ev lookup time (ms): 30.132770538330078
-.ev lookup time (ms): 29.409170150756836
-.ev lookup time (ms): 29.277563095092773
-.ev lookup time (ms): 29.996395111083984
-.ev lookup time (ms): 29.3276309967041
-.ev lookup time (ms): 29.9835205078125
-.ev lookup time (ms): 30.6246280670166
-.ev lookup time (ms): 29.118061065673828
-.ev lookup time (ms): 29.260873794555664
-.ev lookup time (ms): 30.14087677001953
-.ev lookup time (ms): 29.338598251342773
-.ev lookup time (ms): 28.963327407836914
-.ev lookup time (ms): 29.78801727294922
-.ev lookup time (ms): 29.72722053527832
-.ev lookup time (ms): 29.73771095275879
-.ev lookup time (ms): 29.834747314453125
-.ev lookup time (ms): 29.56533432006836
-.ev lookup time (ms): 29.21152114868164
-.ev lookup time (ms): 29.909372329711914
-.ev lookup time (ms): 29.583215713500977
-.ev lookup time (ms): 29.2510986328125
-.ev lookup time (ms): 29.86288070678711
-.ev lookup time (ms): 28.86343002319336
-.ev lookup time (ms): 28.7935733795166
-.ev lookup time (ms): 29.196977615356445
-.ev lookup time (ms): 28.122425079345703
-.ev lookup time (ms): 28.674602508544922
-.ev lookup time (ms): 28.604984283447266
-.ev lookup time (ms): 29.647111892700195
-.ev lookup time (ms): 28.8236141204834
-.ev lookup time (ms): 28.687477111816406
-.ev lookup time (ms): 29.916048049926758
-.ev lookup time (ms): 28.663158416748047
-.ev lookup time (ms): 29.068708419799805
-.ev lookup time (ms): 28.881072998046875
-.ev lookup time (ms): 29.005765914916992
-.ev lookup time (ms): 33.79464149475098
-.ev lookup time (ms): 31.220436096191406
-.ev lookup time (ms): 43.23101043701172
-.ev lookup time (ms): 32.51338005065918
-.ev lookup time (ms): 32.25898742675781
-.ev lookup time (ms): 33.52785110473633
-.ev lookup time (ms): 35.64810752868652
-.ev lookup time (ms): 31.35395050048828
-.ev lookup time (ms): 32.12738037109375
-.ev lookup time (ms): 31.306028366088867
-.ev lookup time (ms): 31.998872756958008
-.ev lookup time (ms): 32.20939636230469
-.ev lookup time (ms): 32.538414001464844
-.ev lookup time (ms): 33.0810546875
-.ev lookup time (ms): 30.879497528076172
-.ev lookup time (ms): 33.438682556152344
-.ev lookup time (ms): 33.1268310546875
-.ev lookup time (ms): 32.39297866821289
-.ev lookup time (ms): 32.956600189208984
-.ev lookup time (ms): 32.63568878173828
-.ev lookup time (ms): 31.585693359375
-.ev lookup time (ms): 37.22333908081055
-.ev lookup time (ms): 33.51473808288574
-.ev lookup time (ms): 33.972978591918945
-.ev lookup time (ms): 34.06524658203125
-.ev lookup time (ms): 33.81776809692383
-.ev lookup time (ms): 36.97609901428223
-.ev lookup time (ms): 34.6837043762207
-.ev lookup time (ms): 33.99467468261719
-.ev lookup time (ms): 35.21108627319336
-.ev lookup time (ms): 35.57395935058594
-.ev lookup time (ms): 33.83946418762207
-.ev lookup time (ms): 34.79290008544922
-.ev lookup time (ms): 35.16197204589844
-.ev lookup time (ms): 35.85672378540039
-.ev lookup time (ms): 34.74020957946777
-.ev lookup time (ms): 35.15028953552246
-.ev lookup time (ms): 35.63952445983887
-.ev lookup time (ms): 38.72489929199219
-.ev lookup time (ms): 37.60838508605957
-.ev lookup time (ms): 37.15252876281738
-.ev lookup time (ms): 37.87493705749512
-.ev lookup time (ms): 36.62109375
-.ev lookup time (ms): 36.710262298583984
-.ev lookup time (ms): 36.10658645629883
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 4.584660053253174 secs (0 mins)
-Throughput (Req/sec) : 348.99
-Avg latency (ms) : 45.85
+Time elapsed (FINAL) : 5.7697930335998535 secs (0 mins)
+Throughput (Req/sec) : 277.31
+Avg latency (ms) : 57.7
+Avg ev lookup time (ms) : 43.67
+Avg apply emb time (ms) : 57.53
 Close connection...
 
 Error: /home/cml/CloverRec/local_emb/dlrm_data_pytorch.py:327: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
@@ -2519,7 +1208,7 @@ GPU Benchmarking - running on 1 GPUs
 Using GPUS: 0
 Batch Size: 32
 -------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=dataset --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=dataset --data-set=kaggle --dataset-multiprocessing --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
 Using CPU...
 Reading pre-processed data=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz
 Sparse fea = 26, Dense fea = 13
@@ -2530,120 +1219,61 @@ New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 82473
+qpn : 233
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 6497
+qpn : 7165
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
-.ev lookup time (ms): 57.96360969543457
-.ev lookup time (ms): 50.15277862548828
-.ev lookup time (ms): 50.13084411621094
-.ev lookup time (ms): 49.93867874145508
-.ev lookup time (ms): 50.130605697631836
-.ev lookup time (ms): 49.85523223876953
-.ev lookup time (ms): 49.56650733947754
-.ev lookup time (ms): 49.76081848144531
-.ev lookup time (ms): 49.913883209228516
-.ev lookup time (ms): 49.41725730895996
-.ev lookup time (ms): 49.024343490600586
-.ev lookup time (ms): 49.04031753540039
-.ev lookup time (ms): 49.78585243225098
-.ev lookup time (ms): 48.4621524810791
-.ev lookup time (ms): 53.55525016784668
-.ev lookup time (ms): 53.97510528564453
-.ev lookup time (ms): 56.17833137512207
-.ev lookup time (ms): 48.44069480895996
-.ev lookup time (ms): 48.859596252441406
-.ev lookup time (ms): 49.1487979888916
-.ev lookup time (ms): 48.89726638793945
-.ev lookup time (ms): 48.57659339904785
-.ev lookup time (ms): 48.918962478637695
-.ev lookup time (ms): 48.66194725036621
-.ev lookup time (ms): 48.52914810180664
-.ev lookup time (ms): 49.048662185668945
-.ev lookup time (ms): 48.131704330444336
-.ev lookup time (ms): 48.5386848449707
-.ev lookup time (ms): 48.69675636291504
-.ev lookup time (ms): 48.11716079711914
-.ev lookup time (ms): 48.25544357299805
-.ev lookup time (ms): 49.00050163269043
-.ev lookup time (ms): 48.302412033081055
-.ev lookup time (ms): 48.15244674682617
-.ev lookup time (ms): 48.013925552368164
-.ev lookup time (ms): 48.40731620788574
-.ev lookup time (ms): 47.90687561035156
-.ev lookup time (ms): 48.224687576293945
-.ev lookup time (ms): 48.3858585357666
-.ev lookup time (ms): 47.52850532531738
-.ev lookup time (ms): 48.40707778930664
-.ev lookup time (ms): 47.63960838317871
-.ev lookup time (ms): 48.37679862976074
-.ev lookup time (ms): 48.29549789428711
-.ev lookup time (ms): 47.54900932312012
-.ev lookup time (ms): 47.7757453918457
-.ev lookup time (ms): 47.84822463989258
-.ev lookup time (ms): 50.72164535522461
-.ev lookup time (ms): 49.1786003112793
-.ev lookup time (ms): 49.44491386413574
-.ev lookup time (ms): 50.03690719604492
-.ev lookup time (ms): 49.47352409362793
-.ev lookup time (ms): 48.169612884521484
-.ev lookup time (ms): 49.69000816345215
-.ev lookup time (ms): 52.164554595947266
-.ev lookup time (ms): 50.08697509765625
-.ev lookup time (ms): 49.85666275024414
-.ev lookup time (ms): 50.08554458618164
-.ev lookup time (ms): 50.14324188232422
-.ev lookup time (ms): 49.23725128173828
-.ev lookup time (ms): 50.492048263549805
-.ev lookup time (ms): 50.86922645568848
-.ev lookup time (ms): 50.670623779296875
-.ev lookup time (ms): 53.66110801696777
-.ev lookup time (ms): 53.36284637451172
-.ev lookup time (ms): 53.39384078979492
-.ev lookup time (ms): 54.796457290649414
-.ev lookup time (ms): 55.17745018005371
-.ev lookup time (ms): 53.94935607910156
-.ev lookup time (ms): 54.11100387573242
-.ev lookup time (ms): 54.3515682220459
-.ev lookup time (ms): 54.05068397521973
-.ev lookup time (ms): 53.479671478271484
-.ev lookup time (ms): 53.73787879943848
-.ev lookup time (ms): 53.64561080932617
-.ev lookup time (ms): 59.32331085205078
-.ev lookup time (ms): 52.95157432556152
-.ev lookup time (ms): 53.42507362365723
-.ev lookup time (ms): 52.410125732421875
-.ev lookup time (ms): 52.625417709350586
-.ev lookup time (ms): 52.538394927978516
-.ev lookup time (ms): 52.49977111816406
-.ev lookup time (ms): 53.15804481506348
-.ev lookup time (ms): 52.70266532897949
-.ev lookup time (ms): 52.57678031921387
-.ev lookup time (ms): 52.80351638793945
-.ev lookup time (ms): 51.87654495239258
-.ev lookup time (ms): 52.83522605895996
-.ev lookup time (ms): 51.685333251953125
-.ev lookup time (ms): 51.93328857421875
-.ev lookup time (ms): 51.54991149902344
-.ev lookup time (ms): 52.106618881225586
-.ev lookup time (ms): 51.471710205078125
-.ev lookup time (ms): 52.39748954772949
-.ev lookup time (ms): 51.12290382385254
-.ev lookup time (ms): 51.37228965759277
-.ev lookup time (ms): 52.36029624938965
-.ev lookup time (ms): 50.99177360534668
-.ev lookup time (ms): 61.043739318847656
-.ev lookup time (ms): 71.61164283752441
-
+....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 6.504389762878418 secs (0 mins)
-Throughput (Req/sec) : 491.98
-Avg latency (ms) : 65.04
+Time elapsed (FINAL) : 6.623350381851196 secs (0 mins)
+Throughput (Req/sec) : 483.14
+Avg latency (ms) : 66.23
+Avg ev lookup time (ms) : 51.91
+Avg apply emb time (ms) : 66.01
+Close connection...
+
+Error: /home/cml/CloverRec/local_emb/dlrm_data_pytorch.py:327: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
+  X_int = torch.log(torch.tensor(transposed_data[0], dtype=torch.float) + 1)
+
+Output: --------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 64
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 64 --num-batches=100 --data-generation=dataset --data-set=kaggle --dataset-multiprocessing --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
+Using CPU...
+Reading pre-processed data=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz
+Sparse fea = 26, Dense fea = 13
+Defined test indices...
+Randomized indices across days ...
+Split data according to indices...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 1
+qpn : 234
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 9
+qpn : 7166
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+....................................................................................................
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 11.795015096664429 secs (0 mins)
+Throughput (Req/sec) : 542.6
+Avg latency (ms) : 117.95
+Avg ev lookup time (ms) : 103.46
+Avg apply emb time (ms) : 117.7
 Close connection...
 
 Error: /home/cml/CloverRec/local_emb/dlrm_data_pytorch.py:327: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
