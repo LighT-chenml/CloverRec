@@ -15,7 +15,7 @@ rand_seed=727
 
 #Model param
 batch_size=$1
-nbatches=2000
+nbatches=1000
 bot_mlp="2560-512-64"
 top_mlp="512-128-1"
 emb_size=64

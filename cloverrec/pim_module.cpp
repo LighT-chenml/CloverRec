@@ -154,6 +154,9 @@ class PIMEmbStorage
     const uint32_t SELECT_EMB_ITER = 300;
     const uint32_t SELECT_DPU_ITER = 100;
 
+    const uint32_t AGING_FREQ = 100;
+    const uint32_t DELTA_FREQ = 100;
+
 private:
     int exec_type;     // 0: sync 1: rank async 2: dpu async
     int transfer_type; // 0: all 1: rank 2: dpu
@@ -296,6 +299,7 @@ public:
         printf("avg_min_index_group_num: %.2lf\n", avg_min_index_group_num);
         printf("avg_CPU_sum_emb_num: %.2lf\n", avg_CPU_sum_emb_num);
         printf("cur_redundant_emb_size: %u\n", cur_redundant_emb_size);
+        printf("max_redundant_emb_size: %u\n", max_redundant_emb_size);
         printf("split_emb_num: %u\n", split_emb_num);
         printf("merge_emb_num: %u\n", merge_emb_num);
         printf("redundant_emb_num: %u\n", (uint32_t)redundant_emb_ids.size());
@@ -332,6 +336,7 @@ public:
         split_emb_num = 0;
         merge_emb_num = 0;
         cur_redundant_emb_size = 0;
+        max_redundant_emb_size = 1.0 * total_emb_num * REDUNDANT_RATIO;
         for (int i = 0; i < total_emb_num; ++i)
             emb_freqs[i] = 0;
         for (int i = 0; i < dpus.size(); ++i)
@@ -857,7 +862,7 @@ public:
         auto &ranks = dpuset.ranks();
 
         apply_emb_num++;
-        if (apply_emb_num % 20 == 0)
+        if (apply_emb_num % AGING_FREQ == 0)
             freq_base++; // aging
 
         auto start_convertion_time = chrono::high_resolution_clock::now();
@@ -1271,6 +1276,24 @@ public:
         else if (time_ratio < 0.5 && cur_redundant_emb_size > max_redundant_emb_size * 0.95)
         {
             merge_emb_num++;
+        }
+
+        if (apply_emb_num > DELTA_FREQ * 2 && apply_emb_num % DELTA_FREQ == 0)
+        {
+            vector<float> a(PIM_cal_time.begin() + apply_emb_num - DELTA_FREQ * 2, PIM_cal_time.begin() + apply_emb_num - DELTA_FREQ);
+            vector<float> b(PIM_cal_time.begin() + apply_emb_num - DELTA_FREQ, PIM_cal_time.begin() + apply_emb_num);
+            float delta_PIM_cal_time = cal_vec_avg_float(a) - cal_vec_avg_float(b);
+            a = vector<float>(CPU_cal_time.begin() + apply_emb_num - DELTA_FREQ * 2, CPU_cal_time.begin() + apply_emb_num - DELTA_FREQ);
+            b = vector<float>(CPU_cal_time.begin() + apply_emb_num - DELTA_FREQ, CPU_cal_time.begin() + apply_emb_num);
+            float delta_CPU_cal_time = cal_vec_avg_float(b) - cal_vec_avg_float(a);
+            if (delta_PIM_cal_time < 0 || delta_PIM_cal_time < delta_CPU_cal_time)
+            {
+                max_redundant_emb_size = cur_redundant_emb_size;
+            }
+            else if (delta_PIM_cal_time > 0 && delta_PIM_cal_time > delta_CPU_cal_time)
+            {
+                max_redundant_emb_size += split_emb_num;
+            }
         }
 
         // start_time = chrono::high_resolution_clock::now();
