@@ -179,6 +179,7 @@ public:
             avg_index_num += cal_vec_avg_int(index_num);
             avg_max_index_num += cal_vec_max(index_num);
             avg_min_index_num += cal_vec_min(index_num);
+            // printf("%d\n", cal_vec_max(index_num));
         }
         avg_index_num /= index_nums.size();
         avg_max_index_num /= index_nums.size();

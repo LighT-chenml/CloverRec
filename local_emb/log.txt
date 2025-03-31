@@ -1,523 +1,5 @@
 All clean.
 ----------------------------------------------------------------
-current model: RM1
-----------------------------------------------------------------
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 1
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 1 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 197
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7129
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 1.9325611591339111 secs (0 mins)
-Throughput (Req/sec) : 51.74
-Avg latency (ms) : 19.33
-Avg ev lookup time (ms) : 2.82
-Avg apply emb time (ms) : 19.08
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 2
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 2 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 198
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7130
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 1.3268985748291016 secs (0 mins)
-Throughput (Req/sec) : 150.73
-Avg latency (ms) : 13.27
-Avg ev lookup time (ms) : 3.87
-Avg apply emb time (ms) : 13.05
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 4
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 4 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 199
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7131
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 1.3776092529296875 secs (0 mins)
-Throughput (Req/sec) : 290.36
-Avg latency (ms) : 13.78
-Avg ev lookup time (ms) : 4.19
-Avg apply emb time (ms) : 13.6
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 8
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 8 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 200
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7132
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 1.3018989562988281 secs (0 mins)
-Throughput (Req/sec) : 614.49
-Avg latency (ms) : 13.02
-Avg ev lookup time (ms) : 5.11
-Avg apply emb time (ms) : 12.89
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 16
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 16 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 201
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7133
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 2.0469284057617188 secs (0 mins)
-Throughput (Req/sec) : 781.66
-Avg latency (ms) : 20.47
-Avg ev lookup time (ms) : 12.5
-Avg apply emb time (ms) : 20.33
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 32
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 202
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7134
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 2.64060640335083 secs (0 mins)
-Throughput (Req/sec) : 1211.84
-Avg latency (ms) : 26.41
-Avg ev lookup time (ms) : 18.0
-Avg apply emb time (ms) : 26.29
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 64
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 64 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 203
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7135
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 4.246355772018433 secs (0 mins)
-Throughput (Req/sec) : 1507.17
-Avg latency (ms) : 42.46
-Avg ev lookup time (ms) : 34.22
-Avg apply emb time (ms) : 42.34
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 128
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 128 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 204
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7136
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 7.752670764923096 secs (0 mins)
-Throughput (Req/sec) : 1651.04
-Avg latency (ms) : 77.53
-Avg ev lookup time (ms) : 68.65
-Avg apply emb time (ms) : 77.41
-Close connection...
-
-Error: 
-----------------------------------------------------------------
-current model: RM2
-----------------------------------------------------------------
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 1
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 1 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8001
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 205
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7137
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 3.4574904441833496 secs (0 mins)
-Throughput (Req/sec) : 28.92
-Avg latency (ms) : 34.57
-Avg ev lookup time (ms) : 8.34
-Avg apply emb time (ms) : 34.38
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 2
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 2 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8001
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 206
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7138
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 2.5228590965270996 secs (0 mins)
-Throughput (Req/sec) : 79.28
-Avg latency (ms) : 25.23
-Avg ev lookup time (ms) : 8.03
-Avg apply emb time (ms) : 25.06
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 4
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 4 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8001
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 207
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7139
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 2.9921505451202393 secs (0 mins)
-Throughput (Req/sec) : 133.68
-Avg latency (ms) : 29.92
-Avg ev lookup time (ms) : 12.29
-Avg apply emb time (ms) : 29.75
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 8
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 8 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8001
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 208
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7140
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 3.9831950664520264 secs (0 mins)
-Throughput (Req/sec) : 200.84
-Avg latency (ms) : 39.83
-Avg ev lookup time (ms) : 21.5
-Avg apply emb time (ms) : 39.67
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 16
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 16 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8001
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 209
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7141
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 5.657485723495483 secs (0 mins)
-Throughput (Req/sec) : 282.81
-Avg latency (ms) : 56.57
-Avg ev lookup time (ms) : 39.1
-Avg apply emb time (ms) : 56.4
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 32
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8001
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 210
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7142
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 8.960636138916016 secs (0 mins)
-Throughput (Req/sec) : 357.12
-Avg latency (ms) : 89.61
-Avg ev lookup time (ms) : 71.82
-Avg apply emb time (ms) : 89.43
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 64
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 64 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8001
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 211
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7143
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 15.366488933563232 secs (0 mins)
-Throughput (Req/sec) : 416.49
-Avg latency (ms) : 153.66
-Avg ev lookup time (ms) : 134.14
-Avg apply emb time (ms) : 153.48
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 128
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 128 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8001
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 212
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7144
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 37.076807498931885 secs (0 mins)
-Throughput (Req/sec) : 345.23
-Avg latency (ms) : 370.77
-Avg ev lookup time (ms) : 350.34
-Avg apply emb time (ms) : 370.51
-Close connection...
-
-Error: 
-----------------------------------------------------------------
 current model: RM3
 ----------------------------------------------------------------
 Output: --------------------------------------------
@@ -527,28 +9,28 @@ GPU Benchmarking - running on 1 GPUs
 Using GPUS: 0
 Batch Size: 1
 -------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 1 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=2560-512-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8002
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 1 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=2560-512-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=20 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8002
 Using CPU...
 New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 213
+qpn : 11539
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 7145
+qpn : 6596
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
 ....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 2.008193016052246 secs (0 mins)
-Throughput (Req/sec) : 49.8
-Avg latency (ms) : 20.08
-Avg ev lookup time (ms) : 3.1
-Avg apply emb time (ms) : 19.83
+Time elapsed (FINAL) : 1.270772933959961 secs (0 mins)
+Throughput (Req/sec) : 78.69
+Avg latency (ms) : 12.71
+Avg ev lookup time (ms) : 2.36
+Avg apply emb time (ms) : 12.46
 Close connection...
 
 Error: 
@@ -559,28 +41,28 @@ GPU Benchmarking - running on 1 GPUs
 Using GPUS: 0
 Batch Size: 2
 -------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 2 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=2560-512-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8002
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 2 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=2560-512-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=20 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8002
 Using CPU...
 New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 214
+qpn : 11540
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 7146
+qpn : 6597
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
 ....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 1.3890433311462402 secs (0 mins)
-Throughput (Req/sec) : 143.98
-Avg latency (ms) : 13.89
-Avg ev lookup time (ms) : 3.47
-Avg apply emb time (ms) : 13.68
+Time elapsed (FINAL) : 1.3196582794189453 secs (0 mins)
+Throughput (Req/sec) : 151.55
+Avg latency (ms) : 13.2
+Avg ev lookup time (ms) : 3.35
+Avg apply emb time (ms) : 12.96
 Close connection...
 
 Error: 
@@ -591,28 +73,28 @@ GPU Benchmarking - running on 1 GPUs
 Using GPUS: 0
 Batch Size: 4
 -------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 4 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=2560-512-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8002
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 4 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=2560-512-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=20 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8002
 Using CPU...
 New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 215
+qpn : 11541
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 7147
+qpn : 6598
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
 ....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 1.358372449874878 secs (0 mins)
-Throughput (Req/sec) : 294.47
-Avg latency (ms) : 13.58
-Avg ev lookup time (ms) : 4.57
-Avg apply emb time (ms) : 13.41
+Time elapsed (FINAL) : 1.39634108543396 secs (0 mins)
+Throughput (Req/sec) : 286.46
+Avg latency (ms) : 13.96
+Avg ev lookup time (ms) : 4.45
+Avg apply emb time (ms) : 13.76
 Close connection...
 
 Error: 
@@ -623,28 +105,28 @@ GPU Benchmarking - running on 1 GPUs
 Using GPUS: 0
 Batch Size: 8
 -------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 8 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=2560-512-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8002
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 8 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=2560-512-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=20 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8002
 Using CPU...
 New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 216
+qpn : 11542
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 7148
+qpn : 6599
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
 ....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 1.3648958206176758 secs (0 mins)
-Throughput (Req/sec) : 586.13
-Avg latency (ms) : 13.65
-Avg ev lookup time (ms) : 5.35
-Avg apply emb time (ms) : 13.52
+Time elapsed (FINAL) : 1.4345526695251465 secs (0 mins)
+Throughput (Req/sec) : 557.67
+Avg latency (ms) : 14.35
+Avg ev lookup time (ms) : 5.61
+Avg apply emb time (ms) : 14.19
 Close connection...
 
 Error: 
@@ -655,28 +137,28 @@ GPU Benchmarking - running on 1 GPUs
 Using GPUS: 0
 Batch Size: 16
 -------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 16 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=2560-512-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8002
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 16 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=2560-512-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=20 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8002
 Using CPU...
 New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 217
+qpn : 11543
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 7149
+qpn : 6600
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
 ....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 2.003156900405884 secs (0 mins)
-Throughput (Req/sec) : 798.74
-Avg latency (ms) : 20.03
-Avg ev lookup time (ms) : 11.76
-Avg apply emb time (ms) : 19.89
+Time elapsed (FINAL) : 1.5481688976287842 secs (0 mins)
+Throughput (Req/sec) : 1033.48
+Avg latency (ms) : 15.48
+Avg ev lookup time (ms) : 7.11
+Avg apply emb time (ms) : 15.36
 Close connection...
 
 Error: 
@@ -687,28 +169,28 @@ GPU Benchmarking - running on 1 GPUs
 Using GPUS: 0
 Batch Size: 32
 -------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=2560-512-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8002
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=2560-512-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=20 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8002
 Using CPU...
 New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 218
+qpn : 11544
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 7150
+qpn : 6601
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
 ....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 2.4957809448242188 secs (0 mins)
-Throughput (Req/sec) : 1282.16
-Avg latency (ms) : 24.96
-Avg ev lookup time (ms) : 16.75
-Avg apply emb time (ms) : 24.85
+Time elapsed (FINAL) : 2.189753770828247 secs (0 mins)
+Throughput (Req/sec) : 1461.35
+Avg latency (ms) : 21.9
+Avg ev lookup time (ms) : 13.33
+Avg apply emb time (ms) : 21.78
 Close connection...
 
 Error: 
@@ -719,28 +201,28 @@ GPU Benchmarking - running on 1 GPUs
 Using GPUS: 0
 Batch Size: 64
 -------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 64 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=2560-512-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8002
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 64 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=2560-512-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=20 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8002
 Using CPU...
 New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 219
+qpn : 11545
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 7151
+qpn : 6602
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
 ....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 5.407820224761963 secs (0 mins)
-Throughput (Req/sec) : 1183.47
-Avg latency (ms) : 54.08
-Avg ev lookup time (ms) : 45.1
-Avg apply emb time (ms) : 53.94
+Time elapsed (FINAL) : 3.474372386932373 secs (0 mins)
+Throughput (Req/sec) : 1842.06
+Avg latency (ms) : 34.74
+Avg ev lookup time (ms) : 25.05
+Avg apply emb time (ms) : 34.62
 Close connection...
 
 Error: 
@@ -751,531 +233,28 @@ GPU Benchmarking - running on 1 GPUs
 Using GPUS: 0
 Batch Size: 128
 -------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 128 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=2560-512-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8002
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 128 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=2560-512-64 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=64 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=20 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8002
 Using CPU...
 New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 1
-qpn : 220
+qpn : 11546
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 9
-qpn : 7152
+qpn : 6603
 --------------------------------------------------------------------------------
 Testing for inference only
 ==== ==== Progress bar (nWorkload: 100) shown below:
 ....................................................................................................
  accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 8.326908826828003 secs (0 mins)
-Throughput (Req/sec) : 1537.19
-Avg latency (ms) : 83.27
-Avg ev lookup time (ms) : 71.3
-Avg apply emb time (ms) : 83.15
+Time elapsed (FINAL) : 6.106353521347046 secs (0 mins)
+Throughput (Req/sec) : 2096.18
+Avg latency (ms) : 61.06
+Avg ev lookup time (ms) : 49.12
+Avg apply emb time (ms) : 60.94
 Close connection...
 
 Error: 
-----------------------------------------------------------------
-current model: RM4
-----------------------------------------------------------------
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 1
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 1 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=512-256-128 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=128 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=160 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8003
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 221
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7153
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 4.822738170623779 secs (0 mins)
-Throughput (Req/sec) : 20.74
-Avg latency (ms) : 48.23
-Avg ev lookup time (ms) : 11.71
-Avg apply emb time (ms) : 47.98
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 2
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 2 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=512-256-128 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=128 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=160 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8003
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 222
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7154
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 4.669385671615601 secs (0 mins)
-Throughput (Req/sec) : 42.83
-Avg latency (ms) : 46.69
-Avg ev lookup time (ms) : 18.69
-Avg apply emb time (ms) : 46.45
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 4
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 4 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=512-256-128 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=128 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=160 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8003
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 223
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7155
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 5.970592498779297 secs (0 mins)
-Throughput (Req/sec) : 67.0
-Avg latency (ms) : 59.71
-Avg ev lookup time (ms) : 31.41
-Avg apply emb time (ms) : 59.54
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 8
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 8 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=512-256-128 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=128 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=160 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8003
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 224
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7156
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 8.164315223693848 secs (0 mins)
-Throughput (Req/sec) : 97.99
-Avg latency (ms) : 81.64
-Avg ev lookup time (ms) : 53.26
-Avg apply emb time (ms) : 81.36
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 16
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 16 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=512-256-128 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=128 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=160 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8003
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 225
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7157
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 12.43123459815979 secs (0 mins)
-Throughput (Req/sec) : 128.71
-Avg latency (ms) : 124.31
-Avg ev lookup time (ms) : 93.91
-Avg apply emb time (ms) : 124.05
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 32
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=512-256-128 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=128 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=160 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8003
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 226
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7158
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 21.402390480041504 secs (0 mins)
-Throughput (Req/sec) : 149.52
-Avg latency (ms) : 214.02
-Avg ev lookup time (ms) : 181.83
-Avg apply emb time (ms) : 213.74
-Close connection...
-
-Error: 
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 64
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 64 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=512-256-128 --arch-mlp-top=512-128-1 --arch-sparse-feature-size=128 --arch-embedding-size=1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000-1000000 --num-indices-per-lookup=160 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8003
-Using CPU...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 227
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7159
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 36.18196201324463 secs (0 mins)
-Throughput (Req/sec) : 176.88
-Avg latency (ms) : 361.82
-Avg ev lookup time (ms) : 328.56
-Avg apply emb time (ms) : 361.44
-Close connection...
-
-Error: 
-----------------------------------------------------------------
-current model: kaggle
-----------------------------------------------------------------
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 1
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 1 --num-batches=100 --data-generation=dataset --data-set=kaggle --dataset-multiprocessing --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
-Using CPU...
-Reading pre-processed data=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz
-Sparse fea = 26, Dense fea = 13
-Defined test indices...
-Randomized indices across days ...
-Split data according to indices...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 228
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7160
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 1.6044340133666992 secs (0 mins)
-Throughput (Req/sec) : 62.33
-Avg latency (ms) : 16.04
-Avg ev lookup time (ms) : 2.94
-Avg apply emb time (ms) : 15.9
-Close connection...
-
-Error: /home/cml/CloverRec/local_emb/dlrm_data_pytorch.py:327: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
-  X_int = torch.log(torch.tensor(transposed_data[0], dtype=torch.float) + 1)
-
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 2
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 2 --num-batches=100 --data-generation=dataset --data-set=kaggle --dataset-multiprocessing --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
-Using CPU...
-Reading pre-processed data=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz
-Sparse fea = 26, Dense fea = 13
-Defined test indices...
-Randomized indices across days ...
-Split data according to indices...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 229
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7161
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 1.9842824935913086 secs (0 mins)
-Throughput (Req/sec) : 100.79
-Avg latency (ms) : 19.84
-Avg ev lookup time (ms) : 6.77
-Avg apply emb time (ms) : 19.69
-Close connection...
-
-Error: /home/cml/CloverRec/local_emb/dlrm_data_pytorch.py:327: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
-  X_int = torch.log(torch.tensor(transposed_data[0], dtype=torch.float) + 1)
-
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 4
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 4 --num-batches=100 --data-generation=dataset --data-set=kaggle --dataset-multiprocessing --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
-Using CPU...
-Reading pre-processed data=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz
-Sparse fea = 26, Dense fea = 13
-Defined test indices...
-Randomized indices across days ...
-Split data according to indices...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 230
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7162
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 2.413443088531494 secs (0 mins)
-Throughput (Req/sec) : 165.74
-Avg latency (ms) : 24.13
-Avg ev lookup time (ms) : 10.72
-Avg apply emb time (ms) : 23.89
-Close connection...
-
-Error: /home/cml/CloverRec/local_emb/dlrm_data_pytorch.py:327: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
-  X_int = torch.log(torch.tensor(transposed_data[0], dtype=torch.float) + 1)
-
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 8
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 8 --num-batches=100 --data-generation=dataset --data-set=kaggle --dataset-multiprocessing --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
-Using CPU...
-Reading pre-processed data=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz
-Sparse fea = 26, Dense fea = 13
-Defined test indices...
-Randomized indices across days ...
-Split data according to indices...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 231
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7163
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 3.123032808303833 secs (0 mins)
-Throughput (Req/sec) : 256.16
-Avg latency (ms) : 31.23
-Avg ev lookup time (ms) : 17.03
-Avg apply emb time (ms) : 31.07
-Close connection...
-
-Error: /home/cml/CloverRec/local_emb/dlrm_data_pytorch.py:327: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
-  X_int = torch.log(torch.tensor(transposed_data[0], dtype=torch.float) + 1)
-
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 16
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 16 --num-batches=100 --data-generation=dataset --data-set=kaggle --dataset-multiprocessing --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
-Using CPU...
-Reading pre-processed data=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz
-Sparse fea = 26, Dense fea = 13
-Defined test indices...
-Randomized indices across days ...
-Split data according to indices...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 232
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7164
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 5.7697930335998535 secs (0 mins)
-Throughput (Req/sec) : 277.31
-Avg latency (ms) : 57.7
-Avg ev lookup time (ms) : 43.67
-Avg apply emb time (ms) : 57.53
-Close connection...
-
-Error: /home/cml/CloverRec/local_emb/dlrm_data_pytorch.py:327: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
-  X_int = torch.log(torch.tensor(transposed_data[0], dtype=torch.float) + 1)
-
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 32
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=dataset --data-set=kaggle --dataset-multiprocessing --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
-Using CPU...
-Reading pre-processed data=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz
-Sparse fea = 26, Dense fea = 13
-Defined test indices...
-Randomized indices across days ...
-Split data according to indices...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 233
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7165
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 6.623350381851196 secs (0 mins)
-Throughput (Req/sec) : 483.14
-Avg latency (ms) : 66.23
-Avg ev lookup time (ms) : 51.91
-Avg apply emb time (ms) : 66.01
-Close connection...
-
-Error: /home/cml/CloverRec/local_emb/dlrm_data_pytorch.py:327: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
-  X_int = torch.log(torch.tensor(transposed_data[0], dtype=torch.float) + 1)
-
-Output: --------------------------------------------
-GPU Benchmarking - running on 1 GPUs
---------------------------------------------
--------------------
-Using GPUS: 0
-Batch Size: 64
--------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 64 --num-batches=100 --data-generation=dataset --data-set=kaggle --dataset-multiprocessing --raw-data-file=/home/cml/data/Kaggle/train.txt --processed-data-file=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz --rand-data-dist=zipfian --arch-mlp-bot=13-512-256-64 --arch-mlp-top=512-256-1 --arch-sparse-feature-size=64 --arch-embedding-size=1460-583-10131227-2202608-305-24-12517-633-3-93145-5683-8351593-3194-27-14992-5461306-10-5652-2173-4-7046547-18-15-286181-105-142572 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8004
-Using CPU...
-Reading pre-processed data=/home/cml/data/Kaggle/kaggleAdDisplayChallenge_processed.npz
-Sparse fea = 26, Dense fea = 13
-Defined test indices...
-Randomized indices across days ...
-Split data according to indices...
-New connection...
--- Local Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 1
-qpn : 234
---------------------------------------------------------------------------------
--- Remote Info
-gid : fe80:0000:0000:0000:0000:0000:0000:0000
-lid : 9
-qpn : 7166
---------------------------------------------------------------------------------
-Testing for inference only
-==== ==== Progress bar (nWorkload: 100) shown below:
-....................................................................................................
- accuracy 0.000 %, best 0.000 %
-Time elapsed (FINAL) : 11.795015096664429 secs (0 mins)
-Throughput (Req/sec) : 542.6
-Avg latency (ms) : 117.95
-Avg ev lookup time (ms) : 103.46
-Avg apply emb time (ms) : 117.7
-Close connection...
-
-Error: /home/cml/CloverRec/local_emb/dlrm_data_pytorch.py:327: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
-  X_int = torch.log(torch.tensor(transposed_data[0], dtype=torch.float) + 1)
-

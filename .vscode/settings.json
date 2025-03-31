@@ -89,6 +89,7 @@
         "alloc.h": "c",
         "dpu": "cpp",
         "stdint.h": "c",
-        "mram.h": "c"
+        "mram.h": "c",
+        "defs.h": "c"
     }
 }

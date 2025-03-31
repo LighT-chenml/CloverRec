@@ -15,7 +15,7 @@ rand_seed=727
 
 #Model param
 nbatches=500
-num_int=119
+num_int=119 # 55 + 64
 bot_mlp="256-128-64"
 top_mlp="256-64-1"
 emb_size=64

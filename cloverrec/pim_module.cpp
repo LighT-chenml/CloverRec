@@ -209,6 +209,7 @@ private:
     vector<float> split_emb_time;
     vector<float> merge_emb_time;
     vector<float> total_apply_emb_time;
+    vector<uint32_t> redundant_emb_size;
 
     vector<vector<uint32_t>> index_nums;
     vector<vector<uint32_t>> index_group_nums;
@@ -242,13 +243,31 @@ public:
             avg_index_num += cal_vec_avg_int(index_num);
             avg_max_index_num += cal_vec_max(index_num);
             avg_min_index_num += cal_vec_min(index_num);
+            // printf("%d\n", cal_vec_max(index_num));
 
             ++cnt;
             if (cnt % 10 == 0)
             {
-                printf("cnt %d avg_max_index_num: %.2lf\n", cnt, avg_max_index_num / cnt);
+                // printf("cnt %d avg_max_index_num: %.2lf\n", cnt, avg_max_index_num / cnt);
             }
         }
+
+        // for (int i = 0; i < index_nums.size(); ++i)
+        // {
+        //     auto &index_num = index_nums[i];
+        //     if (i % 10 == 0)
+        //     {
+        //         printf("%d\n", cal_vec_max(index_num));
+        //     }
+        // }
+        // for (int i = 0; i < index_nums.size(); ++i)
+        // {
+        //     if (i % 10 == 0)
+        //     {
+        //         printf("%d\n", redundant_emb_size[i]);
+        //     }
+        // }
+
         avg_index_num /= index_nums.size();
         avg_max_index_num /= index_nums.size();
         avg_min_index_num /= index_nums.size();
@@ -325,6 +344,7 @@ public:
 
         vector<vector<uint32_t>>().swap(index_nums);
         vector<vector<uint32_t>>().swap(index_group_nums);
+        vector<uint32_t>().swap(redundant_emb_size);
         vector<float>().swap(CPU_sum_emb_num);
 
         global_total_index_num = 0;
@@ -359,7 +379,7 @@ public:
     void initialize(uint64_t m, py::array_t<uint64_t> &ln, py::array_t<float> &emb_tables)
     {
         exec_type = 1;
-        transfer_type = 2;
+        transfer_type = 1;
 
         if (exec_type != 0)
             transfer_type = exec_type;
@@ -1295,6 +1315,8 @@ public:
                 max_redundant_emb_size += split_emb_num;
             }
         }
+
+        redundant_emb_size.push_back(cur_redundant_emb_size);
 
         // start_time = chrono::high_resolution_clock::now();
 
