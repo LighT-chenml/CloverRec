@@ -15,6 +15,7 @@ rand_seed=727
 
 #Model param
 batch_size=$1
+zipf_parameter=$2
 nbatches=100
 bot_mlp="256-128-64"
 top_mlp="256-64-1"
@@ -40,7 +41,8 @@ _args="--num-batches="${nbatches}\
 " --inference-only"\
 " --get-cdf-lat=True"\
 " --server-ip=10.0.0.5"\
-" --server-port=8000"
+" --server-port=8000"\
+" --zipf-parameter="${zipf_parameter}
 
 # GPU Benchmarking
 echo "--------------------------------------------"

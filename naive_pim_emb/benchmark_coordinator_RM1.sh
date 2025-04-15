@@ -15,6 +15,7 @@ rand_seed=727
 
 #Model param
 batch_size=$1
+zipf_parameter=$2
 nbatches=100
 bot_mlp="256-128-64"
 top_mlp="256-64-1"
@@ -45,7 +46,7 @@ _args="--num-batches="${nbatches}\
 " --server-port=8000"\
 " --emb-pool-ip=10.0.0.11"\
 " --emb-pool-port=1234"\
-" --zipf-parameter=1.5"
+" --zipf-parameter="${zipf_parameter}
 
 # GPU Benchmarking
 echo "--------------------------------------------"

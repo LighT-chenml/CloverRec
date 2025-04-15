@@ -5,9 +5,10 @@ import asyncio
 import os
 import signal
 
-def start_coordinator(model, batch_size):
-    print(f"begin test {model} {batch_size}")
+def start_coordinator(model, batch_size, zipf_parameter):
+    print(f"begin test {model} {batch_size} {zipf_parameter}")
     
+    # command = f"./benchmark_coordinator_{model}.sh {batch_size} {zipf_parameter}"
     command = f"./benchmark_coordinator_{model}.sh {batch_size}"
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     print(f"Output: {result.stdout}")
@@ -51,6 +52,7 @@ def run():
     batch_sizes['RM3'] = [1, 2, 4, 8, 16, 32, 64, 128, 256]
     batch_sizes['RM4'] = [1, 2, 4, 8, 16, 32, 64]
     batch_sizes['kaggle'] = [1, 2, 4, 8, 16, 32, 64]
+    zipf_parameters = [1.01, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0]
     
     for model in models:
         
@@ -61,7 +63,10 @@ def run():
         # emb_pool_process_id = start_emb_pool(model)
         
         for batch_size in batch_sizes[model]:
-            start_coordinator(model, batch_size)
+            start_coordinator(model, batch_size, 1.5)
+            
+        # for zipf_parameter in zipf_parameters:
+        #     start_coordinator(model, 32, zipf_parameter)
         
         clean_env()            
 

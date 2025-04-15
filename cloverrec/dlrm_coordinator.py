@@ -480,6 +480,8 @@ def inference(
         batched_lS_o_test = []
         batched_lS_i_test = []
         
+        # print("test_ld len: " + str(len(test_ld)))
+        
         for i, testBatch in enumerate(test_ld):
             # early exit if nbatches was set by the user and was exceeded
             if nbatches > 0 and i >= nbatches * args.num_indices_per_lookup:
@@ -963,9 +965,11 @@ def run():
         arr_latency = calculate_and_write_cdf(args.cdf_output_dir, arr_time_latency)
 
         avg_latency = seconds / len(arr_latency) * 1000
+        
+        print("len: " + str(len(arr_latency)))
 
         print("Time elapsed (FINAL) : " + str(seconds) + " secs (" + str(int(seconds/60)) + " mins)")
-        print("Throughput (Req/sec) : " + str(round(args.mini_batch_size * args.num_batches / seconds, 2)))
+        print("Throughput (Req/sec) : " + str(round(args.mini_batch_size * len(arr_latency) / seconds, 2)))
         print("Avg latency (ms) : " + str(round(avg_latency, 2)))
         avg_ev_lookup_time = sum(dlrm.ev_lookup_time) / len(dlrm.ev_lookup_time)
         print("Avg ev lookup time (ms) : " + str(round(avg_ev_lookup_time, 2)))
