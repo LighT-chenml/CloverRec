@@ -8,7 +8,7 @@ echo "--------------------------------------------"
 echo "Finish Compiling pim_dpu"
 echo "--------------------------------------------"
 
-python setup.py install
+python setup.py develop
 echo "--------------------------------------------"
 echo "Finish Compiling pim_module"
 echo "--------------------------------------------"

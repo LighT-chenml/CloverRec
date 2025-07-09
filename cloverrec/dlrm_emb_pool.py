@@ -160,8 +160,8 @@ class EmbServer:
         start_time = time.time()
 
         # prepare request response
-        ret = self.apply_emb(lS_o, lS_i)
-        
+        ret, to_cache_keys, to_cache_values = self.apply_emb(lS_o, lS_i)     
+
         end_time = time.time()
         total_time = end_time - start_time
         total_time *= 1000
@@ -169,7 +169,7 @@ class EmbServer:
 
         header = {}
         output_data = ret
-        response = pickle.dumps({'header': header, 'data': output_data})
+        response = pickle.dumps({'header': header, 'data': output_data, 'to_cache_keys': to_cache_keys, 'to_cache_values': to_cache_values})
 
         response_len = len(response)
         self.mr.write(response_len.to_bytes(8, 'little'), 8, 0)
@@ -193,7 +193,7 @@ class EmbServer:
 
         start_time = time.time()
 
-        ret = self.pim_emb_storage.apply_emb(np.array(lS_o), np.array(lS_i))
+        ret, to_cache_keys, to_cache_values = self.pim_emb_storage.apply_emb(np.array(lS_o), np.array(lS_i))
 
         end_time = time.time()
         total_time = end_time - start_time
@@ -211,7 +211,7 @@ class EmbServer:
         total_time *= 1000
         # print("result convertion time (ms): " + f"{total_time}")
 
-        return ly
+        return ly, to_cache_keys, to_cache_values
 
 def dash_separated_ints(value):
     vals = value.split("-")

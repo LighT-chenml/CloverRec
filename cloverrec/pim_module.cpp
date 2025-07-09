@@ -15,60 +15,75 @@ namespace py = pybind11;
 
 using namespace std;
 
-vector<vector<uint64_t>> numpy_to_vector_2D(py::array_t<uint64_t> &array)
+template <typename T>
+std::vector<T> numpy_to_vector_1D(py::array_t<T> array)
 {
+    py::buffer_info buf = array.request();
 
-    size_t rows = array.shape(0);
-    size_t cols = array.shape(1);
-
-    std::vector<std::vector<uint64_t>> vec(rows, std::vector<uint64_t>(cols));
-
-    auto unchecked_array = array.unchecked<2>();
-    for (size_t i = 0; i < rows; ++i)
-    {
-        for (size_t j = 0; j < cols; ++j)
-        {
-            vec[i][j] = unchecked_array(i, j);
-        }
-    }
+    T *ptr = static_cast<T *>(buf.ptr);
+    std::vector<T> vec(ptr, ptr + buf.size);
 
     return vec;
 }
 
-py::array_t<float> vector_to_numpy_1D(const std::vector<float> &vec)
+template <typename T>
+std::vector<std::vector<T>> numpy_to_vector_2D(py::array_t<T> array)
 {
-    return py::array_t<float>(
+    py::buffer_info buf = array.request();
+
+    auto rows = buf.shape[0];
+    auto cols = buf.shape[1];
+
+    T *ptr = static_cast<T *>(buf.ptr);
+    std::vector<std::vector<T>> result;
+    result.reserve(rows);
+
+    for (size_t i = 0; i < rows; i++)
+    {
+        std::vector<T> row(ptr + i * cols, ptr + (i + 1) * cols);
+        result.push_back(row);
+    }
+
+    return result;
+}
+
+template <typename T>
+py::array_t<T> vector_to_numpy_1D(const std::vector<T> &vec)
+{
+    return py::array_t<T>(
         vec.size(),
         vec.data());
 }
 
-py::array_t<float> vector_to_numpy_2D(const vector<vector<float>> &vec)
+template <typename T>
+py::array_t<T> vector_to_numpy_2D(const vector<vector<T>> &vec)
 {
     size_t dim1 = vec.size();
     size_t dim2 = vec.empty() ? 0 : vec[0].size();
 
-    vector<float> flattened;
+    vector<T> flattened;
     flattened.reserve(dim1 * dim2);
     for (const auto &row : vec)
     {
         flattened.insert(flattened.end(), row.begin(), row.end());
     }
 
-    return py::array_t<float>(
-        {dim1, dim2},          // Shape (Three dimensions)
-        {dim2 * sizeof(float), // Strides for each dimension (row-major)
-         sizeof(float)},
+    return py::array_t<T>(
+        {dim1, dim2},      // Shape (Three dimensions)
+        {dim2 * sizeof(T), // Strides for each dimension (row-major)
+         sizeof(T)},
         flattened.data() // Pointer to the flat data
     );
 }
 
-py::array_t<float> vector_to_numpy_3D(const vector<vector<vector<float>>> &vec)
+template <typename T>
+py::array_t<T> vector_to_numpy_3D(const vector<vector<vector<T>>> &vec)
 {
     size_t dim1 = vec.size();
     size_t dim2 = vec.empty() ? 0 : vec[0].size();
     size_t dim3 = (dim2 == 0 || vec[0].empty()) ? 0 : vec[0][0].size();
 
-    vector<float> flattened;
+    vector<T> flattened;
     flattened.reserve(dim1 * dim2 * dim3);
     for (const auto &mat : vec)
     {
@@ -78,11 +93,11 @@ py::array_t<float> vector_to_numpy_3D(const vector<vector<vector<float>>> &vec)
         }
     }
 
-    return py::array_t<float>(
-        {dim1, dim2, dim3},           // Shape (Three dimensions)
-        {dim2 * dim3 * sizeof(float), // Strides for each dimension (row-major)
-         dim3 * sizeof(float),
-         sizeof(float)},
+    return py::array_t<T>(
+        {dim1, dim2, dim3},       // Shape (Three dimensions)
+        {dim2 * dim3 * sizeof(T), // Strides for each dimension (row-major)
+         dim3 * sizeof(T),
+         sizeof(T)},
         flattened.data() // Pointer to the flat data
     );
 }
@@ -874,7 +889,7 @@ public:
         vector<vector<float>> evs;
     };
 
-    py::array_t<float> apply_emb(py::array_t<uint64_t> &lS_o, py::array_t<uint64_t> &lS_i)
+    std::tuple<py::array_t<float>, py::array_t<int64_t>, py::array_t<float>> apply_emb(py::array_t<uint64_t> &lS_o, py::array_t<uint64_t> &lS_i)
     {
         static std::mt19937 random_num_generation(std::random_device{}());
 
@@ -921,18 +936,20 @@ public:
 
         uint32_t total_index_num = 0;
 
+        vector<uint64_t> all_indices;
+
         for (int i = 0, table_offset = 0; i < offsets.size(); ++i)
         {
             auto &sparse_offset_group_batch = offsets[i];
             auto &sparse_index_group_batch = indices[i];
 
-            batch_size = sparse_offset_group_batch.size();
+            batch_size = sparse_offset_group_batch.size() - 1;
 
             for (int j = 0; j < batch_size; ++j)
             {
                 IndexGroup ig;
                 auto start = sparse_offset_group_batch[j];
-                auto end = j + 1 < batch_size ? sparse_offset_group_batch[j + 1] : sparse_index_group_batch.size();
+                auto end = sparse_offset_group_batch[j + 1];
 
                 total_index_num += end - start;
 
@@ -941,6 +958,8 @@ public:
                 {
                     auto index = sparse_index_group_batch[k];
                     index += table_offset;
+
+                    all_indices.push_back(index);
 
                     auto dpu_id = index / emb_num_per_dpu;
                     auto dpu_emb_id = index % emb_num_per_dpu;
@@ -1318,15 +1337,37 @@ public:
 
         redundant_emb_size.push_back(cur_redundant_emb_size);
 
-        // start_time = chrono::high_resolution_clock::now();
+        vector<uint64_t> to_cache_keys;
+        vector<vector<float>> to_cache_values;
 
-        auto ret = vector_to_numpy_3D(result);
+        for (int i = 0; i < offsets.size() * batch_size; ++i)
+        {
+            int p = random_num_generation() % all_indices.size();
+            int index = all_indices[p];
+            to_cache_keys.push_back(index);
+        }
 
-        // end_time = chrono::high_resolution_clock::now();
-        // duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
-        // printf("PIM module result convertion time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
+        sort(to_cache_keys.begin(), to_cache_keys.end());
+        auto last = unique(to_cache_keys.begin(), to_cache_keys.end());
+        to_cache_keys.erase(last, to_cache_keys.end());
 
-        return ret;
+        // printf("to cache num: %d\n", to_cache_keys.size());
+
+        for (auto index: to_cache_keys)
+        {
+            auto dpu_id = index / emb_num_per_dpu;
+            auto dpu_emb_id = index % emb_num_per_dpu;
+
+            vector<vector<float>> a;
+            a.push_back(vector<float>(emb_dim, 0));
+
+            // to be optimized
+            dpus[dpu_id]->copy(a, "buffer", 2 * 1024 * 1024 + dpu_emb_id * emb_dim * 4);
+            
+            to_cache_values.push_back(a.back());
+        }
+
+        return std::make_tuple(vector_to_numpy_3D(result), vector_to_numpy_1D(to_cache_keys), vector_to_numpy_2D(to_cache_values));
     }
 };
 
