@@ -21,6 +21,9 @@ from pyverbs.wr import SGE, RecvWR, SendWR
 
 import time
 
+# client cache
+from client_cache import ClientCache
+
 class EmbClient:
     def __init__(self):
         self.CLIENT_RECV_WR = 3
@@ -114,6 +117,9 @@ class EmbStorage():
         self.ln = ln
         
         self.client = EmbClient()
+
+        self.client_cache = ClientCache()
+        self.client_cache.initialize(m, ln)
         
         flag = 0
         while flag != 2:
@@ -135,7 +141,21 @@ class EmbStorage():
         # 2. for each embedding the lookups are further organized into a batch
         # 3. for a list of embedding tables there is a list of batched lookups
 
-        ly = self.client.send_request({'lS_o': lS_o, 'lS_i': lS_i})['data']
+        cache_ly, lS_o, lS_i = self.client_cache.apply_emb(np.array(lS_o), np.array(lS_i))
+        cache_ly = torch.tensor(cache_ly)
+        lS_o = torch.tensor(lS_o)
+        lS_i = torch.tensor(lS_i)
+
+        ret = self.client.send_request({'lS_o': lS_o, 'lS_i': lS_i})
+
+        remote_ly = ret['data']
+        to_cache_keys = ret['to_cache_keys']
+        to_cache_values = ret['to_cache_values']
+        self.client_cache.update_cache(to_cache_keys, to_cache_values)
+
+        ly = []
+        for k, sparse_index_group_batch in enumerate(lS_i):
+            ly.append(torch.add(cache_ly[k], remote_ly[k]))
 
         return ly
     

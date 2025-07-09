@@ -124,7 +124,7 @@ public:
     void put(const Key &key, const std::vector<ValueType> &value)
     {
         if (!capacity_) return ;
-        
+
         auto it = cache_map_.find(key);
         if (it != cache_map_.end())
         {
@@ -275,7 +275,7 @@ public:
             cache->put(keys[i], values[i]);
         }
         
-        // printf("cur cache size: %d\n", cache->size());
+        printf("cur cache size: %d\n", cache->size());
     }
 };
 
