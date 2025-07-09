@@ -19,6 +19,10 @@ from pyverbs.qp import QP, QPCap, QPInitAttr, QPAttr
 from pyverbs.wr import SGE, RecvWR, SendWR
 
 import time
+from collections import OrderedDict
+
+# client cache
+from client_cache import ClientCache
 
 class EmbClient:
     def __init__(self):
@@ -103,6 +107,9 @@ class EmbStorage():
         self.client = EmbClient()
         mr_size = len(ln) * num_indices_per_lookup * batch_size * m * 4
         
+        self.client_cache = ClientCache()
+        self.client_cache.initialize(m, ln)
+
         flag = 0
         while flag != 2:
             try:
@@ -127,12 +134,20 @@ class EmbStorage():
     
         emb_size = self.m * 4
     
+        cache_ly, lS_o, lS_i = self.client_cache.apply_emb(np.array(lS_o), np.array(lS_i))
+        cache_ly = torch.tensor(cache_ly)
+        lS_o = torch.tensor(lS_o)
+        lS_i = torch.tensor(lS_i)
+
         offset_list = []
         table_offset = 0
         for k, sparse_index_group_batch in enumerate(lS_i):
+            sparse_offset_group_batch = lS_o[k]
+            sparse_index_group_batch = sparse_index_group_batch[:sparse_offset_group_batch[-1]]
             offset_list.append(torch.add(sparse_index_group_batch, table_offset))
             table_offset += self.ln[k]
-        offset_list = torch.cat(offset_list,dim=0) * emb_size
+        offset_list = torch.cat(offset_list, dim=0) * emb_size
+        # print(len(offset_list))
 
         start_time = time.time()
 
@@ -146,7 +161,9 @@ class EmbStorage():
         # start_time = time.time()
         
         evs = torch.tensor(np.frombuffer(evs_bytes, dtype=np.float32)).view(int(len(evs_bytes) / emb_size), self.m)
-        
+
+        self.client_cache.update_cache(np.array(offset_list / emb_size), np.array(evs))
+
         # end_time = time.time()
         # total_time = end_time - start_time
         # total_time *= 1000
@@ -167,13 +184,13 @@ class EmbStorage():
         for k, sparse_index_group_batch in enumerate(lS_i):
             sparse_offset_group_batch = lS_o[k]
             
-            batch_size = len(sparse_offset_group_batch)
+            batch_size = len(sparse_offset_group_batch) - 1
             ev_batch = []
             
             for i in range(batch_size):
                 
                 start = sparse_offset_group_batch[i]
-                end = sparse_offset_group_batch[i + 1] if i + 1 < batch_size else len(sparse_index_group_batch)
+                end = sparse_offset_group_batch[i + 1]
                 
                 # start_time = time.time()
                 
@@ -195,7 +212,7 @@ class EmbStorage():
                 
                 # total_sum_time += total_time
             
-            V = torch.tensor(np.array(ev_batch))
+            V = torch.add(torch.tensor(np.array(ev_batch)), cache_ly[k])
             ly.append(V)
             ev_offset += len(sparse_index_group_batch)
             

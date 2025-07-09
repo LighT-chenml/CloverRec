@@ -3,6 +3,11 @@
 #
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
+python client_cache_setup.py install
+echo "--------------------------------------------"
+echo "Finish Compiling client_cache"
+echo "--------------------------------------------"
+
 ncores=26 #12 #6
 nsockets="0"
 
