@@ -160,7 +160,7 @@ class EmbServer:
         start_time = time.time()
 
         # prepare request response
-        ret, to_cache_keys, to_cache_values = self.apply_emb(lS_o, lS_i)     
+        ret_offset, ret, to_cache_keys, to_cache_values = self.apply_emb(lS_o, lS_i)     
 
         end_time = time.time()
         total_time = end_time - start_time
@@ -168,8 +168,7 @@ class EmbServer:
         print("ev lookup time (ms): " + f"{total_time}")
 
         header = {}
-        output_data = ret
-        response = pickle.dumps({'header': header, 'data': output_data, 'to_cache_keys': to_cache_keys, 'to_cache_values': to_cache_values})
+        response = pickle.dumps({'header': header, 'data': ret, 'offset': ret_offset, 'to_cache_keys': to_cache_keys, 'to_cache_values': to_cache_values})
 
         response_len = len(response)
         self.mr.write(response_len.to_bytes(8, 'little'), 8, 0)
@@ -193,25 +192,14 @@ class EmbServer:
 
         start_time = time.time()
 
-        ret, to_cache_keys, to_cache_values = self.pim_emb_storage.apply_emb(np.array(lS_o), np.array(lS_i))
+        ret_offset, ret, to_cache_keys, to_cache_values = self.pim_emb_storage.apply_emb(np.array(lS_o), np.array(lS_i))
 
         end_time = time.time()
         total_time = end_time - start_time
         total_time *= 1000
         # print("PIM module time (ms): " + f"{total_time}")
 
-        start_time = time.time()
-
-        for k, evs in enumerate(ret):
-            V = torch.tensor(evs)
-            ly.append(V)
-            
-        end_time = time.time()
-        total_time = end_time - start_time
-        total_time *= 1000
-        # print("result convertion time (ms): " + f"{total_time}")
-
-        return ly, to_cache_keys, to_cache_values
+        return ret_offset, ret, to_cache_keys, to_cache_values
 
 def dash_separated_ints(value):
     vals = value.split("-")

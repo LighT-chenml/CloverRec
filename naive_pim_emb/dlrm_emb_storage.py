@@ -148,14 +148,29 @@ class EmbStorage():
 
         ret = self.client.send_request({'lS_o': lS_o, 'lS_i': lS_i})
 
-        remote_ly = ret['data']
+        remote_evs = torch.tensor(ret['data'])
+        remote_offsets = torch.tensor(ret['offset'])
         to_cache_keys = ret['to_cache_keys']
         to_cache_values = ret['to_cache_values']
         self.client_cache.update_cache(to_cache_keys, to_cache_values)
 
         ly = []
-        for k, sparse_index_group_batch in enumerate(lS_i):
-            ly.append(torch.add(cache_ly[k], remote_ly[k]))
+        for k, sparse_index_group_batch in enumerate(remote_offsets):
+            remote_offset = remote_offsets[k]
+            batch_size = len(remote_offset) - 1
+            ev_batch = []
+            
+            for i in range(batch_size):
+                
+                start = remote_offset[i]
+                end = remote_offset[i + 1]
+
+                ev = remote_evs[start: end]
+
+                ev_batch.append(ev.sum(dim=0))
+
+            V = torch.add(torch.tensor(np.array(ev_batch)), cache_ly[k])
+            ly.append(V)
 
         return ly
     

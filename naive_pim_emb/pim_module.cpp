@@ -345,7 +345,7 @@ public:
         vector<vector<float>> evs;
     };
 
-    std::tuple<py::array_t<float>, py::array_t<int64_t>, py::array_t<float>> apply_emb(py::array_t<uint64_t> &lS_o, py::array_t<uint64_t> &lS_i)
+    std::tuple<py::array_t<int64_t>, py::array_t<float>, py::array_t<int64_t>, py::array_t<float>> apply_emb(py::array_t<uint64_t> &lS_o, py::array_t<uint64_t> &lS_i)
     {
         static std::mt19937 random_num_generation(std::random_device{}());
 
@@ -515,16 +515,19 @@ public:
 
         start_time = chrono::high_resolution_clock::now();
 
-        vector<vector<vector<float>>> result;
+        vector<vector<uint64_t>> new_offsets;
+
+        vector<vector<float>> result;
 
         uint32_t total_cpu_sum_emb = 0;
 
         for (int i = 0; i < index_groups.size();)
         {
-            vector<vector<float>> evs;
+            vector<uint64_t> new_offset;
             for (int j = 0; j < batch_size; ++j, ++i)
             {
-                vector<float> sum(emb_dim, 0.0);
+                new_offset.push_back(result.size());
+
                 auto &ig = index_groups[i];
                 sort(ig.dpu_ids.begin(), ig.dpu_ids.end());
                 auto last = std::unique(ig.dpu_ids.begin(), ig.dpu_ids.end());
@@ -535,12 +538,12 @@ public:
                 for (auto &id : ig.dpu_ids)
                 {
                     uint32_t result_index = buffer[id][4 + i];
-                    for (int k = 0; k < emb_dim; ++k)
-                        sum[k] += ret_buffer[id][result_index * emb_dim + k];
+                    auto &v = ret_buffer[id];
+                    result.push_back(vector<float>(v.begin() + result_index * emb_dim, v.begin() + result_index * emb_dim + emb_dim));
                 }
-                evs.push_back(sum);
             }
-            result.push_back(evs);
+            new_offset.push_back(result.size());
+            new_offsets.push_back(new_offset);
         }
 
         // printf("avg CPU sum emb: %.2lf\n", 1.0 * total_cpu_sum_emb / index_groups.size());
@@ -559,7 +562,10 @@ public:
         vector<uint64_t> to_cache_keys;
         vector<vector<float>> to_cache_values;
 
-        for (int i = 0; i < offsets.size() * batch_size; ++i)
+        // int to_cache_num = offsets.size() * batch_size;
+        int to_cache_num = all_indices.size() * 0.001;
+
+        for (int i = 0; i < to_cache_num; ++i)
         {
             int p = random_num_generation() % all_indices.size();
             int index = all_indices[p];
@@ -586,7 +592,7 @@ public:
             to_cache_values.push_back(a.back());
         }
 
-        return std::make_tuple(vector_to_numpy_3D(result), vector_to_numpy_1D(to_cache_keys), vector_to_numpy_2D(to_cache_values));
+        return std::make_tuple(vector_to_numpy_2D(new_offsets), vector_to_numpy_2D(result), vector_to_numpy_1D(to_cache_keys), vector_to_numpy_2D(to_cache_values));
     }
 };
 
