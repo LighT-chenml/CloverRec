@@ -116,6 +116,8 @@ class EmbStorage():
         self.m = m
         self.ln = ln
         
+        self.CPU_cal_time = []
+
         self.client = EmbClient()
 
         self.client_cache = ClientCache()
@@ -154,6 +156,8 @@ class EmbStorage():
         to_cache_values = ret['to_cache_values']
         self.client_cache.update_cache(to_cache_keys, to_cache_values)
 
+        start_time = time.time()
+
         ly = []
         for k, sparse_index_group_batch in enumerate(remote_offsets):
             remote_offset = remote_offsets[k]
@@ -171,6 +175,11 @@ class EmbStorage():
 
             V = torch.add(torch.tensor(np.array(ev_batch)), cache_ly[k])
             ly.append(V)
+
+        end_time = time.time()
+        total_time = end_time - start_time
+        total_time *= 1000
+        self.CPU_cal_time.append(total_time)
 
         return ly
     

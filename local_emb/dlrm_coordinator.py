@@ -958,12 +958,16 @@ def run():
 
         print("Time elapsed (FINAL) : " + str(seconds) + " secs (" + str(int(seconds/60)) + " mins)")
         print("Throughput (Req/sec) : " + str(round(args.mini_batch_size * args.num_batches / seconds, 2)))
-        print("Avg latency (ms) : " + str(round(avg_latency, 2)))
+        print("Avg latency (CPU + network + GPU + others) (ms) : " + str(round(avg_latency, 2)))
         avg_ev_lookup_time = sum(dlrm.ev_lookup_time) / len(dlrm.ev_lookup_time)
-        print("Avg ev lookup time (ms) : " + str(round(avg_ev_lookup_time, 2)))
+        print("Avg ev lookup time (CPU) (ms) : " + str(round(avg_ev_lookup_time, 2)))
         avg_apply_emb_time = sum(dlrm.apply_emb_time) / len(dlrm.apply_emb_time)
-        print("Avg apply emb time (ms) : " + str(round(avg_apply_emb_time, 2)))
+        print("Avg apply emb time (CPU + network + GPU) (ms) : " + str(round(avg_apply_emb_time, 2)))
        
+        print("CPU cal time (ms) : " + str(round(avg_ev_lookup_time, 2)))
+        print("(network + GPU) time (ms) : " + str(round(avg_apply_emb_time - avg_ev_lookup_time, 2)))
+        print("others time (ms) : " + str(round(avg_latency - avg_apply_emb_time, 2)))
+
         client.close()
         print("Close connection...")
 
