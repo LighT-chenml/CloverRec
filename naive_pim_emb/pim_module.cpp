@@ -563,7 +563,7 @@ public:
         vector<vector<float>> to_cache_values;
 
         // int to_cache_num = offsets.size() * batch_size;
-        int to_cache_num = all_indices.size() * 0.001;
+        int to_cache_num = result.size() * 0.01;
 
         for (int i = 0; i < to_cache_num; ++i)
         {

@@ -3,7 +3,7 @@ import numpy as np
 
 # pytorch
 import torch
-
+import random
 import math
 
 # RDMA
@@ -119,7 +119,9 @@ class EmbStorage():
                 if flag == 0:
                     print("waiting for emb pool")
                     flag = 1
-                    
+        
+        torch.set_num_threads(16)
+
         print("EmbStorge Finish Init!")
     
     def apply_emb(self, lS_o, lS_i):
@@ -163,6 +165,12 @@ class EmbStorage():
         evs = torch.tensor(np.frombuffer(evs_bytes, dtype=np.float32)).view(int(len(evs_bytes) / emb_size), self.m)
 
         self.client_cache.update_cache(np.array(offset_list / emb_size), np.array(evs))
+
+        # to_cache_num = (int)(len(offset_list) * 0.05)
+        # random_list = np.random.randint(0, len(offset_list), to_cache_num)
+
+        # if to_cache_num > 0:
+        #     self.client_cache.update_cache(np.array(offset_list[random_list] / emb_size), np.array(evs[random_list]))
 
         # end_time = time.time()
         # total_time = end_time - start_time
@@ -215,7 +223,7 @@ class EmbStorage():
             V = torch.add(torch.tensor(np.array(ev_batch)), cache_ly[k])
             ly.append(V)
             ev_offset += len(sparse_index_group_batch)
-            
+        
         end_time_g = time.time()
         total_time = end_time_g - start_time_g
         total_time *= 1000

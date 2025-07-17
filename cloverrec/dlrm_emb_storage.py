@@ -132,7 +132,9 @@ class EmbStorage():
                 if flag == 0:
                     print("waiting for emb pool")
                     flag = 1
-                    
+        
+        torch.set_num_threads(16)
+
         print("EmbStorge Finish Init!")
     
     def apply_emb(self, lS_o, lS_i):
