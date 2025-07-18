@@ -8,8 +8,7 @@ import signal
 def start_coordinator(model, batch_size, zipf_parameter):
     print(f"begin test {model} {batch_size} {zipf_parameter}")
     
-    # command = f"./benchmark_coordinator_{model}.sh {batch_size} {zipf_parameter}"
-    command = f"./benchmark_coordinator_{model}.sh {batch_size}"
+    command = f"./benchmark_coordinator_{model}.sh {batch_size} {zipf_parameter}"
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     print(f"Output: {result.stdout}")
     print(f"Error: {result.stderr}")
@@ -47,7 +46,7 @@ def run():
     models = [args.model]
     # models = ['RM2', 'RM3', 'RM4', 'kaggle']
     batch_sizes = {}
-    batch_sizes['RM1'] = [1, 2, 4, 8, 16, 32, 64, 128]
+    batch_sizes['RM1'] = [1, 2, 4, 8, 16, 32, 64, 128, 256]
     batch_sizes['RM2'] = [1, 2, 4, 8, 16, 32, 64, 128]
     batch_sizes['RM3'] = [1, 2, 4, 8, 16, 32, 64, 128, 256]
     batch_sizes['RM4'] = [1, 2, 4, 8, 16, 32, 64]

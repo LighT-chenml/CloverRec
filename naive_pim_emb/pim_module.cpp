@@ -562,34 +562,38 @@ public:
         vector<uint64_t> to_cache_keys;
         vector<vector<float>> to_cache_values;
 
-        // int to_cache_num = offsets.size() * batch_size;
-        int to_cache_num = result.size() * 0.01;
-
-        for (int i = 0; i < to_cache_num; ++i)
+        if (all_indices.size() > 0)
         {
-            int p = random_num_generation() % all_indices.size();
-            int index = all_indices[p];
-            to_cache_keys.push_back(index);
-        }
+            // int to_cache_num = offsets.size() * batch_size;
+            int to_cache_num = result.size() * 0.01;
+            to_cache_num = max(1, to_cache_num);
 
-        sort(to_cache_keys.begin(), to_cache_keys.end());
-        auto last = unique(to_cache_keys.begin(), to_cache_keys.end());
-        to_cache_keys.erase(last, to_cache_keys.end());
+            for (int i = 0; i < to_cache_num; ++i)
+            {
+                int p = random_num_generation() % all_indices.size();
+                int index = all_indices[p];
+                to_cache_keys.push_back(index);
+            }
 
-        // printf("to cache num: %d\n", to_cache_keys.size());
+            sort(to_cache_keys.begin(), to_cache_keys.end());
+            auto last = unique(to_cache_keys.begin(), to_cache_keys.end());
+            to_cache_keys.erase(last, to_cache_keys.end());
 
-        for (auto index: to_cache_keys)
-        {
-            auto dpu_id = index / emb_num_per_dpu;
-            auto dpu_emb_id = index % emb_num_per_dpu;
+            // printf("to cache num: %d\n", to_cache_keys.size());
 
-            vector<vector<float>> a;
-            a.push_back(vector<float>(emb_dim, 0));
+            for (auto index: to_cache_keys)
+            {
+                auto dpu_id = index / emb_num_per_dpu;
+                auto dpu_emb_id = index % emb_num_per_dpu;
 
-            // to be optimized
-            dpus[dpu_id]->copy(a, "buffer", 2 * 1024 * 1024 + dpu_emb_id * emb_dim * 4);
-            
-            to_cache_values.push_back(a.back());
+                vector<vector<float>> a;
+                a.push_back(vector<float>(emb_dim, 0));
+
+                // to be optimized
+                dpus[dpu_id]->copy(a, "buffer", 2 * 1024 * 1024 + dpu_emb_id * emb_dim * 4);
+                
+                to_cache_values.push_back(a.back());
+            }
         }
 
         return std::make_tuple(vector_to_numpy_2D(new_offsets), vector_to_numpy_2D(result), vector_to_numpy_1D(to_cache_keys), vector_to_numpy_2D(to_cache_values));

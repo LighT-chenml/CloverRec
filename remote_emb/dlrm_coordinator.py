@@ -962,7 +962,7 @@ def run():
         avg_latency = seconds / len(arr_latency) * 1000
 
         print("Time elapsed (FINAL) : " + str(seconds) + " secs (" + str(int(seconds/60)) + " mins)")
-        print("Throughput (Req/sec) : " + str(round(args.mini_batch_size * args.num_batches / seconds, 2)))
+        print("Throughput (Req/sec) : " + str(round(args.mini_batch_size * len(arr_latency) / seconds, 2)))
         print("Avg latency (CPU + EV_trans + network + GPU + others) (ms) : " + str(round(avg_latency, 2)))
         avg_ev_lookup_time = sum(dlrm.ev_lookup_time) / len(dlrm.ev_lookup_time)
         print("Avg ev lookup time (CPU + EV_trans) (ms) : " + str(round(avg_ev_lookup_time, 2)))

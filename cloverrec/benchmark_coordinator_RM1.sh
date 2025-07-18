@@ -21,7 +21,7 @@ rand_seed=727
 #Model param
 batch_size=$1
 zipf_parameter=$2
-nbatches=100
+nbatches=1000
 bot_mlp="256-128-64"
 top_mlp="256-64-1"
 emb_size=64

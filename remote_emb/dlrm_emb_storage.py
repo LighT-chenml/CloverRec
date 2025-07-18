@@ -164,13 +164,14 @@ class EmbStorage():
         
         evs = torch.tensor(np.frombuffer(evs_bytes, dtype=np.float32)).view(int(len(evs_bytes) / emb_size), self.m)
 
-        self.client_cache.update_cache(np.array(offset_list / emb_size), np.array(evs))
+        # self.client_cache.update_cache(np.array(offset_list / emb_size), np.array(evs))
 
-        # to_cache_num = (int)(len(offset_list) * 0.05)
-        # random_list = np.random.randint(0, len(offset_list), to_cache_num)
-
-        # if to_cache_num > 0:
-        #     self.client_cache.update_cache(np.array(offset_list[random_list] / emb_size), np.array(evs[random_list]))
+        if len(offset_list) > 0:
+            to_cache_num = (int)(len(offset_list) * 0.0001)
+            if to_cache_num < 1:
+                to_cache_num = 1
+            random_list = np.random.randint(0, len(offset_list), to_cache_num)
+            self.client_cache.update_cache(np.array(offset_list[random_list] / emb_size), np.array(evs[random_list]))
 
         # end_time = time.time()
         # total_time = end_time - start_time
