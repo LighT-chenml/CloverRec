@@ -966,7 +966,7 @@ def run():
 
         avg_latency = seconds / len(arr_latency) * 1000
         
-        print("len: " + str(c))
+        print("len: " + str(len(arr_latency)))
 
         print("Time elapsed (FINAL) : " + str(seconds) + " secs (" + str(int(seconds/60)) + " mins)")
         print("Throughput (Req/sec) : " + str(round(args.mini_batch_size * len(arr_latency) / seconds, 2)))

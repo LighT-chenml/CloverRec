@@ -958,7 +958,7 @@ def generate_dist_input_batch(
                 r = ra.zipf(zipf_parameter, sparse_group_size)
 
                 # if cur_iter > 500: # hotness shift
-                #     r = r + sparse_group_size * 0.5
+                #     r = r + size * 0.5
 
                 r = r - 1
                 r = r % size

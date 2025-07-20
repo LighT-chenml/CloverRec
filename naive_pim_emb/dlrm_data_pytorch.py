@@ -621,6 +621,7 @@ class RandomDataset(Dataset):
         self.rand_data_max = rand_data_max
         self.rand_data_mu = rand_data_mu
         self.rand_data_sigma = rand_data_sigma
+        self.cur_iter = 0
 
     def reset_numpy_seed(self, numpy_rand_seed):
         np.random.seed(numpy_rand_seed)
@@ -643,6 +644,8 @@ class RandomDataset(Dataset):
         # number of data points in a batch
         n = min(self.mini_batch_size, self.data_size - (index * self.mini_batch_size))
 
+        self.cur_iter += 1
+
         # generate a batch of dense and sparse features
         if self.data_generation == "random":
             (X, lS_o, lS_i) = generate_dist_input_batch(
@@ -657,6 +660,7 @@ class RandomDataset(Dataset):
                 rand_data_mu=self.rand_data_mu,
                 rand_data_sigma=self.rand_data_sigma,
                 zipf_parameter=self.zipf_parameter,
+                cur_iter=self.cur_iter,
             )
         elif self.data_generation == "synthetic":
             (X, lS_o, lS_i) = generate_synthetic_input_batch(
@@ -913,6 +917,7 @@ def generate_dist_input_batch(
     rand_data_mu,
     rand_data_sigma,
     zipf_parameter,
+    cur_iter
 ):
     # dense feature
     Xt = torch.tensor(ra.rand(n, m_den).astype(np.float32))
@@ -951,6 +956,10 @@ def generate_dist_input_batch(
                 sparse_group = np.round(r * (size - 1)).astype(np.int64)
             elif rand_data_dist == 'zipfian':
                 r = ra.zipf(zipf_parameter, sparse_group_size)
+
+                # if cur_iter > 500: # hotness shift
+                #     r = r + size * 0.5
+
                 r = r - 1
                 r = r % size
                 # sparse_group = np.unique(r)
