@@ -43,8 +43,8 @@ def run():
     global args
     args = parser.parse_args()
 
-    # models = [args.model]
-    models = ['RM1', 'RM2', 'RM3', 'RM4', 'kaggle']
+    models = [args.model]
+    # models = ['RM1', 'RM2', 'RM3', 'RM4', 'kaggle']
     batch_sizes = {}
     batch_sizes['RM1'] = [1, 2, 4, 8, 16, 32, 64]
     batch_sizes['RM2'] = [1, 2, 4, 8, 16, 32]
@@ -63,11 +63,11 @@ def run():
         
         emb_pool_process_id = start_emb_pool(model)
         
-        for batch_size in batch_sizes[model]:
-            start_coordinator(model, batch_size, 1.5)
+        # for batch_size in batch_sizes[model]:
+        #     start_coordinator(model, batch_size, 1.5)
             
-        # for zipf_parameter in zipf_parameters:
-        #     start_coordinator(model, 32, zipf_parameter)
+        for zipf_parameter in zipf_parameters:
+            start_coordinator(model, 32, zipf_parameter)
             
         close_emb_pool()
             

@@ -275,6 +275,9 @@ public:
         //         printf("%d\n", cal_vec_max(index_num));
         //     }
         // }
+
+        // printf("-----------\n");
+
         // for (int i = 0; i < index_nums.size(); ++i)
         // {
         //     if (i % 10 == 0)

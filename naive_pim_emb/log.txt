@@ -1,2081 +1,3380 @@
---------------------------------------------
-Finish Compiling pim_dpu
---------------------------------------------
-running develop
+----------------------------------------------------------------
+current model: RM1
+----------------------------------------------------------------
+begin test RM1 32 1.01
+Output: running develop
 running egg_info
-writing pim_module.egg-info/PKG-INFO
-writing dependency_links to pim_module.egg-info/dependency_links.txt
-writing top-level names to pim_module.egg-info/top_level.txt
-reading manifest file 'pim_module.egg-info/SOURCES.txt'
-writing manifest file 'pim_module.egg-info/SOURCES.txt'
+writing client_cache.egg-info/PKG-INFO
+writing dependency_links to client_cache.egg-info/dependency_links.txt
+writing top-level names to client_cache.egg-info/top_level.txt
+reading manifest file 'client_cache.egg-info/SOURCES.txt'
+writing manifest file 'client_cache.egg-info/SOURCES.txt'
 running build_ext
 g++ -pthread -B /home/cml/miniconda3/envs/CloverRec/compiler_compat -fno-strict-overflow -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -I/home/cml/miniconda3/envs/CloverRec/include/python3.12 -c flagcheck.cpp -o flagcheck.o -std=c++17
-copying build/lib.linux-x86_64-cpython-312/pim_module.cpython-312-x86_64-linux-gnu.so -> 
-Creating /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/pim-module.egg-link (link to .)
-Removing pim-module 1.0 from easy-install.pth file
-pim-module 1.0 is already the active version in easy-install.pth
+copying build/lib.linux-x86_64-cpython-312/client_cache.cpython-312-x86_64-linux-gnu.so -> 
+Creating /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/client-cache.egg-link (link to .)
+Removing client-cache 1.0 from easy-install.pth file
+Removing client-cache 1.0 from easy-install.pth file
+client-cache 1.0 is already the active version in easy-install.pth
+detected new path '/home/cml/CloverRec/remote_emb'
 detected new path '/home/cml/CloverRec/cloverrec'
 
 Installed /home/cml/CloverRec/naive_pim_emb
-Processing dependencies for pim-module==1.0
-Finished processing dependencies for pim-module==1.0
+Processing dependencies for client-cache==1.0
+Finished processing dependencies for client-cache==1.0
 --------------------------------------------
-Finish Compiling pim_module
+Finish Compiling client_cache
 --------------------------------------------
 --------------------------------------------
 GPU Benchmarking - running on 1 GPUs
 --------------------------------------------
 -------------------
 Using GPUS: 0
+Batch Size: 32
 -------------------
-CUDA_VISIBLE_DEVICES=0 python dlrm_emb_pool.py --arch-sparse-feature-size=64 --arch-embedding-size=100000-100000-100000-100000-100000-100000-100000-100000-100000-100000 --rdma-wr-capacity=128 --emb-pool-port=1234
-m: 64
-ln: [100000 100000 100000 100000 100000 100000 100000 100000 100000 100000]
-generate emb time (s): 0.5949850082397461
-convertion time (s): 0.0405573844909668
-pim module init time (s): 1.8508503437042236
-pim emb loading time (s): 0.7362453937530518
-start emb pool
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=100000-100000-100000-100000-100000-100000-100000-100000-100000-100000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000 --emb-pool-ip=10.0.0.11 --emb-pool-port=1234 --zipf-parameter=1.01
+Using CPU...
 New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 12
-qpn : 54413
+qpn : 54532
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 12
-qpn : 54414
+qpn : 54533
 --------------------------------------------------------------------------------
 -- Local Info
-addr : 630583296
+addr : 140139983327232
+rkey : 1580251
+--------------------------------------------------------------------------------
+-- Remote Info
+addr : 1170063360
+rkey : 1585134
+--------------------------------------------------------------------------------
+EmbStorge Finish Init!
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54534
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 6
+qpn : 461
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+.ev lookup time (ms): 166.8095588684082
+.ev lookup time (ms): 159.18922424316406
+.ev lookup time (ms): 143.1405544281006
+.ev lookup time (ms): 144.75274085998535
+.ev lookup time (ms): 136.98744773864746
+.ev lookup time (ms): 143.16487312316895
+.ev lookup time (ms): 151.51429176330566
+.ev lookup time (ms): 123.16179275512695
+.ev lookup time (ms): 123.8241195678711
+.ev lookup time (ms): 135.98132133483887
+.ev lookup time (ms): 145.31469345092773
+.ev lookup time (ms): 131.2880516052246
+.ev lookup time (ms): 131.78348541259766
+.ev lookup time (ms): 136.1219882965088
+.ev lookup time (ms): 138.19527626037598
+.ev lookup time (ms): 135.93554496765137
+.ev lookup time (ms): 135.1451873779297
+.ev lookup time (ms): 141.74437522888184
+.ev lookup time (ms): 142.9281234741211
+.ev lookup time (ms): 133.76593589782715
+.ev lookup time (ms): 124.14264678955078
+.ev lookup time (ms): 124.79996681213379
+.ev lookup time (ms): 124.55534934997559
+.ev lookup time (ms): 127.91299819946289
+.ev lookup time (ms): 128.01861763000488
+.ev lookup time (ms): 125.96535682678223
+.ev lookup time (ms): 127.40254402160645
+.ev lookup time (ms): 124.94778633117676
+.ev lookup time (ms): 121.77658081054688
+.ev lookup time (ms): 129.9304962158203
+.ev lookup time (ms): 124.53389167785645
+.ev lookup time (ms): 143.90063285827637
+.ev lookup time (ms): 123.02947044372559
+.ev lookup time (ms): 122.43342399597168
+.ev lookup time (ms): 124.35722351074219
+.ev lookup time (ms): 125.93698501586914
+.ev lookup time (ms): 119.5991039276123
+.ev lookup time (ms): 117.65217781066895
+.ev lookup time (ms): 121.67668342590332
+.ev lookup time (ms): 121.96826934814453
+.ev lookup time (ms): 124.8161792755127
+.ev lookup time (ms): 127.47740745544434
+.ev lookup time (ms): 120.03660202026367
+.ev lookup time (ms): 123.69751930236816
+.ev lookup time (ms): 123.25191497802734
+.ev lookup time (ms): 128.11517715454102
+.ev lookup time (ms): 120.0408935546875
+.ev lookup time (ms): 122.50876426696777
+.ev lookup time (ms): 125.40102005004883
+.ev lookup time (ms): 121.53887748718262
+.ev lookup time (ms): 124.68314170837402
+.ev lookup time (ms): 123.54016304016113
+.ev lookup time (ms): 121.69432640075684
+.ev lookup time (ms): 123.29578399658203
+.ev lookup time (ms): 124.99451637268066
+.ev lookup time (ms): 122.50137329101562
+.ev lookup time (ms): 120.62549591064453
+.ev lookup time (ms): 122.42460250854492
+.ev lookup time (ms): 122.80869483947754
+.ev lookup time (ms): 122.8182315826416
+.ev lookup time (ms): 121.14787101745605
+.ev lookup time (ms): 120.51224708557129
+.ev lookup time (ms): 125.08487701416016
+.ev lookup time (ms): 121.93155288696289
+.ev lookup time (ms): 123.27003479003906
+.ev lookup time (ms): 119.53878402709961
+.ev lookup time (ms): 126.18780136108398
+.ev lookup time (ms): 122.41148948669434
+.ev lookup time (ms): 122.24745750427246
+.ev lookup time (ms): 123.81362915039062
+.ev lookup time (ms): 122.79582023620605
+.ev lookup time (ms): 123.57926368713379
+.ev lookup time (ms): 125.65040588378906
+.ev lookup time (ms): 120.330810546875
+.ev lookup time (ms): 123.57425689697266
+.ev lookup time (ms): 122.79200553894043
+.ev lookup time (ms): 121.50144577026367
+.ev lookup time (ms): 122.21050262451172
+.ev lookup time (ms): 121.09637260437012
+.ev lookup time (ms): 121.98448181152344
+.ev lookup time (ms): 119.78530883789062
+.ev lookup time (ms): 118.1955337524414
+.ev lookup time (ms): 122.21312522888184
+.ev lookup time (ms): 122.51663208007812
+.ev lookup time (ms): 121.15883827209473
+.ev lookup time (ms): 113.44051361083984
+.ev lookup time (ms): 118.73507499694824
+.ev lookup time (ms): 118.12543869018555
+.ev lookup time (ms): 129.90331649780273
+.ev lookup time (ms): 120.29647827148438
+.ev lookup time (ms): 116.88113212585449
+.ev lookup time (ms): 119.83084678649902
+.ev lookup time (ms): 115.74244499206543
+.ev lookup time (ms): 118.4394359588623
+.ev lookup time (ms): 119.70829963684082
+.ev lookup time (ms): 124.78065490722656
+.ev lookup time (ms): 122.58172035217285
+.ev lookup time (ms): 123.25406074523926
+.ev lookup time (ms): 124.21584129333496
+.ev lookup time (ms): 124.27616119384766
+
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 13.555700302124023 secs (0 mins)
+Throughput (Req/sec) : 236.06
+Avg latency (PIM + EV_trans + CPU + GPU + network + others) (ms) : 135.56
+Avg ev lookup time (PIM + EV_trans + CPU) (ms) : 126.37
+Avg apply emb time (PIM + EV_trans + CPU + GPU + network) (ms) : 135.37
+CPU cal time (ms) : 14.03
+(PIM + EV_trans) time (ms) : 112.34
+(network + GPU) time (ms) : 8.99
+others time (ms) : 0.19
+Close connection...
+client cache cacacity: 1000
+hit: 0  miss: 25600  hit rate: 0.00
+hit: 323  miss: 25277  hit rate: 0.01
+hit: 710  miss: 24890  hit rate: 0.03
+hit: 923  miss: 24677  hit rate: 0.04
+hit: 1218  miss: 24382  hit rate: 0.05
+hit: 1295  miss: 24305  hit rate: 0.05
+hit: 1405  miss: 24195  hit rate: 0.05
+hit: 1434  miss: 24166  hit rate: 0.06
+hit: 1523  miss: 24077  hit rate: 0.06
+hit: 1599  miss: 24001  hit rate: 0.06
+hit: 1724  miss: 23876  hit rate: 0.07
+hit: 1754  miss: 23846  hit rate: 0.07
+hit: 1730  miss: 23870  hit rate: 0.07
+hit: 1834  miss: 23766  hit rate: 0.07
+hit: 1882  miss: 23718  hit rate: 0.07
+hit: 1867  miss: 23733  hit rate: 0.07
+hit: 1968  miss: 23632  hit rate: 0.08
+hit: 1995  miss: 23605  hit rate: 0.08
+hit: 1993  miss: 23607  hit rate: 0.08
+hit: 1948  miss: 23652  hit rate: 0.08
+hit: 2090  miss: 23510  hit rate: 0.08
+hit: 2198  miss: 23402  hit rate: 0.09
+hit: 2183  miss: 23417  hit rate: 0.09
+hit: 2199  miss: 23401  hit rate: 0.09
+hit: 2297  miss: 23303  hit rate: 0.09
+hit: 2249  miss: 23351  hit rate: 0.09
+hit: 2300  miss: 23300  hit rate: 0.09
+hit: 2323  miss: 23277  hit rate: 0.09
+hit: 2324  miss: 23276  hit rate: 0.09
+hit: 2410  miss: 23190  hit rate: 0.09
+hit: 2304  miss: 23296  hit rate: 0.09
+hit: 2388  miss: 23212  hit rate: 0.09
+hit: 2394  miss: 23206  hit rate: 0.09
+hit: 2394  miss: 23206  hit rate: 0.09
+hit: 2413  miss: 23187  hit rate: 0.09
+hit: 2522  miss: 23078  hit rate: 0.10
+hit: 2447  miss: 23153  hit rate: 0.10
+hit: 2385  miss: 23215  hit rate: 0.09
+hit: 2414  miss: 23186  hit rate: 0.09
+hit: 2471  miss: 23129  hit rate: 0.10
+hit: 2477  miss: 23123  hit rate: 0.10
+hit: 2479  miss: 23121  hit rate: 0.10
+hit: 2504  miss: 23096  hit rate: 0.10
+hit: 2522  miss: 23078  hit rate: 0.10
+hit: 2508  miss: 23092  hit rate: 0.10
+hit: 2540  miss: 23060  hit rate: 0.10
+hit: 2575  miss: 23025  hit rate: 0.10
+hit: 2523  miss: 23077  hit rate: 0.10
+hit: 2514  miss: 23086  hit rate: 0.10
+hit: 2595  miss: 23005  hit rate: 0.10
+hit: 2603  miss: 22997  hit rate: 0.10
+hit: 2571  miss: 23029  hit rate: 0.10
+hit: 2595  miss: 23005  hit rate: 0.10
+hit: 2596  miss: 23004  hit rate: 0.10
+hit: 2562  miss: 23038  hit rate: 0.10
+hit: 2645  miss: 22955  hit rate: 0.10
+hit: 2562  miss: 23038  hit rate: 0.10
+hit: 2589  miss: 23011  hit rate: 0.10
+hit: 2622  miss: 22978  hit rate: 0.10
+hit: 2623  miss: 22977  hit rate: 0.10
+hit: 2677  miss: 22923  hit rate: 0.10
+hit: 2635  miss: 22965  hit rate: 0.10
+hit: 2572  miss: 23028  hit rate: 0.10
+hit: 2665  miss: 22935  hit rate: 0.10
+hit: 2660  miss: 22940  hit rate: 0.10
+hit: 2643  miss: 22957  hit rate: 0.10
+hit: 2609  miss: 22991  hit rate: 0.10
+hit: 2677  miss: 22923  hit rate: 0.10
+hit: 2719  miss: 22881  hit rate: 0.11
+hit: 2596  miss: 23004  hit rate: 0.10
+hit: 2684  miss: 22916  hit rate: 0.10
+hit: 2659  miss: 22941  hit rate: 0.10
+hit: 2747  miss: 22853  hit rate: 0.11
+hit: 2739  miss: 22861  hit rate: 0.11
+hit: 2719  miss: 22881  hit rate: 0.11
+hit: 2626  miss: 22974  hit rate: 0.10
+hit: 2608  miss: 22992  hit rate: 0.10
+hit: 2797  miss: 22803  hit rate: 0.11
+hit: 2718  miss: 22882  hit rate: 0.11
+hit: 2719  miss: 22881  hit rate: 0.11
+hit: 2740  miss: 22860  hit rate: 0.11
+hit: 2723  miss: 22877  hit rate: 0.11
+hit: 2726  miss: 22874  hit rate: 0.11
+hit: 2667  miss: 22933  hit rate: 0.10
+hit: 2814  miss: 22786  hit rate: 0.11
+hit: 2773  miss: 22827  hit rate: 0.11
+hit: 2718  miss: 22882  hit rate: 0.11
+hit: 2740  miss: 22860  hit rate: 0.11
+hit: 2801  miss: 22799  hit rate: 0.11
+hit: 2799  miss: 22801  hit rate: 0.11
+hit: 2684  miss: 22916  hit rate: 0.10
+hit: 2777  miss: 22823  hit rate: 0.11
+hit: 2785  miss: 22815  hit rate: 0.11
+hit: 2707  miss: 22893  hit rate: 0.11
+hit: 2825  miss: 22775  hit rate: 0.11
+hit: 2721  miss: 22879  hit rate: 0.11
+hit: 2770  miss: 22830  hit rate: 0.11
+hit: 2737  miss: 22863  hit rate: 0.11
+hit: 2794  miss: 22806  hit rate: 0.11
+hit: 2793  miss: 22807  hit rate: 0.11
+
+Error: /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/command/develop.py:41: EasyInstallDeprecationWarning: easy_install command is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` and ``easy_install``.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://github.com/pypa/setuptools/issues/917 for details.
+        ********************************************************************************
+
+!!
+  easy_install.initialize_options(self)
+/home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/_distutils/cmd.py:66: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()
+
+begin test RM1 32 1.1
+Output: running develop
+running egg_info
+writing client_cache.egg-info/PKG-INFO
+writing dependency_links to client_cache.egg-info/dependency_links.txt
+writing top-level names to client_cache.egg-info/top_level.txt
+reading manifest file 'client_cache.egg-info/SOURCES.txt'
+writing manifest file 'client_cache.egg-info/SOURCES.txt'
+running build_ext
+g++ -pthread -B /home/cml/miniconda3/envs/CloverRec/compiler_compat -fno-strict-overflow -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -I/home/cml/miniconda3/envs/CloverRec/include/python3.12 -c flagcheck.cpp -o flagcheck.o -std=c++17
+copying build/lib.linux-x86_64-cpython-312/client_cache.cpython-312-x86_64-linux-gnu.so -> 
+Creating /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/client-cache.egg-link (link to .)
+Removing client-cache 1.0 from easy-install.pth file
+Removing client-cache 1.0 from easy-install.pth file
+client-cache 1.0 is already the active version in easy-install.pth
+detected new path '/home/cml/CloverRec/remote_emb'
+detected new path '/home/cml/CloverRec/cloverrec'
+
+Installed /home/cml/CloverRec/naive_pim_emb
+Processing dependencies for client-cache==1.0
+Finished processing dependencies for client-cache==1.0
+--------------------------------------------
+Finish Compiling client_cache
+--------------------------------------------
+--------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 32
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=100000-100000-100000-100000-100000-100000-100000-100000-100000-100000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000 --emb-pool-ip=10.0.0.11 --emb-pool-port=1234 --zipf-parameter=1.1
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54535
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54536
+--------------------------------------------------------------------------------
+-- Local Info
+addr : 139825586221056
+rkey : 1585134
+--------------------------------------------------------------------------------
+-- Remote Info
+addr : 1278398464
+rkey : 1581793
+--------------------------------------------------------------------------------
+EmbStorge Finish Init!
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54537
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 6
+qpn : 462
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+.ev lookup time (ms): 294.74735260009766
+.ev lookup time (ms): 248.20923805236816
+.ev lookup time (ms): 199.4321346282959
+.ev lookup time (ms): 127.08497047424316
+.ev lookup time (ms): 122.25508689880371
+.ev lookup time (ms): 164.5650863647461
+.ev lookup time (ms): 185.34302711486816
+.ev lookup time (ms): 145.0808048248291
+.ev lookup time (ms): 164.52622413635254
+.ev lookup time (ms): 171.06080055236816
+.ev lookup time (ms): 144.61612701416016
+.ev lookup time (ms): 135.51616668701172
+.ev lookup time (ms): 111.3424301147461
+.ev lookup time (ms): 113.45052719116211
+.ev lookup time (ms): 113.85631561279297
+.ev lookup time (ms): 112.57815361022949
+.ev lookup time (ms): 136.54160499572754
+.ev lookup time (ms): 125.77605247497559
+.ev lookup time (ms): 156.15177154541016
+.ev lookup time (ms): 116.40119552612305
+.ev lookup time (ms): 111.35077476501465
+.ev lookup time (ms): 125.20503997802734
+.ev lookup time (ms): 112.8535270690918
+.ev lookup time (ms): 142.15350151062012
+.ev lookup time (ms): 124.10974502563477
+.ev lookup time (ms): 115.49091339111328
+.ev lookup time (ms): 119.49491500854492
+.ev lookup time (ms): 118.64495277404785
+.ev lookup time (ms): 135.29467582702637
+.ev lookup time (ms): 117.45142936706543
+.ev lookup time (ms): 121.21415138244629
+.ev lookup time (ms): 119.82297897338867
+.ev lookup time (ms): 117.64025688171387
+.ev lookup time (ms): 110.32938957214355
+.ev lookup time (ms): 119.0950870513916
+.ev lookup time (ms): 119.50397491455078
+.ev lookup time (ms): 105.81588745117188
+.ev lookup time (ms): 114.24803733825684
+.ev lookup time (ms): 114.86148834228516
+.ev lookup time (ms): 107.84125328063965
+.ev lookup time (ms): 112.3514175415039
+.ev lookup time (ms): 132.25436210632324
+.ev lookup time (ms): 134.1691017150879
+.ev lookup time (ms): 105.11589050292969
+.ev lookup time (ms): 104.57634925842285
+.ev lookup time (ms): 130.22732734680176
+.ev lookup time (ms): 126.89685821533203
+.ev lookup time (ms): 113.26193809509277
+.ev lookup time (ms): 112.00308799743652
+.ev lookup time (ms): 110.32915115356445
+.ev lookup time (ms): 111.33790016174316
+.ev lookup time (ms): 133.98313522338867
+.ev lookup time (ms): 113.2199764251709
+.ev lookup time (ms): 123.82698059082031
+.ev lookup time (ms): 114.13884162902832
+.ev lookup time (ms): 111.71507835388184
+.ev lookup time (ms): 106.77552223205566
+.ev lookup time (ms): 113.49987983703613
+.ev lookup time (ms): 109.62319374084473
+.ev lookup time (ms): 110.46934127807617
+.ev lookup time (ms): 108.28280448913574
+.ev lookup time (ms): 109.70473289489746
+.ev lookup time (ms): 104.26497459411621
+.ev lookup time (ms): 111.71913146972656
+.ev lookup time (ms): 124.91130828857422
+.ev lookup time (ms): 114.47978019714355
+.ev lookup time (ms): 107.1014404296875
+.ev lookup time (ms): 109.70067977905273
+.ev lookup time (ms): 106.77671432495117
+.ev lookup time (ms): 125.63896179199219
+.ev lookup time (ms): 105.30662536621094
+.ev lookup time (ms): 112.34354972839355
+.ev lookup time (ms): 113.06905746459961
+.ev lookup time (ms): 105.84402084350586
+.ev lookup time (ms): 112.44678497314453
+.ev lookup time (ms): 121.33955955505371
+.ev lookup time (ms): 114.84169960021973
+.ev lookup time (ms): 104.05421257019043
+.ev lookup time (ms): 112.65873908996582
+.ev lookup time (ms): 103.89542579650879
+.ev lookup time (ms): 106.04000091552734
+.ev lookup time (ms): 105.15666007995605
+.ev lookup time (ms): 105.86786270141602
+.ev lookup time (ms): 107.8178882598877
+.ev lookup time (ms): 105.35621643066406
+.ev lookup time (ms): 110.46814918518066
+.ev lookup time (ms): 110.50200462341309
+.ev lookup time (ms): 104.18534278869629
+.ev lookup time (ms): 102.75602340698242
+.ev lookup time (ms): 103.78885269165039
+.ev lookup time (ms): 122.82109260559082
+.ev lookup time (ms): 103.22976112365723
+.ev lookup time (ms): 103.69253158569336
+.ev lookup time (ms): 104.64358329772949
+.ev lookup time (ms): 103.23715209960938
+.ev lookup time (ms): 104.5224666595459
+.ev lookup time (ms): 104.04515266418457
+.ev lookup time (ms): 108.04200172424316
+.ev lookup time (ms): 103.98244857788086
+.ev lookup time (ms): 115.52095413208008
+
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 13.042915105819702 secs (0 mins)
+Throughput (Req/sec) : 245.34
+Avg latency (PIM + EV_trans + CPU + GPU + network + others) (ms) : 130.43
+Avg ev lookup time (PIM + EV_trans + CPU) (ms) : 121.55
+Avg apply emb time (PIM + EV_trans + CPU + GPU + network) (ms) : 130.23
+CPU cal time (ms) : 17.08
+(PIM + EV_trans) time (ms) : 104.47
+(network + GPU) time (ms) : 8.68
+others time (ms) : 0.2
+Close connection...
+client cache cacacity: 1000
+hit: 0  miss: 25600  hit rate: 0.00
+hit: 1907  miss: 23693  hit rate: 0.07
+hit: 3530  miss: 22070  hit rate: 0.14
+hit: 4500  miss: 21100  hit rate: 0.18
+hit: 5407  miss: 20193  hit rate: 0.21
+hit: 5845  miss: 19755  hit rate: 0.23
+hit: 6014  miss: 19586  hit rate: 0.23
+hit: 6372  miss: 19228  hit rate: 0.25
+hit: 6617  miss: 18983  hit rate: 0.26
+hit: 6931  miss: 18669  hit rate: 0.27
+hit: 7164  miss: 18436  hit rate: 0.28
+hit: 7296  miss: 18304  hit rate: 0.28
+hit: 7481  miss: 18119  hit rate: 0.29
+hit: 7639  miss: 17961  hit rate: 0.30
+hit: 7729  miss: 17871  hit rate: 0.30
+hit: 7792  miss: 17808  hit rate: 0.30
+hit: 8004  miss: 17596  hit rate: 0.31
+hit: 8158  miss: 17442  hit rate: 0.32
+hit: 8171  miss: 17429  hit rate: 0.32
+hit: 8328  miss: 17272  hit rate: 0.33
+hit: 8430  miss: 17170  hit rate: 0.33
+hit: 8613  miss: 16987  hit rate: 0.34
+hit: 8567  miss: 17033  hit rate: 0.33
+hit: 8632  miss: 16968  hit rate: 0.34
+hit: 8639  miss: 16961  hit rate: 0.34
+hit: 8807  miss: 16793  hit rate: 0.34
+hit: 8819  miss: 16781  hit rate: 0.34
+hit: 8830  miss: 16770  hit rate: 0.34
+hit: 8808  miss: 16792  hit rate: 0.34
+hit: 8898  miss: 16702  hit rate: 0.35
+hit: 9044  miss: 16556  hit rate: 0.35
+hit: 9014  miss: 16586  hit rate: 0.35
+hit: 9033  miss: 16567  hit rate: 0.35
+hit: 9291  miss: 16309  hit rate: 0.36
+hit: 9286  miss: 16314  hit rate: 0.36
+hit: 9379  miss: 16221  hit rate: 0.37
+hit: 9288  miss: 16312  hit rate: 0.36
+hit: 9229  miss: 16371  hit rate: 0.36
+hit: 9217  miss: 16383  hit rate: 0.36
+hit: 9403  miss: 16197  hit rate: 0.37
+hit: 9303  miss: 16297  hit rate: 0.36
+hit: 9296  miss: 16304  hit rate: 0.36
+hit: 9280  miss: 16320  hit rate: 0.36
+hit: 9405  miss: 16195  hit rate: 0.37
+hit: 9326  miss: 16274  hit rate: 0.36
+hit: 9436  miss: 16164  hit rate: 0.37
+hit: 9335  miss: 16265  hit rate: 0.36
+hit: 9521  miss: 16079  hit rate: 0.37
+hit: 9476  miss: 16124  hit rate: 0.37
+hit: 9492  miss: 16108  hit rate: 0.37
+hit: 9565  miss: 16035  hit rate: 0.37
+hit: 9631  miss: 15969  hit rate: 0.38
+hit: 9495  miss: 16105  hit rate: 0.37
+hit: 9572  miss: 16028  hit rate: 0.37
+hit: 9455  miss: 16145  hit rate: 0.37
+hit: 9540  miss: 16060  hit rate: 0.37
+hit: 9509  miss: 16091  hit rate: 0.37
+hit: 9801  miss: 15799  hit rate: 0.38
+hit: 9638  miss: 15962  hit rate: 0.38
+hit: 9654  miss: 15946  hit rate: 0.38
+hit: 9739  miss: 15861  hit rate: 0.38
+hit: 9691  miss: 15909  hit rate: 0.38
+hit: 9728  miss: 15872  hit rate: 0.38
+hit: 9499  miss: 16101  hit rate: 0.37
+hit: 9611  miss: 15989  hit rate: 0.38
+hit: 9681  miss: 15919  hit rate: 0.38
+hit: 9705  miss: 15895  hit rate: 0.38
+hit: 9622  miss: 15978  hit rate: 0.38
+hit: 9798  miss: 15802  hit rate: 0.38
+hit: 9701  miss: 15899  hit rate: 0.38
+hit: 9779  miss: 15821  hit rate: 0.38
+hit: 9728  miss: 15872  hit rate: 0.38
+hit: 9710  miss: 15890  hit rate: 0.38
+hit: 9671  miss: 15929  hit rate: 0.38
+hit: 9666  miss: 15934  hit rate: 0.38
+hit: 9726  miss: 15874  hit rate: 0.38
+hit: 9683  miss: 15917  hit rate: 0.38
+hit: 9663  miss: 15937  hit rate: 0.38
+hit: 9854  miss: 15746  hit rate: 0.38
+hit: 9737  miss: 15863  hit rate: 0.38
+hit: 9742  miss: 15858  hit rate: 0.38
+hit: 9736  miss: 15864  hit rate: 0.38
+hit: 9704  miss: 15896  hit rate: 0.38
+hit: 9673  miss: 15927  hit rate: 0.38
+hit: 9862  miss: 15738  hit rate: 0.39
+hit: 9827  miss: 15773  hit rate: 0.38
+hit: 9768  miss: 15832  hit rate: 0.38
+hit: 9787  miss: 15813  hit rate: 0.38
+hit: 9792  miss: 15808  hit rate: 0.38
+hit: 9792  miss: 15808  hit rate: 0.38
+hit: 9966  miss: 15634  hit rate: 0.39
+hit: 9956  miss: 15644  hit rate: 0.39
+hit: 9877  miss: 15723  hit rate: 0.39
+hit: 9790  miss: 15810  hit rate: 0.38
+hit: 9813  miss: 15787  hit rate: 0.38
+hit: 9891  miss: 15709  hit rate: 0.39
+hit: 9931  miss: 15669  hit rate: 0.39
+hit: 9775  miss: 15825  hit rate: 0.38
+hit: 9806  miss: 15794  hit rate: 0.38
+hit: 9792  miss: 15808  hit rate: 0.38
+
+Error: /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/command/develop.py:41: EasyInstallDeprecationWarning: easy_install command is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` and ``easy_install``.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://github.com/pypa/setuptools/issues/917 for details.
+        ********************************************************************************
+
+!!
+  easy_install.initialize_options(self)
+/home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/_distutils/cmd.py:66: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()
+
+begin test RM1 32 1.2
+Output: running develop
+running egg_info
+writing client_cache.egg-info/PKG-INFO
+writing dependency_links to client_cache.egg-info/dependency_links.txt
+writing top-level names to client_cache.egg-info/top_level.txt
+reading manifest file 'client_cache.egg-info/SOURCES.txt'
+writing manifest file 'client_cache.egg-info/SOURCES.txt'
+running build_ext
+g++ -pthread -B /home/cml/miniconda3/envs/CloverRec/compiler_compat -fno-strict-overflow -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -I/home/cml/miniconda3/envs/CloverRec/include/python3.12 -c flagcheck.cpp -o flagcheck.o -std=c++17
+copying build/lib.linux-x86_64-cpython-312/client_cache.cpython-312-x86_64-linux-gnu.so -> 
+Creating /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/client-cache.egg-link (link to .)
+Removing client-cache 1.0 from easy-install.pth file
+Removing client-cache 1.0 from easy-install.pth file
+client-cache 1.0 is already the active version in easy-install.pth
+detected new path '/home/cml/CloverRec/remote_emb'
+detected new path '/home/cml/CloverRec/cloverrec'
+
+Installed /home/cml/CloverRec/naive_pim_emb
+Processing dependencies for client-cache==1.0
+Finished processing dependencies for client-cache==1.0
+--------------------------------------------
+Finish Compiling client_cache
+--------------------------------------------
+--------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 32
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=100000-100000-100000-100000-100000-100000-100000-100000-100000-100000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000 --emb-pool-ip=10.0.0.11 --emb-pool-port=1234 --zipf-parameter=1.2
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54538
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54539
+--------------------------------------------------------------------------------
+-- Local Info
+addr : 139852225564672
+rkey : 1583849
+--------------------------------------------------------------------------------
+-- Remote Info
+addr : 1245048832
+rkey : 1585134
+--------------------------------------------------------------------------------
+EmbStorge Finish Init!
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54540
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 6
+qpn : 463
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+.ev lookup time (ms): 393.207311630249
+.ev lookup time (ms): 134.06777381896973
+.ev lookup time (ms): 128.16691398620605
+.ev lookup time (ms): 219.50697898864746
+.ev lookup time (ms): 180.220365524292
+.ev lookup time (ms): 116.38164520263672
+.ev lookup time (ms): 115.46540260314941
+.ev lookup time (ms): 185.59527397155762
+.ev lookup time (ms): 107.12623596191406
+.ev lookup time (ms): 128.4787654876709
+.ev lookup time (ms): 104.36153411865234
+.ev lookup time (ms): 105.1187515258789
+.ev lookup time (ms): 143.0494785308838
+.ev lookup time (ms): 148.29206466674805
+.ev lookup time (ms): 136.33155822753906
+.ev lookup time (ms): 144.974946975708
+.ev lookup time (ms): 146.8982696533203
+.ev lookup time (ms): 104.75277900695801
+.ev lookup time (ms): 104.3539047241211
+.ev lookup time (ms): 105.61728477478027
+.ev lookup time (ms): 103.77764701843262
+.ev lookup time (ms): 132.8432559967041
+.ev lookup time (ms): 105.12042045593262
+.ev lookup time (ms): 104.73823547363281
+.ev lookup time (ms): 122.08104133605957
+.ev lookup time (ms): 102.36454010009766
+.ev lookup time (ms): 125.15640258789062
+.ev lookup time (ms): 141.13306999206543
+.ev lookup time (ms): 148.67806434631348
+.ev lookup time (ms): 122.84302711486816
+.ev lookup time (ms): 145.08390426635742
+.ev lookup time (ms): 108.07204246520996
+.ev lookup time (ms): 101.89676284790039
+.ev lookup time (ms): 123.91924858093262
+.ev lookup time (ms): 100.71206092834473
+.ev lookup time (ms): 107.06210136413574
+.ev lookup time (ms): 122.45726585388184
+.ev lookup time (ms): 106.21833801269531
+.ev lookup time (ms): 98.34527969360352
+.ev lookup time (ms): 101.41515731811523
+.ev lookup time (ms): 109.79533195495605
+.ev lookup time (ms): 104.45976257324219
+.ev lookup time (ms): 106.4753532409668
+.ev lookup time (ms): 103.36565971374512
+.ev lookup time (ms): 99.83038902282715
+.ev lookup time (ms): 107.88488388061523
+.ev lookup time (ms): 104.74681854248047
+.ev lookup time (ms): 105.2548885345459
+.ev lookup time (ms): 120.7113265991211
+.ev lookup time (ms): 100.07715225219727
+.ev lookup time (ms): 115.31496047973633
+.ev lookup time (ms): 102.43988037109375
+.ev lookup time (ms): 103.58095169067383
+.ev lookup time (ms): 98.81782531738281
+.ev lookup time (ms): 105.87930679321289
+.ev lookup time (ms): 106.64820671081543
+.ev lookup time (ms): 104.55322265625
+.ev lookup time (ms): 101.55630111694336
+.ev lookup time (ms): 97.99313545227051
+.ev lookup time (ms): 106.2314510345459
+.ev lookup time (ms): 102.25939750671387
+.ev lookup time (ms): 117.30170249938965
+.ev lookup time (ms): 97.66793251037598
+.ev lookup time (ms): 102.92863845825195
+.ev lookup time (ms): 119.27008628845215
+.ev lookup time (ms): 97.74422645568848
+.ev lookup time (ms): 98.2050895690918
+.ev lookup time (ms): 97.4264144897461
+.ev lookup time (ms): 96.72951698303223
+.ev lookup time (ms): 97.70774841308594
+.ev lookup time (ms): 98.56390953063965
+.ev lookup time (ms): 99.96867179870605
+.ev lookup time (ms): 111.40322685241699
+.ev lookup time (ms): 101.13215446472168
+.ev lookup time (ms): 100.91686248779297
+.ev lookup time (ms): 102.35071182250977
+.ev lookup time (ms): 105.09538650512695
+.ev lookup time (ms): 97.82624244689941
+.ev lookup time (ms): 97.14603424072266
+.ev lookup time (ms): 97.57304191589355
+.ev lookup time (ms): 98.53219985961914
+.ev lookup time (ms): 96.5425968170166
+.ev lookup time (ms): 98.57773780822754
+.ev lookup time (ms): 99.83181953430176
+.ev lookup time (ms): 100.4171371459961
+.ev lookup time (ms): 98.6480712890625
+.ev lookup time (ms): 97.5198745727539
+.ev lookup time (ms): 97.40447998046875
+.ev lookup time (ms): 97.36466407775879
+.ev lookup time (ms): 116.35684967041016
+.ev lookup time (ms): 116.17350578308105
+.ev lookup time (ms): 98.04105758666992
+.ev lookup time (ms): 96.47870063781738
+.ev lookup time (ms): 103.50251197814941
+.ev lookup time (ms): 101.57203674316406
+.ev lookup time (ms): 100.70991516113281
+.ev lookup time (ms): 97.94759750366211
+.ev lookup time (ms): 98.16217422485352
+.ev lookup time (ms): 116.12606048583984
+.ev lookup time (ms): 97.43022918701172
+
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 12.346091508865356 secs (0 mins)
+Throughput (Req/sec) : 259.19
+Avg latency (PIM + EV_trans + CPU + GPU + network + others) (ms) : 123.46
+Avg ev lookup time (PIM + EV_trans + CPU) (ms) : 114.48
+Avg apply emb time (PIM + EV_trans + CPU + GPU + network) (ms) : 123.31
+CPU cal time (ms) : 25.4
+(PIM + EV_trans) time (ms) : 89.08
+(network + GPU) time (ms) : 8.83
+others time (ms) : 0.15
+Close connection...
+client cache cacacity: 1000
+hit: 0  miss: 25600  hit rate: 0.00
+hit: 3423  miss: 22177  hit rate: 0.13
+hit: 6292  miss: 19308  hit rate: 0.25
+hit: 7775  miss: 17825  hit rate: 0.30
+hit: 9044  miss: 16556  hit rate: 0.35
+hit: 9733  miss: 15867  hit rate: 0.38
+hit: 9866  miss: 15734  hit rate: 0.39
+hit: 10254  miss: 15346  hit rate: 0.40
+hit: 10530  miss: 15070  hit rate: 0.41
+hit: 11542  miss: 14058  hit rate: 0.45
+hit: 11684  miss: 13916  hit rate: 0.46
+hit: 12229  miss: 13371  hit rate: 0.48
+hit: 12321  miss: 13279  hit rate: 0.48
+hit: 12696  miss: 12904  hit rate: 0.50
+hit: 12795  miss: 12805  hit rate: 0.50
+hit: 12893  miss: 12707  hit rate: 0.50
+hit: 12993  miss: 12607  hit rate: 0.51
+hit: 13200  miss: 12400  hit rate: 0.52
+hit: 13326  miss: 12274  hit rate: 0.52
+hit: 13442  miss: 12158  hit rate: 0.53
+hit: 13539  miss: 12061  hit rate: 0.53
+hit: 13736  miss: 11864  hit rate: 0.54
+hit: 13851  miss: 11749  hit rate: 0.54
+hit: 13834  miss: 11766  hit rate: 0.54
+hit: 14102  miss: 11498  hit rate: 0.55
+hit: 14287  miss: 11313  hit rate: 0.56
+hit: 14341  miss: 11259  hit rate: 0.56
+hit: 14397  miss: 11203  hit rate: 0.56
+hit: 14267  miss: 11333  hit rate: 0.56
+hit: 14470  miss: 11130  hit rate: 0.57
+hit: 14637  miss: 10963  hit rate: 0.57
+hit: 14681  miss: 10919  hit rate: 0.57
+hit: 14637  miss: 10963  hit rate: 0.57
+hit: 14670  miss: 10930  hit rate: 0.57
+hit: 14891  miss: 10709  hit rate: 0.58
+hit: 14973  miss: 10627  hit rate: 0.58
+hit: 15059  miss: 10541  hit rate: 0.59
+hit: 15018  miss: 10582  hit rate: 0.59
+hit: 14962  miss: 10638  hit rate: 0.58
+hit: 15055  miss: 10545  hit rate: 0.59
+hit: 15184  miss: 10416  hit rate: 0.59
+hit: 15187  miss: 10413  hit rate: 0.59
+hit: 15210  miss: 10390  hit rate: 0.59
+hit: 15146  miss: 10454  hit rate: 0.59
+hit: 15282  miss: 10318  hit rate: 0.60
+hit: 15253  miss: 10347  hit rate: 0.60
+hit: 15432  miss: 10168  hit rate: 0.60
+hit: 15341  miss: 10259  hit rate: 0.60
+hit: 15441  miss: 10159  hit rate: 0.60
+hit: 15428  miss: 10172  hit rate: 0.60
+hit: 15522  miss: 10078  hit rate: 0.61
+hit: 15627  miss: 9973  hit rate: 0.61
+hit: 15810  miss: 9790  hit rate: 0.62
+hit: 15627  miss: 9973  hit rate: 0.61
+hit: 15629  miss: 9971  hit rate: 0.61
+hit: 15446  miss: 10154  hit rate: 0.60
+hit: 15703  miss: 9897  hit rate: 0.61
+hit: 15526  miss: 10074  hit rate: 0.61
+hit: 15760  miss: 9840  hit rate: 0.62
+hit: 15746  miss: 9854  hit rate: 0.62
+hit: 15814  miss: 9786  hit rate: 0.62
+hit: 15744  miss: 9856  hit rate: 0.61
+hit: 15720  miss: 9880  hit rate: 0.61
+hit: 15789  miss: 9811  hit rate: 0.62
+hit: 15720  miss: 9880  hit rate: 0.61
+hit: 15715  miss: 9885  hit rate: 0.61
+hit: 15926  miss: 9674  hit rate: 0.62
+hit: 15766  miss: 9834  hit rate: 0.62
+hit: 15714  miss: 9886  hit rate: 0.61
+hit: 15809  miss: 9791  hit rate: 0.62
+hit: 15740  miss: 9860  hit rate: 0.61
+hit: 15788  miss: 9812  hit rate: 0.62
+hit: 15882  miss: 9718  hit rate: 0.62
+hit: 15943  miss: 9657  hit rate: 0.62
+hit: 15828  miss: 9772  hit rate: 0.62
+hit: 15731  miss: 9869  hit rate: 0.61
+hit: 15853  miss: 9747  hit rate: 0.62
+hit: 15793  miss: 9807  hit rate: 0.62
+hit: 15887  miss: 9713  hit rate: 0.62
+hit: 15800  miss: 9800  hit rate: 0.62
+hit: 15879  miss: 9721  hit rate: 0.62
+hit: 15993  miss: 9607  hit rate: 0.62
+hit: 15827  miss: 9773  hit rate: 0.62
+hit: 15777  miss: 9823  hit rate: 0.62
+hit: 15882  miss: 9718  hit rate: 0.62
+hit: 15991  miss: 9609  hit rate: 0.62
+hit: 15982  miss: 9618  hit rate: 0.62
+hit: 15938  miss: 9662  hit rate: 0.62
+hit: 15932  miss: 9668  hit rate: 0.62
+hit: 16036  miss: 9564  hit rate: 0.63
+hit: 15900  miss: 9700  hit rate: 0.62
+hit: 16002  miss: 9598  hit rate: 0.63
+hit: 16046  miss: 9554  hit rate: 0.63
+hit: 16052  miss: 9548  hit rate: 0.63
+hit: 15921  miss: 9679  hit rate: 0.62
+hit: 16039  miss: 9561  hit rate: 0.63
+hit: 16037  miss: 9563  hit rate: 0.63
+hit: 16006  miss: 9594  hit rate: 0.63
+hit: 16029  miss: 9571  hit rate: 0.63
+hit: 15930  miss: 9670  hit rate: 0.62
+
+Error: /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/command/develop.py:41: EasyInstallDeprecationWarning: easy_install command is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` and ``easy_install``.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://github.com/pypa/setuptools/issues/917 for details.
+        ********************************************************************************
+
+!!
+  easy_install.initialize_options(self)
+/home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/_distutils/cmd.py:66: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()
+
+begin test RM1 32 1.3
+Output: running develop
+running egg_info
+writing client_cache.egg-info/PKG-INFO
+writing dependency_links to client_cache.egg-info/dependency_links.txt
+writing top-level names to client_cache.egg-info/top_level.txt
+reading manifest file 'client_cache.egg-info/SOURCES.txt'
+writing manifest file 'client_cache.egg-info/SOURCES.txt'
+running build_ext
+g++ -pthread -B /home/cml/miniconda3/envs/CloverRec/compiler_compat -fno-strict-overflow -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -I/home/cml/miniconda3/envs/CloverRec/include/python3.12 -c flagcheck.cpp -o flagcheck.o -std=c++17
+copying build/lib.linux-x86_64-cpython-312/client_cache.cpython-312-x86_64-linux-gnu.so -> 
+Creating /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/client-cache.egg-link (link to .)
+Removing client-cache 1.0 from easy-install.pth file
+Removing client-cache 1.0 from easy-install.pth file
+client-cache 1.0 is already the active version in easy-install.pth
+detected new path '/home/cml/CloverRec/remote_emb'
+detected new path '/home/cml/CloverRec/cloverrec'
+
+Installed /home/cml/CloverRec/naive_pim_emb
+Processing dependencies for client-cache==1.0
+Finished processing dependencies for client-cache==1.0
+--------------------------------------------
+Finish Compiling client_cache
+--------------------------------------------
+--------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 32
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=100000-100000-100000-100000-100000-100000-100000-100000-100000-100000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000 --emb-pool-ip=10.0.0.11 --emb-pool-port=1234 --zipf-parameter=1.3
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54541
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54542
+--------------------------------------------------------------------------------
+-- Local Info
+addr : 139853935808512
+rkey : 1585134
+--------------------------------------------------------------------------------
+-- Remote Info
+addr : 1278398464
+rkey : 1581793
+--------------------------------------------------------------------------------
+EmbStorge Finish Init!
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54543
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 6
+qpn : 464
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+.ev lookup time (ms): 155.87902069091797
+.ev lookup time (ms): 148.3309268951416
+.ev lookup time (ms): 137.04895973205566
+.ev lookup time (ms): 123.55303764343262
+.ev lookup time (ms): 118.69001388549805
+.ev lookup time (ms): 232.73062705993652
+.ev lookup time (ms): 107.93185234069824
+.ev lookup time (ms): 111.26184463500977
+.ev lookup time (ms): 185.2548122406006
+.ev lookup time (ms): 202.0730972290039
+.ev lookup time (ms): 98.12664985656738
+.ev lookup time (ms): 98.26016426086426
+.ev lookup time (ms): 128.86738777160645
+.ev lookup time (ms): 97.64790534973145
+.ev lookup time (ms): 93.47343444824219
+.ev lookup time (ms): 93.96243095397949
+.ev lookup time (ms): 94.94590759277344
+.ev lookup time (ms): 151.5812873840332
+.ev lookup time (ms): 93.76358985900879
+.ev lookup time (ms): 93.82772445678711
+.ev lookup time (ms): 91.55511856079102
+.ev lookup time (ms): 92.07272529602051
+.ev lookup time (ms): 91.15958213806152
+.ev lookup time (ms): 124.97615814208984
+.ev lookup time (ms): 90.96169471740723
+.ev lookup time (ms): 92.09895133972168
+.ev lookup time (ms): 101.73416137695312
+.ev lookup time (ms): 91.77541732788086
+.ev lookup time (ms): 90.00372886657715
+.ev lookup time (ms): 90.99173545837402
+.ev lookup time (ms): 90.04664421081543
+.ev lookup time (ms): 109.9705696105957
+.ev lookup time (ms): 90.08407592773438
+.ev lookup time (ms): 93.82009506225586
+.ev lookup time (ms): 91.45689010620117
+.ev lookup time (ms): 88.09924125671387
+.ev lookup time (ms): 87.90802955627441
+.ev lookup time (ms): 91.45092964172363
+.ev lookup time (ms): 86.36784553527832
+.ev lookup time (ms): 91.99714660644531
+.ev lookup time (ms): 100.94285011291504
+.ev lookup time (ms): 103.62052917480469
+.ev lookup time (ms): 91.21513366699219
+.ev lookup time (ms): 84.49292182922363
+.ev lookup time (ms): 91.91393852233887
+.ev lookup time (ms): 83.70471000671387
+.ev lookup time (ms): 90.48652648925781
+.ev lookup time (ms): 82.84902572631836
+.ev lookup time (ms): 86.84968948364258
+.ev lookup time (ms): 85.3726863861084
+.ev lookup time (ms): 118.05558204650879
+.ev lookup time (ms): 91.06040000915527
+.ev lookup time (ms): 83.78314971923828
+.ev lookup time (ms): 82.97133445739746
+.ev lookup time (ms): 82.87978172302246
+.ev lookup time (ms): 90.8815860748291
+.ev lookup time (ms): 83.9076042175293
+.ev lookup time (ms): 81.4518928527832
+.ev lookup time (ms): 82.53312110900879
+.ev lookup time (ms): 84.39159393310547
+.ev lookup time (ms): 83.22405815124512
+.ev lookup time (ms): 91.39060974121094
+.ev lookup time (ms): 82.16977119445801
+.ev lookup time (ms): 83.06288719177246
+.ev lookup time (ms): 92.54002571105957
+.ev lookup time (ms): 92.99874305725098
+.ev lookup time (ms): 91.00842475891113
+.ev lookup time (ms): 89.72835540771484
+.ev lookup time (ms): 90.65818786621094
+.ev lookup time (ms): 84.65337753295898
+.ev lookup time (ms): 93.11056137084961
+.ev lookup time (ms): 82.87334442138672
+.ev lookup time (ms): 81.65502548217773
+.ev lookup time (ms): 88.83547782897949
+.ev lookup time (ms): 91.6745662689209
+.ev lookup time (ms): 79.49161529541016
+.ev lookup time (ms): 82.36074447631836
+.ev lookup time (ms): 82.46731758117676
+.ev lookup time (ms): 91.27402305603027
+.ev lookup time (ms): 88.35291862487793
+.ev lookup time (ms): 81.96806907653809
+.ev lookup time (ms): 85.90888977050781
+.ev lookup time (ms): 88.28353881835938
+.ev lookup time (ms): 82.86428451538086
+.ev lookup time (ms): 88.35220336914062
+.ev lookup time (ms): 92.68689155578613
+.ev lookup time (ms): 82.77630805969238
+.ev lookup time (ms): 83.15038681030273
+.ev lookup time (ms): 82.7937126159668
+.ev lookup time (ms): 81.024169921875
+.ev lookup time (ms): 83.25338363647461
+.ev lookup time (ms): 92.92483329772949
+.ev lookup time (ms): 82.17668533325195
+.ev lookup time (ms): 84.77187156677246
+.ev lookup time (ms): 79.6668529510498
+.ev lookup time (ms): 82.80587196350098
+.ev lookup time (ms): 81.03060722351074
+.ev lookup time (ms): 84.80072021484375
+.ev lookup time (ms): 85.63876152038574
+.ev lookup time (ms): 85.58464050292969
+
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 10.58375334739685 secs (0 mins)
+Throughput (Req/sec) : 302.35
+Avg latency (PIM + EV_trans + CPU + GPU + network + others) (ms) : 105.84
+Avg ev lookup time (PIM + EV_trans + CPU) (ms) : 96.65
+Avg apply emb time (PIM + EV_trans + CPU + GPU + network) (ms) : 105.71
+CPU cal time (ms) : 19.03
+(PIM + EV_trans) time (ms) : 77.62
+(network + GPU) time (ms) : 9.06
+others time (ms) : 0.13
+Close connection...
+client cache cacacity: 1000
+hit: 0  miss: 25600  hit rate: 0.00
+hit: 5223  miss: 20377  hit rate: 0.20
+hit: 7383  miss: 18217  hit rate: 0.29
+hit: 9073  miss: 16527  hit rate: 0.35
+hit: 10939  miss: 14661  hit rate: 0.43
+hit: 11802  miss: 13798  hit rate: 0.46
+hit: 12851  miss: 12749  hit rate: 0.50
+hit: 13269  miss: 12331  hit rate: 0.52
+hit: 13690  miss: 11910  hit rate: 0.53
+hit: 14176  miss: 11424  hit rate: 0.55
+hit: 14662  miss: 10938  hit rate: 0.57
+hit: 14964  miss: 10636  hit rate: 0.58
+hit: 15176  miss: 10424  hit rate: 0.59
+hit: 15358  miss: 10242  hit rate: 0.60
+hit: 15742  miss: 9858  hit rate: 0.61
+hit: 15682  miss: 9918  hit rate: 0.61
+hit: 16001  miss: 9599  hit rate: 0.63
+hit: 16240  miss: 9360  hit rate: 0.63
+hit: 16303  miss: 9297  hit rate: 0.64
+hit: 16434  miss: 9166  hit rate: 0.64
+hit: 16532  miss: 9068  hit rate: 0.65
+hit: 16577  miss: 9023  hit rate: 0.65
+hit: 16716  miss: 8884  hit rate: 0.65
+hit: 16879  miss: 8721  hit rate: 0.66
+hit: 17025  miss: 8575  hit rate: 0.67
+hit: 17065  miss: 8535  hit rate: 0.67
+hit: 17108  miss: 8492  hit rate: 0.67
+hit: 17182  miss: 8418  hit rate: 0.67
+hit: 17375  miss: 8225  hit rate: 0.68
+hit: 17276  miss: 8324  hit rate: 0.67
+hit: 17525  miss: 8075  hit rate: 0.68
+hit: 17487  miss: 8113  hit rate: 0.68
+hit: 17514  miss: 8086  hit rate: 0.68
+hit: 17577  miss: 8023  hit rate: 0.69
+hit: 17806  miss: 7794  hit rate: 0.70
+hit: 17757  miss: 7843  hit rate: 0.69
+hit: 17913  miss: 7687  hit rate: 0.70
+hit: 17967  miss: 7633  hit rate: 0.70
+hit: 17966  miss: 7634  hit rate: 0.70
+hit: 18054  miss: 7546  hit rate: 0.71
+hit: 18093  miss: 7507  hit rate: 0.71
+hit: 18363  miss: 7237  hit rate: 0.72
+hit: 18166  miss: 7434  hit rate: 0.71
+hit: 18270  miss: 7330  hit rate: 0.71
+hit: 18177  miss: 7423  hit rate: 0.71
+hit: 18473  miss: 7127  hit rate: 0.72
+hit: 18461  miss: 7139  hit rate: 0.72
+hit: 18503  miss: 7097  hit rate: 0.72
+hit: 18416  miss: 7184  hit rate: 0.72
+hit: 18659  miss: 6941  hit rate: 0.73
+hit: 18524  miss: 7076  hit rate: 0.72
+hit: 18682  miss: 6918  hit rate: 0.73
+hit: 18665  miss: 6935  hit rate: 0.73
+hit: 18746  miss: 6854  hit rate: 0.73
+hit: 18744  miss: 6856  hit rate: 0.73
+hit: 18743  miss: 6857  hit rate: 0.73
+hit: 18759  miss: 6841  hit rate: 0.73
+hit: 18786  miss: 6814  hit rate: 0.73
+hit: 18737  miss: 6863  hit rate: 0.73
+hit: 18931  miss: 6669  hit rate: 0.74
+hit: 18954  miss: 6646  hit rate: 0.74
+hit: 18983  miss: 6617  hit rate: 0.74
+hit: 18925  miss: 6675  hit rate: 0.74
+hit: 19040  miss: 6560  hit rate: 0.74
+hit: 19021  miss: 6579  hit rate: 0.74
+hit: 19067  miss: 6533  hit rate: 0.74
+hit: 18997  miss: 6603  hit rate: 0.74
+hit: 19177  miss: 6423  hit rate: 0.75
+hit: 19165  miss: 6435  hit rate: 0.75
+hit: 19066  miss: 6534  hit rate: 0.74
+hit: 19197  miss: 6403  hit rate: 0.75
+hit: 19250  miss: 6350  hit rate: 0.75
+hit: 19267  miss: 6333  hit rate: 0.75
+hit: 19368  miss: 6232  hit rate: 0.76
+hit: 19342  miss: 6258  hit rate: 0.76
+hit: 19363  miss: 6237  hit rate: 0.76
+hit: 19246  miss: 6354  hit rate: 0.75
+hit: 19334  miss: 6266  hit rate: 0.76
+hit: 19345  miss: 6255  hit rate: 0.76
+hit: 19389  miss: 6211  hit rate: 0.76
+hit: 19350  miss: 6250  hit rate: 0.76
+hit: 19534  miss: 6066  hit rate: 0.76
+hit: 19475  miss: 6125  hit rate: 0.76
+hit: 19492  miss: 6108  hit rate: 0.76
+hit: 19405  miss: 6195  hit rate: 0.76
+hit: 19325  miss: 6275  hit rate: 0.75
+hit: 19552  miss: 6048  hit rate: 0.76
+hit: 19582  miss: 6018  hit rate: 0.76
+hit: 19625  miss: 5975  hit rate: 0.77
+hit: 19539  miss: 6061  hit rate: 0.76
+hit: 19595  miss: 6005  hit rate: 0.77
+hit: 19600  miss: 6000  hit rate: 0.77
+hit: 19626  miss: 5974  hit rate: 0.77
+hit: 19605  miss: 5995  hit rate: 0.77
+hit: 19727  miss: 5873  hit rate: 0.77
+hit: 19605  miss: 5995  hit rate: 0.77
+hit: 19684  miss: 5916  hit rate: 0.77
+hit: 19657  miss: 5943  hit rate: 0.77
+hit: 19661  miss: 5939  hit rate: 0.77
+hit: 19646  miss: 5954  hit rate: 0.77
+
+Error: /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/command/develop.py:41: EasyInstallDeprecationWarning: easy_install command is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` and ``easy_install``.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://github.com/pypa/setuptools/issues/917 for details.
+        ********************************************************************************
+
+!!
+  easy_install.initialize_options(self)
+/home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/_distutils/cmd.py:66: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()
+
+begin test RM1 32 1.4
+Output: running develop
+running egg_info
+writing client_cache.egg-info/PKG-INFO
+writing dependency_links to client_cache.egg-info/dependency_links.txt
+writing top-level names to client_cache.egg-info/top_level.txt
+reading manifest file 'client_cache.egg-info/SOURCES.txt'
+writing manifest file 'client_cache.egg-info/SOURCES.txt'
+running build_ext
+g++ -pthread -B /home/cml/miniconda3/envs/CloverRec/compiler_compat -fno-strict-overflow -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -I/home/cml/miniconda3/envs/CloverRec/include/python3.12 -c flagcheck.cpp -o flagcheck.o -std=c++17
+copying build/lib.linux-x86_64-cpython-312/client_cache.cpython-312-x86_64-linux-gnu.so -> 
+Creating /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/client-cache.egg-link (link to .)
+Removing client-cache 1.0 from easy-install.pth file
+Removing client-cache 1.0 from easy-install.pth file
+client-cache 1.0 is already the active version in easy-install.pth
+detected new path '/home/cml/CloverRec/remote_emb'
+detected new path '/home/cml/CloverRec/cloverrec'
+
+Installed /home/cml/CloverRec/naive_pim_emb
+Processing dependencies for client-cache==1.0
+Finished processing dependencies for client-cache==1.0
+--------------------------------------------
+Finish Compiling client_cache
+--------------------------------------------
+--------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 32
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=100000-100000-100000-100000-100000-100000-100000-100000-100000-100000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000 --emb-pool-ip=10.0.0.11 --emb-pool-port=1234 --zipf-parameter=1.4
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54544
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54545
+--------------------------------------------------------------------------------
+-- Local Info
+addr : 139785906638848
 rkey : 1581793
 --------------------------------------------------------------------------------
 -- Remote Info
-addr : 140655307223040
+addr : 1245048832
 rkey : 1583849
 --------------------------------------------------------------------------------
-ev lookup time (ms): 60.65797805786133
-ev lookup time (ms): 57.776689529418945
-ev lookup time (ms): 56.275129318237305
-ev lookup time (ms): 66.79964065551758
-ev lookup time (ms): 56.58316612243652
-ev lookup time (ms): 56.25295639038086
-ev lookup time (ms): 54.4581413269043
-ev lookup time (ms): 56.595563888549805
-ev lookup time (ms): 58.33911895751953
-ev lookup time (ms): 57.16443061828613
-ev lookup time (ms): 55.856943130493164
-ev lookup time (ms): 56.47635459899902
-ev lookup time (ms): 57.91616439819336
-ev lookup time (ms): 57.26814270019531
-ev lookup time (ms): 58.411598205566406
-ev lookup time (ms): 57.41620063781738
-ev lookup time (ms): 57.24358558654785
-ev lookup time (ms): 67.97552108764648
-ev lookup time (ms): 56.65183067321777
-ev lookup time (ms): 56.98561668395996
-ev lookup time (ms): 55.41348457336426
-ev lookup time (ms): 57.03258514404297
-ev lookup time (ms): 56.84685707092285
-ev lookup time (ms): 57.1901798248291
-ev lookup time (ms): 56.85162544250488
-ev lookup time (ms): 56.006431579589844
-ev lookup time (ms): 57.78002738952637
-ev lookup time (ms): 55.71389198303223
-ev lookup time (ms): 55.5872917175293
-ev lookup time (ms): 57.54899978637695
-ev lookup time (ms): 55.35244941711426
-ev lookup time (ms): 57.198524475097656
-ev lookup time (ms): 56.01692199707031
-ev lookup time (ms): 57.1138858795166
-ev lookup time (ms): 57.44123458862305
-ev lookup time (ms): 55.07230758666992
-ev lookup time (ms): 58.28380584716797
-ev lookup time (ms): 57.04951286315918
-ev lookup time (ms): 57.18874931335449
-ev lookup time (ms): 57.009220123291016
-ev lookup time (ms): 57.86490440368652
-ev lookup time (ms): 56.298017501831055
-ev lookup time (ms): 58.5627555847168
-ev lookup time (ms): 58.33768844604492
-ev lookup time (ms): 56.8089485168457
-ev lookup time (ms): 56.26845359802246
-ev lookup time (ms): 57.775259017944336
-ev lookup time (ms): 57.19137191772461
-ev lookup time (ms): 57.61146545410156
-ev lookup time (ms): 57.149648666381836
-ev lookup time (ms): 57.63125419616699
-ev lookup time (ms): 58.09760093688965
-ev lookup time (ms): 57.9228401184082
-ev lookup time (ms): 56.09273910522461
-ev lookup time (ms): 56.69879913330078
-ev lookup time (ms): 55.4652214050293
-ev lookup time (ms): 56.37502670288086
-ev lookup time (ms): 57.61408805847168
-ev lookup time (ms): 56.11872673034668
-ev lookup time (ms): 58.218955993652344
-ev lookup time (ms): 58.3491325378418
-ev lookup time (ms): 58.94827842712402
-ev lookup time (ms): 57.317256927490234
-ev lookup time (ms): 56.546688079833984
-ev lookup time (ms): 55.35626411437988
-ev lookup time (ms): 56.09440803527832
-ev lookup time (ms): 55.407047271728516
-ev lookup time (ms): 56.89692497253418
-ev lookup time (ms): 56.31875991821289
-ev lookup time (ms): 57.00278282165527
-ev lookup time (ms): 56.07414245605469
-ev lookup time (ms): 57.72066116333008
-ev lookup time (ms): 55.35769462585449
-ev lookup time (ms): 55.85741996765137
-ev lookup time (ms): 56.40149116516113
-ev lookup time (ms): 53.80368232727051
-ev lookup time (ms): 57.60478973388672
-ev lookup time (ms): 56.85830116271973
-ev lookup time (ms): 54.57592010498047
-ev lookup time (ms): 53.9097785949707
-ev lookup time (ms): 57.10172653198242
-ev lookup time (ms): 56.70046806335449
-ev lookup time (ms): 57.27076530456543
-ev lookup time (ms): 56.354522705078125
-ev lookup time (ms): 57.28745460510254
-ev lookup time (ms): 56.90503120422363
-ev lookup time (ms): 56.50138854980469
-ev lookup time (ms): 57.431697845458984
-ev lookup time (ms): 56.95915222167969
-ev lookup time (ms): 56.207895278930664
-ev lookup time (ms): 55.34672737121582
-ev lookup time (ms): 57.17110633850098
-ev lookup time (ms): 54.72159385681152
-ev lookup time (ms): 57.62219429016113
-ev lookup time (ms): 56.774139404296875
-ev lookup time (ms): 54.2757511138916
-ev lookup time (ms): 55.48906326293945
-ev lookup time (ms): 57.317256927490234
-ev lookup time (ms): 56.511878967285156
-ev lookup time (ms): 56.0762882232666
-ev lookup time (ms): 54.22782897949219
-ev lookup time (ms): 55.69005012512207
-ev lookup time (ms): 56.56743049621582
-ev lookup time (ms): 55.12428283691406
-ev lookup time (ms): 58.10427665710449
-ev lookup time (ms): 54.56995964050293
-ev lookup time (ms): 56.710004806518555
-ev lookup time (ms): 57.411909103393555
-ev lookup time (ms): 56.43343925476074
-ev lookup time (ms): 55.151939392089844
-ev lookup time (ms): 56.71834945678711
-ev lookup time (ms): 54.671287536621094
-ev lookup time (ms): 54.375648498535156
-ev lookup time (ms): 56.09750747680664
-ev lookup time (ms): 55.0234317779541
-ev lookup time (ms): 54.39424514770508
-ev lookup time (ms): 54.00991439819336
-ev lookup time (ms): 54.72445487976074
-ev lookup time (ms): 55.80735206604004
-ev lookup time (ms): 55.252790451049805
-ev lookup time (ms): 54.95500564575195
-ev lookup time (ms): 57.27720260620117
-ev lookup time (ms): 56.33664131164551
-ev lookup time (ms): 56.86664581298828
-ev lookup time (ms): 55.16958236694336
-ev lookup time (ms): 57.8155517578125
-ev lookup time (ms): 56.304216384887695
-ev lookup time (ms): 58.16197395324707
-ev lookup time (ms): 67.51561164855957
-ev lookup time (ms): 57.53803253173828
-ev lookup time (ms): 57.31344223022461
-ev lookup time (ms): 56.28848075866699
-ev lookup time (ms): 55.194854736328125
-ev lookup time (ms): 54.90827560424805
-ev lookup time (ms): 56.51736259460449
-ev lookup time (ms): 57.09218978881836
-ev lookup time (ms): 55.57847023010254
-ev lookup time (ms): 56.90956115722656
-ev lookup time (ms): 56.04743957519531
-ev lookup time (ms): 56.67996406555176
-ev lookup time (ms): 57.86871910095215
-ev lookup time (ms): 54.868221282958984
-ev lookup time (ms): 55.35578727722168
-ev lookup time (ms): 57.44433403015137
-ev lookup time (ms): 57.076454162597656
-ev lookup time (ms): 56.685686111450195
-ev lookup time (ms): 57.15608596801758
-ev lookup time (ms): 56.42414093017578
-ev lookup time (ms): 58.164358139038086
-ev lookup time (ms): 57.51204490661621
-ev lookup time (ms): 57.81292915344238
-ev lookup time (ms): 56.80966377258301
-ev lookup time (ms): 55.81307411193848
-ev lookup time (ms): 56.234121322631836
-ev lookup time (ms): 56.031227111816406
-ev lookup time (ms): 56.89501762390137
-ev lookup time (ms): 56.09464645385742
-ev lookup time (ms): 57.270050048828125
-ev lookup time (ms): 57.02710151672363
-ev lookup time (ms): 57.59072303771973
-ev lookup time (ms): 55.280447006225586
-ev lookup time (ms): 56.40983581542969
-ev lookup time (ms): 57.836294174194336
-ev lookup time (ms): 56.68807029724121
-ev lookup time (ms): 56.09130859375
-ev lookup time (ms): 56.621551513671875
-ev lookup time (ms): 57.36804008483887
-ev lookup time (ms): 56.29777908325195
-ev lookup time (ms): 57.21569061279297
-ev lookup time (ms): 61.150550842285156
-ev lookup time (ms): 56.970834732055664
-ev lookup time (ms): 56.59365653991699
-ev lookup time (ms): 54.58807945251465
-ev lookup time (ms): 54.86774444580078
-ev lookup time (ms): 57.409048080444336
-ev lookup time (ms): 57.16443061828613
-ev lookup time (ms): 55.83071708679199
-ev lookup time (ms): 57.1749210357666
-ev lookup time (ms): 55.624961853027344
-ev lookup time (ms): 55.54699897766113
-ev lookup time (ms): 56.11014366149902
-ev lookup time (ms): 54.28743362426758
-ev lookup time (ms): 57.195425033569336
-ev lookup time (ms): 56.421756744384766
-ev lookup time (ms): 55.30214309692383
-ev lookup time (ms): 58.161258697509766
-ev lookup time (ms): 55.41729927062988
-ev lookup time (ms): 58.272361755371094
-ev lookup time (ms): 57.183265686035156
-ev lookup time (ms): 57.78241157531738
-ev lookup time (ms): 55.501699447631836
-ev lookup time (ms): 55.971384048461914
-ev lookup time (ms): 57.051658630371094
-ev lookup time (ms): 56.739091873168945
-ev lookup time (ms): 55.34195899963379
-ev lookup time (ms): 56.79059028625488
-ev lookup time (ms): 54.99386787414551
-ev lookup time (ms): 57.80172348022461
-ev lookup time (ms): 55.99355697631836
-ev lookup time (ms): 57.76834487915039
-ev lookup time (ms): 56.912899017333984
-ev lookup time (ms): 57.80482292175293
-ev lookup time (ms): 54.83555793762207
-ev lookup time (ms): 55.104970932006836
-ev lookup time (ms): 56.88762664794922
-ev lookup time (ms): 56.17928504943848
-ev lookup time (ms): 54.279327392578125
-ev lookup time (ms): 55.944204330444336
-ev lookup time (ms): 57.55496025085449
-ev lookup time (ms): 57.08789825439453
-ev lookup time (ms): 57.927846908569336
-ev lookup time (ms): 55.93228340148926
-ev lookup time (ms): 56.16021156311035
-ev lookup time (ms): 54.98218536376953
-ev lookup time (ms): 55.084943771362305
-ev lookup time (ms): 58.145999908447266
-ev lookup time (ms): 56.28633499145508
-ev lookup time (ms): 57.20639228820801
-ev lookup time (ms): 56.823015213012695
-ev lookup time (ms): 57.807207107543945
-ev lookup time (ms): 54.75926399230957
-ev lookup time (ms): 56.52666091918945
-ev lookup time (ms): 55.904388427734375
-ev lookup time (ms): 54.970741271972656
-ev lookup time (ms): 54.47697639465332
-ev lookup time (ms): 54.24046516418457
-ev lookup time (ms): 57.39188194274902
-ev lookup time (ms): 55.432796478271484
-ev lookup time (ms): 56.677818298339844
-ev lookup time (ms): 56.21838569641113
-ev lookup time (ms): 55.609703063964844
-ev lookup time (ms): 58.58469009399414
-ev lookup time (ms): 57.912588119506836
-ev lookup time (ms): 57.54995346069336
-ev lookup time (ms): 56.66399002075195
-ev lookup time (ms): 55.088043212890625
-ev lookup time (ms): 57.30772018432617
-ev lookup time (ms): 55.216312408447266
-ev lookup time (ms): 55.725812911987305
-ev lookup time (ms): 57.60931968688965
-ev lookup time (ms): 55.292606353759766
-ev lookup time (ms): 55.86099624633789
-ev lookup time (ms): 55.30524253845215
-ev lookup time (ms): 57.641029357910156
-ev lookup time (ms): 57.769060134887695
-ev lookup time (ms): 57.21163749694824
-ev lookup time (ms): 57.4491024017334
-ev lookup time (ms): 54.82363700866699
-ev lookup time (ms): 56.147098541259766
-ev lookup time (ms): 57.996511459350586
-ev lookup time (ms): 56.24556541442871
-ev lookup time (ms): 56.39529228210449
-ev lookup time (ms): 57.686805725097656
-ev lookup time (ms): 54.98695373535156
-ev lookup time (ms): 56.02288246154785
-ev lookup time (ms): 57.09362030029297
-ev lookup time (ms): 55.389404296875
-ev lookup time (ms): 57.166337966918945
-ev lookup time (ms): 55.78184127807617
-ev lookup time (ms): 57.582855224609375
-ev lookup time (ms): 55.00912666320801
-ev lookup time (ms): 55.50265312194824
-ev lookup time (ms): 55.20462989807129
-ev lookup time (ms): 56.456804275512695
-ev lookup time (ms): 56.293487548828125
-ev lookup time (ms): 56.95819854736328
-ev lookup time (ms): 55.27663230895996
-ev lookup time (ms): 56.47158622741699
-ev lookup time (ms): 58.064937591552734
-ev lookup time (ms): 56.73861503601074
-ev lookup time (ms): 57.12771415710449
-ev lookup time (ms): 55.2828311920166
-ev lookup time (ms): 56.97822570800781
-ev lookup time (ms): 65.41585922241211
-ev lookup time (ms): 58.50553512573242
-ev lookup time (ms): 57.51538276672363
-ev lookup time (ms): 55.93991279602051
-ev lookup time (ms): 56.917667388916016
-ev lookup time (ms): 55.75394630432129
-ev lookup time (ms): 56.79774284362793
-ev lookup time (ms): 55.45949935913086
-ev lookup time (ms): 55.31573295593262
-ev lookup time (ms): 57.64508247375488
-ev lookup time (ms): 58.35461616516113
-ev lookup time (ms): 55.084228515625
-ev lookup time (ms): 57.73043632507324
-ev lookup time (ms): 56.6554069519043
-ev lookup time (ms): 58.64238739013672
-ev lookup time (ms): 56.26726150512695
-ev lookup time (ms): 58.50696563720703
-ev lookup time (ms): 55.96446990966797
-ev lookup time (ms): 57.76667594909668
-ev lookup time (ms): 56.03933334350586
-ev lookup time (ms): 57.501792907714844
-ev lookup time (ms): 56.61273002624512
-ev lookup time (ms): 57.535648345947266
-ev lookup time (ms): 54.42190170288086
-ev lookup time (ms): 57.752370834350586
-ev lookup time (ms): 55.96041679382324
-ev lookup time (ms): 57.36827850341797
-ev lookup time (ms): 55.2515983581543
-ev lookup time (ms): 56.63561820983887
-ev lookup time (ms): 56.48636817932129
-ev lookup time (ms): 55.54986000061035
-ev lookup time (ms): 56.192636489868164
-ev lookup time (ms): 56.86664581298828
-ev lookup time (ms): 56.74886703491211
-ev lookup time (ms): 56.75029754638672
-ev lookup time (ms): 57.465553283691406
-ev lookup time (ms): 56.935787200927734
-ev lookup time (ms): 57.80959129333496
-ev lookup time (ms): 56.81633949279785
-ev lookup time (ms): 56.55217170715332
-ev lookup time (ms): 57.6326847076416
-ev lookup time (ms): 55.9842586517334
-ev lookup time (ms): 55.72843551635742
-ev lookup time (ms): 57.17110633850098
-ev lookup time (ms): 55.83357810974121
-ev lookup time (ms): 56.603193283081055
-ev lookup time (ms): 57.16419219970703
-ev lookup time (ms): 55.14717102050781
-ev lookup time (ms): 57.00874328613281
-ev lookup time (ms): 56.01048469543457
-ev lookup time (ms): 57.085275650024414
-ev lookup time (ms): 58.004140853881836
-ev lookup time (ms): 55.40204048156738
-ev lookup time (ms): 57.36684799194336
-ev lookup time (ms): 56.07867240905762
-ev lookup time (ms): 55.72986602783203
-ev lookup time (ms): 56.37383460998535
-ev lookup time (ms): 55.92203140258789
-ev lookup time (ms): 56.93793296813965
-ev lookup time (ms): 56.615591049194336
-ev lookup time (ms): 58.39109420776367
-ev lookup time (ms): 55.30381202697754
-ev lookup time (ms): 55.44281005859375
-ev lookup time (ms): 57.29961395263672
-ev lookup time (ms): 57.144880294799805
-ev lookup time (ms): 56.858062744140625
-ev lookup time (ms): 56.53023719787598
-ev lookup time (ms): 57.38949775695801
-ev lookup time (ms): 57.83367156982422
-ev lookup time (ms): 57.29389190673828
-ev lookup time (ms): 54.84175682067871
-ev lookup time (ms): 55.45973777770996
-ev lookup time (ms): 56.97369575500488
-ev lookup time (ms): 56.13112449645996
-ev lookup time (ms): 57.05070495605469
-ev lookup time (ms): 56.59341812133789
-ev lookup time (ms): 58.77113342285156
-ev lookup time (ms): 56.746721267700195
-ev lookup time (ms): 56.77366256713867
-ev lookup time (ms): 57.68394470214844
-ev lookup time (ms): 55.440664291381836
-ev lookup time (ms): 57.637929916381836
-ev lookup time (ms): 56.40840530395508
-ev lookup time (ms): 56.34331703186035
-ev lookup time (ms): 57.08813667297363
-ev lookup time (ms): 54.83388900756836
-ev lookup time (ms): 54.91971969604492
-ev lookup time (ms): 56.226253509521484
-ev lookup time (ms): 55.41658401489258
-ev lookup time (ms): 57.581424713134766
-ev lookup time (ms): 55.953025817871094
-ev lookup time (ms): 57.88874626159668
-ev lookup time (ms): 63.29059600830078
-ev lookup time (ms): 58.03322792053223
-ev lookup time (ms): 56.99515342712402
-ev lookup time (ms): 56.19382858276367
-ev lookup time (ms): 54.860591888427734
-ev lookup time (ms): 55.43851852416992
-ev lookup time (ms): 56.6861629486084
-ev lookup time (ms): 55.96113204956055
-ev lookup time (ms): 57.514190673828125
-ev lookup time (ms): 54.526329040527344
-ev lookup time (ms): 55.518150329589844
-ev lookup time (ms): 54.39305305480957
-ev lookup time (ms): 57.43408203125
-ev lookup time (ms): 56.02240562438965
-ev lookup time (ms): 55.612802505493164
-ev lookup time (ms): 56.89239501953125
-ev lookup time (ms): 57.75332450866699
-ev lookup time (ms): 56.78391456604004
-ev lookup time (ms): 55.16386032104492
-ev lookup time (ms): 55.27234077453613
-ev lookup time (ms): 56.1368465423584
-ev lookup time (ms): 54.98766899108887
-ev lookup time (ms): 55.95993995666504
-ev lookup time (ms): 55.59992790222168
-ev lookup time (ms): 57.3878288269043
-ev lookup time (ms): 54.80599403381348
-ev lookup time (ms): 56.68783187866211
-ev lookup time (ms): 57.089805603027344
-ev lookup time (ms): 55.643320083618164
-ev lookup time (ms): 58.41350555419922
-ev lookup time (ms): 55.17458915710449
-ev lookup time (ms): 55.74345588684082
-ev lookup time (ms): 56.524038314819336
-ev lookup time (ms): 55.6485652923584
-ev lookup time (ms): 58.49480628967285
-ev lookup time (ms): 57.27362632751465
-ev lookup time (ms): 57.738542556762695
-ev lookup time (ms): 56.929826736450195
-ev lookup time (ms): 53.975582122802734
-ev lookup time (ms): 56.97441101074219
-ev lookup time (ms): 56.76722526550293
-ev lookup time (ms): 56.27846717834473
-ev lookup time (ms): 56.758880615234375
-ev lookup time (ms): 56.12492561340332
-ev lookup time (ms): 56.5943717956543
-ev lookup time (ms): 56.505441665649414
-ev lookup time (ms): 55.815696716308594
-ev lookup time (ms): 55.9847354888916
-ev lookup time (ms): 57.482004165649414
-ev lookup time (ms): 54.83865737915039
-ev lookup time (ms): 57.39951133728027
-ev lookup time (ms): 56.9462776184082
-ev lookup time (ms): 56.21981620788574
-ev lookup time (ms): 56.342363357543945
-ev lookup time (ms): 54.998159408569336
-ev lookup time (ms): 56.93316459655762
-ev lookup time (ms): 57.35278129577637
-ev lookup time (ms): 57.471513748168945
-ev lookup time (ms): 56.31828308105469
-ev lookup time (ms): 54.56972122192383
-ev lookup time (ms): 54.20517921447754
-ev lookup time (ms): 55.039405822753906
-ev lookup time (ms): 56.32972717285156
-ev lookup time (ms): 55.85145950317383
-ev lookup time (ms): 56.66851997375488
-ev lookup time (ms): 57.12294578552246
-ev lookup time (ms): 55.62639236450195
-ev lookup time (ms): 57.73591995239258
-ev lookup time (ms): 55.23538589477539
-ev lookup time (ms): 56.09917640686035
-ev lookup time (ms): 57.00421333312988
-ev lookup time (ms): 57.29389190673828
-ev lookup time (ms): 56.65016174316406
-ev lookup time (ms): 57.373046875
-ev lookup time (ms): 54.54826354980469
-ev lookup time (ms): 54.39114570617676
-ev lookup time (ms): 56.32615089416504
-ev lookup time (ms): 55.81188201904297
-ev lookup time (ms): 56.40888214111328
-ev lookup time (ms): 57.90424346923828
-ev lookup time (ms): 57.05451965332031
-ev lookup time (ms): 57.48796463012695
-ev lookup time (ms): 58.83622169494629
-ev lookup time (ms): 54.34370040893555
-ev lookup time (ms): 55.70101737976074
-ev lookup time (ms): 57.250022888183594
-ev lookup time (ms): 56.803226470947266
-ev lookup time (ms): 57.27505683898926
-ev lookup time (ms): 56.65445327758789
-ev lookup time (ms): 54.50439453125
-ev lookup time (ms): 56.91361427307129
-ev lookup time (ms): 55.9687614440918
-ev lookup time (ms): 53.91526222229004
-ev lookup time (ms): 56.30183219909668
-ev lookup time (ms): 56.557416915893555
-ev lookup time (ms): 55.33885955810547
-ev lookup time (ms): 56.902170181274414
-ev lookup time (ms): 55.396080017089844
-ev lookup time (ms): 54.898738861083984
-ev lookup time (ms): 57.840585708618164
-ev lookup time (ms): 55.9384822845459
-ev lookup time (ms): 56.885719299316406
-ev lookup time (ms): 56.09464645385742
-ev lookup time (ms): 55.71746826171875
-ev lookup time (ms): 56.02741241455078
-ev lookup time (ms): 57.813405990600586
-ev lookup time (ms): 54.79907989501953
-ev lookup time (ms): 55.983543395996094
-ev lookup time (ms): 57.394981384277344
-ev lookup time (ms): 55.61542510986328
-ev lookup time (ms): 56.000709533691406
-ev lookup time (ms): 55.376291275024414
-ev lookup time (ms): 58.083534240722656
-ev lookup time (ms): 54.85844612121582
-ev lookup time (ms): 56.932926177978516
-ev lookup time (ms): 56.38623237609863
-ev lookup time (ms): 55.23967742919922
-ev lookup time (ms): 54.3055534362793
-ev lookup time (ms): 55.55105209350586
-ev lookup time (ms): 55.715084075927734
-ev lookup time (ms): 56.4885139465332
-ev lookup time (ms): 57.03330039978027
-ev lookup time (ms): 55.95588684082031
-ev lookup time (ms): 55.88817596435547
-ev lookup time (ms): 57.309865951538086
-ev lookup time (ms): 56.490421295166016
-ev lookup time (ms): 57.592153549194336
-ev lookup time (ms): 55.79566955566406
-ev lookup time (ms): 57.747602462768555
-ev lookup time (ms): 54.998159408569336
-ev lookup time (ms): 56.593894958496094
-ev lookup time (ms): 55.786848068237305
-ev lookup time (ms): 55.96494674682617
-ev lookup time (ms): 55.36532402038574
-ev lookup time (ms): 55.977821350097656
-ev lookup time (ms): 53.61509323120117
-ev lookup time (ms): 54.23760414123535
-ev lookup time (ms): 54.87227439880371
-ev lookup time (ms): 55.30905723571777
-ev lookup time (ms): 55.204153060913086
-ev lookup time (ms): 57.18493461608887
-ev lookup time (ms): 54.859161376953125
-ev lookup time (ms): 54.82935905456543
-ev lookup time (ms): 55.73010444641113
-ev lookup time (ms): 58.161020278930664
-ev lookup time (ms): 54.941415786743164
-ev lookup time (ms): 56.95533752441406
-ev lookup time (ms): 55.92799186706543
-ev lookup time (ms): 57.4345588684082
-ev lookup time (ms): 56.11681938171387
-ev lookup time (ms): 56.38003349304199
-ev lookup time (ms): 56.437015533447266
-ev lookup time (ms): 55.41539192199707
-ev lookup time (ms): 56.737422943115234
-ev lookup time (ms): 54.47983741760254
-ev lookup time (ms): 55.38606643676758
-ev lookup time (ms): 54.589033126831055
-ev lookup time (ms): 56.24532699584961
-ev lookup time (ms): 54.6875
-ev lookup time (ms): 54.59952354431152
-ev lookup time (ms): 57.822227478027344
-ev lookup time (ms): 54.56256866455078
-ev lookup time (ms): 55.96280097961426
-ev lookup time (ms): 55.403947830200195
-ev lookup time (ms): 56.165456771850586
-ev lookup time (ms): 56.42294883728027
-ev lookup time (ms): 55.502891540527344
-ev lookup time (ms): 58.32052230834961
-ev lookup time (ms): 57.288408279418945
-ev lookup time (ms): 55.681705474853516
-ev lookup time (ms): 55.49979209899902
-ev lookup time (ms): 56.78725242614746
-ev lookup time (ms): 56.1983585357666
-ev lookup time (ms): 56.43653869628906
-ev lookup time (ms): 55.467844009399414
-ev lookup time (ms): 57.305097579956055
-ev lookup time (ms): 55.84597587585449
-ev lookup time (ms): 55.32217025756836
-ev lookup time (ms): 57.86013603210449
-ev lookup time (ms): 55.50384521484375
-ev lookup time (ms): 56.14924430847168
-ev lookup time (ms): 56.205034255981445
-ev lookup time (ms): 56.39362335205078
-ev lookup time (ms): 56.14280700683594
-ev lookup time (ms): 56.884765625
-ev lookup time (ms): 57.43288993835449
-ev lookup time (ms): 57.955265045166016
-ev lookup time (ms): 54.0924072265625
-ev lookup time (ms): 54.70848083496094
-ev lookup time (ms): 57.910919189453125
-ev lookup time (ms): 56.063175201416016
-ev lookup time (ms): 57.63554573059082
-ev lookup time (ms): 55.59229850769043
-ev lookup time (ms): 55.204153060913086
-ev lookup time (ms): 56.473731994628906
-ev lookup time (ms): 56.34188652038574
-ev lookup time (ms): 57.17301368713379
-ev lookup time (ms): 54.81100082397461
-ev lookup time (ms): 58.2880973815918
-ev lookup time (ms): 54.95023727416992
-ev lookup time (ms): 56.96225166320801
-ev lookup time (ms): 57.02543258666992
-ev lookup time (ms): 56.57768249511719
-ev lookup time (ms): 56.33950233459473
-ev lookup time (ms): 55.14883995056152
-ev lookup time (ms): 55.65237998962402
-ev lookup time (ms): 56.616783142089844
-ev lookup time (ms): 56.36286735534668
-ev lookup time (ms): 56.348562240600586
-ev lookup time (ms): 55.525779724121094
-ev lookup time (ms): 56.23030662536621
-ev lookup time (ms): 56.34760856628418
-ev lookup time (ms): 54.91518974304199
-ev lookup time (ms): 56.88905715942383
-ev lookup time (ms): 55.371761322021484
-ev lookup time (ms): 56.37407302856445
-ev lookup time (ms): 55.26137351989746
-ev lookup time (ms): 56.31089210510254
-ev lookup time (ms): 56.7774772644043
-ev lookup time (ms): 56.58435821533203
-ev lookup time (ms): 56.68997764587402
-ev lookup time (ms): 55.642127990722656
-ev lookup time (ms): 55.74440956115723
-ev lookup time (ms): 55.9391975402832
-ev lookup time (ms): 56.23960494995117
-ev lookup time (ms): 55.17411231994629
-ev lookup time (ms): 56.31136894226074
-ev lookup time (ms): 56.21981620788574
-ev lookup time (ms): 55.88245391845703
-ev lookup time (ms): 55.16362190246582
-ev lookup time (ms): 57.140350341796875
-ev lookup time (ms): 56.308746337890625
-ev lookup time (ms): 54.18539047241211
-ev lookup time (ms): 62.09111213684082
-ev lookup time (ms): 56.71834945678711
-ev lookup time (ms): 57.21020698547363
-ev lookup time (ms): 55.78780174255371
-ev lookup time (ms): 57.88111686706543
-ev lookup time (ms): 54.497718811035156
-ev lookup time (ms): 55.94372749328613
-ev lookup time (ms): 56.0150146484375
-ev lookup time (ms): 56.194305419921875
-ev lookup time (ms): 55.48810958862305
-ev lookup time (ms): 57.19137191772461
-ev lookup time (ms): 55.263519287109375
-ev lookup time (ms): 56.70428276062012
-ev lookup time (ms): 56.75005912780762
-ev lookup time (ms): 57.29961395263672
-ev lookup time (ms): 55.318355560302734
-ev lookup time (ms): 56.02216720581055
-ev lookup time (ms): 56.17880821228027
-ev lookup time (ms): 55.960893630981445
-ev lookup time (ms): 56.49518966674805
-ev lookup time (ms): 55.557966232299805
-ev lookup time (ms): 57.138919830322266
-ev lookup time (ms): 54.439544677734375
-ev lookup time (ms): 56.03146553039551
-ev lookup time (ms): 54.358482360839844
-ev lookup time (ms): 55.02891540527344
-ev lookup time (ms): 56.84351921081543
-ev lookup time (ms): 55.793046951293945
-ev lookup time (ms): 61.51580810546875
-ev lookup time (ms): 56.138038635253906
-ev lookup time (ms): 55.455684661865234
-ev lookup time (ms): 56.5183162689209
-ev lookup time (ms): 55.33266067504883
-ev lookup time (ms): 57.0068359375
-ev lookup time (ms): 56.64181709289551
-ev lookup time (ms): 56.668996810913086
-ev lookup time (ms): 55.47952651977539
-ev lookup time (ms): 57.65986442565918
-ev lookup time (ms): 57.27791786193848
-ev lookup time (ms): 58.45808982849121
-ev lookup time (ms): 56.823015213012695
-ev lookup time (ms): 57.81245231628418
-ev lookup time (ms): 56.50615692138672
-ev lookup time (ms): 56.38718605041504
-ev lookup time (ms): 56.20551109313965
-ev lookup time (ms): 54.741859436035156
-ev lookup time (ms): 56.810617446899414
-ev lookup time (ms): 55.376529693603516
-ev lookup time (ms): 55.86552619934082
-ev lookup time (ms): 56.33687973022461
-ev lookup time (ms): 56.915998458862305
-ev lookup time (ms): 54.950714111328125
-ev lookup time (ms): 56.61606788635254
-ev lookup time (ms): 56.36715888977051
-ev lookup time (ms): 55.44233322143555
-ev lookup time (ms): 56.377410888671875
-ev lookup time (ms): 56.626081466674805
-ev lookup time (ms): 56.7622184753418
-ev lookup time (ms): 56.36954307556152
-ev lookup time (ms): 55.99045753479004
-ev lookup time (ms): 56.9612979888916
-ev lookup time (ms): 56.23483657836914
-ev lookup time (ms): 57.52205848693848
-ev lookup time (ms): 56.7317008972168
-ev lookup time (ms): 58.03799629211426
-ev lookup time (ms): 57.16562271118164
-ev lookup time (ms): 56.61582946777344
-ev lookup time (ms): 53.899288177490234
-ev lookup time (ms): 54.46195602416992
-ev lookup time (ms): 54.841041564941406
-ev lookup time (ms): 54.99982833862305
-ev lookup time (ms): 56.34880065917969
-ev lookup time (ms): 56.29754066467285
-ev lookup time (ms): 57.13200569152832
-ev lookup time (ms): 56.14471435546875
-ev lookup time (ms): 55.84216117858887
-ev lookup time (ms): 56.83112144470215
-ev lookup time (ms): 55.50551414489746
-ev lookup time (ms): 56.72121047973633
-ev lookup time (ms): 55.785179138183594
-ev lookup time (ms): 57.462453842163086
-ev lookup time (ms): 56.11085891723633
-ev lookup time (ms): 57.72852897644043
-ev lookup time (ms): 57.60979652404785
-ev lookup time (ms): 57.1746826171875
-ev lookup time (ms): 55.90939521789551
-ev lookup time (ms): 55.7398796081543
-ev lookup time (ms): 55.90224266052246
-ev lookup time (ms): 55.695533752441406
-ev lookup time (ms): 54.28767204284668
-ev lookup time (ms): 56.84995651245117
-ev lookup time (ms): 56.380510330200195
-ev lookup time (ms): 57.152509689331055
-ev lookup time (ms): 55.55129051208496
-ev lookup time (ms): 57.07859992980957
-ev lookup time (ms): 53.94458770751953
-ev lookup time (ms): 56.13374710083008
-ev lookup time (ms): 55.97972869873047
-ev lookup time (ms): 55.18198013305664
-ev lookup time (ms): 56.31828308105469
-ev lookup time (ms): 55.582284927368164
-ev lookup time (ms): 54.46219444274902
-ev lookup time (ms): 57.75928497314453
-ev lookup time (ms): 54.72230911254883
-ev lookup time (ms): 56.07175827026367
-ev lookup time (ms): 55.47666549682617
-ev lookup time (ms): 55.901288986206055
-ev lookup time (ms): 55.10354042053223
-ev lookup time (ms): 54.79717254638672
-ev lookup time (ms): 56.16021156311035
-ev lookup time (ms): 53.83157730102539
-ev lookup time (ms): 55.21368980407715
-ev lookup time (ms): 57.50894546508789
-ev lookup time (ms): 56.36715888977051
-ev lookup time (ms): 57.76715278625488
-ev lookup time (ms): 56.03289604187012
-ev lookup time (ms): 56.525230407714844
-ev lookup time (ms): 55.40800094604492
-ev lookup time (ms): 58.19821357727051
-ev lookup time (ms): 55.280447006225586
-ev lookup time (ms): 55.65166473388672
-ev lookup time (ms): 56.97369575500488
-ev lookup time (ms): 56.35571479797363
-ev lookup time (ms): 56.073904037475586
-ev lookup time (ms): 56.22982978820801
-ev lookup time (ms): 53.768157958984375
-ev lookup time (ms): 55.06181716918945
-ev lookup time (ms): 56.95939064025879
-ev lookup time (ms): 54.99005317687988
-ev lookup time (ms): 55.628061294555664
-ev lookup time (ms): 56.50138854980469
-ev lookup time (ms): 54.4736385345459
-ev lookup time (ms): 54.78405952453613
-ev lookup time (ms): 57.52277374267578
-ev lookup time (ms): 56.38599395751953
-ev lookup time (ms): 57.525634765625
-ev lookup time (ms): 54.69226837158203
-ev lookup time (ms): 57.20186233520508
-ev lookup time (ms): 55.55868148803711
-ev lookup time (ms): 56.68354034423828
-ev lookup time (ms): 55.91750144958496
-ev lookup time (ms): 55.147409439086914
-ev lookup time (ms): 56.71501159667969
-ev lookup time (ms): 56.13112449645996
-ev lookup time (ms): 55.263519287109375
-ev lookup time (ms): 56.500911712646484
-ev lookup time (ms): 55.39369583129883
-ev lookup time (ms): 54.20422554016113
-ev lookup time (ms): 55.190324783325195
-ev lookup time (ms): 57.12103843688965
-ev lookup time (ms): 55.95660209655762
-ev lookup time (ms): 57.33370780944824
-ev lookup time (ms): 54.05902862548828
-ev lookup time (ms): 54.1689395904541
-ev lookup time (ms): 56.11395835876465
-ev lookup time (ms): 56.52475357055664
-ev lookup time (ms): 56.45322799682617
-ev lookup time (ms): 57.25979804992676
-ev lookup time (ms): 55.59563636779785
-ev lookup time (ms): 57.22188949584961
-ev lookup time (ms): 55.93729019165039
-ev lookup time (ms): 56.28013610839844
-ev lookup time (ms): 57.149648666381836
-ev lookup time (ms): 56.72502517700195
-ev lookup time (ms): 55.631160736083984
-ev lookup time (ms): 57.56211280822754
-ev lookup time (ms): 56.73480033874512
-ev lookup time (ms): 56.351423263549805
-ev lookup time (ms): 55.68361282348633
-ev lookup time (ms): 55.13930320739746
-ev lookup time (ms): 55.13358116149902
-ev lookup time (ms): 55.64403533935547
-ev lookup time (ms): 57.11984634399414
-ev lookup time (ms): 57.42788314819336
-ev lookup time (ms): 55.98807334899902
-ev lookup time (ms): 57.49177932739258
-ev lookup time (ms): 55.53388595581055
-ev lookup time (ms): 56.333303451538086
-ev lookup time (ms): 56.269168853759766
-ev lookup time (ms): 56.93697929382324
-ev lookup time (ms): 55.765390396118164
-ev lookup time (ms): 56.18691444396973
-ev lookup time (ms): 56.66756629943848
-ev lookup time (ms): 56.69379234313965
-ev lookup time (ms): 55.4966926574707
-ev lookup time (ms): 57.351112365722656
-ev lookup time (ms): 56.92934989929199
-ev lookup time (ms): 57.4495792388916
-ev lookup time (ms): 54.634809494018555
-ev lookup time (ms): 54.551124572753906
-ev lookup time (ms): 56.49375915527344
-ev lookup time (ms): 56.01096153259277
-ev lookup time (ms): 56.23292922973633
-ev lookup time (ms): 56.97798728942871
-ev lookup time (ms): 55.15623092651367
-ev lookup time (ms): 55.04107475280762
-ev lookup time (ms): 56.043148040771484
-ev lookup time (ms): 56.758880615234375
-ev lookup time (ms): 56.73718452453613
-ev lookup time (ms): 55.27496337890625
-ev lookup time (ms): 54.62050437927246
-ev lookup time (ms): 55.02915382385254
-ev lookup time (ms): 56.54191970825195
-ev lookup time (ms): 56.668758392333984
-ev lookup time (ms): 55.06014823913574
-ev lookup time (ms): 56.77056312561035
-ev lookup time (ms): 54.34417724609375
-ev lookup time (ms): 55.38034439086914
-ev lookup time (ms): 57.52873420715332
-ev lookup time (ms): 55.67431449890137
-ev lookup time (ms): 54.49056625366211
-ev lookup time (ms): 56.8084716796875
-ev lookup time (ms): 56.67281150817871
-ev lookup time (ms): 55.52196502685547
-ev lookup time (ms): 57.477712631225586
-ev lookup time (ms): 56.517601013183594
-ev lookup time (ms): 56.407928466796875
-ev lookup time (ms): 54.66508865356445
-ev lookup time (ms): 54.842233657836914
-ev lookup time (ms): 56.08940124511719
-ev lookup time (ms): 54.48651313781738
-ev lookup time (ms): 55.1905632019043
-ev lookup time (ms): 56.81157112121582
-ev lookup time (ms): 53.73263359069824
-ev lookup time (ms): 53.70807647705078
-ev lookup time (ms): 53.765058517456055
-ev lookup time (ms): 55.13572692871094
-ev lookup time (ms): 57.631731033325195
-ev lookup time (ms): 56.2894344329834
-ev lookup time (ms): 62.35671043395996
-ev lookup time (ms): 55.617332458496094
-ev lookup time (ms): 56.83422088623047
-ev lookup time (ms): 54.108381271362305
-ev lookup time (ms): 54.22329902648926
-ev lookup time (ms): 56.67233467102051
-ev lookup time (ms): 57.09695816040039
-ev lookup time (ms): 56.48541450500488
-ev lookup time (ms): 56.28681182861328
-ev lookup time (ms): 54.96335029602051
-ev lookup time (ms): 57.32583999633789
-ev lookup time (ms): 55.501461029052734
-ev lookup time (ms): 56.54644966125488
-ev lookup time (ms): 54.976463317871094
-ev lookup time (ms): 58.9599609375
-ev lookup time (ms): 56.11419677734375
-ev lookup time (ms): 54.950714111328125
-ev lookup time (ms): 56.104183197021484
-ev lookup time (ms): 55.968523025512695
-ev lookup time (ms): 57.08050727844238
-ev lookup time (ms): 55.098533630371094
-ev lookup time (ms): 56.790828704833984
-ev lookup time (ms): 54.197072982788086
-ev lookup time (ms): 55.47690391540527
-ev lookup time (ms): 56.56099319458008
-ev lookup time (ms): 56.93817138671875
-ev lookup time (ms): 57.22808837890625
-ev lookup time (ms): 57.59835243225098
-ev lookup time (ms): 55.741071701049805
-ev lookup time (ms): 57.58929252624512
-ev lookup time (ms): 55.136919021606445
-ev lookup time (ms): 55.31620979309082
-ev lookup time (ms): 57.450294494628906
-ev lookup time (ms): 54.863929748535156
-ev lookup time (ms): 56.48541450500488
-ev lookup time (ms): 54.34250831604004
-ev lookup time (ms): 56.57601356506348
-ev lookup time (ms): 56.372880935668945
-ev lookup time (ms): 56.07724189758301
-ev lookup time (ms): 57.508230209350586
-ev lookup time (ms): 55.72509765625
-ev lookup time (ms): 56.000709533691406
-ev lookup time (ms): 58.15315246582031
-ev lookup time (ms): 56.11824989318848
-ev lookup time (ms): 56.54168128967285
-ev lookup time (ms): 54.80217933654785
-ev lookup time (ms): 55.33885955810547
-ev lookup time (ms): 55.52029609680176
-ev lookup time (ms): 57.09552764892578
-ev lookup time (ms): 56.02240562438965
-ev lookup time (ms): 57.645559310913086
-ev lookup time (ms): 55.91154098510742
-ev lookup time (ms): 56.37192726135254
-ev lookup time (ms): 55.573463439941406
-ev lookup time (ms): 57.52110481262207
-ev lookup time (ms): 55.950164794921875
-ev lookup time (ms): 57.53946304321289
-ev lookup time (ms): 55.70530891418457
-ev lookup time (ms): 56.83588981628418
-ev lookup time (ms): 55.403709411621094
-ev lookup time (ms): 56.39076232910156
-ev lookup time (ms): 56.676626205444336
-ev lookup time (ms): 57.4030876159668
-ev lookup time (ms): 56.321144104003906
-ev lookup time (ms): 55.593252182006836
-ev lookup time (ms): 56.127309799194336
-ev lookup time (ms): 57.192325592041016
-ev lookup time (ms): 56.48016929626465
-ev lookup time (ms): 56.540489196777344
-ev lookup time (ms): 56.46824836730957
-ev lookup time (ms): 55.799007415771484
-ev lookup time (ms): 57.03306198120117
-ev lookup time (ms): 56.48326873779297
-ev lookup time (ms): 56.064605712890625
-ev lookup time (ms): 55.73749542236328
-ev lookup time (ms): 56.49280548095703
-ev lookup time (ms): 56.23292922973633
-ev lookup time (ms): 55.80639839172363
-ev lookup time (ms): 56.95343017578125
-ev lookup time (ms): 56.058406829833984
-ev lookup time (ms): 56.839704513549805
-ev lookup time (ms): 56.401968002319336
-ev lookup time (ms): 55.99832534790039
-ev lookup time (ms): 55.39679527282715
-ev lookup time (ms): 54.71444129943848
-ev lookup time (ms): 55.648088455200195
-ev lookup time (ms): 56.78153038024902
-ev lookup time (ms): 56.0002326965332
-ev lookup time (ms): 54.57329750061035
-ev lookup time (ms): 56.03384971618652
-ev lookup time (ms): 54.99577522277832
-ev lookup time (ms): 54.63361740112305
-ev lookup time (ms): 57.2659969329834
-ev lookup time (ms): 55.67359924316406
-ev lookup time (ms): 55.6330680847168
-ev lookup time (ms): 55.69028854370117
-ev lookup time (ms): 56.43439292907715
-ev lookup time (ms): 55.67145347595215
-ev lookup time (ms): 57.154178619384766
-ev lookup time (ms): 56.5185546875
-ev lookup time (ms): 56.787967681884766
-ev lookup time (ms): 55.09495735168457
-ev lookup time (ms): 56.55312538146973
-ev lookup time (ms): 54.549217224121094
-ev lookup time (ms): 55.863380432128906
-ev lookup time (ms): 57.08670616149902
-ev lookup time (ms): 57.72900581359863
-ev lookup time (ms): 56.146860122680664
-ev lookup time (ms): 57.29985237121582
-ev lookup time (ms): 55.46426773071289
-ev lookup time (ms): 57.140350341796875
-ev lookup time (ms): 56.80561065673828
-ev lookup time (ms): 57.207584381103516
-ev lookup time (ms): 53.755998611450195
-ev lookup time (ms): 56.30016326904297
-ev lookup time (ms): 58.29644203186035
-ev lookup time (ms): 55.0074577331543
-ev lookup time (ms): 56.04362487792969
-ev lookup time (ms): 57.468414306640625
-ev lookup time (ms): 56.540489196777344
-ev lookup time (ms): 57.65938758850098
-ev lookup time (ms): 58.47287178039551
-ev lookup time (ms): 55.05037307739258
-ev lookup time (ms): 54.33487892150879
-ev lookup time (ms): 57.50679969787598
-ev lookup time (ms): 55.51958084106445
-ev lookup time (ms): 53.78079414367676
-ev lookup time (ms): 54.60476875305176
-ev lookup time (ms): 57.22355842590332
-ev lookup time (ms): 54.054975509643555
-ev lookup time (ms): 56.398868560791016
-ev lookup time (ms): 55.80496788024902
-ev lookup time (ms): 55.04035949707031
-ev lookup time (ms): 62.49499320983887
-ev lookup time (ms): 57.47842788696289
-ev lookup time (ms): 56.46681785583496
-ev lookup time (ms): 55.60660362243652
-ev lookup time (ms): 55.00388145446777
-ev lookup time (ms): 56.12373352050781
-ev lookup time (ms): 56.43177032470703
-ev lookup time (ms): 56.38384819030762
-ev lookup time (ms): 55.94968795776367
-ev lookup time (ms): 55.76276779174805
-ev lookup time (ms): 55.840253829956055
-ev lookup time (ms): 55.88984489440918
-ev lookup time (ms): 57.321786880493164
-ev lookup time (ms): 55.18913269042969
-ev lookup time (ms): 53.8020133972168
-ev lookup time (ms): 55.0081729888916
-ev lookup time (ms): 54.697275161743164
-ev lookup time (ms): 57.245731353759766
-ev lookup time (ms): 54.24690246582031
-ev lookup time (ms): 55.5117130279541
-ev lookup time (ms): 56.5638542175293
-ev lookup time (ms): 55.054664611816406
-ev lookup time (ms): 57.29365348815918
-ev lookup time (ms): 54.309844970703125
-ev lookup time (ms): 56.12778663635254
-ev lookup time (ms): 55.71103096008301
-ev lookup time (ms): 56.0145378112793
-ev lookup time (ms): 57.49917030334473
-ev lookup time (ms): 56.02121353149414
-ev lookup time (ms): 56.59055709838867
-ev lookup time (ms): 54.1834831237793
-ev lookup time (ms): 55.26900291442871
-ev lookup time (ms): 55.98282814025879
-ev lookup time (ms): 56.317806243896484
-ev lookup time (ms): 54.11124229431152
-ev lookup time (ms): 55.051326751708984
-ev lookup time (ms): 55.075883865356445
-ev lookup time (ms): 54.89802360534668
-ev lookup time (ms): 57.17945098876953
-ev lookup time (ms): 56.046485900878906
-Close connection...
+EmbStorge Finish Init!
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54546
 --------------------------------------------------------------------------------
-num dpu: 1020
-emb_num 1011840
-emb_num_per_dpu 992
-Emb distribution time (ms): 663.47
-Emb loading time (ms): 72.36
-47
-45
-44
-49
-47
-46
-45
-48
-54
-48
-45
-51
-49
-48
-53
-46
-48
-49
-50
-50
-45
-55
-51
-48
-46
-48
-47
-50
-46
-48
-48
-46
-47
-50
-45
-45
-52
-49
-47
-50
-49
-49
-47
-47
-48
-47
-50
-50
-49
-46
-50
-47
-48
-49
-46
-50
-48
-47
-48
-56
-51
-57
-48
-46
-47
-49
-50
-48
-50
-49
-51
-49
-50
-49
-48
-46
-49
-48
-46
-45
-47
-47
-49
-49
-48
-48
-50
-51
-50
-50
-48
-48
-45
-47
-48
-47
-49
-51
-52
-46
-45
-48
-47
-48
-52
-49
-48
-52
-47
-46
-46
-49
-45
-46
-46
-48
-46
-47
-46
-49
-46
-48
-49
-46
-48
-50
-50
-48
-52
-50
-53
-47
-46
-47
-47
-50
-47
-48
-46
-48
-48
-47
-46
-49
-50
-48
-48
-49
-48
-52
-46
-48
-46
-45
-51
-46
-51
-47
-51
-45
-50
-50
-52
-48
-48
-48
-53
-47
-48
-47
-46
-48
-47
-46
-48
-48
-48
-47
-46
-47
-47
-43
-46
-46
-48
-48
-47
-49
-49
-49
-46
-49
-49
-47
-48
-47
-45
-51
-45
-51
-48
-47
-48
-49
-49
-46
-46
-48
-46
-50
-48
-46
-47
-46
-46
-48
-47
-47
-50
-49
-47
-49
-47
-45
-48
-45
-46
-49
-48
-50
-44
-54
-48
-50
-46
-48
-48
-48
-47
-49
-48
-46
-48
-50
-50
-48
-48
-45
-48
-51
-48
-48
-47
-48
-46
-49
-49
-46
-45
-51
-44
-49
-46
-48
-50
-45
-45
-47
-52
-48
-47
-46
-49
-51
-47
-49
-46
-48
-47
-49
-46
-46
-50
-46
-46
-50
-46
-50
-51
-53
-49
-47
-49
-47
-49
-47
-47
-48
-51
-46
-46
-48
-46
-50
-50
-50
-48
-46
-49
-50
-50
-49
-46
-50
-47
-47
-46
-47
-48
-50
-47
-51
-48
-49
-48
-47
-46
-48
-49
-44
-47
-47
-48
-49
-46
-48
-51
-53
-46
-48
-49
-48
-46
-50
-45
-44
-47
-46
-47
-53
-47
-50
-52
-48
-53
-48
-50
-48
-47
-50
-50
-47
-50
-52
-51
-49
-49
-52
-47
-46
-49
-46
-53
-46
-50
-48
-45
-46
-46
-47
-48
-49
-44
-47
-49
-46
-48
-48
-46
-47
-45
-49
-48
-47
-51
-50
-47
-46
-44
-49
-47
-52
-46
-45
-47
-46
-51
-48
-49
-46
-48
-45
-46
-48
-48
-50
-48
-50
-46
-47
-47
-48
-50
-49
-46
-45
-47
-50
-48
-49
-48
-44
-50
-49
-47
-48
-48
-47
-48
-45
-47
-50
-45
-48
-51
-46
-53
-53
-44
-47
-45
-49
-50
-46
-45
-54
-44
-45
-47
-47
-47
-46
-47
-49
-48
-48
-45
-49
-47
-50
-49
-46
-48
-51
-46
-48
-46
-50
-48
-48
-48
-49
-46
-45
-48
-47
-47
-51
-46
-50
-48
-47
-47
-49
-49
-50
-46
-47
-46
-47
-46
-49
-50
-46
-46
-51
-44
-46
-48
-49
-47
-49
-46
-52
-48
-49
-48
-46
-50
-47
-47
-46
-47
-46
-45
-49
-46
-47
-46
-51
-50
-49
-51
-47
-45
-48
-48
-45
-47
-49
-50
-46
-47
-50
-47
-45
-48
-51
-49
-47
-54
-48
-46
-47
-48
-45
-46
-49
-48
-47
-49
-47
-48
-53
-47
-53
-51
-49
-48
-47
-48
-50
-47
-47
-45
-48
-50
-46
-54
-50
-46
-49
-49
-49
-49
-49
-47
-48
-51
-53
-46
-52
-48
-49
-50
-57
-50
-46
-45
-51
-48
-51
-50
-46
-52
-51
-47
-46
-48
-51
-50
-50
-46
-49
-48
-49
-48
-47
-50
-48
-48
-47
-46
-47
-49
-47
-47
-47
-45
-46
-44
-48
-46
-51
-51
-52
-46
-50
-48
-49
-50
-46
-47
-46
-46
-46
-47
-51
-46
-49
-50
-49
-49
-50
-46
-49
-49
-49
-46
-47
-51
-53
-49
-55
-49
-46
-46
-46
-46
-47
-46
-47
-47
-45
-50
-46
-49
-48
-49
-47
-52
-51
-49
-47
-49
-48
-52
-46
-51
-51
-50
-49
-46
-46
-48
-45
-48
-47
-47
-49
-49
-46
-49
-46
-45
-47
-46
-47
-47
-46
-48
-46
-46
-50
-48
-47
-50
-46
-49
-46
-52
-48
-47
-48
-48
-45
-47
-47
-51
-47
-45
-46
-51
-49
-46
-48
-46
-50
-47
-48
-48
-48
-49
-46
-45
-47
-47
-49
-48
-50
-47
-46
-49
-50
-51
-51
-47
-52
-49
-49
-52
-46
-48
-48
-53
-49
-45
-47
-47
-48
-51
-49
-49
-48
-46
-47
-54
-50
-50
-48
-49
-47
-52
-51
-50
-49
-46
-47
-48
-47
-49
-49
-44
-48
-48
-46
-48
-48
-46
-47
-49
-49
-52
-50
-47
-46
-52
-48
-47
-50
-48
-49
-48
-47
-47
-47
-45
-47
-49
-49
-48
-48
-48
-45
-44
-47
-49
-50
-48
-46
-45
-46
-48
-48
-48
-49
-48
-51
-46
-47
-46
-55
-47
-48
-47
-51
-53
-49
-47
-46
-49
-48
-49
-47
-48
-49
-49
-48
-45
-50
-48
-49
-46
-46
-46
-51
-49
-49
-47
-54
-46
-48
-47
-46
-49
-46
-48
-49
-47
-47
-48
-48
-49
-46
-48
-46
-49
-46
-51
-50
-47
-47
-50
-49
-46
-48
-49
-45
-52
-46
-48
-47
-46
-50
-49
-47
-48
-51
-51
-47
-45
-48
-50
-46
-48
-47
-45
-49
-47
-48
-47
-49
-47
-49
-50
-49
-51
-48
-50
-47
-49
-48
-48
-48
-48
-49
-47
-49
-49
-49
-44
-47
-50
-45
-45
-49
-48
-51
-56
-47
-46
-50
-47
-46
-49
-46
-47
-45
-47
-48
-45
-46
-48
-45
-48
-46
-47
-47
-46
-45
-45
-48
-48
-45
-46
-48
-47
-47
-47
-49
-47
-47
-48
-48
-48
-47
-49
-49
-48
-48
-46
-50
-47
-50
-50
-49
-44
-45
-50
-50
----------------------------------------------------------------------
-avg_PIM_input_convertion_time: 0.09
-avg_task_distribution_time: 8.02
-avg_task_tranfer_time: 1.16
-avg_PIM_cal_time: 9.41
-avg_result_transfer_time: 4.06
-avg_CPU_cal_time: 9.29
-avg_total_apply_emb_time: 31.93
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 6
+qpn : 465
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+.ev lookup time (ms): 153.1541347503662
+.ev lookup time (ms): 147.06730842590332
+.ev lookup time (ms): 145.08581161499023
+.ev lookup time (ms): 143.98670196533203
+.ev lookup time (ms): 114.7305965423584
+.ev lookup time (ms): 111.5262508392334
+.ev lookup time (ms): 192.17157363891602
+.ev lookup time (ms): 103.53851318359375
+.ev lookup time (ms): 107.6359748840332
+.ev lookup time (ms): 104.10070419311523
+.ev lookup time (ms): 98.10209274291992
+.ev lookup time (ms): 95.15953063964844
+.ev lookup time (ms): 160.34650802612305
+.ev lookup time (ms): 93.09744834899902
+.ev lookup time (ms): 90.32440185546875
+.ev lookup time (ms): 141.54767990112305
+.ev lookup time (ms): 85.79802513122559
+.ev lookup time (ms): 88.26804161071777
+.ev lookup time (ms): 123.95572662353516
+.ev lookup time (ms): 86.43579483032227
+.ev lookup time (ms): 85.96062660217285
+.ev lookup time (ms): 86.64727210998535
+.ev lookup time (ms): 84.55705642700195
+.ev lookup time (ms): 115.14639854431152
+.ev lookup time (ms): 84.78975296020508
+.ev lookup time (ms): 84.88917350769043
+.ev lookup time (ms): 84.72275733947754
+.ev lookup time (ms): 83.98771286010742
+.ev lookup time (ms): 83.20283889770508
+.ev lookup time (ms): 111.82999610900879
+.ev lookup time (ms): 82.95464515686035
+.ev lookup time (ms): 83.44197273254395
+.ev lookup time (ms): 81.80069923400879
+.ev lookup time (ms): 82.86929130554199
+.ev lookup time (ms): 85.29400825500488
+.ev lookup time (ms): 81.9556713104248
+.ev lookup time (ms): 81.69412612915039
+.ev lookup time (ms): 82.06701278686523
+.ev lookup time (ms): 80.23834228515625
+.ev lookup time (ms): 88.48071098327637
+.ev lookup time (ms): 79.21338081359863
+.ev lookup time (ms): 81.10189437866211
+.ev lookup time (ms): 80.29937744140625
+.ev lookup time (ms): 80.77883720397949
+.ev lookup time (ms): 79.12087440490723
+.ev lookup time (ms): 87.58902549743652
+.ev lookup time (ms): 83.74357223510742
+.ev lookup time (ms): 80.76286315917969
+.ev lookup time (ms): 84.03801918029785
+.ev lookup time (ms): 92.33570098876953
+.ev lookup time (ms): 80.95932006835938
+.ev lookup time (ms): 82.53335952758789
+.ev lookup time (ms): 92.46444702148438
+.ev lookup time (ms): 83.51755142211914
+.ev lookup time (ms): 77.56209373474121
+.ev lookup time (ms): 78.11450958251953
+.ev lookup time (ms): 79.90217208862305
+.ev lookup time (ms): 89.8902416229248
+.ev lookup time (ms): 87.5864028930664
+.ev lookup time (ms): 79.7891616821289
+.ev lookup time (ms): 87.62621879577637
+.ev lookup time (ms): 78.95255088806152
+.ev lookup time (ms): 84.46598052978516
+.ev lookup time (ms): 77.4075984954834
+.ev lookup time (ms): 77.95500755310059
+.ev lookup time (ms): 79.73527908325195
+.ev lookup time (ms): 82.62777328491211
+.ev lookup time (ms): 82.91006088256836
+.ev lookup time (ms): 81.32266998291016
+.ev lookup time (ms): 77.41856575012207
+.ev lookup time (ms): 77.44121551513672
+.ev lookup time (ms): 78.36747169494629
+.ev lookup time (ms): 86.8222713470459
+.ev lookup time (ms): 76.57241821289062
+.ev lookup time (ms): 80.10005950927734
+.ev lookup time (ms): 75.28948783874512
+.ev lookup time (ms): 77.81720161437988
+.ev lookup time (ms): 75.50263404846191
+.ev lookup time (ms): 76.22194290161133
+.ev lookup time (ms): 79.33235168457031
+.ev lookup time (ms): 78.98974418640137
+.ev lookup time (ms): 76.54333114624023
+.ev lookup time (ms): 76.47132873535156
+.ev lookup time (ms): 75.592041015625
+.ev lookup time (ms): 75.33550262451172
+.ev lookup time (ms): 74.981689453125
+.ev lookup time (ms): 77.88825035095215
+.ev lookup time (ms): 77.23164558410645
+.ev lookup time (ms): 74.85389709472656
+.ev lookup time (ms): 74.75662231445312
+.ev lookup time (ms): 75.51145553588867
+.ev lookup time (ms): 78.125
+.ev lookup time (ms): 77.62598991394043
+.ev lookup time (ms): 76.46489143371582
+.ev lookup time (ms): 76.58767700195312
+.ev lookup time (ms): 75.14142990112305
+.ev lookup time (ms): 74.7368335723877
+.ev lookup time (ms): 76.04551315307617
+.ev lookup time (ms): 74.66983795166016
+.ev lookup time (ms): 79.33402061462402
 
-avg_index_num: 30.07
-avg_max_index_num: 48.02
-avg_min_index_num: 5.00
-avg_index_group_num: 17.39
-avg_max_index_group_num: 27.01
-avg_min_index_group_num: 0.00
-avg_CPU_sum_emb_num: 55.44
----------------------------------------------------------------------
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 9.790086507797241 secs (0 mins)
+Throughput (Req/sec) : 326.86
+Avg latency (PIM + EV_trans + CPU + GPU + network + others) (ms) : 97.9
+Avg ev lookup time (PIM + EV_trans + CPU) (ms) : 89.05
+Avg apply emb time (PIM + EV_trans + CPU + GPU + network) (ms) : 97.78
+CPU cal time (ms) : 19.38
+(PIM + EV_trans) time (ms) : 69.67
+(network + GPU) time (ms) : 8.74
+others time (ms) : 0.12
+Close connection...
+client cache cacacity: 1000
+hit: 0  miss: 25600  hit rate: 0.00
+hit: 3553  miss: 22047  hit rate: 0.14
+hit: 6390  miss: 19210  hit rate: 0.25
+hit: 8578  miss: 17022  hit rate: 0.34
+hit: 11622  miss: 13978  hit rate: 0.45
+hit: 12380  miss: 13220  hit rate: 0.48
+hit: 13311  miss: 12289  hit rate: 0.52
+hit: 13882  miss: 11718  hit rate: 0.54
+hit: 14632  miss: 10968  hit rate: 0.57
+hit: 14958  miss: 10642  hit rate: 0.58
+hit: 15720  miss: 9880  hit rate: 0.61
+hit: 16432  miss: 9168  hit rate: 0.64
+hit: 17002  miss: 8598  hit rate: 0.66
+hit: 17452  miss: 8148  hit rate: 0.68
+hit: 17706  miss: 7894  hit rate: 0.69
+hit: 17748  miss: 7852  hit rate: 0.69
+hit: 18019  miss: 7581  hit rate: 0.70
+hit: 18013  miss: 7587  hit rate: 0.70
+hit: 18125  miss: 7475  hit rate: 0.71
+hit: 18273  miss: 7327  hit rate: 0.71
+hit: 18483  miss: 7117  hit rate: 0.72
+hit: 18566  miss: 7034  hit rate: 0.73
+hit: 18616  miss: 6984  hit rate: 0.73
+hit: 18703  miss: 6897  hit rate: 0.73
+hit: 18733  miss: 6867  hit rate: 0.73
+hit: 18870  miss: 6730  hit rate: 0.74
+hit: 18993  miss: 6607  hit rate: 0.74
+hit: 19202  miss: 6398  hit rate: 0.75
+hit: 19275  miss: 6325  hit rate: 0.75
+hit: 19122  miss: 6478  hit rate: 0.75
+hit: 19262  miss: 6338  hit rate: 0.75
+hit: 19370  miss: 6230  hit rate: 0.76
+hit: 19451  miss: 6149  hit rate: 0.76
+hit: 19447  miss: 6153  hit rate: 0.76
+hit: 19555  miss: 6045  hit rate: 0.76
+hit: 19833  miss: 5767  hit rate: 0.77
+hit: 19939  miss: 5661  hit rate: 0.78
+hit: 19893  miss: 5707  hit rate: 0.78
+hit: 19967  miss: 5633  hit rate: 0.78
+hit: 19918  miss: 5682  hit rate: 0.78
+hit: 20028  miss: 5572  hit rate: 0.78
+hit: 20132  miss: 5468  hit rate: 0.79
+hit: 20155  miss: 5445  hit rate: 0.79
+hit: 20198  miss: 5402  hit rate: 0.79
+hit: 20235  miss: 5365  hit rate: 0.79
+hit: 20223  miss: 5377  hit rate: 0.79
+hit: 20332  miss: 5268  hit rate: 0.79
+hit: 20320  miss: 5280  hit rate: 0.79
+hit: 20394  miss: 5206  hit rate: 0.80
+hit: 20373  miss: 5227  hit rate: 0.80
+hit: 20495  miss: 5105  hit rate: 0.80
+hit: 20450  miss: 5150  hit rate: 0.80
+hit: 20596  miss: 5004  hit rate: 0.80
+hit: 20626  miss: 4974  hit rate: 0.81
+hit: 20725  miss: 4875  hit rate: 0.81
+hit: 20614  miss: 4986  hit rate: 0.81
+hit: 20766  miss: 4834  hit rate: 0.81
+hit: 20689  miss: 4911  hit rate: 0.81
+hit: 20767  miss: 4833  hit rate: 0.81
+hit: 20707  miss: 4893  hit rate: 0.81
+hit: 20884  miss: 4716  hit rate: 0.82
+hit: 20844  miss: 4756  hit rate: 0.81
+hit: 20840  miss: 4760  hit rate: 0.81
+hit: 20931  miss: 4669  hit rate: 0.82
+hit: 21045  miss: 4555  hit rate: 0.82
+hit: 20923  miss: 4677  hit rate: 0.82
+hit: 20944  miss: 4656  hit rate: 0.82
+hit: 20995  miss: 4605  hit rate: 0.82
+hit: 21106  miss: 4494  hit rate: 0.82
+hit: 21110  miss: 4490  hit rate: 0.82
+hit: 21019  miss: 4581  hit rate: 0.82
+hit: 21129  miss: 4471  hit rate: 0.83
+hit: 21237  miss: 4363  hit rate: 0.83
+hit: 21277  miss: 4323  hit rate: 0.83
+hit: 21174  miss: 4426  hit rate: 0.83
+hit: 21159  miss: 4441  hit rate: 0.83
+hit: 21211  miss: 4389  hit rate: 0.83
+hit: 21262  miss: 4338  hit rate: 0.83
+hit: 21189  miss: 4411  hit rate: 0.83
+hit: 21253  miss: 4347  hit rate: 0.83
+hit: 21342  miss: 4258  hit rate: 0.83
+hit: 21305  miss: 4295  hit rate: 0.83
+hit: 21366  miss: 4234  hit rate: 0.83
+hit: 21439  miss: 4161  hit rate: 0.84
+hit: 21359  miss: 4241  hit rate: 0.83
+hit: 21355  miss: 4245  hit rate: 0.83
+hit: 21330  miss: 4270  hit rate: 0.83
+hit: 21426  miss: 4174  hit rate: 0.84
+hit: 21481  miss: 4119  hit rate: 0.84
+hit: 21543  miss: 4057  hit rate: 0.84
+hit: 21508  miss: 4092  hit rate: 0.84
+hit: 21527  miss: 4073  hit rate: 0.84
+hit: 21519  miss: 4081  hit rate: 0.84
+hit: 21447  miss: 4153  hit rate: 0.84
+hit: 21478  miss: 4122  hit rate: 0.84
+hit: 21592  miss: 4008  hit rate: 0.84
+hit: 21643  miss: 3957  hit rate: 0.85
+hit: 21543  miss: 4057  hit rate: 0.84
+hit: 21634  miss: 3966  hit rate: 0.85
+hit: 21565  miss: 4035  hit rate: 0.84
+
+Error: /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/command/develop.py:41: EasyInstallDeprecationWarning: easy_install command is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` and ``easy_install``.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://github.com/pypa/setuptools/issues/917 for details.
+        ********************************************************************************
+
+!!
+  easy_install.initialize_options(self)
+/home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/_distutils/cmd.py:66: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()
+
+begin test RM1 32 1.5
+Output: running develop
+running egg_info
+writing client_cache.egg-info/PKG-INFO
+writing dependency_links to client_cache.egg-info/dependency_links.txt
+writing top-level names to client_cache.egg-info/top_level.txt
+reading manifest file 'client_cache.egg-info/SOURCES.txt'
+writing manifest file 'client_cache.egg-info/SOURCES.txt'
+running build_ext
+g++ -pthread -B /home/cml/miniconda3/envs/CloverRec/compiler_compat -fno-strict-overflow -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -I/home/cml/miniconda3/envs/CloverRec/include/python3.12 -c flagcheck.cpp -o flagcheck.o -std=c++17
+copying build/lib.linux-x86_64-cpython-312/client_cache.cpython-312-x86_64-linux-gnu.so -> 
+Creating /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/client-cache.egg-link (link to .)
+Removing client-cache 1.0 from easy-install.pth file
+Removing client-cache 1.0 from easy-install.pth file
+client-cache 1.0 is already the active version in easy-install.pth
+detected new path '/home/cml/CloverRec/remote_emb'
+detected new path '/home/cml/CloverRec/cloverrec'
+
+Installed /home/cml/CloverRec/naive_pim_emb
+Processing dependencies for client-cache==1.0
+Finished processing dependencies for client-cache==1.0
+--------------------------------------------
+Finish Compiling client_cache
+--------------------------------------------
+--------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 32
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=100000-100000-100000-100000-100000-100000-100000-100000-100000-100000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000 --emb-pool-ip=10.0.0.11 --emb-pool-port=1234 --zipf-parameter=1.5
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54547
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54548
+--------------------------------------------------------------------------------
+-- Local Info
+addr : 139870605643776
+rkey : 1583849
+--------------------------------------------------------------------------------
+-- Remote Info
+addr : 1278398464
+rkey : 1585134
+--------------------------------------------------------------------------------
+EmbStorge Finish Init!
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54549
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 6
+qpn : 466
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+.ev lookup time (ms): 161.0543727874756
+.ev lookup time (ms): 150.48599243164062
+.ev lookup time (ms): 148.8633155822754
+.ev lookup time (ms): 136.31653785705566
+.ev lookup time (ms): 135.56957244873047
+.ev lookup time (ms): 134.04178619384766
+.ev lookup time (ms): 132.64012336730957
+.ev lookup time (ms): 124.52459335327148
+.ev lookup time (ms): 104.07638549804688
+.ev lookup time (ms): 101.19843482971191
+.ev lookup time (ms): 101.69243812561035
+.ev lookup time (ms): 94.75898742675781
+.ev lookup time (ms): 95.8404541015625
+.ev lookup time (ms): 92.96584129333496
+.ev lookup time (ms): 93.42312812805176
+.ev lookup time (ms): 94.44260597229004
+.ev lookup time (ms): 91.6740894317627
+.ev lookup time (ms): 91.99380874633789
+.ev lookup time (ms): 91.18008613586426
+.ev lookup time (ms): 90.56687355041504
+.ev lookup time (ms): 87.87870407104492
+.ev lookup time (ms): 89.35356140136719
+.ev lookup time (ms): 87.57519721984863
+.ev lookup time (ms): 83.2059383392334
+.ev lookup time (ms): 82.77416229248047
+.ev lookup time (ms): 82.57079124450684
+.ev lookup time (ms): 81.84695243835449
+.ev lookup time (ms): 83.21213722229004
+.ev lookup time (ms): 81.60400390625
+.ev lookup time (ms): 81.50076866149902
+.ev lookup time (ms): 81.10570907592773
+.ev lookup time (ms): 82.47709274291992
+.ev lookup time (ms): 80.2619457244873
+.ev lookup time (ms): 81.1460018157959
+.ev lookup time (ms): 84.38777923583984
+.ev lookup time (ms): 79.52189445495605
+.ev lookup time (ms): 80.04426956176758
+.ev lookup time (ms): 76.78508758544922
+.ev lookup time (ms): 78.70244979858398
+.ev lookup time (ms): 77.52466201782227
+.ev lookup time (ms): 77.33154296875
+.ev lookup time (ms): 76.38120651245117
+.ev lookup time (ms): 75.96373558044434
+.ev lookup time (ms): 76.87640190124512
+.ev lookup time (ms): 75.52123069763184
+.ev lookup time (ms): 74.92947578430176
+.ev lookup time (ms): 73.85754585266113
+.ev lookup time (ms): 74.16224479675293
+.ev lookup time (ms): 74.43928718566895
+.ev lookup time (ms): 74.39017295837402
+.ev lookup time (ms): 75.04653930664062
+.ev lookup time (ms): 74.7227668762207
+.ev lookup time (ms): 81.41493797302246
+.ev lookup time (ms): 74.07355308532715
+.ev lookup time (ms): 74.96190071105957
+.ev lookup time (ms): 74.27096366882324
+.ev lookup time (ms): 76.63607597351074
+.ev lookup time (ms): 74.54133033752441
+.ev lookup time (ms): 74.67126846313477
+.ev lookup time (ms): 99.79796409606934
+.ev lookup time (ms): 75.32477378845215
+.ev lookup time (ms): 85.63828468322754
+.ev lookup time (ms): 73.5623836517334
+.ev lookup time (ms): 91.17007255554199
+.ev lookup time (ms): 73.84181022644043
+.ev lookup time (ms): 73.53639602661133
+.ev lookup time (ms): 73.93312454223633
+.ev lookup time (ms): 82.54504203796387
+.ev lookup time (ms): 87.43858337402344
+.ev lookup time (ms): 74.29122924804688
+.ev lookup time (ms): 78.19294929504395
+.ev lookup time (ms): 74.0971565246582
+.ev lookup time (ms): 81.69054985046387
+.ev lookup time (ms): 73.26674461364746
+.ev lookup time (ms): 73.35543632507324
+.ev lookup time (ms): 73.56667518615723
+.ev lookup time (ms): 77.85320281982422
+.ev lookup time (ms): 71.48146629333496
+.ev lookup time (ms): 72.65806198120117
+.ev lookup time (ms): 72.95417785644531
+.ev lookup time (ms): 75.225830078125
+.ev lookup time (ms): 72.40986824035645
+.ev lookup time (ms): 74.94568824768066
+.ev lookup time (ms): 78.06229591369629
+.ev lookup time (ms): 75.03795623779297
+.ev lookup time (ms): 84.08474922180176
+.ev lookup time (ms): 75.46281814575195
+.ev lookup time (ms): 73.14944267272949
+.ev lookup time (ms): 77.3155689239502
+.ev lookup time (ms): 75.47140121459961
+.ev lookup time (ms): 72.45802879333496
+.ev lookup time (ms): 73.50373268127441
+.ev lookup time (ms): 73.31418991088867
+.ev lookup time (ms): 73.87852668762207
+.ev lookup time (ms): 73.40693473815918
+.ev lookup time (ms): 72.89385795593262
+.ev lookup time (ms): 73.32944869995117
+.ev lookup time (ms): 72.62778282165527
+.ev lookup time (ms): 73.50850105285645
+.ev lookup time (ms): 73.12130928039551
+
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 9.35929012298584 secs (0 mins)
+Throughput (Req/sec) : 341.91
+Avg latency (PIM + EV_trans + CPU + GPU + network + others) (ms) : 93.59
+Avg ev lookup time (PIM + EV_trans + CPU) (ms) : 84.78
+Avg apply emb time (PIM + EV_trans + CPU + GPU + network) (ms) : 93.48
+CPU cal time (ms) : 19.16
+(PIM + EV_trans) time (ms) : 65.62
+(network + GPU) time (ms) : 8.7
+others time (ms) : 0.11
+Close connection...
+client cache cacacity: 1000
+hit: 0  miss: 25600  hit rate: 0.00
+hit: 4283  miss: 21317  hit rate: 0.17
+hit: 5441  miss: 20159  hit rate: 0.21
+hit: 10027  miss: 15573  hit rate: 0.39
+hit: 11506  miss: 14094  hit rate: 0.45
+hit: 11933  miss: 13667  hit rate: 0.47
+hit: 12885  miss: 12715  hit rate: 0.50
+hit: 13900  miss: 11700  hit rate: 0.54
+hit: 15276  miss: 10324  hit rate: 0.60
+hit: 16084  miss: 9516  hit rate: 0.63
+hit: 16286  miss: 9314  hit rate: 0.64
+hit: 16671  miss: 8929  hit rate: 0.65
+hit: 17125  miss: 8475  hit rate: 0.67
+hit: 17499  miss: 8101  hit rate: 0.68
+hit: 17663  miss: 7937  hit rate: 0.69
+hit: 17808  miss: 7792  hit rate: 0.70
+hit: 18090  miss: 7510  hit rate: 0.71
+hit: 18213  miss: 7387  hit rate: 0.71
+hit: 18686  miss: 6914  hit rate: 0.73
+hit: 18737  miss: 6863  hit rate: 0.73
+hit: 19052  miss: 6548  hit rate: 0.74
+hit: 19216  miss: 6384  hit rate: 0.75
+hit: 19499  miss: 6101  hit rate: 0.76
+hit: 19677  miss: 5923  hit rate: 0.77
+hit: 19849  miss: 5751  hit rate: 0.78
+hit: 19963  miss: 5637  hit rate: 0.78
+hit: 20024  miss: 5576  hit rate: 0.78
+hit: 19993  miss: 5607  hit rate: 0.78
+hit: 20277  miss: 5323  hit rate: 0.79
+hit: 20240  miss: 5360  hit rate: 0.79
+hit: 20218  miss: 5382  hit rate: 0.79
+hit: 20400  miss: 5200  hit rate: 0.80
+hit: 20386  miss: 5214  hit rate: 0.80
+hit: 20452  miss: 5148  hit rate: 0.80
+hit: 20416  miss: 5184  hit rate: 0.80
+hit: 20731  miss: 4869  hit rate: 0.81
+hit: 20769  miss: 4831  hit rate: 0.81
+hit: 20899  miss: 4701  hit rate: 0.82
+hit: 20842  miss: 4758  hit rate: 0.81
+hit: 21002  miss: 4598  hit rate: 0.82
+hit: 21031  miss: 4569  hit rate: 0.82
+hit: 21103  miss: 4497  hit rate: 0.82
+hit: 21282  miss: 4318  hit rate: 0.83
+hit: 21236  miss: 4364  hit rate: 0.83
+hit: 21304  miss: 4296  hit rate: 0.83
+hit: 21303  miss: 4297  hit rate: 0.83
+hit: 21418  miss: 4182  hit rate: 0.84
+hit: 21348  miss: 4252  hit rate: 0.83
+hit: 21526  miss: 4074  hit rate: 0.84
+hit: 21411  miss: 4189  hit rate: 0.84
+hit: 21542  miss: 4058  hit rate: 0.84
+hit: 21625  miss: 3975  hit rate: 0.84
+hit: 21525  miss: 4075  hit rate: 0.84
+hit: 21718  miss: 3882  hit rate: 0.85
+hit: 21655  miss: 3945  hit rate: 0.85
+hit: 21758  miss: 3842  hit rate: 0.85
+hit: 21699  miss: 3901  hit rate: 0.85
+hit: 21816  miss: 3784  hit rate: 0.85
+hit: 21790  miss: 3810  hit rate: 0.85
+hit: 21784  miss: 3816  hit rate: 0.85
+hit: 21831  miss: 3769  hit rate: 0.85
+hit: 21986  miss: 3614  hit rate: 0.86
+hit: 22001  miss: 3599  hit rate: 0.86
+hit: 22018  miss: 3582  hit rate: 0.86
+hit: 22028  miss: 3572  hit rate: 0.86
+hit: 22071  miss: 3529  hit rate: 0.86
+hit: 21981  miss: 3619  hit rate: 0.86
+hit: 22056  miss: 3544  hit rate: 0.86
+hit: 22083  miss: 3517  hit rate: 0.86
+hit: 22103  miss: 3497  hit rate: 0.86
+hit: 22134  miss: 3466  hit rate: 0.86
+hit: 22077  miss: 3523  hit rate: 0.86
+hit: 22211  miss: 3389  hit rate: 0.87
+hit: 22335  miss: 3265  hit rate: 0.87
+hit: 22311  miss: 3289  hit rate: 0.87
+hit: 22337  miss: 3263  hit rate: 0.87
+hit: 22314  miss: 3286  hit rate: 0.87
+hit: 22306  miss: 3294  hit rate: 0.87
+hit: 22392  miss: 3208  hit rate: 0.87
+hit: 22306  miss: 3294  hit rate: 0.87
+hit: 22404  miss: 3196  hit rate: 0.88
+hit: 22362  miss: 3238  hit rate: 0.87
+hit: 22352  miss: 3248  hit rate: 0.87
+hit: 22359  miss: 3241  hit rate: 0.87
+hit: 22533  miss: 3067  hit rate: 0.88
+hit: 22437  miss: 3163  hit rate: 0.88
+hit: 22441  miss: 3159  hit rate: 0.88
+hit: 22355  miss: 3245  hit rate: 0.87
+hit: 22360  miss: 3240  hit rate: 0.87
+hit: 22498  miss: 3102  hit rate: 0.88
+hit: 22481  miss: 3119  hit rate: 0.88
+hit: 22549  miss: 3051  hit rate: 0.88
+hit: 22601  miss: 2999  hit rate: 0.88
+hit: 22545  miss: 3055  hit rate: 0.88
+hit: 22626  miss: 2974  hit rate: 0.88
+hit: 22561  miss: 3039  hit rate: 0.88
+hit: 22611  miss: 2989  hit rate: 0.88
+hit: 22694  miss: 2906  hit rate: 0.89
+hit: 22615  miss: 2985  hit rate: 0.88
+hit: 22697  miss: 2903  hit rate: 0.89
+
+Error: /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/command/develop.py:41: EasyInstallDeprecationWarning: easy_install command is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` and ``easy_install``.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://github.com/pypa/setuptools/issues/917 for details.
+        ********************************************************************************
+
+!!
+  easy_install.initialize_options(self)
+/home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/_distutils/cmd.py:66: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()
+
+begin test RM1 32 1.6
+Output: running develop
+running egg_info
+writing client_cache.egg-info/PKG-INFO
+writing dependency_links to client_cache.egg-info/dependency_links.txt
+writing top-level names to client_cache.egg-info/top_level.txt
+reading manifest file 'client_cache.egg-info/SOURCES.txt'
+writing manifest file 'client_cache.egg-info/SOURCES.txt'
+running build_ext
+g++ -pthread -B /home/cml/miniconda3/envs/CloverRec/compiler_compat -fno-strict-overflow -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -I/home/cml/miniconda3/envs/CloverRec/include/python3.12 -c flagcheck.cpp -o flagcheck.o -std=c++17
+copying build/lib.linux-x86_64-cpython-312/client_cache.cpython-312-x86_64-linux-gnu.so -> 
+Creating /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/client-cache.egg-link (link to .)
+Removing client-cache 1.0 from easy-install.pth file
+Removing client-cache 1.0 from easy-install.pth file
+client-cache 1.0 is already the active version in easy-install.pth
+detected new path '/home/cml/CloverRec/remote_emb'
+detected new path '/home/cml/CloverRec/cloverrec'
+
+Installed /home/cml/CloverRec/naive_pim_emb
+Processing dependencies for client-cache==1.0
+Finished processing dependencies for client-cache==1.0
+--------------------------------------------
+Finish Compiling client_cache
+--------------------------------------------
+--------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 32
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=100000-100000-100000-100000-100000-100000-100000-100000-100000-100000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000 --emb-pool-ip=10.0.0.11 --emb-pool-port=1234 --zipf-parameter=1.6
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54550
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54551
+--------------------------------------------------------------------------------
+-- Local Info
+addr : 139764825612288
+rkey : 1587961
+--------------------------------------------------------------------------------
+-- Remote Info
+addr : 1245048832
+rkey : 1581793
+--------------------------------------------------------------------------------
+EmbStorge Finish Init!
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54552
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 6
+qpn : 467
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+.ev lookup time (ms): 158.9818000793457
+.ev lookup time (ms): 151.9465446472168
+.ev lookup time (ms): 148.8180160522461
+.ev lookup time (ms): 148.49352836608887
+.ev lookup time (ms): 147.24016189575195
+.ev lookup time (ms): 149.38879013061523
+.ev lookup time (ms): 111.43040657043457
+.ev lookup time (ms): 108.50834846496582
+.ev lookup time (ms): 104.18820381164551
+.ev lookup time (ms): 96.42744064331055
+.ev lookup time (ms): 97.05424308776855
+.ev lookup time (ms): 94.08354759216309
+.ev lookup time (ms): 94.48051452636719
+.ev lookup time (ms): 92.43178367614746
+.ev lookup time (ms): 96.19641304016113
+.ev lookup time (ms): 89.19954299926758
+.ev lookup time (ms): 85.42585372924805
+.ev lookup time (ms): 84.71465110778809
+.ev lookup time (ms): 89.45512771606445
+.ev lookup time (ms): 84.14602279663086
+.ev lookup time (ms): 86.26604080200195
+.ev lookup time (ms): 85.98756790161133
+.ev lookup time (ms): 81.75849914550781
+.ev lookup time (ms): 83.60457420349121
+.ev lookup time (ms): 82.2763442993164
+.ev lookup time (ms): 82.26990699768066
+.ev lookup time (ms): 83.03213119506836
+.ev lookup time (ms): 81.78472518920898
+.ev lookup time (ms): 80.80053329467773
+.ev lookup time (ms): 77.90684700012207
+.ev lookup time (ms): 78.60779762268066
+.ev lookup time (ms): 76.93743705749512
+.ev lookup time (ms): 75.57392120361328
+.ev lookup time (ms): 79.03337478637695
+.ev lookup time (ms): 82.1676254272461
+.ev lookup time (ms): 79.24079895019531
+.ev lookup time (ms): 76.21145248413086
+.ev lookup time (ms): 74.94831085205078
+.ev lookup time (ms): 80.64818382263184
+.ev lookup time (ms): 75.47593116760254
+.ev lookup time (ms): 79.17165756225586
+.ev lookup time (ms): 74.72085952758789
+.ev lookup time (ms): 77.50153541564941
+.ev lookup time (ms): 75.50835609436035
+.ev lookup time (ms): 74.68771934509277
+.ev lookup time (ms): 75.22344589233398
+.ev lookup time (ms): 76.5843391418457
+.ev lookup time (ms): 73.96841049194336
+.ev lookup time (ms): 73.88043403625488
+.ev lookup time (ms): 73.09269905090332
+.ev lookup time (ms): 74.99909400939941
+.ev lookup time (ms): 74.79190826416016
+.ev lookup time (ms): 74.45788383483887
+.ev lookup time (ms): 77.58426666259766
+.ev lookup time (ms): 83.10508728027344
+.ev lookup time (ms): 74.15604591369629
+.ev lookup time (ms): 74.49817657470703
+.ev lookup time (ms): 73.54187965393066
+.ev lookup time (ms): 72.86286354064941
+.ev lookup time (ms): 75.08063316345215
+.ev lookup time (ms): 72.51644134521484
+.ev lookup time (ms): 73.4717845916748
+.ev lookup time (ms): 72.63803482055664
+.ev lookup time (ms): 73.5316276550293
+.ev lookup time (ms): 74.5232105255127
+.ev lookup time (ms): 73.96340370178223
+.ev lookup time (ms): 80.55281639099121
+.ev lookup time (ms): 72.57843017578125
+.ev lookup time (ms): 73.07553291320801
+.ev lookup time (ms): 72.78323173522949
+.ev lookup time (ms): 73.6992359161377
+.ev lookup time (ms): 72.6308822631836
+.ev lookup time (ms): 72.48711585998535
+.ev lookup time (ms): 72.22461700439453
+.ev lookup time (ms): 72.21269607543945
+.ev lookup time (ms): 71.80309295654297
+.ev lookup time (ms): 81.79473876953125
+.ev lookup time (ms): 76.24101638793945
+.ev lookup time (ms): 76.1113166809082
+.ev lookup time (ms): 72.68643379211426
+.ev lookup time (ms): 83.35590362548828
+.ev lookup time (ms): 71.87509536743164
+.ev lookup time (ms): 72.19862937927246
+.ev lookup time (ms): 71.71201705932617
+.ev lookup time (ms): 71.64216041564941
+.ev lookup time (ms): 71.55919075012207
+.ev lookup time (ms): 71.77209854125977
+.ev lookup time (ms): 71.59209251403809
+.ev lookup time (ms): 71.60091400146484
+.ev lookup time (ms): 71.77281379699707
+.ev lookup time (ms): 70.97911834716797
+.ev lookup time (ms): 71.8374252319336
+.ev lookup time (ms): 71.62785530090332
+.ev lookup time (ms): 71.84553146362305
+.ev lookup time (ms): 71.05040550231934
+.ev lookup time (ms): 71.84743881225586
+.ev lookup time (ms): 72.89505004882812
+.ev lookup time (ms): 71.9003677368164
+.ev lookup time (ms): 71.36654853820801
+.ev lookup time (ms): 70.90950012207031
+
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 9.213763236999512 secs (0 mins)
+Throughput (Req/sec) : 347.31
+Avg latency (PIM + EV_trans + CPU + GPU + network + others) (ms) : 92.14
+Avg ev lookup time (PIM + EV_trans + CPU) (ms) : 82.73
+Avg apply emb time (PIM + EV_trans + CPU + GPU + network) (ms) : 92.02
+CPU cal time (ms) : 19.33
+(PIM + EV_trans) time (ms) : 63.41
+(network + GPU) time (ms) : 9.29
+others time (ms) : 0.12
+Close connection...
+client cache cacacity: 1000
+hit: 0  miss: 25600  hit rate: 0.00
+hit: 4888  miss: 20712  hit rate: 0.19
+hit: 8924  miss: 16676  hit rate: 0.35
+hit: 10425  miss: 15175  hit rate: 0.41
+hit: 11182  miss: 14418  hit rate: 0.44
+hit: 12849  miss: 12751  hit rate: 0.50
+hit: 14410  miss: 11190  hit rate: 0.56
+hit: 15070  miss: 10530  hit rate: 0.59
+hit: 16042  miss: 9558  hit rate: 0.63
+hit: 17330  miss: 8270  hit rate: 0.68
+hit: 17226  miss: 8374  hit rate: 0.67
+hit: 17708  miss: 7892  hit rate: 0.69
+hit: 18164  miss: 7436  hit rate: 0.71
+hit: 18227  miss: 7373  hit rate: 0.71
+hit: 18331  miss: 7269  hit rate: 0.72
+hit: 18939  miss: 6661  hit rate: 0.74
+hit: 19019  miss: 6581  hit rate: 0.74
+hit: 19096  miss: 6504  hit rate: 0.75
+hit: 19282  miss: 6318  hit rate: 0.75
+hit: 19331  miss: 6269  hit rate: 0.76
+hit: 19275  miss: 6325  hit rate: 0.75
+hit: 19482  miss: 6118  hit rate: 0.76
+hit: 19674  miss: 5926  hit rate: 0.77
+hit: 19712  miss: 5888  hit rate: 0.77
+hit: 20224  miss: 5376  hit rate: 0.79
+hit: 20436  miss: 5164  hit rate: 0.80
+hit: 20449  miss: 5151  hit rate: 0.80
+hit: 20712  miss: 4888  hit rate: 0.81
+hit: 20745  miss: 4855  hit rate: 0.81
+hit: 21003  miss: 4597  hit rate: 0.82
+hit: 20881  miss: 4719  hit rate: 0.82
+hit: 21063  miss: 4537  hit rate: 0.82
+hit: 21151  miss: 4449  hit rate: 0.83
+hit: 21253  miss: 4347  hit rate: 0.83
+hit: 21276  miss: 4324  hit rate: 0.83
+hit: 21276  miss: 4324  hit rate: 0.83
+hit: 21503  miss: 4097  hit rate: 0.84
+hit: 21452  miss: 4148  hit rate: 0.84
+hit: 21512  miss: 4088  hit rate: 0.84
+hit: 21493  miss: 4107  hit rate: 0.84
+hit: 21452  miss: 4148  hit rate: 0.84
+hit: 21468  miss: 4132  hit rate: 0.84
+hit: 21596  miss: 4004  hit rate: 0.84
+hit: 21695  miss: 3905  hit rate: 0.85
+hit: 21708  miss: 3892  hit rate: 0.85
+hit: 21859  miss: 3741  hit rate: 0.85
+hit: 21813  miss: 3787  hit rate: 0.85
+hit: 22009  miss: 3591  hit rate: 0.86
+hit: 21954  miss: 3646  hit rate: 0.86
+hit: 22164  miss: 3436  hit rate: 0.87
+hit: 22046  miss: 3554  hit rate: 0.86
+hit: 22157  miss: 3443  hit rate: 0.87
+hit: 22228  miss: 3372  hit rate: 0.87
+hit: 22270  miss: 3330  hit rate: 0.87
+hit: 22295  miss: 3305  hit rate: 0.87
+hit: 22326  miss: 3274  hit rate: 0.87
+hit: 22291  miss: 3309  hit rate: 0.87
+hit: 22366  miss: 3234  hit rate: 0.87
+hit: 22411  miss: 3189  hit rate: 0.88
+hit: 22446  miss: 3154  hit rate: 0.88
+hit: 22387  miss: 3213  hit rate: 0.87
+hit: 22416  miss: 3184  hit rate: 0.88
+hit: 22598  miss: 3002  hit rate: 0.88
+hit: 22565  miss: 3035  hit rate: 0.88
+hit: 22583  miss: 3017  hit rate: 0.88
+hit: 22538  miss: 3062  hit rate: 0.88
+hit: 22559  miss: 3041  hit rate: 0.88
+hit: 22506  miss: 3094  hit rate: 0.88
+hit: 22524  miss: 3076  hit rate: 0.88
+hit: 22510  miss: 3090  hit rate: 0.88
+hit: 22539  miss: 3061  hit rate: 0.88
+hit: 22679  miss: 2921  hit rate: 0.89
+hit: 22691  miss: 2909  hit rate: 0.89
+hit: 22773  miss: 2827  hit rate: 0.89
+hit: 22812  miss: 2788  hit rate: 0.89
+hit: 22850  miss: 2750  hit rate: 0.89
+hit: 22820  miss: 2780  hit rate: 0.89
+hit: 22874  miss: 2726  hit rate: 0.89
+hit: 22881  miss: 2719  hit rate: 0.89
+hit: 23011  miss: 2589  hit rate: 0.90
+hit: 22837  miss: 2763  hit rate: 0.89
+hit: 22937  miss: 2663  hit rate: 0.90
+hit: 22914  miss: 2686  hit rate: 0.90
+hit: 22982  miss: 2618  hit rate: 0.90
+hit: 22890  miss: 2710  hit rate: 0.89
+hit: 23025  miss: 2575  hit rate: 0.90
+hit: 23063  miss: 2537  hit rate: 0.90
+hit: 23053  miss: 2547  hit rate: 0.90
+hit: 23043  miss: 2557  hit rate: 0.90
+hit: 22958  miss: 2642  hit rate: 0.90
+hit: 23111  miss: 2489  hit rate: 0.90
+hit: 23074  miss: 2526  hit rate: 0.90
+hit: 23140  miss: 2460  hit rate: 0.90
+hit: 23181  miss: 2419  hit rate: 0.91
+hit: 23138  miss: 2462  hit rate: 0.90
+hit: 23165  miss: 2435  hit rate: 0.90
+hit: 23142  miss: 2458  hit rate: 0.90
+hit: 23173  miss: 2427  hit rate: 0.91
+hit: 23234  miss: 2366  hit rate: 0.91
+hit: 23256  miss: 2344  hit rate: 0.91
+
+Error: /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/command/develop.py:41: EasyInstallDeprecationWarning: easy_install command is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` and ``easy_install``.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://github.com/pypa/setuptools/issues/917 for details.
+        ********************************************************************************
+
+!!
+  easy_install.initialize_options(self)
+/home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/_distutils/cmd.py:66: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()
+
+begin test RM1 32 1.7
+Output: running develop
+running egg_info
+writing client_cache.egg-info/PKG-INFO
+writing dependency_links to client_cache.egg-info/dependency_links.txt
+writing top-level names to client_cache.egg-info/top_level.txt
+reading manifest file 'client_cache.egg-info/SOURCES.txt'
+writing manifest file 'client_cache.egg-info/SOURCES.txt'
+running build_ext
+g++ -pthread -B /home/cml/miniconda3/envs/CloverRec/compiler_compat -fno-strict-overflow -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -I/home/cml/miniconda3/envs/CloverRec/include/python3.12 -c flagcheck.cpp -o flagcheck.o -std=c++17
+copying build/lib.linux-x86_64-cpython-312/client_cache.cpython-312-x86_64-linux-gnu.so -> 
+Creating /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/client-cache.egg-link (link to .)
+Removing client-cache 1.0 from easy-install.pth file
+Removing client-cache 1.0 from easy-install.pth file
+client-cache 1.0 is already the active version in easy-install.pth
+detected new path '/home/cml/CloverRec/remote_emb'
+detected new path '/home/cml/CloverRec/cloverrec'
+
+Installed /home/cml/CloverRec/naive_pim_emb
+Processing dependencies for client-cache==1.0
+Finished processing dependencies for client-cache==1.0
+--------------------------------------------
+Finish Compiling client_cache
+--------------------------------------------
+--------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 32
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=100000-100000-100000-100000-100000-100000-100000-100000-100000-100000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000 --emb-pool-ip=10.0.0.11 --emb-pool-port=1234 --zipf-parameter=1.7
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54553
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54554
+--------------------------------------------------------------------------------
+-- Local Info
+addr : 140229049122816
+rkey : 1587961
+--------------------------------------------------------------------------------
+-- Remote Info
+addr : 1278398464
+rkey : 1585134
+--------------------------------------------------------------------------------
+EmbStorge Finish Init!
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54555
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 6
+qpn : 468
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+.ev lookup time (ms): 154.30307388305664
+.ev lookup time (ms): 150.24852752685547
+.ev lookup time (ms): 149.24979209899902
+.ev lookup time (ms): 148.9565372467041
+.ev lookup time (ms): 149.83630180358887
+.ev lookup time (ms): 149.0952968597412
+.ev lookup time (ms): 148.66924285888672
+.ev lookup time (ms): 107.45763778686523
+.ev lookup time (ms): 104.51889038085938
+.ev lookup time (ms): 101.79424285888672
+.ev lookup time (ms): 100.76236724853516
+.ev lookup time (ms): 103.46412658691406
+.ev lookup time (ms): 103.65700721740723
+.ev lookup time (ms): 102.28681564331055
+.ev lookup time (ms): 92.88668632507324
+.ev lookup time (ms): 91.42041206359863
+.ev lookup time (ms): 90.52491188049316
+.ev lookup time (ms): 89.56027030944824
+.ev lookup time (ms): 85.7088565826416
+.ev lookup time (ms): 88.05394172668457
+.ev lookup time (ms): 87.52989768981934
+.ev lookup time (ms): 88.14144134521484
+.ev lookup time (ms): 89.26892280578613
+.ev lookup time (ms): 81.59065246582031
+.ev lookup time (ms): 81.96043968200684
+.ev lookup time (ms): 82.80825614929199
+.ev lookup time (ms): 80.19423484802246
+.ev lookup time (ms): 81.4816951751709
+.ev lookup time (ms): 82.06582069396973
+.ev lookup time (ms): 79.24532890319824
+.ev lookup time (ms): 75.67405700683594
+.ev lookup time (ms): 74.41282272338867
+.ev lookup time (ms): 79.11872863769531
+.ev lookup time (ms): 73.75168800354004
+.ev lookup time (ms): 78.58109474182129
+.ev lookup time (ms): 77.38041877746582
+.ev lookup time (ms): 74.45073127746582
+.ev lookup time (ms): 73.28677177429199
+.ev lookup time (ms): 74.01728630065918
+.ev lookup time (ms): 74.07236099243164
+.ev lookup time (ms): 72.86524772644043
+.ev lookup time (ms): 74.73087310791016
+.ev lookup time (ms): 93.56951713562012
+.ev lookup time (ms): 72.93581962585449
+.ev lookup time (ms): 74.0509033203125
+.ev lookup time (ms): 84.19346809387207
+.ev lookup time (ms): 73.52399826049805
+.ev lookup time (ms): 73.95339012145996
+.ev lookup time (ms): 73.46487045288086
+.ev lookup time (ms): 72.79253005981445
+.ev lookup time (ms): 73.48895072937012
+.ev lookup time (ms): 77.30460166931152
+.ev lookup time (ms): 75.27732849121094
+.ev lookup time (ms): 73.25267791748047
+.ev lookup time (ms): 72.6633071899414
+.ev lookup time (ms): 72.50189781188965
+.ev lookup time (ms): 72.19362258911133
+.ev lookup time (ms): 72.30901718139648
+.ev lookup time (ms): 71.89178466796875
+.ev lookup time (ms): 72.19600677490234
+.ev lookup time (ms): 71.87747955322266
+.ev lookup time (ms): 71.85840606689453
+.ev lookup time (ms): 72.82161712646484
+.ev lookup time (ms): 72.12257385253906
+.ev lookup time (ms): 71.00081443786621
+.ev lookup time (ms): 71.82168960571289
+.ev lookup time (ms): 72.5398063659668
+.ev lookup time (ms): 72.79086112976074
+.ev lookup time (ms): 71.16961479187012
+.ev lookup time (ms): 71.25210762023926
+.ev lookup time (ms): 72.21174240112305
+.ev lookup time (ms): 71.68197631835938
+.ev lookup time (ms): 76.49874687194824
+.ev lookup time (ms): 70.43886184692383
+.ev lookup time (ms): 71.34819030761719
+.ev lookup time (ms): 72.14593887329102
+.ev lookup time (ms): 72.04890251159668
+.ev lookup time (ms): 81.77328109741211
+.ev lookup time (ms): 70.78003883361816
+.ev lookup time (ms): 71.44331932067871
+.ev lookup time (ms): 70.32442092895508
+.ev lookup time (ms): 71.98572158813477
+.ev lookup time (ms): 73.07863235473633
+.ev lookup time (ms): 70.65653800964355
+.ev lookup time (ms): 71.28405570983887
+.ev lookup time (ms): 70.87182998657227
+.ev lookup time (ms): 70.49036026000977
+.ev lookup time (ms): 71.08068466186523
+.ev lookup time (ms): 71.19536399841309
+.ev lookup time (ms): 71.32101058959961
+.ev lookup time (ms): 71.58899307250977
+.ev lookup time (ms): 70.96743583679199
+.ev lookup time (ms): 68.71461868286133
+.ev lookup time (ms): 69.95463371276855
+.ev lookup time (ms): 70.76096534729004
+.ev lookup time (ms): 70.26886940002441
+.ev lookup time (ms): 70.47390937805176
+.ev lookup time (ms): 71.08306884765625
+.ev lookup time (ms): 70.51634788513184
+.ev lookup time (ms): 70.0070858001709
+
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 9.189339399337769 secs (0 mins)
+Throughput (Req/sec) : 348.23
+Avg latency (PIM + EV_trans + CPU + GPU + network + others) (ms) : 91.89
+Avg ev lookup time (PIM + EV_trans + CPU) (ms) : 82.67
+Avg apply emb time (PIM + EV_trans + CPU + GPU + network) (ms) : 91.78
+CPU cal time (ms) : 19.4
+(PIM + EV_trans) time (ms) : 63.27
+(network + GPU) time (ms) : 9.11
+others time (ms) : 0.12
+Close connection...
+client cache cacacity: 1000
+hit: 0  miss: 25600  hit rate: 0.00
+hit: 3045  miss: 22555  hit rate: 0.12
+hit: 5595  miss: 20005  hit rate: 0.22
+hit: 9246  miss: 16354  hit rate: 0.36
+hit: 10340  miss: 15260  hit rate: 0.40
+hit: 13131  miss: 12469  hit rate: 0.51
+hit: 14109  miss: 11491  hit rate: 0.55
+hit: 15921  miss: 9679  hit rate: 0.62
+hit: 16335  miss: 9265  hit rate: 0.64
+hit: 17312  miss: 8288  hit rate: 0.68
+hit: 17191  miss: 8409  hit rate: 0.67
+hit: 17267  miss: 8333  hit rate: 0.67
+hit: 17410  miss: 8190  hit rate: 0.68
+hit: 17781  miss: 7819  hit rate: 0.69
+hit: 18387  miss: 7213  hit rate: 0.72
+hit: 18768  miss: 6832  hit rate: 0.73
+hit: 18925  miss: 6675  hit rate: 0.74
+hit: 19215  miss: 6385  hit rate: 0.75
+hit: 19633  miss: 5967  hit rate: 0.77
+hit: 19827  miss: 5773  hit rate: 0.77
+hit: 20075  miss: 5525  hit rate: 0.78
+hit: 20280  miss: 5320  hit rate: 0.79
+hit: 20316  miss: 5284  hit rate: 0.79
+hit: 20691  miss: 4909  hit rate: 0.81
+hit: 20918  miss: 4682  hit rate: 0.82
+hit: 20938  miss: 4662  hit rate: 0.82
+hit: 21033  miss: 4567  hit rate: 0.82
+hit: 21197  miss: 4403  hit rate: 0.83
+hit: 21220  miss: 4380  hit rate: 0.83
+hit: 21521  miss: 4079  hit rate: 0.84
+hit: 21647  miss: 3953  hit rate: 0.85
+hit: 21717  miss: 3883  hit rate: 0.85
+hit: 21881  miss: 3719  hit rate: 0.85
+hit: 21949  miss: 3651  hit rate: 0.86
+hit: 22028  miss: 3572  hit rate: 0.86
+hit: 22055  miss: 3545  hit rate: 0.86
+hit: 22147  miss: 3453  hit rate: 0.87
+hit: 22241  miss: 3359  hit rate: 0.87
+hit: 22353  miss: 3247  hit rate: 0.87
+hit: 22458  miss: 3142  hit rate: 0.88
+hit: 22553  miss: 3047  hit rate: 0.88
+hit: 22493  miss: 3107  hit rate: 0.88
+hit: 22467  miss: 3133  hit rate: 0.88
+hit: 22646  miss: 2954  hit rate: 0.88
+hit: 22646  miss: 2954  hit rate: 0.88
+hit: 22702  miss: 2898  hit rate: 0.89
+hit: 22788  miss: 2812  hit rate: 0.89
+hit: 22732  miss: 2868  hit rate: 0.89
+hit: 22820  miss: 2780  hit rate: 0.89
+hit: 22840  miss: 2760  hit rate: 0.89
+hit: 22905  miss: 2695  hit rate: 0.89
+hit: 22912  miss: 2688  hit rate: 0.90
+hit: 22976  miss: 2624  hit rate: 0.90
+hit: 22939  miss: 2661  hit rate: 0.90
+hit: 22980  miss: 2620  hit rate: 0.90
+hit: 23039  miss: 2561  hit rate: 0.90
+hit: 23085  miss: 2515  hit rate: 0.90
+hit: 23057  miss: 2543  hit rate: 0.90
+hit: 23101  miss: 2499  hit rate: 0.90
+hit: 23070  miss: 2530  hit rate: 0.90
+hit: 23080  miss: 2520  hit rate: 0.90
+hit: 23064  miss: 2536  hit rate: 0.90
+hit: 23180  miss: 2420  hit rate: 0.91
+hit: 23231  miss: 2369  hit rate: 0.91
+hit: 23229  miss: 2371  hit rate: 0.91
+hit: 23208  miss: 2392  hit rate: 0.91
+hit: 23198  miss: 2402  hit rate: 0.91
+hit: 23217  miss: 2383  hit rate: 0.91
+hit: 23247  miss: 2353  hit rate: 0.91
+hit: 23300  miss: 2300  hit rate: 0.91
+hit: 23279  miss: 2321  hit rate: 0.91
+hit: 23295  miss: 2305  hit rate: 0.91
+hit: 23318  miss: 2282  hit rate: 0.91
+hit: 23341  miss: 2259  hit rate: 0.91
+hit: 23395  miss: 2205  hit rate: 0.91
+hit: 23506  miss: 2094  hit rate: 0.92
+hit: 23398  miss: 2202  hit rate: 0.91
+hit: 23466  miss: 2134  hit rate: 0.92
+hit: 23474  miss: 2126  hit rate: 0.92
+hit: 23529  miss: 2071  hit rate: 0.92
+hit: 23508  miss: 2092  hit rate: 0.92
+hit: 23467  miss: 2133  hit rate: 0.92
+hit: 23540  miss: 2060  hit rate: 0.92
+hit: 23473  miss: 2127  hit rate: 0.92
+hit: 23637  miss: 1963  hit rate: 0.92
+hit: 23533  miss: 2067  hit rate: 0.92
+hit: 23683  miss: 1917  hit rate: 0.93
+hit: 23689  miss: 1911  hit rate: 0.93
+hit: 23693  miss: 1907  hit rate: 0.93
+hit: 23631  miss: 1969  hit rate: 0.92
+hit: 23575  miss: 2025  hit rate: 0.92
+hit: 23678  miss: 1922  hit rate: 0.92
+hit: 23704  miss: 1896  hit rate: 0.93
+hit: 23746  miss: 1854  hit rate: 0.93
+hit: 23756  miss: 1844  hit rate: 0.93
+hit: 23767  miss: 1833  hit rate: 0.93
+hit: 23763  miss: 1837  hit rate: 0.93
+hit: 23746  miss: 1854  hit rate: 0.93
+hit: 23763  miss: 1837  hit rate: 0.93
+hit: 23796  miss: 1804  hit rate: 0.93
+
+Error: /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/command/develop.py:41: EasyInstallDeprecationWarning: easy_install command is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` and ``easy_install``.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://github.com/pypa/setuptools/issues/917 for details.
+        ********************************************************************************
+
+!!
+  easy_install.initialize_options(self)
+/home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/_distutils/cmd.py:66: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()
+
+begin test RM1 32 1.8
+Output: running develop
+running egg_info
+writing client_cache.egg-info/PKG-INFO
+writing dependency_links to client_cache.egg-info/dependency_links.txt
+writing top-level names to client_cache.egg-info/top_level.txt
+reading manifest file 'client_cache.egg-info/SOURCES.txt'
+writing manifest file 'client_cache.egg-info/SOURCES.txt'
+running build_ext
+g++ -pthread -B /home/cml/miniconda3/envs/CloverRec/compiler_compat -fno-strict-overflow -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -I/home/cml/miniconda3/envs/CloverRec/include/python3.12 -c flagcheck.cpp -o flagcheck.o -std=c++17
+copying build/lib.linux-x86_64-cpython-312/client_cache.cpython-312-x86_64-linux-gnu.so -> 
+Creating /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/client-cache.egg-link (link to .)
+Removing client-cache 1.0 from easy-install.pth file
+Removing client-cache 1.0 from easy-install.pth file
+client-cache 1.0 is already the active version in easy-install.pth
+detected new path '/home/cml/CloverRec/remote_emb'
+detected new path '/home/cml/CloverRec/cloverrec'
+
+Installed /home/cml/CloverRec/naive_pim_emb
+Processing dependencies for client-cache==1.0
+Finished processing dependencies for client-cache==1.0
+--------------------------------------------
+Finish Compiling client_cache
+--------------------------------------------
+--------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 32
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=100000-100000-100000-100000-100000-100000-100000-100000-100000-100000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000 --emb-pool-ip=10.0.0.11 --emb-pool-port=1234 --zipf-parameter=1.8
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54556
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54557
+--------------------------------------------------------------------------------
+-- Local Info
+addr : 140030558183424
+rkey : 1585134
+--------------------------------------------------------------------------------
+-- Remote Info
+addr : 1245048832
+rkey : 1581793
+--------------------------------------------------------------------------------
+EmbStorge Finish Init!
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54558
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 6
+qpn : 469
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+.ev lookup time (ms): 160.86769104003906
+.ev lookup time (ms): 150.30980110168457
+.ev lookup time (ms): 150.14195442199707
+.ev lookup time (ms): 148.91529083251953
+.ev lookup time (ms): 149.46889877319336
+.ev lookup time (ms): 149.5668888092041
+.ev lookup time (ms): 148.43201637268066
+.ev lookup time (ms): 149.25360679626465
+.ev lookup time (ms): 148.65946769714355
+.ev lookup time (ms): 146.61240577697754
+.ev lookup time (ms): 133.35061073303223
+.ev lookup time (ms): 135.1637840270996
+.ev lookup time (ms): 132.63225555419922
+.ev lookup time (ms): 101.67431831359863
+.ev lookup time (ms): 99.99251365661621
+.ev lookup time (ms): 94.99025344848633
+.ev lookup time (ms): 86.85731887817383
+.ev lookup time (ms): 88.82999420166016
+.ev lookup time (ms): 88.37556838989258
+.ev lookup time (ms): 86.84420585632324
+.ev lookup time (ms): 87.08500862121582
+.ev lookup time (ms): 81.83169364929199
+.ev lookup time (ms): 81.7413330078125
+.ev lookup time (ms): 82.67378807067871
+.ev lookup time (ms): 83.71663093566895
+.ev lookup time (ms): 82.96847343444824
+.ev lookup time (ms): 83.95600318908691
+.ev lookup time (ms): 81.45260810852051
+.ev lookup time (ms): 81.47478103637695
+.ev lookup time (ms): 82.43036270141602
+.ev lookup time (ms): 80.97171783447266
+.ev lookup time (ms): 76.48277282714844
+.ev lookup time (ms): 76.00927352905273
+.ev lookup time (ms): 74.23996925354004
+.ev lookup time (ms): 73.4548568725586
+.ev lookup time (ms): 74.43547248840332
+.ev lookup time (ms): 72.63827323913574
+.ev lookup time (ms): 73.56905937194824
+.ev lookup time (ms): 72.86906242370605
+.ev lookup time (ms): 73.2583999633789
+.ev lookup time (ms): 73.02522659301758
+.ev lookup time (ms): 72.72887229919434
+.ev lookup time (ms): 72.31569290161133
+.ev lookup time (ms): 73.6382007598877
+.ev lookup time (ms): 73.27699661254883
+.ev lookup time (ms): 73.06122779846191
+.ev lookup time (ms): 72.51763343811035
+.ev lookup time (ms): 81.01797103881836
+.ev lookup time (ms): 72.76463508605957
+.ev lookup time (ms): 73.0588436126709
+.ev lookup time (ms): 71.43521308898926
+.ev lookup time (ms): 80.07478713989258
+.ev lookup time (ms): 72.26872444152832
+.ev lookup time (ms): 69.14377212524414
+.ev lookup time (ms): 75.92916488647461
+.ev lookup time (ms): 75.59585571289062
+.ev lookup time (ms): 71.43068313598633
+.ev lookup time (ms): 69.81372833251953
+.ev lookup time (ms): 70.35994529724121
+.ev lookup time (ms): 71.22945785522461
+.ev lookup time (ms): 70.6779956817627
+.ev lookup time (ms): 70.75738906860352
+.ev lookup time (ms): 71.55156135559082
+.ev lookup time (ms): 69.53597068786621
+.ev lookup time (ms): 71.075439453125
+.ev lookup time (ms): 71.26045227050781
+.ev lookup time (ms): 73.50301742553711
+.ev lookup time (ms): 70.44744491577148
+.ev lookup time (ms): 71.01011276245117
+.ev lookup time (ms): 69.51689720153809
+.ev lookup time (ms): 70.68467140197754
+.ev lookup time (ms): 70.31440734863281
+.ev lookup time (ms): 69.66257095336914
+.ev lookup time (ms): 69.24557685852051
+.ev lookup time (ms): 68.06182861328125
+.ev lookup time (ms): 69.79107856750488
+.ev lookup time (ms): 70.08576393127441
+.ev lookup time (ms): 69.48637962341309
+.ev lookup time (ms): 70.34444808959961
+.ev lookup time (ms): 69.51117515563965
+.ev lookup time (ms): 68.7103271484375
+.ev lookup time (ms): 72.72648811340332
+.ev lookup time (ms): 69.08297538757324
+.ev lookup time (ms): 70.9080696105957
+.ev lookup time (ms): 70.45865058898926
+.ev lookup time (ms): 71.76828384399414
+.ev lookup time (ms): 68.13716888427734
+.ev lookup time (ms): 67.01445579528809
+.ev lookup time (ms): 69.09012794494629
+.ev lookup time (ms): 68.76015663146973
+.ev lookup time (ms): 67.32773780822754
+.ev lookup time (ms): 68.58468055725098
+.ev lookup time (ms): 66.57290458679199
+.ev lookup time (ms): 69.48971748352051
+.ev lookup time (ms): 68.38297843933105
+.ev lookup time (ms): 67.19374656677246
+.ev lookup time (ms): 64.3463134765625
+.ev lookup time (ms): 64.81146812438965
+.ev lookup time (ms): 67.2769546508789
+.ev lookup time (ms): 66.75910949707031
+
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 9.29719591140747 secs (0 mins)
+Throughput (Req/sec) : 344.19
+Avg latency (PIM + EV_trans + CPU + GPU + network + others) (ms) : 92.97
+Avg ev lookup time (PIM + EV_trans + CPU) (ms) : 83.67
+Avg apply emb time (PIM + EV_trans + CPU + GPU + network) (ms) : 92.85
+CPU cal time (ms) : 19.15
+(PIM + EV_trans) time (ms) : 64.52
+(network + GPU) time (ms) : 9.18
+others time (ms) : 0.12
+Close connection...
+client cache cacacity: 1000
+hit: 0  miss: 25600  hit rate: 0.00
+hit: 3063  miss: 22537  hit rate: 0.12
+hit: 6056  miss: 19544  hit rate: 0.24
+hit: 8862  miss: 16738  hit rate: 0.35
+hit: 8953  miss: 16647  hit rate: 0.35
+hit: 9270  miss: 16330  hit rate: 0.36
+hit: 10200  miss: 15400  hit rate: 0.40
+hit: 11894  miss: 13706  hit rate: 0.46
+hit: 12458  miss: 13142  hit rate: 0.49
+hit: 14471  miss: 11129  hit rate: 0.57
+hit: 15948  miss: 9652  hit rate: 0.62
+hit: 15837  miss: 9763  hit rate: 0.62
+hit: 16064  miss: 9536  hit rate: 0.63
+hit: 17875  miss: 7725  hit rate: 0.70
+hit: 18216  miss: 7384  hit rate: 0.71
+hit: 18708  miss: 6892  hit rate: 0.73
+hit: 19566  miss: 6034  hit rate: 0.76
+hit: 19708  miss: 5892  hit rate: 0.77
+hit: 20009  miss: 5591  hit rate: 0.78
+hit: 20322  miss: 5278  hit rate: 0.79
+hit: 20416  miss: 5184  hit rate: 0.80
+hit: 20754  miss: 4846  hit rate: 0.81
+hit: 20998  miss: 4602  hit rate: 0.82
+hit: 21134  miss: 4466  hit rate: 0.83
+hit: 21236  miss: 4364  hit rate: 0.83
+hit: 21375  miss: 4225  hit rate: 0.83
+hit: 21439  miss: 4161  hit rate: 0.84
+hit: 21486  miss: 4114  hit rate: 0.84
+hit: 21622  miss: 3978  hit rate: 0.84
+hit: 21874  miss: 3726  hit rate: 0.85
+hit: 21847  miss: 3753  hit rate: 0.85
+hit: 22027  miss: 3573  hit rate: 0.86
+hit: 22151  miss: 3449  hit rate: 0.87
+hit: 22155  miss: 3445  hit rate: 0.87
+hit: 22168  miss: 3432  hit rate: 0.87
+hit: 22230  miss: 3370  hit rate: 0.87
+hit: 22341  miss: 3259  hit rate: 0.87
+hit: 22501  miss: 3099  hit rate: 0.88
+hit: 22566  miss: 3034  hit rate: 0.88
+hit: 22637  miss: 2963  hit rate: 0.88
+hit: 22753  miss: 2847  hit rate: 0.89
+hit: 22727  miss: 2873  hit rate: 0.89
+hit: 22843  miss: 2757  hit rate: 0.89
+hit: 22807  miss: 2793  hit rate: 0.89
+hit: 22984  miss: 2616  hit rate: 0.90
+hit: 22890  miss: 2710  hit rate: 0.89
+hit: 22975  miss: 2625  hit rate: 0.90
+hit: 23008  miss: 2592  hit rate: 0.90
+hit: 23119  miss: 2481  hit rate: 0.90
+hit: 23074  miss: 2526  hit rate: 0.90
+hit: 23305  miss: 2295  hit rate: 0.91
+hit: 23191  miss: 2409  hit rate: 0.91
+hit: 23308  miss: 2292  hit rate: 0.91
+hit: 23388  miss: 2212  hit rate: 0.91
+hit: 23386  miss: 2214  hit rate: 0.91
+hit: 23478  miss: 2122  hit rate: 0.92
+hit: 23374  miss: 2226  hit rate: 0.91
+hit: 23493  miss: 2107  hit rate: 0.92
+hit: 23494  miss: 2106  hit rate: 0.92
+hit: 23478  miss: 2122  hit rate: 0.92
+hit: 23515  miss: 2085  hit rate: 0.92
+hit: 23525  miss: 2075  hit rate: 0.92
+hit: 23491  miss: 2109  hit rate: 0.92
+hit: 23612  miss: 1988  hit rate: 0.92
+hit: 23672  miss: 1928  hit rate: 0.92
+hit: 23587  miss: 2013  hit rate: 0.92
+hit: 23646  miss: 1954  hit rate: 0.92
+hit: 23699  miss: 1901  hit rate: 0.93
+hit: 23684  miss: 1916  hit rate: 0.93
+hit: 23658  miss: 1942  hit rate: 0.92
+hit: 23674  miss: 1926  hit rate: 0.92
+hit: 23829  miss: 1771  hit rate: 0.93
+hit: 23739  miss: 1861  hit rate: 0.93
+hit: 23851  miss: 1749  hit rate: 0.93
+hit: 23715  miss: 1885  hit rate: 0.93
+hit: 23858  miss: 1742  hit rate: 0.93
+hit: 23903  miss: 1697  hit rate: 0.93
+hit: 23872  miss: 1728  hit rate: 0.93
+hit: 23896  miss: 1704  hit rate: 0.93
+hit: 23974  miss: 1626  hit rate: 0.94
+hit: 23931  miss: 1669  hit rate: 0.93
+hit: 23939  miss: 1661  hit rate: 0.94
+hit: 23918  miss: 1682  hit rate: 0.93
+hit: 23938  miss: 1662  hit rate: 0.94
+hit: 23917  miss: 1683  hit rate: 0.93
+hit: 23979  miss: 1621  hit rate: 0.94
+hit: 23935  miss: 1665  hit rate: 0.93
+hit: 24032  miss: 1568  hit rate: 0.94
+hit: 24089  miss: 1511  hit rate: 0.94
+hit: 24015  miss: 1585  hit rate: 0.94
+hit: 24081  miss: 1519  hit rate: 0.94
+hit: 24068  miss: 1532  hit rate: 0.94
+hit: 24056  miss: 1544  hit rate: 0.94
+hit: 24159  miss: 1441  hit rate: 0.94
+hit: 24112  miss: 1488  hit rate: 0.94
+hit: 24150  miss: 1450  hit rate: 0.94
+hit: 24127  miss: 1473  hit rate: 0.94
+hit: 24116  miss: 1484  hit rate: 0.94
+hit: 24188  miss: 1412  hit rate: 0.94
+hit: 24132  miss: 1468  hit rate: 0.94
+
+Error: /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/command/develop.py:41: EasyInstallDeprecationWarning: easy_install command is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` and ``easy_install``.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://github.com/pypa/setuptools/issues/917 for details.
+        ********************************************************************************
+
+!!
+  easy_install.initialize_options(self)
+/home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/_distutils/cmd.py:66: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()
+
+begin test RM1 32 1.9
+Output: running develop
+running egg_info
+writing client_cache.egg-info/PKG-INFO
+writing dependency_links to client_cache.egg-info/dependency_links.txt
+writing top-level names to client_cache.egg-info/top_level.txt
+reading manifest file 'client_cache.egg-info/SOURCES.txt'
+writing manifest file 'client_cache.egg-info/SOURCES.txt'
+running build_ext
+g++ -pthread -B /home/cml/miniconda3/envs/CloverRec/compiler_compat -fno-strict-overflow -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -I/home/cml/miniconda3/envs/CloverRec/include/python3.12 -c flagcheck.cpp -o flagcheck.o -std=c++17
+copying build/lib.linux-x86_64-cpython-312/client_cache.cpython-312-x86_64-linux-gnu.so -> 
+Creating /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/client-cache.egg-link (link to .)
+Removing client-cache 1.0 from easy-install.pth file
+Removing client-cache 1.0 from easy-install.pth file
+client-cache 1.0 is already the active version in easy-install.pth
+detected new path '/home/cml/CloverRec/remote_emb'
+detected new path '/home/cml/CloverRec/cloverrec'
+
+Installed /home/cml/CloverRec/naive_pim_emb
+Processing dependencies for client-cache==1.0
+Finished processing dependencies for client-cache==1.0
+--------------------------------------------
+Finish Compiling client_cache
+--------------------------------------------
+--------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 32
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=100000-100000-100000-100000-100000-100000-100000-100000-100000-100000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000 --emb-pool-ip=10.0.0.11 --emb-pool-port=1234 --zipf-parameter=1.9
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54559
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54560
+--------------------------------------------------------------------------------
+-- Local Info
+addr : 140378830499840
+rkey : 1581793
+--------------------------------------------------------------------------------
+-- Remote Info
+addr : 1278398464
+rkey : 1583849
+--------------------------------------------------------------------------------
+EmbStorge Finish Init!
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54561
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 6
+qpn : 470
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+.ev lookup time (ms): 156.94832801818848
+.ev lookup time (ms): 149.6894359588623
+.ev lookup time (ms): 148.40126037597656
+.ev lookup time (ms): 148.74839782714844
+.ev lookup time (ms): 148.881196975708
+.ev lookup time (ms): 97.99456596374512
+.ev lookup time (ms): 100.10814666748047
+.ev lookup time (ms): 102.65612602233887
+.ev lookup time (ms): 99.57027435302734
+.ev lookup time (ms): 95.88813781738281
+.ev lookup time (ms): 97.23091125488281
+.ev lookup time (ms): 95.59392929077148
+.ev lookup time (ms): 95.23940086364746
+.ev lookup time (ms): 93.38235855102539
+.ev lookup time (ms): 96.0993766784668
+.ev lookup time (ms): 92.45872497558594
+.ev lookup time (ms): 91.6128158569336
+.ev lookup time (ms): 92.80657768249512
+.ev lookup time (ms): 82.51500129699707
+.ev lookup time (ms): 83.04166793823242
+.ev lookup time (ms): 83.16540718078613
+.ev lookup time (ms): 82.40008354187012
+.ev lookup time (ms): 81.8476676940918
+.ev lookup time (ms): 80.97696304321289
+.ev lookup time (ms): 80.09076118469238
+.ev lookup time (ms): 80.74402809143066
+.ev lookup time (ms): 73.09651374816895
+.ev lookup time (ms): 73.36878776550293
+.ev lookup time (ms): 75.19817352294922
+.ev lookup time (ms): 73.12417030334473
+.ev lookup time (ms): 72.79300689697266
+.ev lookup time (ms): 74.47504997253418
+.ev lookup time (ms): 74.26333427429199
+.ev lookup time (ms): 73.58503341674805
+.ev lookup time (ms): 72.15690612792969
+.ev lookup time (ms): 76.08699798583984
+.ev lookup time (ms): 72.23725318908691
+.ev lookup time (ms): 71.7928409576416
+.ev lookup time (ms): 71.99215888977051
+.ev lookup time (ms): 71.34008407592773
+.ev lookup time (ms): 70.82390785217285
+.ev lookup time (ms): 71.30026817321777
+.ev lookup time (ms): 71.37322425842285
+.ev lookup time (ms): 71.40374183654785
+.ev lookup time (ms): 71.16460800170898
+.ev lookup time (ms): 71.46644592285156
+.ev lookup time (ms): 70.99413871765137
+.ev lookup time (ms): 71.09928131103516
+.ev lookup time (ms): 70.8000659942627
+.ev lookup time (ms): 73.08030128479004
+.ev lookup time (ms): 71.50769233703613
+.ev lookup time (ms): 79.83136177062988
+.ev lookup time (ms): 71.60592079162598
+.ev lookup time (ms): 70.40190696716309
+.ev lookup time (ms): 70.78909873962402
+.ev lookup time (ms): 69.99802589416504
+.ev lookup time (ms): 70.48487663269043
+.ev lookup time (ms): 70.15609741210938
+.ev lookup time (ms): 69.9155330657959
+.ev lookup time (ms): 70.36805152893066
+.ev lookup time (ms): 68.93229484558105
+.ev lookup time (ms): 69.31471824645996
+.ev lookup time (ms): 67.15106964111328
+.ev lookup time (ms): 69.0762996673584
+.ev lookup time (ms): 69.92197036743164
+.ev lookup time (ms): 69.6420669555664
+.ev lookup time (ms): 69.8709487915039
+.ev lookup time (ms): 72.70693778991699
+.ev lookup time (ms): 70.55044174194336
+.ev lookup time (ms): 70.2047348022461
+.ev lookup time (ms): 70.82104682922363
+.ev lookup time (ms): 68.7248706817627
+.ev lookup time (ms): 68.71247291564941
+.ev lookup time (ms): 68.07827949523926
+.ev lookup time (ms): 67.65055656433105
+.ev lookup time (ms): 69.23890113830566
+.ev lookup time (ms): 68.16434860229492
+.ev lookup time (ms): 67.0328140258789
+.ev lookup time (ms): 69.03433799743652
+.ev lookup time (ms): 66.06054306030273
+.ev lookup time (ms): 68.63617897033691
+.ev lookup time (ms): 66.13636016845703
+.ev lookup time (ms): 68.00413131713867
+.ev lookup time (ms): 69.8096752166748
+.ev lookup time (ms): 69.20289993286133
+.ev lookup time (ms): 68.66931915283203
+.ev lookup time (ms): 66.23578071594238
+.ev lookup time (ms): 67.68131256103516
+.ev lookup time (ms): 66.04552268981934
+.ev lookup time (ms): 68.1161880493164
+.ev lookup time (ms): 66.67947769165039
+.ev lookup time (ms): 67.8548812866211
+.ev lookup time (ms): 67.77691841125488
+.ev lookup time (ms): 67.44050979614258
+.ev lookup time (ms): 68.01462173461914
+.ev lookup time (ms): 66.23578071594238
+.ev lookup time (ms): 66.93577766418457
+.ev lookup time (ms): 66.97559356689453
+.ev lookup time (ms): 65.10663032531738
+.ev lookup time (ms): 63.38906288146973
+
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 8.789609432220459 secs (0 mins)
+Throughput (Req/sec) : 364.07
+Avg latency (PIM + EV_trans + CPU + GPU + network + others) (ms) : 87.9
+Avg ev lookup time (PIM + EV_trans + CPU) (ms) : 78.38
+Avg apply emb time (PIM + EV_trans + CPU + GPU + network) (ms) : 87.77
+CPU cal time (ms) : 19.34
+(PIM + EV_trans) time (ms) : 59.04
+(network + GPU) time (ms) : 9.39
+others time (ms) : 0.12
+Close connection...
+client cache cacacity: 1000
+hit: 0  miss: 25600  hit rate: 0.00
+hit: 2919  miss: 22681  hit rate: 0.11
+hit: 5842  miss: 19758  hit rate: 0.23
+hit: 9127  miss: 16473  hit rate: 0.36
+hit: 10693  miss: 14907  hit rate: 0.42
+hit: 15082  miss: 10518  hit rate: 0.59
+hit: 15982  miss: 9618  hit rate: 0.62
+hit: 16055  miss: 9545  hit rate: 0.63
+hit: 16799  miss: 8801  hit rate: 0.66
+hit: 17666  miss: 7934  hit rate: 0.69
+hit: 17752  miss: 7848  hit rate: 0.69
+hit: 17759  miss: 7841  hit rate: 0.69
+hit: 18287  miss: 7313  hit rate: 0.71
+hit: 18887  miss: 6713  hit rate: 0.74
+hit: 19246  miss: 6354  hit rate: 0.75
+hit: 19818  miss: 5782  hit rate: 0.77
+hit: 19973  miss: 5627  hit rate: 0.78
+hit: 20053  miss: 5547  hit rate: 0.78
+hit: 20524  miss: 5076  hit rate: 0.80
+hit: 21035  miss: 4565  hit rate: 0.82
+hit: 21079  miss: 4521  hit rate: 0.82
+hit: 21077  miss: 4523  hit rate: 0.82
+hit: 21224  miss: 4376  hit rate: 0.83
+hit: 21481  miss: 4119  hit rate: 0.84
+hit: 21608  miss: 3992  hit rate: 0.84
+hit: 21896  miss: 3704  hit rate: 0.86
+hit: 22303  miss: 3297  hit rate: 0.87
+hit: 22246  miss: 3354  hit rate: 0.87
+hit: 22252  miss: 3348  hit rate: 0.87
+hit: 22332  miss: 3268  hit rate: 0.87
+hit: 22436  miss: 3164  hit rate: 0.88
+hit: 22320  miss: 3280  hit rate: 0.87
+hit: 22553  miss: 3047  hit rate: 0.88
+hit: 22542  miss: 3058  hit rate: 0.88
+hit: 22699  miss: 2901  hit rate: 0.89
+hit: 22762  miss: 2838  hit rate: 0.89
+hit: 22785  miss: 2815  hit rate: 0.89
+hit: 22938  miss: 2662  hit rate: 0.90
+hit: 23017  miss: 2583  hit rate: 0.90
+hit: 23138  miss: 2462  hit rate: 0.90
+hit: 23260  miss: 2340  hit rate: 0.91
+hit: 23229  miss: 2371  hit rate: 0.91
+hit: 23235  miss: 2365  hit rate: 0.91
+hit: 23192  miss: 2408  hit rate: 0.91
+hit: 23315  miss: 2285  hit rate: 0.91
+hit: 23330  miss: 2270  hit rate: 0.91
+hit: 23389  miss: 2211  hit rate: 0.91
+hit: 23390  miss: 2210  hit rate: 0.91
+hit: 23419  miss: 2181  hit rate: 0.91
+hit: 23496  miss: 2104  hit rate: 0.92
+hit: 23520  miss: 2080  hit rate: 0.92
+hit: 23588  miss: 2012  hit rate: 0.92
+hit: 23577  miss: 2023  hit rate: 0.92
+hit: 23656  miss: 1944  hit rate: 0.92
+hit: 23660  miss: 1940  hit rate: 0.92
+hit: 23742  miss: 1858  hit rate: 0.93
+hit: 23796  miss: 1804  hit rate: 0.93
+hit: 23758  miss: 1842  hit rate: 0.93
+hit: 23903  miss: 1697  hit rate: 0.93
+hit: 23853  miss: 1747  hit rate: 0.93
+hit: 23878  miss: 1722  hit rate: 0.93
+hit: 23871  miss: 1729  hit rate: 0.93
+hit: 23845  miss: 1755  hit rate: 0.93
+hit: 23943  miss: 1657  hit rate: 0.94
+hit: 23973  miss: 1627  hit rate: 0.94
+hit: 24017  miss: 1583  hit rate: 0.94
+hit: 23903  miss: 1697  hit rate: 0.93
+hit: 23994  miss: 1606  hit rate: 0.94
+hit: 23979  miss: 1621  hit rate: 0.94
+hit: 24048  miss: 1552  hit rate: 0.94
+hit: 24073  miss: 1527  hit rate: 0.94
+hit: 24076  miss: 1524  hit rate: 0.94
+hit: 24155  miss: 1445  hit rate: 0.94
+hit: 24116  miss: 1484  hit rate: 0.94
+hit: 24242  miss: 1358  hit rate: 0.95
+hit: 24142  miss: 1458  hit rate: 0.94
+hit: 24267  miss: 1333  hit rate: 0.95
+hit: 24286  miss: 1314  hit rate: 0.95
+hit: 24273  miss: 1327  hit rate: 0.95
+hit: 24327  miss: 1273  hit rate: 0.95
+hit: 24288  miss: 1312  hit rate: 0.95
+hit: 24301  miss: 1299  hit rate: 0.95
+hit: 24321  miss: 1279  hit rate: 0.95
+hit: 24277  miss: 1323  hit rate: 0.95
+hit: 24358  miss: 1242  hit rate: 0.95
+hit: 24249  miss: 1351  hit rate: 0.95
+hit: 24368  miss: 1232  hit rate: 0.95
+hit: 24281  miss: 1319  hit rate: 0.95
+hit: 24404  miss: 1196  hit rate: 0.95
+hit: 24469  miss: 1131  hit rate: 0.96
+hit: 24356  miss: 1244  hit rate: 0.95
+hit: 24380  miss: 1220  hit rate: 0.95
+hit: 24399  miss: 1201  hit rate: 0.95
+hit: 24369  miss: 1231  hit rate: 0.95
+hit: 24464  miss: 1136  hit rate: 0.96
+hit: 24458  miss: 1142  hit rate: 0.96
+hit: 24478  miss: 1122  hit rate: 0.96
+hit: 24460  miss: 1140  hit rate: 0.96
+hit: 24450  miss: 1150  hit rate: 0.96
+hit: 24519  miss: 1081  hit rate: 0.96
+
+Error: /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/command/develop.py:41: EasyInstallDeprecationWarning: easy_install command is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` and ``easy_install``.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://github.com/pypa/setuptools/issues/917 for details.
+        ********************************************************************************
+
+!!
+  easy_install.initialize_options(self)
+/home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/_distutils/cmd.py:66: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()
+
+begin test RM1 32 2.0
+Output: running develop
+running egg_info
+writing client_cache.egg-info/PKG-INFO
+writing dependency_links to client_cache.egg-info/dependency_links.txt
+writing top-level names to client_cache.egg-info/top_level.txt
+reading manifest file 'client_cache.egg-info/SOURCES.txt'
+writing manifest file 'client_cache.egg-info/SOURCES.txt'
+running build_ext
+g++ -pthread -B /home/cml/miniconda3/envs/CloverRec/compiler_compat -fno-strict-overflow -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -O2 -isystem /home/cml/miniconda3/envs/CloverRec/include -fPIC -I/home/cml/miniconda3/envs/CloverRec/include/python3.12 -c flagcheck.cpp -o flagcheck.o -std=c++17
+copying build/lib.linux-x86_64-cpython-312/client_cache.cpython-312-x86_64-linux-gnu.so -> 
+Creating /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/client-cache.egg-link (link to .)
+Removing client-cache 1.0 from easy-install.pth file
+Removing client-cache 1.0 from easy-install.pth file
+client-cache 1.0 is already the active version in easy-install.pth
+detected new path '/home/cml/CloverRec/remote_emb'
+detected new path '/home/cml/CloverRec/cloverrec'
+
+Installed /home/cml/CloverRec/naive_pim_emb
+Processing dependencies for client-cache==1.0
+Finished processing dependencies for client-cache==1.0
+--------------------------------------------
+Finish Compiling client_cache
+--------------------------------------------
+--------------------------------------------
+GPU Benchmarking - running on 1 GPUs
+--------------------------------------------
+-------------------
+Using GPUS: 0
+Batch Size: 32
+-------------------
+CUDA_VISIBLE_DEVICES=0 python dlrm_coordinator.py --mini-batch-size 32 --num-batches=100 --data-generation=random --rand-data-dist=zipfian --arch-mlp-bot=256-128-64 --arch-mlp-top=256-64-1 --arch-sparse-feature-size=64 --arch-embedding-size=100000-100000-100000-100000-100000-100000-100000-100000-100000-100000 --num-indices-per-lookup=80 --num-indices-per-lookup-fixed=True --arch-interaction-op=dot --numpy-rand-seed=727 --print-freq=10 --print-time --inference-only --get-cdf-lat=True --server-ip=10.0.0.5 --server-port=8000 --emb-pool-ip=10.0.0.11 --emb-pool-port=1234 --zipf-parameter=2.0
+Using CPU...
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54562
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54563
+--------------------------------------------------------------------------------
+-- Local Info
+addr : 139964754546688
+rkey : 1587961
+--------------------------------------------------------------------------------
+-- Remote Info
+addr : 1245048832
+rkey : 1585134
+--------------------------------------------------------------------------------
+EmbStorge Finish Init!
+New connection...
+-- Local Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 12
+qpn : 54564
+--------------------------------------------------------------------------------
+-- Remote Info
+gid : fe80:0000:0000:0000:0000:0000:0000:0000
+lid : 6
+qpn : 471
+--------------------------------------------------------------------------------
+Testing for inference only
+==== ==== Progress bar (nWorkload: 100) shown below:
+.ev lookup time (ms): 152.1475315093994
+.ev lookup time (ms): 149.90925788879395
+.ev lookup time (ms): 148.97966384887695
+.ev lookup time (ms): 148.4200954437256
+.ev lookup time (ms): 149.8265266418457
+.ev lookup time (ms): 144.40631866455078
+.ev lookup time (ms): 145.18427848815918
+.ev lookup time (ms): 95.15094757080078
+.ev lookup time (ms): 97.62978553771973
+.ev lookup time (ms): 93.56975555419922
+.ev lookup time (ms): 93.07169914245605
+.ev lookup time (ms): 92.03052520751953
+.ev lookup time (ms): 93.07980537414551
+.ev lookup time (ms): 92.30566024780273
+.ev lookup time (ms): 92.10991859436035
+.ev lookup time (ms): 88.41896057128906
+.ev lookup time (ms): 88.92703056335449
+.ev lookup time (ms): 92.1316146850586
+.ev lookup time (ms): 91.51434898376465
+.ev lookup time (ms): 81.50672912597656
+.ev lookup time (ms): 80.5668830871582
+.ev lookup time (ms): 80.31249046325684
+.ev lookup time (ms): 81.82168006896973
+.ev lookup time (ms): 81.54726028442383
+.ev lookup time (ms): 81.24017715454102
+.ev lookup time (ms): 79.65946197509766
+.ev lookup time (ms): 81.13837242126465
+.ev lookup time (ms): 79.18667793273926
+.ev lookup time (ms): 78.99141311645508
+.ev lookup time (ms): 73.48442077636719
+.ev lookup time (ms): 72.50761985778809
+.ev lookup time (ms): 72.72958755493164
+.ev lookup time (ms): 72.81947135925293
+.ev lookup time (ms): 73.43626022338867
+.ev lookup time (ms): 72.30663299560547
+.ev lookup time (ms): 72.0829963684082
+.ev lookup time (ms): 72.2813606262207
+.ev lookup time (ms): 72.45850563049316
+.ev lookup time (ms): 71.76399230957031
+.ev lookup time (ms): 72.78084754943848
+.ev lookup time (ms): 72.52216339111328
+.ev lookup time (ms): 71.17104530334473
+.ev lookup time (ms): 71.99883460998535
+.ev lookup time (ms): 72.63946533203125
+.ev lookup time (ms): 70.46961784362793
+.ev lookup time (ms): 69.97346878051758
+.ev lookup time (ms): 71.70939445495605
+.ev lookup time (ms): 69.99468803405762
+.ev lookup time (ms): 68.9384937286377
+.ev lookup time (ms): 69.5335865020752
+.ev lookup time (ms): 70.00875473022461
+.ev lookup time (ms): 71.03490829467773
+.ev lookup time (ms): 71.21872901916504
+.ev lookup time (ms): 69.06509399414062
+.ev lookup time (ms): 71.1674690246582
+.ev lookup time (ms): 68.97306442260742
+.ev lookup time (ms): 68.52149963378906
+.ev lookup time (ms): 68.86506080627441
+.ev lookup time (ms): 71.7017650604248
+.ev lookup time (ms): 71.72441482543945
+.ev lookup time (ms): 69.3197250366211
+.ev lookup time (ms): 69.09537315368652
+.ev lookup time (ms): 66.14279747009277
+.ev lookup time (ms): 67.09671020507812
+.ev lookup time (ms): 67.54755973815918
+.ev lookup time (ms): 63.272714614868164
+.ev lookup time (ms): 61.490535736083984
+.ev lookup time (ms): 63.39073181152344
+.ev lookup time (ms): 61.1262321472168
+.ev lookup time (ms): 62.5612735748291
+.ev lookup time (ms): 62.52646446228027
+.ev lookup time (ms): 63.91286849975586
+.ev lookup time (ms): 62.53457069396973
+.ev lookup time (ms): 63.35091590881348
+.ev lookup time (ms): 60.32085418701172
+.ev lookup time (ms): 58.56633186340332
+.ev lookup time (ms): 61.429500579833984
+.ev lookup time (ms): 59.78274345397949
+.ev lookup time (ms): 62.38532066345215
+.ev lookup time (ms): 61.19799613952637
+.ev lookup time (ms): 62.066078186035156
+.ev lookup time (ms): 56.7324161529541
+.ev lookup time (ms): 59.09991264343262
+.ev lookup time (ms): 59.630393981933594
+.ev lookup time (ms): 57.81292915344238
+.ev lookup time (ms): 59.59939956665039
+.ev lookup time (ms): 59.836626052856445
+.ev lookup time (ms): 56.04362487792969
+.ev lookup time (ms): 55.05251884460449
+.ev lookup time (ms): 55.7706356048584
+.ev lookup time (ms): 52.25968360900879
+.ev lookup time (ms): 57.18421936035156
+.ev lookup time (ms): 57.758331298828125
+.ev lookup time (ms): 57.94835090637207
+.ev lookup time (ms): 57.27410316467285
+.ev lookup time (ms): 55.451154708862305
+.ev lookup time (ms): 56.37717247009277
+.ev lookup time (ms): 56.649208068847656
+.ev lookup time (ms): 56.26559257507324
+.ev lookup time (ms): 55.097103118896484
+
+ accuracy 0.000 %, best 0.000 %
+Time elapsed (FINAL) : 8.48392653465271 secs (0 mins)
+Throughput (Req/sec) : 377.18
+Avg latency (PIM + EV_trans + CPU + GPU + network + others) (ms) : 84.84
+Avg ev lookup time (PIM + EV_trans + CPU) (ms) : 75.76
+Avg apply emb time (PIM + EV_trans + CPU + GPU + network) (ms) : 84.72
+CPU cal time (ms) : 19.09
+(PIM + EV_trans) time (ms) : 56.67
+(network + GPU) time (ms) : 8.96
+others time (ms) : 0.12
+Close connection...
+client cache cacacity: 1000
+hit: 0  miss: 25600  hit rate: 0.00
+hit: 1919  miss: 23681  hit rate: 0.07
+hit: 5166  miss: 20434  hit rate: 0.20
+hit: 5635  miss: 19965  hit rate: 0.22
+hit: 8845  miss: 16755  hit rate: 0.35
+hit: 12425  miss: 13175  hit rate: 0.49
+hit: 14116  miss: 11484  hit rate: 0.55
+hit: 17236  miss: 8364  hit rate: 0.67
+hit: 17511  miss: 8089  hit rate: 0.68
+hit: 18326  miss: 7274  hit rate: 0.72
+hit: 19165  miss: 6435  hit rate: 0.75
+hit: 19597  miss: 6003  hit rate: 0.77
+hit: 19984  miss: 5616  hit rate: 0.78
+hit: 20122  miss: 5478  hit rate: 0.79
+hit: 20573  miss: 5027  hit rate: 0.80
+hit: 20773  miss: 4827  hit rate: 0.81
+hit: 20814  miss: 4786  hit rate: 0.81
+hit: 21035  miss: 4565  hit rate: 0.82
+hit: 21191  miss: 4409  hit rate: 0.83
+hit: 21770  miss: 3830  hit rate: 0.85
+hit: 21850  miss: 3750  hit rate: 0.85
+hit: 21984  miss: 3616  hit rate: 0.86
+hit: 22064  miss: 3536  hit rate: 0.86
+hit: 21993  miss: 3607  hit rate: 0.86
+hit: 22035  miss: 3565  hit rate: 0.86
+hit: 22078  miss: 3522  hit rate: 0.86
+hit: 22212  miss: 3388  hit rate: 0.87
+hit: 22252  miss: 3348  hit rate: 0.87
+hit: 22285  miss: 3315  hit rate: 0.87
+hit: 22678  miss: 2922  hit rate: 0.89
+hit: 22859  miss: 2741  hit rate: 0.89
+hit: 22829  miss: 2771  hit rate: 0.89
+hit: 22902  miss: 2698  hit rate: 0.89
+hit: 22988  miss: 2612  hit rate: 0.90
+hit: 22946  miss: 2654  hit rate: 0.90
+hit: 23054  miss: 2546  hit rate: 0.90
+hit: 23060  miss: 2540  hit rate: 0.90
+hit: 23238  miss: 2362  hit rate: 0.91
+hit: 23346  miss: 2254  hit rate: 0.91
+hit: 23453  miss: 2147  hit rate: 0.92
+hit: 23426  miss: 2174  hit rate: 0.92
+hit: 23559  miss: 2041  hit rate: 0.92
+hit: 23589  miss: 2011  hit rate: 0.92
+hit: 23635  miss: 1965  hit rate: 0.92
+hit: 23668  miss: 1932  hit rate: 0.92
+hit: 23788  miss: 1812  hit rate: 0.93
+hit: 23821  miss: 1779  hit rate: 0.93
+hit: 23866  miss: 1734  hit rate: 0.93
+hit: 23945  miss: 1655  hit rate: 0.94
+hit: 23979  miss: 1621  hit rate: 0.94
+hit: 23971  miss: 1629  hit rate: 0.94
+hit: 23929  miss: 1671  hit rate: 0.93
+hit: 23941  miss: 1659  hit rate: 0.94
+hit: 24047  miss: 1553  hit rate: 0.94
+hit: 24046  miss: 1554  hit rate: 0.94
+hit: 24191  miss: 1409  hit rate: 0.94
+hit: 24193  miss: 1407  hit rate: 0.95
+hit: 24218  miss: 1382  hit rate: 0.95
+hit: 24162  miss: 1438  hit rate: 0.94
+hit: 24263  miss: 1337  hit rate: 0.95
+hit: 24239  miss: 1361  hit rate: 0.95
+hit: 24255  miss: 1345  hit rate: 0.95
+hit: 24348  miss: 1252  hit rate: 0.95
+hit: 24328  miss: 1272  hit rate: 0.95
+hit: 24387  miss: 1213  hit rate: 0.95
+hit: 24453  miss: 1147  hit rate: 0.96
+hit: 24476  miss: 1124  hit rate: 0.96
+hit: 24479  miss: 1121  hit rate: 0.96
+hit: 24455  miss: 1145  hit rate: 0.96
+hit: 24474  miss: 1126  hit rate: 0.96
+hit: 24497  miss: 1103  hit rate: 0.96
+hit: 24538  miss: 1062  hit rate: 0.96
+hit: 24507  miss: 1093  hit rate: 0.96
+hit: 24575  miss: 1025  hit rate: 0.96
+hit: 24520  miss: 1080  hit rate: 0.96
+hit: 24589  miss: 1011  hit rate: 0.96
+hit: 24531  miss: 1069  hit rate: 0.96
+hit: 24583  miss: 1017  hit rate: 0.96
+hit: 24639  miss: 961  hit rate: 0.96
+hit: 24627  miss: 973  hit rate: 0.96
+hit: 24606  miss: 994  hit rate: 0.96
+hit: 24697  miss: 903  hit rate: 0.96
+hit: 24597  miss: 1003  hit rate: 0.96
+hit: 24659  miss: 941  hit rate: 0.96
+hit: 24645  miss: 955  hit rate: 0.96
+hit: 24669  miss: 931  hit rate: 0.96
+hit: 24605  miss: 995  hit rate: 0.96
+hit: 24737  miss: 863  hit rate: 0.97
+hit: 24635  miss: 965  hit rate: 0.96
+hit: 24684  miss: 916  hit rate: 0.96
+hit: 24724  miss: 876  hit rate: 0.97
+hit: 24674  miss: 926  hit rate: 0.96
+hit: 24697  miss: 903  hit rate: 0.96
+hit: 24692  miss: 908  hit rate: 0.96
+hit: 24653  miss: 947  hit rate: 0.96
+hit: 24704  miss: 896  hit rate: 0.96
+hit: 24742  miss: 858  hit rate: 0.97
+hit: 24758  miss: 842  hit rate: 0.97
+hit: 24713  miss: 887  hit rate: 0.97
+hit: 24728  miss: 872  hit rate: 0.97
+
+Error: /home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/command/develop.py:41: EasyInstallDeprecationWarning: easy_install command is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` and ``easy_install``.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://github.com/pypa/setuptools/issues/917 for details.
+        ********************************************************************************
+
+!!
+  easy_install.initialize_options(self)
+/home/cml/miniconda3/envs/CloverRec/lib/python3.12/site-packages/setuptools/_distutils/cmd.py:66: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()
+

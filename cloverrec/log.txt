@@ -34,243 +34,224 @@ Using GPUS: 0
 CUDA_VISIBLE_DEVICES=0 python dlrm_emb_pool.py --arch-sparse-feature-size=64 --arch-embedding-size=100000-100000-100000-100000-100000-100000-100000-100000-100000-100000 --rdma-wr-capacity=128 --emb-pool-port=1234
 m: 64
 ln: [100000 100000 100000 100000 100000 100000 100000 100000 100000 100000]
-generate emb time (s): 0.5966956615447998
-convertion time (s): 0.04248356819152832
-pim module init time (s): 1.7718007564544678
-pim emb loading time (s): 0.6326501369476318
+generate emb time (s): 0.6836535930633545
+convertion time (s): 0.04100751876831055
+pim module init time (s): 1.7813689708709717
+pim emb loading time (s): 0.6412761211395264
 start emb pool
 New connection...
 -- Local Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 12
-qpn : 54417
+qpn : 54614
 --------------------------------------------------------------------------------
 -- Remote Info
 gid : fe80:0000:0000:0000:0000:0000:0000:0000
 lid : 12
-qpn : 54416
+qpn : 54613
 --------------------------------------------------------------------------------
 -- Local Info
-addr : 1091166208
-rkey : 1581793
---------------------------------------------------------------------------------
--- Remote Info
-addr : 140034574176256
+addr : 972075008
 rkey : 1585134
 --------------------------------------------------------------------------------
-ev lookup time (ms): 102.61392593383789
-ev lookup time (ms): 94.19536590576172
-ev lookup time (ms): 77.38709449768066
-ev lookup time (ms): 69.84949111938477
-ev lookup time (ms): 56.4112663269043
-ev lookup time (ms): 50.855398178100586
-ev lookup time (ms): 45.47286033630371
-ev lookup time (ms): 46.8137264251709
-ev lookup time (ms): 44.191837310791016
-ev lookup time (ms): 38.234710693359375
-ev lookup time (ms): 37.38212585449219
-ev lookup time (ms): 35.93921661376953
-ev lookup time (ms): 35.22014617919922
-ev lookup time (ms): 34.650564193725586
-ev lookup time (ms): 34.03973579406738
-ev lookup time (ms): 35.849571228027344
-ev lookup time (ms): 33.3859920501709
-ev lookup time (ms): 32.89341926574707
-ev lookup time (ms): 31.75520896911621
-ev lookup time (ms): 31.533241271972656
-ev lookup time (ms): 31.2957763671875
-ev lookup time (ms): 31.722545623779297
-ev lookup time (ms): 30.181407928466797
-ev lookup time (ms): 30.001163482666016
-ev lookup time (ms): 28.841018676757812
-ev lookup time (ms): 28.191804885864258
-ev lookup time (ms): 27.980804443359375
-ev lookup time (ms): 28.18894386291504
-ev lookup time (ms): 26.70741081237793
-ev lookup time (ms): 28.41329574584961
-ev lookup time (ms): 27.03094482421875
-ev lookup time (ms): 27.723073959350586
-ev lookup time (ms): 26.349544525146484
-ev lookup time (ms): 27.546167373657227
-ev lookup time (ms): 26.49092674255371
-ev lookup time (ms): 25.592327117919922
-ev lookup time (ms): 26.378870010375977
-ev lookup time (ms): 26.26800537109375
-ev lookup time (ms): 25.404930114746094
-ev lookup time (ms): 26.59749984741211
-ev lookup time (ms): 26.150226593017578
-ev lookup time (ms): 25.89249610900879
-ev lookup time (ms): 25.449275970458984
-ev lookup time (ms): 25.095701217651367
-ev lookup time (ms): 25.03681182861328
-ev lookup time (ms): 25.337696075439453
-ev lookup time (ms): 24.09982681274414
-ev lookup time (ms): 24.326801300048828
-ev lookup time (ms): 23.930072784423828
-ev lookup time (ms): 24.110078811645508
-ev lookup time (ms): 23.7882137298584
-ev lookup time (ms): 24.083852767944336
-ev lookup time (ms): 22.984981536865234
-ev lookup time (ms): 23.146629333496094
-ev lookup time (ms): 24.0175724029541
-ev lookup time (ms): 36.25082969665527
-ev lookup time (ms): 24.494647979736328
-ev lookup time (ms): 23.563385009765625
-ev lookup time (ms): 23.93794059753418
-ev lookup time (ms): 24.59883689880371
-ev lookup time (ms): 23.164749145507812
-ev lookup time (ms): 22.488832473754883
-ev lookup time (ms): 23.215770721435547
-ev lookup time (ms): 22.60136604309082
-ev lookup time (ms): 23.64635467529297
-ev lookup time (ms): 22.491931915283203
-ev lookup time (ms): 22.775888442993164
-ev lookup time (ms): 22.271394729614258
-ev lookup time (ms): 23.24652671813965
-ev lookup time (ms): 22.55702018737793
-ev lookup time (ms): 22.08423614501953
-ev lookup time (ms): 21.528244018554688
-ev lookup time (ms): 21.788597106933594
-ev lookup time (ms): 22.074460983276367
-ev lookup time (ms): 21.427392959594727
-ev lookup time (ms): 21.62027359008789
-ev lookup time (ms): 21.314382553100586
-ev lookup time (ms): 21.359682083129883
-ev lookup time (ms): 21.14701271057129
-ev lookup time (ms): 20.938634872436523
-ev lookup time (ms): 22.37868309020996
-ev lookup time (ms): 20.982027053833008
-ev lookup time (ms): 21.300315856933594
-ev lookup time (ms): 21.412372589111328
-ev lookup time (ms): 20.709514617919922
-ev lookup time (ms): 20.97606658935547
-ev lookup time (ms): 21.88587188720703
-ev lookup time (ms): 30.184507369995117
-ev lookup time (ms): 20.72310447692871
-ev lookup time (ms): 20.392656326293945
-ev lookup time (ms): 20.347118377685547
-ev lookup time (ms): 20.624399185180664
-ev lookup time (ms): 20.732879638671875
-ev lookup time (ms): 21.172761917114258
-ev lookup time (ms): 20.325660705566406
-ev lookup time (ms): 20.899057388305664
-ev lookup time (ms): 20.806550979614258
-ev lookup time (ms): 19.423723220825195
-ev lookup time (ms): 20.08223533630371
-ev lookup time (ms): 19.6683406829834
-ev lookup time (ms): 19.580602645874023
-ev lookup time (ms): 19.927978515625
-ev lookup time (ms): 20.576953887939453
-ev lookup time (ms): 19.899368286132812
-ev lookup time (ms): 21.67963981628418
-ev lookup time (ms): 19.665956497192383
-ev lookup time (ms): 20.00737190246582
-ev lookup time (ms): 20.117759704589844
-ev lookup time (ms): 20.39480209350586
-ev lookup time (ms): 19.857168197631836
-ev lookup time (ms): 20.014286041259766
-ev lookup time (ms): 19.38486099243164
-ev lookup time (ms): 19.57559585571289
-ev lookup time (ms): 20.116329193115234
-ev lookup time (ms): 19.741535186767578
-ev lookup time (ms): 19.834041595458984
-ev lookup time (ms): 19.366025924682617
-ev lookup time (ms): 19.043922424316406
-ev lookup time (ms): 18.823862075805664
-ev lookup time (ms): 18.997669219970703
-ev lookup time (ms): 18.73016357421875
-ev lookup time (ms): 19.057750701904297
-ev lookup time (ms): 18.81575584411621
-ev lookup time (ms): 19.464969635009766
-ev lookup time (ms): 18.546342849731445
-ev lookup time (ms): 18.512725830078125
-ev lookup time (ms): 19.17409896850586
-ev lookup time (ms): 19.13738250732422
-ev lookup time (ms): 19.40155029296875
-ev lookup time (ms): 18.669605255126953
-ev lookup time (ms): 18.854379653930664
-ev lookup time (ms): 19.116640090942383
-ev lookup time (ms): 19.564390182495117
-ev lookup time (ms): 19.529104232788086
-ev lookup time (ms): 19.362449645996094
-ev lookup time (ms): 19.0582275390625
-ev lookup time (ms): 18.94521713256836
-ev lookup time (ms): 18.985748291015625
-ev lookup time (ms): 19.054174423217773
-ev lookup time (ms): 19.298791885375977
-ev lookup time (ms): 18.802642822265625
-ev lookup time (ms): 19.1953182220459
-ev lookup time (ms): 18.361568450927734
-ev lookup time (ms): 18.77903938293457
-ev lookup time (ms): 18.356800079345703
-ev lookup time (ms): 17.76719093322754
-ev lookup time (ms): 18.085002899169922
-ev lookup time (ms): 18.998146057128906
-ev lookup time (ms): 18.231868743896484
-ev lookup time (ms): 17.940759658813477
-ev lookup time (ms): 18.674135208129883
-ev lookup time (ms): 18.324851989746094
-ev lookup time (ms): 18.59450340270996
-ev lookup time (ms): 18.350839614868164
-ev lookup time (ms): 18.2344913482666
-ev lookup time (ms): 19.367456436157227
-ev lookup time (ms): 18.46790313720703
-ev lookup time (ms): 17.84205436706543
-ev lookup time (ms): 18.051862716674805
-ev lookup time (ms): 18.835067749023438
-ev lookup time (ms): 18.039703369140625
-ev lookup time (ms): 18.50581169128418
-ev lookup time (ms): 18.08309555053711
-ev lookup time (ms): 18.44024658203125
-ev lookup time (ms): 18.459558486938477
-ev lookup time (ms): 17.726898193359375
-ev lookup time (ms): 17.536401748657227
-ev lookup time (ms): 17.724275588989258
-ev lookup time (ms): 18.425941467285156
-ev lookup time (ms): 18.267393112182617
-ev lookup time (ms): 18.505334854125977
-ev lookup time (ms): 18.08786392211914
-ev lookup time (ms): 17.871856689453125
-ev lookup time (ms): 18.080711364746094
-ev lookup time (ms): 18.39900016784668
-ev lookup time (ms): 18.1424617767334
-ev lookup time (ms): 16.37125015258789
-ev lookup time (ms): 13.417959213256836
-ev lookup time (ms): 13.40627670288086
-ev lookup time (ms): 13.471603393554688
-ev lookup time (ms): 14.059066772460938
-ev lookup time (ms): 13.46588134765625
-ev lookup time (ms): 14.180183410644531
-ev lookup time (ms): 13.668060302734375
-ev lookup time (ms): 13.759851455688477
-ev lookup time (ms): 13.106822967529297num dpu: 1020
+-- Remote Info
+addr : 140252406816768
+rkey : 1587961
+--------------------------------------------------------------------------------
+ev lookup time (ms): 102.09870338439941
+ev lookup time (ms): 97.96810150146484
+ev lookup time (ms): 87.68391609191895
+ev lookup time (ms): 69.89216804504395
+ev lookup time (ms): 63.704729080200195
+ev lookup time (ms): 51.98955535888672
+ev lookup time (ms): 50.859928131103516
+ev lookup time (ms): 48.00891876220703
+ev lookup time (ms): 41.643381118774414
+ev lookup time (ms): 40.70687294006348
+ev lookup time (ms): 40.52472114562988
+ev lookup time (ms): 38.942575454711914
+ev lookup time (ms): 37.39738464355469
+ev lookup time (ms): 36.608219146728516
+ev lookup time (ms): 35.97569465637207
+ev lookup time (ms): 35.40825843811035
+ev lookup time (ms): 34.26337242126465
+ev lookup time (ms): 34.65580940246582
+ev lookup time (ms): 33.09321403503418
+ev lookup time (ms): 31.273841857910156
+ev lookup time (ms): 31.577348709106445
+ev lookup time (ms): 31.373023986816406
+ev lookup time (ms): 29.935359954833984
+ev lookup time (ms): 30.517578125
+ev lookup time (ms): 30.02762794494629
+ev lookup time (ms): 28.546571731567383
+ev lookup time (ms): 28.2747745513916
+ev lookup time (ms): 27.727365493774414
+ev lookup time (ms): 27.055740356445312
+ev lookup time (ms): 28.298377990722656
+ev lookup time (ms): 27.44007110595703
+ev lookup time (ms): 27.646780014038086
+ev lookup time (ms): 31.384706497192383
+ev lookup time (ms): 27.87470817565918
+ev lookup time (ms): 27.469873428344727
+ev lookup time (ms): 25.75063705444336
+ev lookup time (ms): 27.18067169189453
+ev lookup time (ms): 26.413679122924805
+ev lookup time (ms): 25.60877799987793
+ev lookup time (ms): 26.01146697998047
+ev lookup time (ms): 25.9249210357666
+ev lookup time (ms): 25.338172912597656
+ev lookup time (ms): 25.08544921875
+ev lookup time (ms): 25.003910064697266
+ev lookup time (ms): 24.29056167602539
+ev lookup time (ms): 26.414155960083008
+ev lookup time (ms): 24.306535720825195
+ev lookup time (ms): 25.14481544494629
+ev lookup time (ms): 23.820877075195312
+ev lookup time (ms): 24.34515953063965
+ev lookup time (ms): 24.38807487487793
+ev lookup time (ms): 23.7271785736084
+ev lookup time (ms): 24.646997451782227
+ev lookup time (ms): 23.186206817626953
+ev lookup time (ms): 23.888349533081055
+ev lookup time (ms): 23.8187313079834
+ev lookup time (ms): 24.414777755737305
+ev lookup time (ms): 23.803234100341797
+ev lookup time (ms): 24.00803565979004
+ev lookup time (ms): 23.488759994506836
+ev lookup time (ms): 23.22697639465332
+ev lookup time (ms): 23.175716400146484
+ev lookup time (ms): 23.407459259033203
+ev lookup time (ms): 23.54264259338379
+ev lookup time (ms): 33.68830680847168
+ev lookup time (ms): 25.107383728027344
+ev lookup time (ms): 24.31488037109375
+ev lookup time (ms): 23.621559143066406
+ev lookup time (ms): 23.815631866455078
+ev lookup time (ms): 23.06675910949707
+ev lookup time (ms): 23.36716651916504
+ev lookup time (ms): 23.273706436157227
+ev lookup time (ms): 22.607803344726562
+ev lookup time (ms): 21.974563598632812
+ev lookup time (ms): 21.825551986694336
+ev lookup time (ms): 22.73106575012207
+ev lookup time (ms): 22.258996963500977
+ev lookup time (ms): 22.507667541503906
+ev lookup time (ms): 22.04585075378418
+ev lookup time (ms): 21.793842315673828
+ev lookup time (ms): 21.665334701538086
+ev lookup time (ms): 21.105527877807617
+ev lookup time (ms): 22.022724151611328
+ev lookup time (ms): 21.634817123413086
+ev lookup time (ms): 20.816564559936523
+ev lookup time (ms): 21.802425384521484
+ev lookup time (ms): 21.76833152770996
+ev lookup time (ms): 21.95262908935547
+ev lookup time (ms): 22.14503288269043
+ev lookup time (ms): 22.012948989868164
+ev lookup time (ms): 21.31175994873047
+ev lookup time (ms): 20.941734313964844
+ev lookup time (ms): 21.13485336303711
+ev lookup time (ms): 21.818161010742188
+ev lookup time (ms): 20.649194717407227
+ev lookup time (ms): 20.389080047607422
+ev lookup time (ms): 20.70474624633789
+ev lookup time (ms): 20.412445068359375
+ev lookup time (ms): 19.55246925354004
+ev lookup time (ms): 20.563840866088867
+ev lookup time (ms): 20.458459854125977
+ev lookup time (ms): 19.70648765563965
+ev lookup time (ms): 20.630598068237305
+ev lookup time (ms): 19.88840103149414
+ev lookup time (ms): 19.73247528076172
+ev lookup time (ms): 19.693613052368164
+ev lookup time (ms): 19.581317901611328
+ev lookup time (ms): 20.676136016845703
+ev lookup time (ms): 20.08533477783203
+ev lookup time (ms): 20.278453826904297
+ev lookup time (ms): 19.725561141967773
+ev lookup time (ms): 19.719839096069336
+ev lookup time (ms): 19.531726837158203
+ev lookup time (ms): 20.409345626831055
+ev lookup time (ms): 29.021739959716797
+ev lookup time (ms): 19.598722457885742
+ev lookup time (ms): 19.3326473236084
+ev lookup time (ms): 19.817590713500977
+ev lookup time (ms): 19.548892974853516
+ev lookup time (ms): 19.388675689697266
+ev lookup time (ms): 19.387006759643555
+ev lookup time (ms): 18.660545349121094
+ev lookup time (ms): 19.36960220336914
+ev lookup time (ms): 19.887447357177734
+ev lookup time (ms): 19.550561904907227
+ev lookup time (ms): 18.943309783935547
+ev lookup time (ms): 19.379615783691406
+ev lookup time (ms): 18.884897232055664
+ev lookup time (ms): 19.15121078491211
+ev lookup time (ms): 18.648862838745117
+ev lookup time (ms): 18.388032913208008
+ev lookup time (ms): 19.181013107299805
+ev lookup time (ms): 18.473386764526367
+ev lookup time (ms): 18.701791763305664
+ev lookup time (ms): 18.9054012298584
+ev lookup time (ms): 19.03700828552246
+ev lookup time (ms): 19.437789916992188
+ev lookup time (ms): 18.568754196166992
+ev lookup time (ms): 18.711328506469727
+ev lookup time (ms): 18.749713897705078
+ev lookup time (ms): 19.093990325927734
+ev lookup time (ms): 19.457101821899414
+ev lookup time (ms): 18.674850463867188
+ev lookup time (ms): 18.514633178710938
+ev lookup time (ms): 18.81885528564453
+ev lookup time (ms): 18.94068717956543
+ev lookup time (ms): 18.082857131958008
+ev lookup time (ms): 18.790483474731445
+ev lookup time (ms): 18.98956298828125
+ev lookup time (ms): 18.503427505493164
+ev lookup time (ms): 18.831491470336914
+ev lookup time (ms): 19.11616325378418
+ev lookup time (ms): 18.65410804748535
+ev lookup time (ms): 18.253087997436523
+ev lookup time (ms): 17.97962188720703
+ev lookup time (ms): 18.35942268371582
+ev lookup time (ms): 19.00935173034668
+ev lookup time (ms): 17.96889305114746
+ev lookup time (ms): 18.285036087036133
+ev lookup time (ms): 18.764972686767578
+ev lookup time (ms): 18.326759338378906
+ev lookup time (ms): 18.50128173828125
+ev lookup time (ms): 18.357038497924805
+ev lookup time (ms): 17.80104637145996
+ev lookup time (ms): 17.68779754638672
+ev lookup time (ms): 18.201589584350586
+ev lookup time (ms): 17.788171768188477
+ev lookup time (ms): 17.670869827270508
+ev lookup time (ms): 17.87114143371582
+ev lookup time (ms): 17.787456512451172
+ev lookup time (ms): 19.176483154296875
+ev lookup time (ms): 18.437623977661133
+ev lookup time (ms): 18.825054168701172
+ev lookup time (ms): 18.146991729736328
+ev lookup time (ms): 18.696069717407227
+ev lookup time (ms): 18.555402755737305
+ev lookup time (ms): 17.423391342163086
+ev lookup time (ms): 17.611980438232422
+ev lookup time (ms): 17.347335815429688
+ev lookup time (ms): 18.551349639892578
+ev lookup time (ms): 18.937110900878906
+ev lookup time (ms): 18.351316452026367
+ev lookup time (ms): 18.739938735961914
+ev lookup time (ms): 18.40996742248535
+ev lookup time (ms): 18.481731414794922
+ev lookup time (ms): 17.778635025024414num dpu: 1020
 max_redundant_emb_size: 4999
 emb_num 1011840
 emb_num_per_dpu 992
-Emb dispatch time (ms): 555.66
-Emb loading time (ms): 75.48
-to cache num: 9
-to cache num: 12
-to cache num: 12
+Emb dispatch time (ms): 564.56
+Emb loading time (ms): 75.27
+to cache num: 8
+to cache num: 8
 to cache num: 11
-to cache num: 13
-to cache num: 14
-to cache num: 15
-to cache num: 14
-to cache num: 13
-to cache num: 12
-to cache num: 13
-to cache num: 13
-to cache num: 12
-to cache num: 12
-to cache num: 12
-to cache num: 13
-to cache num: 12
-to cache num: 13
-to cache num: 12
-to cache num: 13
-to cache num: 13
-to cache num: 13
 to cache num: 13
 to cache num: 13
 to cache num: 12
@@ -279,6 +260,42 @@ to cache num: 12
 to cache num: 13
 to cache num: 13
 to cache num: 13
+to cache num: 13
+to cache num: 13
+to cache num: 12
+to cache num: 13
+to cache num: 13
+to cache num: 13
+to cache num: 13
+to cache num: 12
+to cache num: 13
+to cache num: 13
+to cache num: 13
+to cache num: 12
+to cache num: 13
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
 to cache num: 12
 to cache num: 12
 to cache num: 12
@@ -287,34 +304,23 @@ to cache num: 12
 to cache num: 13
 to cache num: 11
 to cache num: 12
-to cache num: 12
-to cache num: 12
-to cache num: 11
-to cache num: 12
-to cache num: 12
-to cache num: 12
-to cache num: 12
-to cache num: 12
-to cache num: 12
-to cache num: 12
-to cache num: 12
-to cache num: 12
-to cache num: 12
-to cache num: 12
-to cache num: 12
-to cache num: 12
-to cache num: 12
-to cache num: 11
-to cache num: 11
-to cache num: 11
 to cache num: 11
 to cache num: 11
 to cache num: 12
 to cache num: 11
 to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
 to cache num: 11
 to cache num: 11
-to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
 to cache num: 11
 to cache num: 11
 to cache num: 11
@@ -331,34 +337,28 @@ to cache num: 11
 to cache num: 11
 to cache num: 11
 to cache num: 11
+to cache num: 12
 to cache num: 11
 to cache num: 11
 to cache num: 11
+to cache num: 12
 to cache num: 11
 to cache num: 11
 to cache num: 11
+to cache num: 12
 to cache num: 11
 to cache num: 11
 to cache num: 11
 to cache num: 11
 to cache num: 11
 to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
+to cache num: 10
 to cache num: 11
 to cache num: 11
 to cache num: 11
 to cache num: 11
 to cache num: 11
 to cache num: 11
-to cache num: 10
 to cache num: 11
 to cache num: 11
 to cache num: 11
@@ -370,7 +370,6 @@ to cache num: 11
 to cache num: 11
 to cache num: 11
 to cache num: 10
-to cache num: 11
 to cache num: 11
 to cache num: 11
 to cache num: 11
@@ -380,19 +379,8 @@ to cache num: 11
 to cache num: 11
 to cache num: 11
 to cache num: 11
-to cache num: 11
 to cache num: 10
-to cache num: 11
 to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
 to cache num: 10
 to cache num: 10
 to cache num: 10
@@ -400,67 +388,29 @@ to cache num: 11
 to cache num: 11
 to cache num: 10
 to cache num: 11
-to cache num: 10
 to cache num: 11
-to cache num: 10
-to cache num: 10
 to cache num: 11
 to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
 to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
 to cache num: 11
-to cache num: 9
 to cache num: 10
 to cache num: 10
 to cache num: 10
 to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
 to cache num: 11
 to cache num: 10
-to cache num: 10
 to cache num: 11
-to cache num: 10
 to cache num: 10
 to cache num: 11
-to cache num: 10
-to cache num: 10
 to cache num: 11
 to cache num: 10
-to cache num: 10
 to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
 to cache num: 11
 to cache num: 10
 to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 11
+to cache num: 10
 to cache num: 11
 to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
 to cache num: 10
 to cache num: 10
 to cache num: 11
@@ -468,264 +418,17 @@ to cache num: 10
 to cache num: 10
 to cache num: 10
 to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
 to cache num: 11
-to cache num: 11
 to cache num: 10
 to cache num: 10
+to cache num: 11
 to cache num: 10
 to cache num: 11
+to cache num: 10
 to cache num: 9
 to cache num: 10
-ev lookup time (ms): 13.296365737915039
-ev lookup time (ms): 13.671159744262695
-ev lookup time (ms): 13.370037078857422
-ev lookup time (ms): 14.117956161499023
-ev lookup time (ms): 13.706207275390625
-ev lookup time (ms): 13.480901718139648
-ev lookup time (ms): 13.91911506652832
-ev lookup time (ms): 13.159036636352539
-ev lookup time (ms): 13.406038284301758
-ev lookup time (ms): 13.522148132324219
-ev lookup time (ms): 13.48567008972168
-ev lookup time (ms): 13.431549072265625
-ev lookup time (ms): 13.701915740966797
-ev lookup time (ms): 13.515710830688477
-ev lookup time (ms): 13.831853866577148
-ev lookup time (ms): 13.676881790161133
-ev lookup time (ms): 13.475418090820312
-ev lookup time (ms): 17.01211929321289
-ev lookup time (ms): 13.144731521606445
-ev lookup time (ms): 13.794898986816406
-ev lookup time (ms): 13.900995254516602
-ev lookup time (ms): 13.59415054321289
-ev lookup time (ms): 17.698287963867188
-ev lookup time (ms): 17.754316329956055
-ev lookup time (ms): 18.413066864013672
-ev lookup time (ms): 18.324851989746094
-ev lookup time (ms): 18.39447021484375
-ev lookup time (ms): 18.267154693603516
-ev lookup time (ms): 18.26763153076172
-ev lookup time (ms): 17.616748809814453
-ev lookup time (ms): 18.18537712097168
-ev lookup time (ms): 17.521142959594727
-ev lookup time (ms): 17.899274826049805
-ev lookup time (ms): 17.859458923339844
-ev lookup time (ms): 18.181800842285156
-ev lookup time (ms): 17.87590980529785
-ev lookup time (ms): 18.115758895874023
-ev lookup time (ms): 18.3260440826416
-ev lookup time (ms): 17.719268798828125
-ev lookup time (ms): 18.279314041137695
-ev lookup time (ms): 18.50271224975586
-ev lookup time (ms): 18.976688385009766
-ev lookup time (ms): 18.256664276123047
-ev lookup time (ms): 16.58177375793457
-ev lookup time (ms): 18.212080001831055
-ev lookup time (ms): 17.689228057861328
-ev lookup time (ms): 18.249988555908203
-ev lookup time (ms): 18.17178726196289
-ev lookup time (ms): 18.201828002929688
-ev lookup time (ms): 18.259286880493164
-ev lookup time (ms): 17.766952514648438
-ev lookup time (ms): 18.479108810424805
-ev lookup time (ms): 17.772912979125977
-ev lookup time (ms): 18.46027374267578
-ev lookup time (ms): 17.54283905029297
-ev lookup time (ms): 17.842531204223633
-ev lookup time (ms): 18.39160919189453
-ev lookup time (ms): 18.550395965576172
-ev lookup time (ms): 18.71514320373535
-ev lookup time (ms): 17.9598331451416
-ev lookup time (ms): 18.312931060791016
-ev lookup time (ms): 17.5323486328125
-ev lookup time (ms): 18.685579299926758
-ev lookup time (ms): 18.39590072631836
-ev lookup time (ms): 18.08786392211914
-ev lookup time (ms): 18.248558044433594
-ev lookup time (ms): 17.603158950805664
-ev lookup time (ms): 17.802953720092773
-ev lookup time (ms): 17.769575119018555
-ev lookup time (ms): 18.34845542907715
-ev lookup time (ms): 17.518281936645508
-ev lookup time (ms): 18.10741424560547
-ev lookup time (ms): 17.537355422973633
-ev lookup time (ms): 17.46845245361328
-ev lookup time (ms): 17.92597770690918
-ev lookup time (ms): 17.855167388916016
-ev lookup time (ms): 18.256187438964844
-ev lookup time (ms): 19.132614135742188
-ev lookup time (ms): 18.190622329711914
-ev lookup time (ms): 18.034934997558594
-ev lookup time (ms): 18.146514892578125
-ev lookup time (ms): 18.0661678314209
-ev lookup time (ms): 17.903804779052734
-ev lookup time (ms): 17.744779586791992
-ev lookup time (ms): 18.52726936340332
-ev lookup time (ms): 17.368316650390625
-ev lookup time (ms): 17.476797103881836
-ev lookup time (ms): 17.780303955078125
-ev lookup time (ms): 18.34845542907715
-ev lookup time (ms): 17.69232749938965
-ev lookup time (ms): 18.078088760375977
-ev lookup time (ms): 18.552541732788086
-ev lookup time (ms): 18.434762954711914
-ev lookup time (ms): 18.40829849243164
-ev lookup time (ms): 18.799781799316406
-ev lookup time (ms): 17.993688583374023
-ev lookup time (ms): 16.536235809326172
-ev lookup time (ms): 17.82822608947754
-ev lookup time (ms): 18.427371978759766
-ev lookup time (ms): 17.39192008972168
-ev lookup time (ms): 17.712831497192383
-ev lookup time (ms): 17.77195930480957
-ev lookup time (ms): 17.313241958618164
-ev lookup time (ms): 17.607688903808594
-ev lookup time (ms): 17.97342300415039
-ev lookup time (ms): 18.050432205200195
-ev lookup time (ms): 18.402099609375
-ev lookup time (ms): 18.738746643066406
-ev lookup time (ms): 17.06719398498535
-ev lookup time (ms): 17.668962478637695
-ev lookup time (ms): 17.06385612487793
-ev lookup time (ms): 17.683029174804688
-ev lookup time (ms): 17.499208450317383
-ev lookup time (ms): 18.15176010131836
-ev lookup time (ms): 17.75956153869629
-ev lookup time (ms): 17.35663414001465
-ev lookup time (ms): 17.754077911376953
-ev lookup time (ms): 18.021583557128906
-ev lookup time (ms): 17.371177673339844
-ev lookup time (ms): 17.368555068969727
-ev lookup time (ms): 17.094135284423828
-ev lookup time (ms): 17.852306365966797
-ev lookup time (ms): 17.25602149963379
-ev lookup time (ms): 18.469810485839844
-ev lookup time (ms): 18.16415786743164
-ev lookup time (ms): 17.459869384765625
-ev lookup time (ms): 17.115116119384766
-ev lookup time (ms): 17.208576202392578
-ev lookup time (ms): 17.7154541015625
-ev lookup time (ms): 17.69423484802246
-ev lookup time (ms): 17.638683319091797
-ev lookup time (ms): 16.879558563232422
-ev lookup time (ms): 17.29440689086914
-ev lookup time (ms): 17.68946647644043
-ev lookup time (ms): 17.88783073425293
-ev lookup time (ms): 17.547607421875
-ev lookup time (ms): 17.48490333557129
-ev lookup time (ms): 17.443418502807617
-ev lookup time (ms): 17.72618293762207
-ev lookup time (ms): 17.588376998901367
-ev lookup time (ms): 17.638206481933594
-ev lookup time (ms): 17.908811569213867
-ev lookup time (ms): 17.596721649169922
-ev lookup time (ms): 17.727136611938477
-ev lookup time (ms): 16.85023307800293
-ev lookup time (ms): 17.587900161743164
-ev lookup time (ms): 17.92430877685547
-ev lookup time (ms): 17.409324645996094
-ev lookup time (ms): 17.64512062072754
-ev lookup time (ms): 16.580581665039062
-ev lookup time (ms): 18.540143966674805
-ev lookup time (ms): 18.28622817993164
-ev lookup time (ms): 17.922163009643555
-ev lookup time (ms): 18.064022064208984
-ev lookup time (ms): 18.807649612426758
-ev lookup time (ms): 18.54085922241211
-ev lookup time (ms): 17.357349395751953
-ev lookup time (ms): 17.64082908630371
-ev lookup time (ms): 18.26167106628418
-ev lookup time (ms): 17.638683319091797
-ev lookup time (ms): 17.174482345581055
-ev lookup time (ms): 17.59171485900879
-ev lookup time (ms): 17.857074737548828
-ev lookup time (ms): 17.53854751586914
-ev lookup time (ms): 17.7004337310791
-ev lookup time (ms): 17.272233963012695
-ev lookup time (ms): 17.531394958496094
-ev lookup time (ms): 17.57955551147461
-ev lookup time (ms): 17.810344696044922
-ev lookup time (ms): 17.80533790588379
-ev lookup time (ms): 17.511606216430664
-ev lookup time (ms): 17.353534698486328
-ev lookup time (ms): 17.48943328857422
-ev lookup time (ms): 17.29106903076172
-ev lookup time (ms): 17.602920532226562
-ev lookup time (ms): 17.18735694885254
-ev lookup time (ms): 17.729759216308594
-ev lookup time (ms): 18.213748931884766
-ev lookup time (ms): 18.169641494750977
-ev lookup time (ms): 24.263620376586914
-ev lookup time (ms): 17.96698570251465
-ev lookup time (ms): 17.19045639038086
-ev lookup time (ms): 17.96436309814453
-ev lookup time (ms): 17.366886138916016
-ev lookup time (ms): 17.2574520111084
-ev lookup time (ms): 17.670869827270508
-ev lookup time (ms): 17.7001953125
-ev lookup time (ms): 18.441438674926758
-ev lookup time (ms): 18.39470863342285
-ev lookup time (ms): 17.90595054626465
-ev lookup time (ms): 17.333030700683594
-ev lookup time (ms): 18.073320388793945
-ev lookup time (ms): 17.87734031677246
-ev lookup time (ms): 17.99941062927246
-ev lookup time (ms): 18.094778060913086
-ev lookup time (ms): 17.587900161743164
-ev lookup time (ms): 18.00823211669922
-ev lookup time (ms): 18.39756965637207
-ev lookup time (ms): 17.14181900024414
-ev lookup time (ms): 17.802715301513672
-ev lookup time (ms): 17.205476760864258
-ev lookup time (ms): 18.680334091186523
-ev lookup time (ms): 17.533063888549805
-ev lookup time (ms): 18.342971801757812
-ev lookup time (ms): 17.725467681884766
-ev lookup time (ms): 18.071651458740234
-ev lookup time (ms): 17.777442932128906
-ev lookup time (ms): 17.913103103637695
-to cache num: 10
-to cache num: 10
-to cache num: 10
 to cache num: 10
 to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 11
-to cache num: 9
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 10
 to cache num: 11
 to cache num: 11
 to cache num: 10
@@ -736,6 +439,26 @@ to cache num: 11
 to cache num: 10
 to cache num: 10
 to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 10
 to cache num: 10
 to cache num: 9
 to cache num: 10
@@ -744,2353 +467,1831 @@ to cache num: 11
 to cache num: 10
 to cache num: 10
 to cache num: 10
-to cache num: 11
 to cache num: 10
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 11
-to cache num: 10
-to cache num: 9
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 11
 to cache num: 10
 to cache num: 10
 to cache num: 10
 to cache num: 9
 to cache num: 10
-to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 10
 to cache num: 10
 to cache num: 10
 to cache num: 11
 to cache num: 10
-to cache num: 11
 to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 11
+to cache num: 9
 to cache num: 10
 to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to
-ev lookup time (ms): 17.310142517089844
-ev lookup time (ms): 17.70305633544922
+to cache num: 9
+to 
+ev lookup time (ms): 17.763614654541016
+ev lookup time (ms): 18.12601089477539
+ev lookup time (ms): 17.971515655517578
+ev lookup time (ms): 18.995046615600586
+ev lookup time (ms): 18.58353614807129
+ev lookup time (ms): 17.949342727661133
+ev lookup time (ms): 17.79031753540039
+ev lookup time (ms): 17.655134201049805
+ev lookup time (ms): 18.085002899169922
+ev lookup time (ms): 17.791271209716797
+ev lookup time (ms): 18.172264099121094
 ev lookup time (ms): 17.83442497253418
-ev lookup time (ms): 17.238378524780273
-ev lookup time (ms): 18.27239990234375
-ev lookup time (ms): 18.30315589904785
-ev lookup time (ms): 17.94600486755371
-ev lookup time (ms): 16.941547393798828
-ev lookup time (ms): 18.05257797241211
-ev lookup time (ms): 17.36736297607422
-ev lookup time (ms): 17.95792579650879
-ev lookup time (ms): 17.767667770385742
-ev lookup time (ms): 17.046451568603516
-ev lookup time (ms): 18.168210983276367
-ev lookup time (ms): 17.797231674194336
-ev lookup time (ms): 17.03953742980957
-ev lookup time (ms): 17.600297927856445
-ev lookup time (ms): 17.856359481811523
-ev lookup time (ms): 17.78244972229004
-ev lookup time (ms): 17.848491668701172
-ev lookup time (ms): 17.908096313476562
-ev lookup time (ms): 17.893552780151367
-ev lookup time (ms): 17.97175407409668
-ev lookup time (ms): 17.685890197753906
-ev lookup time (ms): 17.390966415405273
-ev lookup time (ms): 17.410755157470703
-ev lookup time (ms): 17.514705657958984
-ev lookup time (ms): 17.68183708190918
-ev lookup time (ms): 18.315553665161133
-ev lookup time (ms): 17.679214477539062
-ev lookup time (ms): 17.698049545288086
-ev lookup time (ms): 18.012523651123047
-ev lookup time (ms): 17.95196533203125
-ev lookup time (ms): 18.04208755493164
-ev lookup time (ms): 17.51089096069336
-ev lookup time (ms): 17.501354217529297
-ev lookup time (ms): 18.2497501373291
-ev lookup time (ms): 17.781972885131836
-ev lookup time (ms): 18.154382705688477
-ev lookup time (ms): 16.945838928222656
-ev lookup time (ms): 17.3647403717041
-ev lookup time (ms): 17.570972442626953
-ev lookup time (ms): 18.02825927734375
-ev lookup time (ms): 17.446517944335938
-ev lookup time (ms): 17.19045639038086
-ev lookup time (ms): 17.38882064819336
-ev lookup time (ms): 17.663240432739258
-ev lookup time (ms): 16.295433044433594
-ev lookup time (ms): 17.785310745239258
-ev lookup time (ms): 17.760038375854492
-ev lookup time (ms): 17.851591110229492
-ev lookup time (ms): 17.76432991027832
-ev lookup time (ms): 17.604351043701172
-ev lookup time (ms): 17.603158950805664
-ev lookup time (ms): 16.96300506591797
-ev lookup time (ms): 17.568588256835938
-ev lookup time (ms): 17.149925231933594
-ev lookup time (ms): 17.818689346313477
-ev lookup time (ms): 17.09294319152832
-ev lookup time (ms): 17.607688903808594
-ev lookup time (ms): 17.43292808532715
-ev lookup time (ms): 18.034934997558594
-ev lookup time (ms): 17.488956451416016
-ev lookup time (ms): 17.49563217163086
-ev lookup time (ms): 17.829418182373047
-ev lookup time (ms): 17.974853515625
-ev lookup time (ms): 17.516374588012695
-ev lookup time (ms): 18.386363983154297
-ev lookup time (ms): 18.131494522094727
-ev lookup time (ms): 17.98844337463379
-ev lookup time (ms): 17.873764038085938
-ev lookup time (ms): 17.84038543701172
-ev lookup time (ms): 17.67253875732422
-ev lookup time (ms): 18.131494522094727
-ev lookup time (ms): 18.147945404052734
-ev lookup time (ms): 17.2576904296875
-ev lookup time (ms): 17.0590877532959
-ev lookup time (ms): 17.47894287109375
-ev lookup time (ms): 17.168045043945312
-ev lookup time (ms): 17.479658126831055
-ev lookup time (ms): 22.04442024230957
-ev lookup time (ms): 17.707347869873047
-ev lookup time (ms): 18.09239387512207
-ev lookup time (ms): 18.393516540527344
-ev lookup time (ms): 18.805742263793945
-ev lookup time (ms): 18.164634704589844
-ev lookup time (ms): 17.354965209960938
-ev lookup time (ms): 18.055438995361328
-ev lookup time (ms): 17.775297164916992
-ev lookup time (ms): 17.399072647094727
-ev lookup time (ms): 17.238855361938477
-ev lookup time (ms): 17.898082733154297
-ev lookup time (ms): 17.803430557250977
-ev lookup time (ms): 18.849849700927734
-ev lookup time (ms): 17.63296127319336
-ev lookup time (ms): 17.98391342163086
-ev lookup time (ms): 18.009185791015625
-ev lookup time (ms): 17.542123794555664
-ev lookup time (ms): 17.620325088500977
-ev lookup time (ms): 17.323732376098633
-ev lookup time (ms): 17.16756820678711
-ev lookup time (ms): 17.151355743408203
-ev lookup time (ms): 17.342567443847656
-ev lookup time (ms): 17.785072326660156
-ev lookup time (ms): 17.35997200012207
-ev lookup time (ms): 17.67134666442871
-ev lookup time (ms): 112.67924308776855
-ev lookup time (ms): 101.62878036499023
-ev lookup time (ms): 99.53951835632324
-ev lookup time (ms): 97.46479988098145
-ev lookup time (ms): 97.19586372375488
-ev lookup time (ms): 64.8798942565918
-ev lookup time (ms): 66.27368927001953
-ev lookup time (ms): 62.12663650512695
-ev lookup time (ms): 61.83290481567383
-ev lookup time (ms): 62.55221366882324
-ev lookup time (ms): 62.09254264831543
-ev lookup time (ms): 54.189205169677734
-ev lookup time (ms): 55.49764633178711
-ev lookup time (ms): 54.448843002319336
-ev lookup time (ms): 54.88324165344238
-ev lookup time (ms): 51.552534103393555
-ev lookup time (ms): 49.333810806274414
-ev lookup time (ms): 50.31871795654297
-ev lookup time (ms): 41.027069091796875
-ev lookup time (ms): 41.50891304016113
-ev lookup time (ms): 41.963815689086914
-ev lookup time (ms): 40.320396423339844
-ev lookup time (ms): 38.07663917541504
-ev lookup time (ms): 38.85173797607422
-ev lookup time (ms): 39.09635543823242
-ev lookup time (ms): 39.25895690917969
-ev lookup time (ms): 35.294532775878906
-ev lookup time (ms): 35.79258918762207
-ev lookup time (ms): 32.76705741882324
-ev lookup time (ms): 32.79566764831543
-ev lookup time (ms): 32.319068908691406
-ev lookup time (ms): 33.89120101928711
-ev lookup time (ms): 32.134294509887695
-ev lookup time (ms): 32.30118751525879
-ev lookup time (ms): 32.25564956665039
-ev lookup time (ms): 32.82737731933594
-ev lookup time (ms): 30.466794967651367
-ev lookup time (ms): 31.5396785736084
-ev lookup time (ms): 30.06720542907715
-ev lookup time (ms): 30.86709976196289
-ev lookup time (ms): 31.26215934753418
-ev lookup time (ms): 30.224323272705078
-ev lookup time (ms): 28.84674072265625
-ev lookup time (ms): 29.233217239379883
-ev lookup time (ms): 28.609752655029297
-ev lookup time (ms): 29.280900955200195
-ev lookup time (ms): 29.45423126220703
-ev lookup time (ms): 28.63025665283203
-ev lookup time (ms): 28.46980094909668
-ev lookup time (ms): 28.879880905151367
-ev lookup time (ms): 31.08501434326172
-ev lookup time (ms): 27.74667739868164
-ev lookup time (ms): 26.875734329223633
-ev lookup time (ms): 26.39031410217285
-ev lookup time (ms): 27.95100212097168
-ev lookup time (ms): 26.952028274536133
-ev lookup time (ms): 26.230573654174805
-ev lookup time (ms): 26.676177978515625
-ev lookup time (ms): 26.328563690185547
-ev lookup time (ms): 27.294397354125977
-ev lookup time (ms): 25.977611541748047
-ev lookup time (ms): 25.806427001953125
-ev lookup time (ms): 25.99644660949707
-ev lookup time (ms): 26.62515640258789
-ev lookup time (ms): 25.754690170288086
-ev lookup time (ms): 26.103734970092773
-ev lookup time (ms): 25.14338493347168
-ev lookup time (ms): 25.69437026977539
-ev lookup time (ms): 25.302648544311523
-ev lookup time (ms): 24.814844131469727
-ev lookup time (ms): 24.948596954345703
-ev lookup time (ms): 24.923324584960938
-ev lookup time (ms): 25.944232940673828
-ev lookup time (ms): 24.14870262145996
-ev lookup time (ms): 24.450063705444336
-ev lookup time (ms): 24.144411087036133
-ev lookup time (ms): 24.203777313232422
-ev lookup time (ms): 24.469375610351562
-ev lookup time (ms): 23.764371871948242
-ev lookup time (ms): 24.343013763427734
-ev lookup time (ms): 23.345947265625
-ev lookup time (ms): 24.29652214050293
-ev lookup time (ms): 23.7729549407959
-ev lookup time (ms): 23.246288299560547
-ev lookup time (ms): 23.919343948364258
-ev lookup time (ms): 24.11365509033203
-ev lookup time (ms): 23.441791534423828
-ev lookup time (ms): 23.19788932800293
-ev lookup time (ms): 24.10745620727539
-ev lookup time (ms): 23.853063583374023
-ev lookup time (ms): 23.876190185546875
-ev lookup time (ms): 23.395538330078125
-ev lookup time (ms): 22.089242935180664
-ev lookup time (ms): 23.271560668945312
-ev lookup time (ms): 23.191213607788086
-ev lookup time (ms): 22.965669631958008
-ev lookup time (ms): 22.207260131835938
-ev lookup time (ms): 22.07326889038086
-ev lookup time (ms): 21.879196166992188
-ev lookup time (ms): 22.550582885742188
-ev lookup time (ms): 21.698474884033203
-ev lookup time (ms): 21.4078426361084 cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 10
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 11
-to cache num: 8
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 7
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 8
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 8
-to cache num: 8
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 8
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 8
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to c
-ev lookup time (ms): 21.405696868896484
-ev lookup time (ms): 21.65842056274414
-ev lookup time (ms): 21.239519119262695
-ev lookup time (ms): 21.80767059326172
-ev lookup time (ms): 21.05545997619629
-ev lookup time (ms): 21.334171295166016
-ev lookup time (ms): 20.749807357788086
-ev lookup time (ms): 20.91836929321289
-ev lookup time (ms): 21.503210067749023
-ev lookup time (ms): 20.919322967529297
-ev lookup time (ms): 20.336389541625977
-ev lookup time (ms): 21.070241928100586
-ev lookup time (ms): 21.18849754333496
-ev lookup time (ms): 21.252155303955078
-ev lookup time (ms): 20.68352699279785
-ev lookup time (ms): 21.229028701782227
-ev lookup time (ms): 20.740747451782227
-ev lookup time (ms): 20.592212677001953
-ev lookup time (ms): 20.24555206298828
-ev lookup time (ms): 20.322322845458984
-ev lookup time (ms): 20.526647567749023
-ev lookup time (ms): 20.099878311157227
-ev lookup time (ms): 20.96104621887207
-ev lookup time (ms): 20.30205726623535
-ev lookup time (ms): 20.34139633178711
-ev lookup time (ms): 20.33257484436035
-ev lookup time (ms): 19.661664962768555
-ev lookup time (ms): 20.20740509033203
-ev lookup time (ms): 20.75052261352539
-ev lookup time (ms): 20.967960357666016
-ev lookup time (ms): 20.516395568847656
-ev lookup time (ms): 20.895957946777344
-ev lookup time (ms): 20.238876342773438
-ev lookup time (ms): 20.840883255004883
-ev lookup time (ms): 20.63274383544922
-ev lookup time (ms): 20.492076873779297
-ev lookup time (ms): 20.924091339111328
-ev lookup time (ms): 20.905733108520508
-ev lookup time (ms): 20.481109619140625
-ev lookup time (ms): 19.997596740722656
-ev lookup time (ms): 20.703792572021484
-ev lookup time (ms): 20.905733108520508
-ev lookup time (ms): 19.653797149658203
-ev lookup time (ms): 20.16305923461914
-ev lookup time (ms): 19.99068260192871
-ev lookup time (ms): 20.102500915527344
-ev lookup time (ms): 20.06244659423828
-ev lookup time (ms): 19.986629486083984
-ev lookup time (ms): 19.71125602722168
-ev lookup time (ms): 18.727779388427734
-ev lookup time (ms): 20.153522491455078
-ev lookup time (ms): 19.200801849365234
-ev lookup time (ms): 19.848108291625977
-ev lookup time (ms): 19.500732421875
-ev lookup time (ms): 19.307851791381836
-ev lookup time (ms): 19.95372772216797
-ev lookup time (ms): 19.452810287475586
-ev lookup time (ms): 18.8291072845459
-ev lookup time (ms): 20.02120018005371
-ev lookup time (ms): 18.81718635559082
-ev lookup time (ms): 18.207550048828125
-ev lookup time (ms): 18.765926361083984
-ev lookup time (ms): 19.336462020874023
-ev lookup time (ms): 19.200563430786133
-ev lookup time (ms): 19.002676010131836
-ev lookup time (ms): 18.35465431213379
-ev lookup time (ms): 18.94998550415039
-ev lookup time (ms): 19.81973648071289
-ev lookup time (ms): 19.449234008789062
-ev lookup time (ms): 18.863439559936523
-ev lookup time (ms): 21.492719650268555
-ev lookup time (ms): 18.399715423583984
-ev lookup time (ms): 19.087553024291992
-ev lookup time (ms): 18.552780151367188
-ev lookup time (ms): 19.570350646972656
-ev lookup time (ms): 19.321203231811523
-ev lookup time (ms): 19.13762092590332
-ev lookup time (ms): 18.523693084716797
-ev lookup time (ms): 18.872499465942383
-ev lookup time (ms): 19.42276954650879
-ev lookup time (ms): 19.599437713623047
-ev lookup time (ms): 18.459796905517578
-ev lookup time (ms): 18.71800422668457
-ev lookup time (ms): 18.800973892211914
-ev lookup time (ms): 18.952369689941406
-ev lookup time (ms): 18.62168312072754
-ev lookup time (ms): 18.499374389648438
-ev lookup time (ms): 18.32890510559082
-ev lookup time (ms): 18.709897994995117
-ev lookup time (ms): 18.37944984436035
-ev lookup time (ms): 18.18060874938965
-ev lookup time (ms): 18.727540969848633
-ev lookup time (ms): 18.294334411621094
-ev lookup time (ms): 18.941640853881836
-ev lookup time (ms): 18.440723419189453
-ev lookup time (ms): 18.46623420715332
-ev lookup time (ms): 18.72849464416504
-ev lookup time (ms): 18.01156997680664
-ev lookup time (ms): 19.559621810913086
-ev lookup time (ms): 18.447399139404297
-ev lookup time (ms): 17.918825149536133
-ev lookup time (ms): 18.491268157958984
-ev lookup time (ms): 18.84913444519043
-ev lookup time (ms): 19.118785858154297
-ev lookup time (ms): 18.236398696899414
-ev lookup time (ms): 18.15629005432129
-ev lookup time (ms): 18.49985122680664
-ev lookup time (ms): 18.40949058532715
-ev lookup time (ms): 17.805814743041992
-ev lookup time (ms): 18.067121505737305
-ev lookup time (ms): 19.47808265686035
-ev lookup time (ms): 18.708229064941406
-ev lookup time (ms): 18.316268920898438
-ev lookup time (ms): 18.596887588500977
-ev lookup time (ms): 18.921375274658203
-ev lookup time (ms): 18.070459365844727
-ev lookup time (ms): 18.894433975219727
-ev lookup time (ms): 18.068552017211914
-ev lookup time (ms): 18.16248893737793
-ev lookup time (ms): 17.978429794311523
-ev lookup time (ms): 18.953323364257812
-ev lookup time (ms): 18.569469451904297
-ev lookup time (ms): 18.366575241088867
-ev lookup time (ms): 18.268108367919922
-ev lookup time (ms): 18.40043067932129
-ev lookup time (ms): 18.713951110839844
-ev lookup time (ms): 23.041963577270508
-ev lookup time (ms): 18.309593200683594
-ev lookup time (ms): 18.517255783081055
-ev lookup time (ms): 18.19443702697754
-ev lookup time (ms): 18.97454261779785
-ev lookup time (ms): 18.319129943847656
-ev lookup time (ms): 18.18084716796875
-ev lookup time (ms): 17.99178123474121
-ev lookup time (ms): 17.916202545166016
+ev lookup time (ms): 18.2034969329834
+ev lookup time (ms): 18.324613571166992
+ev lookup time (ms): 18.565654754638672
+ev lookup time (ms): 18.212556838989258
+ev lookup time (ms): 18.213987350463867
+ev lookup time (ms): 18.312931060791016
+ev lookup time (ms): 18.50748062133789
+ev lookup time (ms): 17.911195755004883
+ev lookup time (ms): 18.09096336364746
+ev lookup time (ms): 17.80867576599121
+ev lookup time (ms): 18.063783645629883
+ev lookup time (ms): 18.490076065063477
+ev lookup time (ms): 17.789840698242188
+ev lookup time (ms): 17.80533790588379
+ev lookup time (ms): 18.1119441986084
+ev lookup time (ms): 18.056392669677734
+ev lookup time (ms): 18.043994903564453
+ev lookup time (ms): 19.29616928100586
+ev lookup time (ms): 18.173933029174805
+ev lookup time (ms): 17.559051513671875
+ev lookup time (ms): 17.940759658813477
+ev lookup time (ms): 17.854690551757812
+ev lookup time (ms): 17.658472061157227
+ev lookup time (ms): 18.407821655273438
+ev lookup time (ms): 18.091917037963867
+ev lookup time (ms): 18.12601089477539
+ev lookup time (ms): 18.05400848388672
 ev lookup time (ms): 18.06020736694336
-ev lookup time (ms): 18.634319305419922
-ev lookup time (ms): 18.097877502441406
-ev lookup time (ms): 17.95053482055664
-ev lookup time (ms): 17.98248291015625
-ev lookup time (ms): 18.777132034301758
-ev lookup time (ms): 18.867015838623047
-ev lookup time (ms): 17.451047897338867
-ev lookup time (ms): 18.55015754699707
-ev lookup time (ms): 18.543243408203125
-ev lookup time (ms): 18.11361312866211
-ev lookup time (ms): 18.103361129760742
-ev lookup time (ms): 18.118858337402344
-ev lookup time (ms): 18.504619598388672
-ev lookup time (ms): 18.003463745117188
-ev lookup time (ms): 18.3563232421875
-ev lookup time (ms): 17.948627471923828
-ev lookup time (ms): 18.21732521057129
-ev lookup time (ms): 17.96269416809082
-ev lookup time (ms): 18.072843551635742
-ev lookup time (ms): 18.32890510559082
-ev lookup time (ms): 17.94266700744629
-ev lookup time (ms): 18.051862716674805
-ev lookup time (ms): 17.829418182373047
-ev lookup time (ms): 17.849206924438477
-ev lookup time (ms): 18.059968948364258
-ev lookup time (ms): 17.693042755126953
-ev lookup time (ms): 17.427444458007812
-ev lookup time (ms): 17.84205436706543
-ev lookup time (ms): 18.728971481323242
-ev lookup time (ms): 17.743825912475586
-ev lookup time (ms): 17.735958099365234
-ev lookup time (ms): 17.988204956054688
-ev lookup time (ms): 18.526315689086914
-ev lookup time (ms): 17.602205276489258
-ev lookup time (ms): 17.645597457885742
-ev lookup time (ms): 17.50493049621582
-ev lookup time (ms): 17.954349517822266
-ev lookup time (ms): 18.013954162597656
-ev lookup time (ms): 18.663883209228516
-ev lookup time (ms): 18.63241195678711
-ev lookup time (ms): 17.980575561523438
-ev lookup time (ms): 17.168760299682617
-ev lookup time (ms): 18.110275268554688
-ev lookup time (ms): 18.277406692504883
-ev lookup time (ms): 17.91691780090332
-ev lookup time (ms): 17.61031150817871
-ev lookup time (ms): 17.485618591308594
-ev lookup time (ms): 17.96722412109375
-ev lookup time (ms): 17.480134963989258
-ev lookup time (ms): 17.974138259887695
-ev lookup time (ms): 17.598867416381836
-ev lookup time (ms): 17.504215240478516
-ev lookup time (ms): 17.732858657836914
-ev lookup time (ms): 17.732858657836914
-ev lookup time (ms): 18.107175827026367
-ev lookup time (ms): 20.021915435791016
-ev lookup time (ms): 18.896102905273438
-ev lookup time (ms): 18.407583236694336
-ev lookup time (ms): 18.291950225830078
-ev lookup time (ms): 18.35012435913086
-ev lookup time (ms): 17.731666564941406
-ev lookup time (ms): 18.33963394165039
-ev lookup time (ms): 19.1953182220459
-ev lookup time (ms): 18.83244514465332
-ev lookup time (ms): 18.345355987548828
-ev lookup time (ms): 18.393993377685547
-ev lookup time (ms): 18.32127571105957
-ev lookup time (ms): 17.687082290649414
-ev lookup time (ms): 18.195629119873047
-ev lookup time (ms): 18.186569213867188
-ev lookup time (ms): 17.673969268798828ache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 9
-to cache num: 10
-to cache num: 10
-to cache num: 9
-to cache num: 9
-2506
-2244
-1760
-1530
-1151
-950
-814
-858
-792
-655
-601
-584
-586
-552
-533
-551
-524
-525
-467
-493
-461
-459
-438
-450
-415
-397
-382
-388
-364
-368
-361
-395
-362
-363
-346
-332
-358
-334
-324
-334
-329
-339
-311
-311
-293
-306
-281
-282
-262
-274
-279
-282
-280
-275
-269
-253
-260
-250
-259
-258
-265
-227
-258
-242
-253
-228
-250
-237
-250
-229
-234
-231
-224
-246
-225
-238
-212
-221
-216
-221
-243
-218
-212
-221
-208
-201
-217
-225
-218
-193
-210
-200
-200
-203
-199
-216
-208
-194
-188
-209
-187
-178
-191
-193
-172
-180
-175
-185
-184
-189
-179
-163
-173
-184
-168
-195
-172
-177
-178
-167
-178
-188
-176
-170
-173
-176
-171
-162
-164
-166
-144
-170
-172
-161
-163
-166
-168
-150
-163
-163
-172
-169
-153
-172
-167
-140
-145
-160
-161
-152
-147
-159
-150
-152
-156
-142
-149
-156
-147
-153
-149
-150
-145
-151
-156
-136
-145
-154
-151
-160
-149
-155
-145
-153
-145
-147
-138
-147
-144
-139
-155
-145
-155
-143
-153
-139
-142
-149
-142
-147
-145
-138
-150
-145
-135
-140
-150
-135
-142
-138
-147
-148
-143
-126
-132
-145
-153
-142
-156
-139
-136
-144
-164
-151
-139
-132
-158
-143
-145
-136
-137
-145
-143
-151
-140
-136
-137
-147
-134
-135
-134
-152
-134
-128
-136
-124
-134
-135
-136
-140
-126
-139
-144
-143
-138
-130
-139
-133
-150
-139
-138
-132
-145
-144
-134
-141
-134
-127
-132
-132
-132
-140
-142
-128
-140
-136
-124
-143
-141
-145
-126
-141
-131
-129
-143
-134
-133
-133
-140
-132
-129
-129
-131
-119
-130
-132
-139
-147
-133
-131
-136
-128
-145
-137
-126
-135
-128
-126
-133
-143
-140
-132
-125
-142
-122
-119
-118
-124
-132
-133
-127
-137
-122
-121
-139
-129
-131
-120
-121
-128
-123
-128
-123
-137
-122
-139
-127
-122
-137
-127
-135
-122
-128
-130
-124
-114
-127
-127
-135
-128
-131
-127
-137
-126
-136
-140
-126
-130
-124
-121
-116
-120
-147
-130
-135
-129
-122
-127
-131
-120
-125
-119
-116
-127
-132
-136
-121
-131
-128
-114
-123
-120
-117
-120
-131
-124
-123
-133
-130
-133
-129
-134
-111
-118
-133
-126
-127
-126
-125
-118
-113
-127
-130
-117
-124
-123
-129
-123
-132
-122
-124
-111
-130
-119
-124
-122
-120
-133
-119
-109
-119
-111
-117
-111
-127
-127
-128
-124
-117
-116
-122
-123
-124
-122
-121
-123
-119
-134
-118
-128
-124
-118
-125
-116
-124
-121
-127
-118
-117
-111
-116
-120
-126
-110
-108
-116
-114
-116
-116
-114
-111
-113
-112
-135
-116
-113
-110
-110
-122
-130
-113
-121
-120
-114
-116
-124
-134
-115
-115
-113
-108
-120
-116
-123
-126
-114
-119
-119
-124
-126
-108
-117
-116
-113
-140
-116
-112
-126
-115
-117
-130
-114
-116
-108
-120
-102
-112
-116
-113
-118
-2517
-2502
-2493
-2440
-2437
-1480
-1478
-1390
-1391
-1419
-1391
-1165
-1195
-1172
-1184
-1064
-1007
-1039
-786
-800
-812
-758
-704
-703
-740
-746
-603
-631
-551
-522
-544
-594
-533
-540
-533
-533
-497
-522
-489
-507
-521
-484
-442
-465
-444
-471
-458
-469
-421
-449
-508
-380
-387
-383
-429
-395
-379
-380
-362
-382
-363
-341
-338
-360
-341
-331
-324
-327
-328
-326
-333
-331
-349
-306
-306
-302
-300
-296
-318
-308
-295
-284
-288
-263
-287
-286
-290
-270
-288
-277
-280
-275
-252
-269
-270
-260
-237
-235
-237
-241
-261
-239
-236
-250
-235
-251
-228
-240
-227
-221
-237
-236
-211
-213
-226
-216
-220
-230
-245
-221
-213
-213
-214
-231
-232
-210
-208
-210
-206
-210
-234
-233
-214
-223
-197
-213
-211
-202
-222
-222
-201
-196
-219
-223
-208
-209
-198
-202
-201
-193
-199
-178
-204
-193
-195
-191
-201
-198
-192
-179
-205
-190
-178
-182
-179
-192
-178
-181
-187
-196
-184
-182
-173
-171
-180
-176
-195
-199
-177
-162
-183
-192
-199
-174
-167
-170
-183
-188
-171
-181
-179
-167
-164
-183
-173
-175
-169
-171
-183
-164
-179
-161
-165
-162
-172
-181
-180
-182
-166
-176
-164
-176
-187
-175
-168
-174
-162
-161
-164
-169
-171
-157
-174
-180
-154
-163
-185
-166
-181
-165
-170
-159
-183
-163
-172
-166
-158
-161
-174
-167
-166
-160
-174
-182
-145
-180
-167
-167
-167
-152
-169
-152
-169
-166
-162
-167
-167
-169
-172
-181
-158
-158
-159
-156
-153
-161
-174
-164
-161
-170
-163
-177
-161
-145
-162
-176
-180
-175
-155
-144
-166
-159
-169
-153
-160
-178
-159
-165
-154
-152
-157
-164
-158
-150
-160
-167
-148
-157
-151
-151
-155
-172
-159
-165
-162
-171
-163
-167
-170
-156
-170
-172
-177
-159
-170
-175
-161
-176
-154
-158
-148
-157
-152
-153
-142
-144
-156
-167
-151
-146
-164
-153
-151
-160
-167
-161
-170
-164
-161
-153
-167
-165
-154
-148
-154
-145
-168
-146
-152
-159
-148
-160
-153
-180
-179
-178
-169
-165
-168
-143
-153
-148
-139
-157
-168
-174
-155
-161
-159
-154
-180
-172
-164
-154
-162
-162
-157
-171
-151
-171
-150
-146
-152
-153
-165
-153
-165
-167
-160
-152
-154
-153
-163
-167
-155
-149
-160
-150
-163
-155
-157
-157
-170
-162
-146
-169
-
-ev lookup time (ms): 17.948389053344727
-ev lookup time (ms): 18.648624420166016
-ev lookup time (ms): 18.477916717529297
-ev lookup time (ms): 18.22042465209961
-ev lookup time (ms): 17.558574676513672
-ev lookup time (ms): 18.577098846435547
-ev lookup time (ms): 19.199371337890625
-ev lookup time (ms): 18.46623420715332
-ev lookup time (ms): 18.850326538085938
-ev lookup time (ms): 18.283605575561523
-ev lookup time (ms): 18.613815307617188
-ev lookup time (ms): 17.828941345214844
-ev lookup time (ms): 18.814802169799805
-ev lookup time (ms): 17.994403839111328
-ev lookup time (ms): 18.12887191772461
-ev lookup time (ms): 18.04804801940918
-ev lookup time (ms): 17.301082611083984
-ev lookup time (ms): 17.794132232666016
-ev lookup time (ms): 18.512964248657227
-ev lookup time (ms): 17.512083053588867
-ev lookup time (ms): 17.227888107299805
-ev lookup time (ms): 18.29838752746582
-ev lookup time (ms): 18.013477325439453
-ev lookup time (ms): 17.93670654296875
-ev lookup time (ms): 18.49675178527832
-ev lookup time (ms): 17.951488494873047
-ev lookup time (ms): 17.321348190307617
-ev lookup time (ms): 18.73159408569336
-ev lookup time (ms): 17.66657829284668
-ev lookup time (ms): 18.105030059814453
-ev lookup time (ms): 18.062353134155273
-ev lookup time (ms): 17.5936222076416
-ev lookup time (ms): 18.43547821044922
-ev lookup time (ms): 17.63916015625
-ev lookup time (ms): 17.603158950805664
-ev lookup time (ms): 18.383264541625977
-ev lookup time (ms): 17.403364181518555
-ev lookup time (ms): 17.908096313476562
-ev lookup time (ms): 17.255306243896484
-ev lookup time (ms): 21.363258361816406
-ev lookup time (ms): 17.14015007019043
-ev lookup time (ms): 18.029451370239258
-ev lookup time (ms): 18.384456634521484
-ev lookup time (ms): 18.1729793548584
-ev lookup time (ms): 17.8530216217041
-ev lookup time (ms): 18.78643035888672
-ev lookup time (ms): 18.985986709594727
-ev lookup time (ms): 18.155574798583984
-ev lookup time (ms): 18.06950569152832
-ev lookup time (ms): 18.660545349121094
-ev lookup time (ms): 17.610788345336914
-ev lookup time (ms): 18.414974212646484
-ev lookup time (ms): 17.963409423828125
-ev lookup time (ms): 17.850637435913086
-ev lookup time (ms): 17.893075942993164
-ev lookup time (ms): 18.81551742553711
-ev lookup time (ms): 17.600297927856445
-ev lookup time (ms): 18.399953842163086
-ev lookup time (ms): 18.535614013671875
-ev lookup time (ms): 18.294334411621094
-ev lookup time (ms): 18.004417419433594
-ev lookup time (ms): 19.07658576965332
-ev lookup time (ms): 18.38994026184082
-ev lookup time (ms): 18.49055290222168
-ev lookup time (ms): 17.756223678588867
-ev lookup time (ms): 18.500566482543945
-ev lookup time (ms): 18.39447021484375
-ev lookup time (ms): 17.86041259765625
-ev lookup time (ms): 18.277645111083984
-ev lookup time (ms): 18.038272857666016
-ev lookup time (ms): 18.120288848876953
-ev lookup time (ms): 18.045425415039062
-ev lookup time (ms): 17.27604866027832
-ev lookup time (ms): 17.588376998901367
-ev lookup time (ms): 18.013954162597656
-ev lookup time (ms): 18.189668655395508
-ev lookup time (ms): 18.04661750793457
-ev lookup time (ms): 18.408775329589844
-ev lookup time (ms): 18.549680709838867
-ev lookup time (ms): 17.693281173706055
-ev lookup time (ms): 18.47243309020996
-ev lookup time (ms): 17.813920974731445
-ev lookup time (ms): 18.218040466308594
-ev lookup time (ms): 17.563343048095703
-ev lookup time (ms): 18.054962158203125
-ev lookup time (ms): 17.828941345214844
-ev lookup time (ms): 18.019676208496094
-ev lookup time (ms): 17.8680419921875
-ev lookup time (ms): 18.352031707763672
-ev lookup time (ms): 18.06330680847168
-ev lookup time (ms): 17.871856689453125
-ev lookup time (ms): 18.478870391845703
-ev lookup time (ms): 17.52948760986328
-ev lookup time (ms): 17.884254455566406
-ev lookup time (ms): 17.731904983520508
-ev lookup time (ms): 17.907381057739258
-ev lookup time (ms): 17.629623413085938
-ev lookup time (ms): 18.013477325439453
-ev lookup time (ms): 17.62676239013672
-ev lookup time (ms): 17.57645606994629
-ev lookup time (ms): 17.763376235961914
-ev lookup time (ms): 17.72284507751465
-ev lookup time (ms): 17.97318458557129
-ev lookup time (ms): 17.557382583618164
-ev lookup time (ms): 17.63629913330078
-ev lookup time (ms): 17.412424087524414
-ev lookup time (ms): 17.69733428955078
-ev lookup time (ms): 17.919540405273438
-ev lookup time (ms): 18.12744140625
-ev lookup time (ms): 16.78919792175293
-ev lookup time (ms): 17.814159393310547
-ev lookup time (ms): 17.18282699584961
-ev lookup time (ms): 18.58806610107422
-ev lookup time (ms): 18.065452575683594
-ev lookup time (ms): 18.050670623779297
-ev lookup time (ms): 17.821788787841797
-ev lookup time (ms): 18.61429214477539
-ev lookup time (ms): 17.98224449157715
-ev lookup time (ms): 17.51565933227539
-ev lookup time (ms): 17.26245880126953
-ev lookup time (ms): 17.573118209838867
-ev lookup time (ms): 17.84205436706543
-ev lookup time (ms): 17.565250396728516
-ev lookup time (ms): 18.22495460510254
-ev lookup time (ms): 18.157482147216797
-ev lookup time (ms): 17.855405807495117
-ev lookup time (ms): 18.05281639099121
-ev lookup time (ms): 17.919063568115234
-ev lookup time (ms): 17.298460006713867
-ev lookup time (ms): 18.148183822631836
-ev lookup time (ms): 18.365859985351562
-ev lookup time (ms): 18.17178726196289
-ev lookup time (ms): 17.798185348510742
-ev lookup time (ms): 17.780303955078125
-ev lookup time (ms): 17.74883270263672
-ev lookup time (ms): 17.865419387817383
-ev lookup time (ms): 17.783641815185547
-ev lookup time (ms): 17.60244369506836
-ev lookup time (ms): 18.16082000732422
-ev lookup time (ms): 17.697572708129883
-ev lookup time (ms): 17.616987228393555
-ev lookup time (ms): 17.577409744262695
-ev lookup time (ms): 17.681598663330078
-ev lookup time (ms): 17.63463020324707
-ev lookup time (ms): 18.002748489379883
-ev lookup time (ms): 17.457962036132812
-ev lookup time (ms): 17.431259155273438
-ev lookup time (ms): 18.279314041137695
-ev lookup time (ms): 18.285751342773438
-ev lookup time (ms): 18.559694290161133
-ev lookup time (ms): 17.588138580322266
-ev lookup time (ms): 17.053842544555664
-ev lookup time (ms): 17.831802368164062
-ev lookup time (ms): 17.14181900024414
-ev lookup time (ms): 18.416404724121094
-ev lookup time (ms): 17.908573150634766
-ev lookup time (ms): 17.439842224121094
+ev lookup time (ms): 18.117427825927734
+ev lookup time (ms): 18.34273338317871
+ev lookup time (ms): 18.0971622467041
+ev lookup time (ms): 17.362356185913086
+ev lookup time (ms): 17.40121841430664
+ev lookup time (ms): 17.96865463256836
+ev lookup time (ms): 17.946481704711914
+ev lookup time (ms): 18.517017364501953
+ev lookup time (ms): 18.101215362548828
+ev lookup time (ms): 17.623424530029297
+ev lookup time (ms): 17.57192611694336
+ev lookup time (ms): 17.641544342041016
+ev lookup time (ms): 18.04184913635254
+ev lookup time (ms): 17.84801483154297
+ev lookup time (ms): 17.46225357055664
+ev lookup time (ms): 17.99917221069336
+ev lookup time (ms): 18.056631088256836
+ev lookup time (ms): 18.153905868530273
+ev lookup time (ms): 18.805742263793945
+ev lookup time (ms): 18.42975616455078
+ev lookup time (ms): 18.38541030883789
+ev lookup time (ms): 17.748594284057617
+ev lookup time (ms): 19.1190242767334
+ev lookup time (ms): 18.51487159729004
+ev lookup time (ms): 18.720149993896484
+ev lookup time (ms): 17.90308952331543
+ev lookup time (ms): 17.725706100463867
+ev lookup time (ms): 18.022537231445312
+ev lookup time (ms): 17.611980438232422
+ev lookup time (ms): 18.151044845581055
+ev lookup time (ms): 18.357038497924805
+ev lookup time (ms): 18.107891082763672
+ev lookup time (ms): 17.732620239257812
+ev lookup time (ms): 17.56453514099121
+ev lookup time (ms): 17.80080795288086
+ev lookup time (ms): 17.950773239135742
+ev lookup time (ms): 18.67222785949707
+ev lookup time (ms): 21.62766456604004
+ev lookup time (ms): 18.210172653198242
+ev lookup time (ms): 18.497943878173828
+ev lookup time (ms): 18.14723014831543
+ev lookup time (ms): 18.19133758544922
+ev lookup time (ms): 17.175674438476562
 ev lookup time (ms): 18.12005043029785
-ev lookup time (ms): 17.78697967529297
-ev lookup time (ms): 17.48943328857422
-ev lookup time (ms): 18.202543258666992
-ev lookup time (ms): 17.489910125732422
-ev lookup time (ms): 17.179012298583984
-ev lookup time (ms): 18.054962158203125
-ev lookup time (ms): 17.467498779296875
-ev lookup time (ms): 18.119335174560547
-ev lookup time (ms): 17.689228057861328
-ev lookup time (ms): 17.35973358154297
-ev lookup time (ms): 17.72761344909668
-ev lookup time (ms): 17.226219177246094
-ev lookup time (ms): 17.888307571411133
-ev lookup time (ms): 18.398046493530273
-ev lookup time (ms): 17.440080642700195
-ev lookup time (ms): 18.282413482666016
-ev lookup time (ms): 18.281936645507812
-ev lookup time (ms): 17.873048782348633
+ev lookup time (ms): 18.243074417114258
+ev lookup time (ms): 18.72563362121582
+ev lookup time (ms): 18.204689025878906
+ev lookup time (ms): 17.835617065429688
+ev lookup time (ms): 18.105030059814453
+ev lookup time (ms): 17.682790756225586
+ev lookup time (ms): 17.55237579345703
+ev lookup time (ms): 17.645835876464844
+ev lookup time (ms): 17.554759979248047
+ev lookup time (ms): 17.858028411865234
+ev lookup time (ms): 17.986059188842773
+ev lookup time (ms): 17.872095108032227
+ev lookup time (ms): 16.721725463867188
+ev lookup time (ms): 17.659425735473633
+ev lookup time (ms): 18.543243408203125
+ev lookup time (ms): 18.087148666381836
+ev lookup time (ms): 17.63010025024414
+ev lookup time (ms): 17.724275588989258
+ev lookup time (ms): 17.714977264404297
+ev lookup time (ms): 17.65894889831543
+ev lookup time (ms): 17.60101318359375
+ev lookup time (ms): 17.92287826538086
+ev lookup time (ms): 17.910242080688477
+ev lookup time (ms): 18.99123191833496
+ev lookup time (ms): 17.665863037109375
+ev lookup time (ms): 17.83919334411621
+ev lookup time (ms): 17.362117767333984
+ev lookup time (ms): 18.12267303466797
+ev lookup time (ms): 17.192602157592773
+ev lookup time (ms): 17.948627471923828
+ev lookup time (ms): 17.86184310913086
+ev lookup time (ms): 17.81463623046875
+ev lookup time (ms): 17.71831512451172
+ev lookup time (ms): 18.2497501373291
+ev lookup time (ms): 18.215179443359375
+ev lookup time (ms): 17.878293991088867
+ev lookup time (ms): 17.744779586791992
+ev lookup time (ms): 17.74883270263672
+ev lookup time (ms): 17.32921600341797
+ev lookup time (ms): 18.58067512512207
+ev lookup time (ms): 18.070697784423828
+ev lookup time (ms): 17.99297332763672
+ev lookup time (ms): 17.68970489501953
+ev lookup time (ms): 17.612934112548828
+ev lookup time (ms): 17.384767532348633
+ev lookup time (ms): 18.140077590942383
+ev lookup time (ms): 18.523216247558594
+ev lookup time (ms): 17.22240447998047
+ev lookup time (ms): 17.568111419677734
+ev lookup time (ms): 18.192768096923828
+ev lookup time (ms): 18.457412719726562
+ev lookup time (ms): 17.888784408569336
+ev lookup time (ms): 17.815828323364258
+ev lookup time (ms): 17.383337020874023
+ev lookup time (ms): 17.83013343811035
+ev lookup time (ms): 17.498493194580078
+ev lookup time (ms): 18.149852752685547
+ev lookup time (ms): 17.587900161743164
+ev lookup time (ms): 18.02682876586914
+ev lookup time (ms): 17.499446868896484
+ev lookup time (ms): 17.140865325927734
+ev lookup time (ms): 17.67134666442871
+ev lookup time (ms): 18.334388732910156
+ev lookup time (ms): 18.07999610900879
+ev lookup time (ms): 17.76409149169922
+ev lookup time (ms): 16.831398010253906
+ev lookup time (ms): 17.5628662109375
+ev lookup time (ms): 17.38452911376953
+ev lookup time (ms): 17.899036407470703
+ev lookup time (ms): 17.786741256713867
+ev lookup time (ms): 18.013477325439453
+ev lookup time (ms): 18.088340759277344
+ev lookup time (ms): 17.842531204223633
+ev lookup time (ms): 18.680095672607422
+ev lookup time (ms): 17.813920974731445
+ev lookup time (ms): 18.009424209594727
+ev lookup time (ms): 17.862796783447266
+ev lookup time (ms): 18.19157600402832
+ev lookup time (ms): 18.817901611328125
+ev lookup time (ms): 17.385482788085938
+ev lookup time (ms): 17.683029174804688
+ev lookup time (ms): 17.49253273010254
+ev lookup time (ms): 17.50659942626953
+ev lookup time (ms): 17.345666885375977
+ev lookup time (ms): 17.60697364807129
+ev lookup time (ms): 18.56517791748047
+ev lookup time (ms): 17.63439178466797
+ev lookup time (ms): 17.914533615112305
+ev lookup time (ms): 17.38452911376953
+ev lookup time (ms): 17.47584342956543
+ev lookup time (ms): 17.507314682006836
+ev lookup time (ms): 17.421245574951172
+ev lookup time (ms): 17.845630645751953
+ev lookup time (ms): 17.762184143066406
+ev lookup time (ms): 17.53687858581543
+ev lookup time (ms): 17.90332794189453
+ev lookup time (ms): 17.483949661254883
+ev lookup time (ms): 17.23766326904297
+ev lookup time (ms): 17.46368408203125
+ev lookup time (ms): 17.342805862426758
+ev lookup time (ms): 16.781330108642578
+ev lookup time (ms): 17.702817916870117
+ev lookup time (ms): 17.67873764038086
+ev lookup time (ms): 18.141508102416992
+ev lookup time (ms): 17.884254455566406
+ev lookup time (ms): 17.594337463378906
+ev lookup time (ms): 17.459630966186523
+ev lookup time (ms): 17.545700073242188
+ev lookup time (ms): 17.441272735595703
+ev lookup time (ms): 18.019437789916992
+ev lookup time (ms): 17.891645431518555
+ev lookup time (ms): 17.195940017700195
+ev lookup time (ms): 18.032073974609375
+ev lookup time (ms): 18.28908920288086
+ev lookup time (ms): 17.163753509521484
+ev lookup time (ms): 17.100095748901367
+ev lookup time (ms): 17.257213592529297
+ev lookup time (ms): 17.962932586669922
+ev lookup time (ms): 16.904830932617188
+ev lookup time (ms): 17.58742332458496
+ev lookup time (ms): 17.191410064697266
+ev lookup time (ms): 17.792224884033203
+ev lookup time (ms): 17.439842224121094cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 9
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 9
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 9
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 9
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 9
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cach
+ev lookup time (ms): 17.46392250061035
+ev lookup time (ms): 17.531871795654297
+ev lookup time (ms): 17.052412033081055
+ev lookup time (ms): 17.932653427124023
+ev lookup time (ms): 17.3947811126709
+ev lookup time (ms): 18.024206161499023
+ev lookup time (ms): 18.121719360351562
+ev lookup time (ms): 18.468141555786133
+ev lookup time (ms): 17.817974090576172
+ev lookup time (ms): 18.505573272705078
+ev lookup time (ms): 18.215417861938477
+ev lookup time (ms): 18.132448196411133
+ev lookup time (ms): 18.242359161376953
+ev lookup time (ms): 17.765522003173828
+ev lookup time (ms): 18.004417419433594
+ev lookup time (ms): 17.711877822875977
+ev lookup time (ms): 17.520904541015625
+ev lookup time (ms): 17.55666732788086
+ev lookup time (ms): 18.37444305419922
+ev lookup time (ms): 17.46225357055664
+ev lookup time (ms): 17.409563064575195
+ev lookup time (ms): 18.024921417236328
+ev lookup time (ms): 22.448062896728516
+ev lookup time (ms): 18.64910125732422
+ev lookup time (ms): 17.836809158325195
+ev lookup time (ms): 17.643213272094727
+ev lookup time (ms): 17.14944839477539
+ev lookup time (ms): 16.927480697631836
+ev lookup time (ms): 17.8678035736084
+ev lookup time (ms): 17.951011657714844
+ev lookup time (ms): 17.8987979888916
+ev lookup time (ms): 17.787933349609375
+ev lookup time (ms): 17.524003982543945
+ev lookup time (ms): 17.362117767333984
+ev lookup time (ms): 17.7609920501709
+ev lookup time (ms): 17.883777618408203
+ev lookup time (ms): 17.82822608947754
+ev lookup time (ms): 18.452882766723633
+ev lookup time (ms): 17.61150360107422
+ev lookup time (ms): 17.821311950683594
+ev lookup time (ms): 17.184972763061523
+ev lookup time (ms): 17.250776290893555
+ev lookup time (ms): 17.792463302612305
+ev lookup time (ms): 18.19586753845215
+ev lookup time (ms): 17.27294921875
+ev lookup time (ms): 17.542123794555664
+ev lookup time (ms): 17.538070678710938
+ev lookup time (ms): 16.948461532592773
+ev lookup time (ms): 16.865968704223633
+ev lookup time (ms): 17.924070358276367
+ev lookup time (ms): 17.245769500732422
+ev lookup time (ms): 17.524242401123047
+ev lookup time (ms): 17.182111740112305
+ev lookup time (ms): 17.472505569458008
+ev lookup time (ms): 17.69256591796875
+ev lookup time (ms): 17.02284812927246
+ev lookup time (ms): 17.848730087280273
+ev lookup time (ms): 17.103910446166992
+ev lookup time (ms): 17.58551597595215
+ev lookup time (ms): 17.212390899658203
+ev lookup time (ms): 17.9140567779541
+ev lookup time (ms): 17.283201217651367
+ev lookup time (ms): 17.652273178100586
+ev lookup time (ms): 17.606019973754883
+ev lookup time (ms): 17.02117919921875
+ev lookup time (ms): 17.6846981048584
+ev lookup time (ms): 17.6851749420166
+ev lookup time (ms): 17.067670822143555
+ev lookup time (ms): 18.41449737548828
+ev lookup time (ms): 18.055438995361328
+ev lookup time (ms): 18.02849769592285
+ev lookup time (ms): 17.888784408569336
+ev lookup time (ms): 17.70496368408203
+ev lookup time (ms): 17.90475845336914
+ev lookup time (ms): 17.05479621887207
+ev lookup time (ms): 17.99464225769043
+ev lookup time (ms): 17.58575439453125
+ev lookup time (ms): 16.8306827545166
+ev lookup time (ms): 17.426490783691406
+ev lookup time (ms): 17.601728439331055
+ev lookup time (ms): 17.755985260009766
+ev lookup time (ms): 17.26531982421875
+ev lookup time (ms): 17.871856689453125
+ev lookup time (ms): 17.521381378173828
+ev lookup time (ms): 17.41170883178711
+ev lookup time (ms): 17.93050765991211
+ev lookup time (ms): 17.37689971923828
+ev lookup time (ms): 17.130613327026367
+ev lookup time (ms): 17.746686935424805
+ev lookup time (ms): 17.825841903686523
 ev lookup time (ms): 18.299341201782227
-ev lookup time (ms): 18.547534942626953
-ev lookup time (ms): 17.765283584594727
-ev lookup time (ms): 17.18592643737793
-ev lookup time (ms): 17.25029945373535
-ev lookup time (ms): 17.937183380126953
-ev lookup time (ms): 18.179655075073242
-ev lookup time (ms): 17.72928237915039
-ev lookup time (ms): 18.137454986572266
-ev lookup time (ms): 17.551898956298828
-ev lookup time (ms): 17.468929290771484
-ev lookup time (ms): 18.04804801940918
-ev lookup time (ms): 17.460107803344727
-ev lookup time (ms): 17.53854751586914
-ev lookup time (ms): 17.844438552856445
+ev lookup time (ms): 17.4100399017334
+ev lookup time (ms): 22.825956344604492
+ev lookup time (ms): 18.07427406311035
+ev lookup time (ms): 18.387556076049805
+ev lookup time (ms): 17.93360710144043
+ev lookup time (ms): 18.29361915588379
+ev lookup time (ms): 18.236637115478516
+ev lookup time (ms): 17.856359481811523
+ev lookup time (ms): 17.580509185791016
+ev lookup time (ms): 17.829418182373047
+ev lookup time (ms): 17.337322235107422
+ev lookup time (ms): 17.811059951782227
+ev lookup time (ms): 18.2034969329834
+ev lookup time (ms): 18.49842071533203
+ev lookup time (ms): 17.683744430541992
+ev lookup time (ms): 17.399311065673828
+ev lookup time (ms): 17.62557029724121
+ev lookup time (ms): 18.085241317749023
+ev lookup time (ms): 17.26698875427246
+ev lookup time (ms): 18.192291259765625
+ev lookup time (ms): 17.979860305786133
+ev lookup time (ms): 17.813920974731445
+ev lookup time (ms): 18.203258514404297
+ev lookup time (ms): 17.428159713745117
+ev lookup time (ms): 17.81010627746582
+ev lookup time (ms): 17.090559005737305
+ev lookup time (ms): 18.007993698120117
+ev lookup time (ms): 16.98136329650879
+ev lookup time (ms): 17.86494255065918
+ev lookup time (ms): 17.994403839111328
+ev lookup time (ms): 17.5778865814209
+ev lookup time (ms): 17.36593246459961
+ev lookup time (ms): 17.204761505126953
+ev lookup time (ms): 17.10963249206543
+ev lookup time (ms): 17.65608787536621
+ev lookup time (ms): 17.53973960876465
+ev lookup time (ms): 18.27716827392578
+ev lookup time (ms): 18.628358840942383
+ev lookup time (ms): 18.350601196289062
+ev lookup time (ms): 18.01753044128418
+ev lookup time (ms): 17.916440963745117
+ev lookup time (ms): 17.584562301635742
+ev lookup time (ms): 17.774581909179688
+ev lookup time (ms): 17.169475555419922
+ev lookup time (ms): 17.292022705078125
+ev lookup time (ms): 17.9750919342041
+ev lookup time (ms): 17.49897003173828
+ev lookup time (ms): 17.149686813354492
+ev lookup time (ms): 17.19355583190918
+ev lookup time (ms): 16.99233055114746
+ev lookup time (ms): 17.406940460205078
+ev lookup time (ms): 17.858505249023438
+ev lookup time (ms): 17.3642635345459
+ev lookup time (ms): 17.711639404296875
+ev lookup time (ms): 17.016887664794922
+ev lookup time (ms): 17.395496368408203
+ev lookup time (ms): 17.524003982543945
+ev lookup time (ms): 17.360687255859375
+ev lookup time (ms): 17.281055450439453
+ev lookup time (ms): 17.27128028869629
+ev lookup time (ms): 17.161130905151367
+ev lookup time (ms): 17.039775848388672
+ev lookup time (ms): 17.53520965576172
+ev lookup time (ms): 17.653703689575195
+ev lookup time (ms): 17.171859741210938
+ev lookup time (ms): 17.764568328857422
+ev lookup time (ms): 18.311738967895508
+ev lookup time (ms): 17.850875854492188
+ev lookup time (ms): 17.36593246459961
+ev lookup time (ms): 17.369985580444336
+ev lookup time (ms): 17.667770385742188
+ev lookup time (ms): 17.072677612304688
+ev lookup time (ms): 17.642974853515625
+ev lookup time (ms): 17.149925231933594
+ev lookup time (ms): 17.272472381591797
+ev lookup time (ms): 17.266511917114258
+ev lookup time (ms): 16.99042320251465
+ev lookup time (ms): 18.115520477294922
+ev lookup time (ms): 17.690420150756836
+ev lookup time (ms): 17.038583755493164
+ev lookup time (ms): 17.01641082763672
+ev lookup time (ms): 17.27008819580078
+ev lookup time (ms): 17.032623291015625
+ev lookup time (ms): 16.984224319458008
+ev lookup time (ms): 17.456531524658203
+ev lookup time (ms): 18.166065216064453
+ev lookup time (ms): 16.927480697631836
+ev lookup time (ms): 17.69232749938965
+ev lookup time (ms): 17.101287841796875
+ev lookup time (ms): 17.08674430847168
+ev lookup time (ms): 16.92986488342285
+ev lookup time (ms): 17.171382904052734
+ev lookup time (ms): 17.381906509399414
+ev lookup time (ms): 17.76862144470215
+ev lookup time (ms): 17.921924591064453
+ev lookup time (ms): 18.21422576904297
+ev lookup time (ms): 18.01443099975586
+ev lookup time (ms): 17.398357391357422
+ev lookup time (ms): 17.10033416748047
+ev lookup time (ms): 17.812728881835938
+ev lookup time (ms): 17.07601547241211
+ev lookup time (ms): 17.31419563293457
+ev lookup time (ms): 17.107009887695312
+ev lookup time (ms): 17.542362213134766
+ev lookup time (ms): 17.321348190307617
+ev lookup time (ms): 17.576932907104492
+ev lookup time (ms): 17.23170280456543
+ev lookup time (ms): 19.9887752532959
+ev lookup time (ms): 16.7086124420166
+ev lookup time (ms): 17.497539520263672
+ev lookup time (ms): 17.157554626464844
+ev lookup time (ms): 17.119407653808594
+ev lookup time (ms): 17.225027084350586
+ev lookup time (ms): 17.775535583496094
+ev lookup time (ms): 17.56429672241211
+ev lookup time (ms): 17.426729202270508
+ev lookup time (ms): 17.20571517944336e num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 10
+to cache num: 12
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cac
+ev lookup time (ms): 16.835927963256836
+ev lookup time (ms): 17.4710750579834
+ev lookup time (ms): 17.17972755432129
+ev lookup time (ms): 18.250226974487305
+ev lookup time (ms): 17.578840255737305
+ev lookup time (ms): 17.194509506225586
+ev lookup time (ms): 17.426729202270508
+ev lookup time (ms): 17.369508743286133
+ev lookup time (ms): 17.318248748779297
+ev lookup time (ms): 17.606258392333984
+ev lookup time (ms): 17.014265060424805
+ev lookup time (ms): 16.980886459350586
+ev lookup time (ms): 17.557382583618164
+ev lookup time (ms): 17.157316207885742
+ev lookup time (ms): 17.688274383544922
+ev lookup time (ms): 17.145395278930664
+ev lookup time (ms): 17.45748519897461
+ev lookup time (ms): 17.485618591308594
+ev lookup time (ms): 16.89434051513672
+ev lookup time (ms): 17.476797103881836
+ev lookup time (ms): 17.170190811157227
+ev lookup time (ms): 16.777992248535156
+ev lookup time (ms): 17.923593521118164
+ev lookup time (ms): 17.712116241455078
+ev lookup time (ms): 17.581939697265625
+ev lookup time (ms): 17.88616180419922
+ev lookup time (ms): 17.48490333557129
+ev lookup time (ms): 17.403364181518555
+ev lookup time (ms): 16.934633255004883
+ev lookup time (ms): 17.643451690673828
+ev lookup time (ms): 17.437458038330078
+ev lookup time (ms): 17.17996597290039
+ev lookup time (ms): 17.70806312561035
+ev lookup time (ms): 17.516374588012695
+ev lookup time (ms): 17.467975616455078
+ev lookup time (ms): 17.346858978271484
+ev lookup time (ms): 17.391681671142578
+ev lookup time (ms): 17.39501953125
+ev lookup time (ms): 17.002105712890625
+ev lookup time (ms): 17.491579055786133
+ev lookup time (ms): 17.291784286499023
+ev lookup time (ms): 17.223358154296875
+ev lookup time (ms): 17.365694046020508
+ev lookup time (ms): 17.230749130249023
+ev lookup time (ms): 17.45772361755371
+ev lookup time (ms): 17.538785934448242
+ev lookup time (ms): 17.25149154663086
+ev lookup time (ms): 18.083810806274414
+ev lookup time (ms): 17.937421798706055
+ev lookup time (ms): 17.71402359008789
+ev lookup time (ms): 17.16303825378418
+ev lookup time (ms): 17.79913902282715
+ev lookup time (ms): 16.968965530395508
+ev lookup time (ms): 17.416715621948242
+ev lookup time (ms): 17.64535903930664
+ev lookup time (ms): 18.839597702026367
+ev lookup time (ms): 17.377376556396484
+ev lookup time (ms): 17.606019973754883
+ev lookup time (ms): 17.41623878479004
+ev lookup time (ms): 17.65608787536621
+ev lookup time (ms): 17.061471939086914
+ev lookup time (ms): 17.063617706298828
+ev lookup time (ms): 17.42243766784668
+ev lookup time (ms): 17.13848114013672
+ev lookup time (ms): 17.376184463500977
+ev lookup time (ms): 17.045974731445312
+ev lookup time (ms): 16.814470291137695
+ev lookup time (ms): 17.514705657958984
+ev lookup time (ms): 17.908334732055664
+ev lookup time (ms): 17.409801483154297
+ev lookup time (ms): 17.253875732421875
+ev lookup time (ms): 17.229080200195312
+ev lookup time (ms): 17.195940017700195
+ev lookup time (ms): 17.446041107177734
+ev lookup time (ms): 17.450332641601562
+ev lookup time (ms): 17.564058303833008
+ev lookup time (ms): 17.59171485900879
+ev lookup time (ms): 17.45295524597168
+ev lookup time (ms): 16.94774627685547
+ev lookup time (ms): 17.65608787536621
+ev lookup time (ms): 18.308401107788086
+ev lookup time (ms): 17.497777938842773
+ev lookup time (ms): 17.687320709228516
+ev lookup time (ms): 17.04263687133789
+ev lookup time (ms): 17.043113708496094
+ev lookup time (ms): 22.41063117980957
+ev lookup time (ms): 17.55237579345703
+ev lookup time (ms): 17.30036735534668
+ev lookup time (ms): 17.375469207763672
+ev lookup time (ms): 17.142295837402344
+ev lookup time (ms): 17.490863800048828
+ev lookup time (ms): 17.002344131469727
+ev lookup time (ms): 17.239809036254883
+ev lookup time (ms): 17.616748809814453
+ev lookup time (ms): 18.09406280517578
+ev lookup time (ms): 17.5168514251709
+ev lookup time (ms): 17.559051513671875
+ev lookup time (ms): 17.293930053710938
+ev lookup time (ms): 17.816781997680664
+ev lookup time (ms): 17.806529998779297
+ev lookup time (ms): 16.994237899780273
+ev lookup time (ms): 16.73722267150879
+ev lookup time (ms): 17.375707626342773
+ev lookup time (ms): 17.21501350402832
+ev lookup time (ms): 17.620325088500977
+ev lookup time (ms): 16.696929931640625
+ev lookup time (ms): 16.73293113708496
+ev lookup time (ms): 17.897367477416992
+ev lookup time (ms): 17.78554916381836
+ev lookup time (ms): 17.79651641845703
+ev lookup time (ms): 17.772912979125977
+ev lookup time (ms): 17.40407943725586
+ev lookup time (ms): 17.39501953125
+ev lookup time (ms): 16.986370086669922
+ev lookup time (ms): 17.205476760864258
+ev lookup time (ms): 17.057418823242188
+ev lookup time (ms): 17.06218719482422
+ev lookup time (ms): 17.407655715942383
+ev lookup time (ms): 16.954660415649414
+ev lookup time (ms): 17.8220272064209
+ev lookup time (ms): 17.65894889831543
+ev lookup time (ms): 17.167329788208008
+ev lookup time (ms): 17.32945442199707
+ev lookup time (ms): 17.261743545532227
+ev lookup time (ms): 17.117977142333984
+ev lookup time (ms): 16.946792602539062
+ev lookup time (ms): 17.245769500732422
+ev lookup time (ms): 17.305374145507812
+ev lookup time (ms): 16.835451126098633
+ev lookup time (ms): 16.88528060913086
+ev lookup time (ms): 17.284631729125977
+ev lookup time (ms): 17.4410343170166
+ev lookup time (ms): 17.03166961669922
+ev lookup time (ms): 17.144203186035156
+ev lookup time (ms): 17.61651039123535
+ev lookup time (ms): 16.51787757873535
+ev lookup time (ms): 17.017602920532227
+ev lookup time (ms): 16.88218116760254
+ev lookup time (ms): 17.41504669189453
+ev lookup time (ms): 16.87169075012207
+ev lookup time (ms): 17.255306243896484
+ev lookup time (ms): 17.31252670288086
+ev lookup time (ms): 16.942501068115234
+ev lookup time (ms): 17.30799674987793
+ev lookup time (ms): 17.743825912475586
+ev lookup time (ms): 16.9527530670166
+ev lookup time (ms): 17.139911651611328
+ev lookup time (ms): 16.85500144958496
+ev lookup time (ms): 16.904830932617188
+ev lookup time (ms): 17.217636108398438
+ev lookup time (ms): 17.513751983642578
+ev lookup time (ms): 17.371177673339844
+ev lookup time (ms): 17.154455184936523
+ev lookup time (ms): 17.018795013427734
+ev lookup time (ms): 17.00592041015625
+ev lookup time (ms): 17.18926429748535
+ev lookup time (ms): 17.32015609741211
+ev lookup time (ms): 23.25916290283203
+ev lookup time (ms): 17.40121841430664
+ev lookup time (ms): 17.937660217285156
+ev lookup time (ms): 16.886472702026367
+ev lookup time (ms): 17.330169677734375
+ev lookup time (ms): 17.68660545349121
+ev lookup time (ms): 17.00139045715332
+ev lookup time (ms): 17.187833786010742
+ev lookup time (ms): 17.498016357421875
+ev lookup time (ms): 16.910076141357422
+ev lookup time (ms): 17.043113708496094
+ev lookup time (ms): 16.98899269104004
+ev lookup time (ms): 17.32468605041504
+ev lookup time (ms): 16.92032814025879
+ev lookup time (ms): 17.026185989379883
+ev lookup time (ms): 17.05169677734375
+ev lookup time (ms): 17.794132232666016
+ev lookup time (ms): 17.975807189941406
+ev lookup time (ms): 17.98415184020996
+ev lookup time (ms): 18.056869506835938
+ev lookup time (ms): 17.136573791503906
+ev lookup time (ms): 18.070220947265625
+ev lookup time (ms): 17.457008361816406
+ev lookup time (ms): 17.58098602294922
+ev lookup time (ms): 17.576932907104492
+ev lookup time (ms): 17.14801788330078
+ev lookup time (ms): 17.171144485473633
+ev lookup time (ms): 17.432451248168945
+ev lookup time (ms): 17.200231552124023
+ev lookup time (ms): 17.945528030395508
+ev lookup time (ms): 17.047882080078125
+ev lookup time (ms): 16.81065559387207
+ev lookup time (ms): 16.86263084411621
+ev lookup time (ms): 17.29416847229004
+ev lookup time (ms): 17.011165618896484
+ev lookup time (ms): 17.0590877532959
+ev lookup time (ms): 17.209291458129883
+ev lookup time (ms): 17.277002334594727
+ev lookup time (ms): 16.95704460144043
+ev lookup time (ms): 17.731666564941406
+ev lookup time (ms): 17.171859741210938
+ev lookup time (ms): 16.913414001464844
+ev lookup time (ms): 17.554759979248047
+ev lookup time (ms): 17.477035522460938
+ev lookup time (ms): 17.4713134765625
+ev lookup time (ms): 17.2121524810791
+ev lookup time (ms): 17.125368118286133
+ev lookup time (ms): 16.81375503540039
+ev lookup time (ms): 17.213106155395508
+ev lookup time (ms): 17.64655113220215
+he num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 10
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 10
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 10
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 10
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to caev lookup time (ms): 17.181873321533203
+ev lookup time (ms): 17.221450805664062
+ev lookup time (ms): 17.36927032470703
+ev lookup time (ms): 17.098665237426758
+ev lookup time (ms): 16.20769500732422
+ev lookup time (ms): 17.216920852661133
+ev lookup time (ms): 17.403364181518555
+ev lookup time (ms): 17.310142517089844
+ev lookup time (ms): 16.915321350097656
+ev lookup time (ms): 17.23933219909668
+ev lookup time (ms): 17.516136169433594
+ev lookup time (ms): 17.249345779418945
+ev lookup time (ms): 17.238855361938477
+ev lookup time (ms): 16.878366470336914
+ev lookup time (ms): 17.557144165039062
+ev lookup time (ms): 17.33684539794922
+ev lookup time (ms): 17.225027084350586
+ev lookup time (ms): 17.27461814880371
+ev lookup time (ms): 17.115354537963867
+ev lookup time (ms): 17.598628997802734
+ev lookup time (ms): 16.730070114135742
+ev lookup time (ms): 16.83664321899414
+ev lookup time (ms): 17.564058303833008
+ev lookup time (ms): 16.748666763305664
+ev lookup time (ms): 17.29440689086914
+ev lookup time (ms): 17.607450485229492
+ev lookup time (ms): 17.040252685546875
+ev lookup time (ms): 17.40574836730957
+ev lookup time (ms): 17.202377319335938
+ev lookup time (ms): 17.32325553894043
+ev lookup time (ms): 17.421483993530273
+ev lookup time (ms): 17.409563064575195
+ev lookup time (ms): 17.335176467895508
+ev lookup time (ms): 17.819881439208984
+ev lookup time (ms): 17.889022827148438
+ev lookup time (ms): 16.978025436401367
+ev lookup time (ms): 17.307519912719727
+ev lookup time (ms): 17.220020294189453
+ev lookup time (ms): 17.382383346557617
+ev lookup time (ms): 17.313718795776367
+ev lookup time (ms): 17.206430435180664
+ev lookup time (ms): 17.17400550842285
+ev lookup time (ms): 17.389535903930664
+ev lookup time (ms): 17.229318618774414
+ev lookup time (ms): 17.203330993652344
+ev lookup time (ms): 17.473220825195312
+ev lookup time (ms): 17.831087112426758
+ev lookup time (ms): 17.302751541137695
+ev lookup time (ms): 17.441749572753906
+ev lookup time (ms): 16.95084571838379
+ev lookup time (ms): 16.96300506591797
+ev lookup time (ms): 16.932249069213867
+ev lookup time (ms): 17.459630966186523
+ev lookup time (ms): 17.548084259033203
+ev lookup time (ms): 17.263412475585938
+ev lookup time (ms): 16.654253005981445
+ev lookup time (ms): 17.539501190185547
+ev lookup time (ms): 17.043352127075195
+ev lookup time (ms): 17.516136169433594
+ev lookup time (ms): 17.123937606811523
+ev lookup time (ms): 17.591476440429688
+ev lookup time (ms): 16.942977905273438
+ev lookup time (ms): 17.28057861328125
+ev lookup time (ms): 17.324447631835938
+ev lookup time (ms): 17.209529876708984
+ev lookup time (ms): 17.513751983642578
+ev lookup time (ms): 16.99066162109375
+ev lookup time (ms): 17.276763916015625
+ev lookup time (ms): 17.132997512817383
+ev lookup time (ms): 17.455577850341797
+ev lookup time (ms): 16.83831214904785
+ev lookup time (ms): 17.213821411132812
+ev lookup time (ms): 17.04549789428711
+ev lookup time (ms): 16.907215118408203
+ev lookup time (ms): 17.30060577392578
+ev lookup time (ms): 17.293214797973633
+ev lookup time (ms): 19.324541091918945
+ev lookup time (ms): 16.8764591217041
+ev lookup time (ms): 17.63010025024414
+ev lookup time (ms): 17.67754554748535
+ev lookup time (ms): 17.24720001220703
+ev lookup time (ms): 17.299175262451172
+ev lookup time (ms): 17.235279083251953
+ev lookup time (ms): 17.461061477661133
+ev lookup time (ms): 17.580032348632812
+ev lookup time (ms): 16.908645629882812
+ev lookup time (ms): 17.5631046295166
+ev lookup time (ms): 17.538070678710938
+ev lookup time (ms): 17.19951629638672
+ev lookup time (ms): 16.968965530395508
+ev lookup time (ms): 17.345666885375977
+ev lookup time (ms): 17.400264739990234
+ev lookup time (ms): 16.988754272460938
+ev lookup time (ms): 17.66371726989746
+ev lookup time (ms): 17.64512062072754
+ev lookup time (ms): 17.19522476196289
+ev lookup time (ms): 17.046451568603516
+ev lookup time (ms): 17.20142364501953
+ev lookup time (ms): 17.28987693786621
+ev lookup time (ms): 17.575740814208984
+ev lookup time (ms): 17.317771911621094
+ev lookup time (ms): 17.313003540039062
+ev lookup time (ms): 21.268844604492188
+ev lookup time (ms): 17.332077026367188
+ev lookup time (ms): 17.435312271118164
+ev lookup time (ms): 17.293214797973633
+ev lookup time (ms): 17.625808715820312
+ev lookup time (ms): 17.390012741088867
+ev lookup time (ms): 17.004966735839844
+ev lookup time (ms): 17.41766929626465
+ev lookup time (ms): 16.17741584777832
+ev lookup time (ms): 17.311811447143555
+ev lookup time (ms): 17.34161376953125
+ev lookup time (ms): 17.302513122558594
+ev lookup time (ms): 17.06242561340332
+ev lookup time (ms): 17.322301864624023
+ev lookup time (ms): 17.456769943237305
+ev lookup time (ms): 17.208337783813477
+ev lookup time (ms): 17.39025115966797
+ev lookup time (ms): 17.315149307250977
+ev lookup time (ms): 17.493009567260742
+ev lookup time (ms): 17.180204391479492
+ev lookup time (ms): 16.85047149658203
+ev lookup time (ms): 17.466306686401367
+ev lookup time (ms): 17.273426055908203
+ev lookup time (ms): 17.18449592590332
+ev lookup time (ms): 18.29814910888672
+ev lookup time (ms): 23.819923400878906
+ev lookup time (ms): 18.303394317626953
+ev lookup time (ms): 17.229795455932617
+ev lookup time (ms): 17.46535301208496
+ev lookup time (ms): 17.310380935668945
+ev lookup time (ms): 17.664432525634766
+ev lookup time (ms): 17.09151268005371
+ev lookup time (ms): 17.348766326904297
+ev lookup time (ms): 17.188549041748047
+ev lookup time (ms): 17.130136489868164
+ev lookup time (ms): 17.1658992767334
+ev lookup time (ms): 17.113685607910156
+ev lookup time (ms): 17.56763458251953
+ev lookup time (ms): 16.489744186401367
+ev lookup time (ms): 17.04120635986328
+ev lookup time (ms): 17.100095748901367
+ev lookup time (ms): 17.149925231933594
+ev lookup time (ms): 16.895055770874023
+ev lookup time (ms): 17.167091369628906
+ev lookup time (ms): 17.04692840576172
+ev lookup time (ms): 17.596960067749023
+ev lookup time (ms): 17.656803131103516
+ev lookup time (ms): 17.560720443725586
+ev lookup time (ms): 17.486095428466797
+ev lookup time (ms): 17.444133758544922
+ev lookup time (ms): 18.175363540649414
+ev lookup time (ms): 17.5778865814209
+ev lookup time (ms): 17.292022705078125
+ev lookup time (ms): 18.14436912536621
+ev lookup time (ms): 17.316818237304688
+ev lookup time (ms): 17.574548721313477
+ev lookup time (ms): 17.080068588256836
+ev lookup time (ms): 16.991376876831055
+ev lookup time (ms): 17.311811447143555
+ev lookup time (ms): 17.1048641204834
+ev lookup time (ms): 17.208576202392578
+ev lookup time (ms): 16.557931900024414
+ev lookup time (ms): 17.76266098022461
+ev lookup time (ms): 17.441511154174805
+ev lookup time (ms): 17.158031463623047
+ev lookup time (ms): 17.60554313659668
+ev lookup time (ms): 17.248153686523438
+ev lookup time (ms): 16.948938369750977
+ev lookup time (ms): 17.2882080078125
+ev lookup time (ms): 17.091751098632812
+ev lookup time (ms): 16.9374942779541
+ev lookup time (ms): 16.724348068237305
+ev lookup time (ms): 17.687082290649414
+ev lookup time (ms): 17.675161361694336
+ev lookup time (ms): 17.23456382751465
+ev lookup time (ms): 17.795801162719727
+ev lookup time (ms): 17.406225204467773
+ev lookup time (ms): 17.038822174072266
+ev lookup time (ms): 17.42410659790039
+ev lookup time (ms): 16.765117645263672
+ev lookup time (ms): 17.068862915039062
+ev lookup time (ms): 17.451047897338867
+ev lookup time (ms): 17.321348190307617
+ev lookup time (ms): 17.003774642944336
+ev lookup time (ms): 16.760826110839844
+ev lookup time (ms): 16.836881637573242
+ev lookup time (ms): 16.95728302001953
+ev lookup time (ms): 17.15850830078125
+ev lookup time (ms): 17.12489128112793
+ev lookup time (ms): 17.684459686279297
 Close connection...
 --------------------------------------------------------------------------------
-149
-156
-159
-154
-150
-153
-161
-169
+che num: 11
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 11
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+to cache num: 12
+2506
+693
+487
+364
+324
+288
+270
+231
+217
+202
+197
+182
 168
-155
-155
-151
-150
-156
-146
-159
-154
-160
-157
-170
-158
-167
-161
-154
-154
-156
-153
-151
-150
-160
-140
-149
-166
-153
-156
-171
-152
-156
-159
-141
-148
-153
-175
-148
-161
-157
-155
-156
-175
-145
-161
-158
-186
-151
-155
-140
-148
-156
-164
-150
-166
-159
-154
-169
-153
-157
-158
-150
-158
-155
-156
-143
-156
-149
-158
-152
-154
-158
-167
-168
-158
-170
 162
-143
 169
-156
-166
-155
-154
-167
-166
+151
+148
+150
+152
 141
-148
-148
+145
+123
+147
+142
+126
+137
+134
+121
+129
+126
+153
+125
+130
+130
+131
+123
+115
+125
+122
+112
+112
+118
+115
+127
+112
+116
+112
+119
+110
+128
+116
+121
+119
+113
+113
+110
+102
+107
+101
+112
+118
+119
+121
+117
+103
+113
+118
+123
+116
+106
+108
+106
+126
+108
+106
+102
+95
+98
+96
+89
+95
+100
+101
+111
+98
+104
+107
+105
+98
+100
+95
+96
+98
+88
+99
+101
+94
+98
+91
+92
+-----------
+12
+136
+214
+278
+330
+380
+430
+480
+520
+560
+600
+640
+677
+707
+737
+767
+797
+827
+857
+887
+917
+947
+977
+1007
+1037
+1067
+1097
+1128
+1158
+1188
+1218
+1248
+1278
+1308
+1338
+1368
+1398
+1428
+1458
+1488
+1518
+1548
+1578
+1608
+1638
+1668
+1698
+1728
+1758
+1788
+1818
+1848
+1878
+1908
+1938
+1968
+1998
+2028
+2058
+2088
+2118
+2148
+2178
+2208
+2238
+2268
+2298
+2328
+2358
+2387
+2417
+2447
+2477
+2507
+2537
+2567
+2597
+2627
+2657
+2687
+2717
+2747
+2777
+2807
+2837
+2867
+2897
+2927
+2957
+2984
+3014
+3044
+3074
+3104
+3135
+3165
+3195
+3225
+3255
+3285
 ---------------------------------------------------------------------
 avg_PIM_input_convertion_time: 0.05
-avg_task_dispatch_time: 3.20
+avg_task_dispatch_time: 3.30
 avg_task_tranfer_time: 0.00
-avg_PIM_cal_time: 9.35
+avg_PIM_cal_time: 6.97
 avg_result_transfer_time: 0.00
 avg_CPU_cal_time: 0.56
 avg_select_hot_dpu_time: 0.01
-avg_select_cold_dpu_time: 0.05
-avg_select_hot_emb_time: 0.14
-avg_copy_emb_time: 0.27
-avg_split_emb_time: 0.48
-avg_merge_emb_time: 0.05
-avg_total_apply_emb_time: 18.86
+avg_select_cold_dpu_time: 0.07
+avg_select_hot_emb_time: 0.19
+avg_copy_emb_time: 0.38
+avg_split_emb_time: 0.67
+avg_merge_emb_time: 0.00
+avg_total_apply_emb_time: 16.76
 
-avg_index_num: 7.73
-avg_max_index_num: 226.34
+avg_index_num: 7.33
+avg_max_index_num: 148.61
 avg_min_index_num: 5.00
-avg_index_group_num: 1.04
-avg_max_index_group_num: 32.04
+avg_index_group_num: 1.13
+avg_max_index_group_num: 31.87
 avg_min_index_group_num: 0.00
-avg_CPU_sum_emb_num: 3.32
-cur_redundant_emb_size: 2368
-max_redundant_emb_size: 2371
+avg_CPU_sum_emb_num: 3.62
+cur_redundant_emb_size: 3312
+max_redundant_emb_size: 5023
 split_emb_num: 3
-merge_emb_num: 1
-redundant_emb_num: 1798
+merge_emb_num: 2
+redundant_emb_num: 2476
 ---------------------------------------------------------------------

@@ -61,11 +61,11 @@ def run():
         
         # emb_pool_process_id = start_emb_pool(model)
         
-        for batch_size in batch_sizes[model]:
-            start_coordinator(model, batch_size, 1.5)
+        # for batch_size in batch_sizes[model]:
+        #     start_coordinator(model, batch_size, 1.5)
             
-        # for zipf_parameter in zipf_parameters:
-        #     start_coordinator(model, 32, zipf_parameter)
+        for zipf_parameter in zipf_parameters:
+            start_coordinator(model, 32, zipf_parameter)
         
         clean_env()            
 

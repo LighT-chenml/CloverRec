@@ -229,6 +229,11 @@ int main()
 {
     uint32_t fun_type = *((__mram_ptr uint32_t *)buffer);
     if (fun_type == 0)
+    {
         apply_emb_dim_parallel();
+        // apply_emb();
+        // apply_emb_lock();
+        // apply_emb_ideal();
+    }
     return 0;
 }
