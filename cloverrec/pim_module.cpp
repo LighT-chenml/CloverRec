@@ -892,7 +892,7 @@ public:
         vector<vector<float>> evs;
     };
 
-    std::tuple<py::array_t<int64_t>, py::array_t<float>, py::array_t<int64_t>, py::array_t<float>> apply_emb(py::array_t<uint64_t> &lS_o, py::array_t<uint64_t> &lS_i)
+    std::tuple<py::array_t<int64_t>, py::array_t<float>, py::array_t<int64_t>, py::array_t<float>> apply_emb(py::array_t<uint64_t> &lS_o, py::array_t<uint64_t> &lS_i, double host_CPU_cal_time)
     {
         static std::mt19937 random_num_generation(std::random_device{}());
 
@@ -1284,8 +1284,8 @@ public:
 
         end_time = chrono::high_resolution_clock::now();
         duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
-        // printf("CPU cal. time (ms): %.2lf\n", 1.0 * duration.count() / 1000);
-        CPU_cal_time.push_back(1.0 * duration.count() / 1000);
+        // printf("CPU cal. time (ms): %.2lf\n", 1.0 * duration.count() / 1000 + host_CPU_cal_time);
+        CPU_cal_time.push_back(1.0 * duration.count() / 1000 + host_CPU_cal_time);
 
         if (split_emb_num == 0)
             split_emb_num = total_index_num * SPLIT_EMB_NUM_RATIO;

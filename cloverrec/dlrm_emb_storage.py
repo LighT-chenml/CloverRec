@@ -150,7 +150,7 @@ class EmbStorage():
         lS_o = torch.tensor(lS_o)
         lS_i = torch.tensor(lS_i)
 
-        ret = self.client.send_request({'lS_o': lS_o, 'lS_i': lS_i})
+        ret = self.client.send_request({'lS_o': lS_o, 'lS_i': lS_i, 'CPU_cal_time': self.CPU_cal_time[-1] if len(self.CPU_cal_time) > 0 else 0})
 
         remote_evs = torch.tensor(ret['data'])
         remote_offsets = torch.tensor(ret['offset'])

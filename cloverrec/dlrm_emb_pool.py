@@ -156,11 +156,12 @@ class EmbServer:
 
         lS_o = input_data['lS_o']
         lS_i = input_data['lS_i']
+        CPU_cal_time = input_data['CPU_cal_time']
 
         start_time = time.time()
 
         # prepare request response
-        ret_offset, ret, to_cache_keys, to_cache_values = self.apply_emb(lS_o, lS_i)     
+        ret_offset, ret, to_cache_keys, to_cache_values = self.apply_emb(lS_o, lS_i, CPU_cal_time)     
 
         end_time = time.time()
         total_time = end_time - start_time
@@ -187,12 +188,12 @@ class EmbServer:
 
         return True
 
-    def apply_emb(self, lS_o, lS_i):
+    def apply_emb(self, lS_o, lS_i, CPU_cal_time):
         ly = []
 
         start_time = time.time()
 
-        ret_offset, ret, to_cache_keys, to_cache_values = self.pim_emb_storage.apply_emb(np.array(lS_o), np.array(lS_i))
+        ret_offset, ret, to_cache_keys, to_cache_values = self.pim_emb_storage.apply_emb(np.array(lS_o), np.array(lS_i), CPU_cal_time)
 
         end_time = time.time()
         total_time = end_time - start_time
