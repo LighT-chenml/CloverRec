@@ -30,16 +30,16 @@ To tackle these challenges, we propose CloverRec, a cost-efficient and high-perf
 ## Build
 
 - Clone this repo
-```
-git clone https://anonymous.4open.science/r/CloverRec-E2BE # Anonymize
-cd CloverRec
+```sh
+$ git clone https://anonymous.4open.science/r/CloverRec-E2BE # Anonymize
+$ cd CloverRec
 ```
 
 - Install dependencies
-```
-conda create -n CloverRec python=3.12 -y
-conda activate CloverRec
-pip install -r requirements.txt
+```sh
+$ conda create -n CloverRec python=3.12 -y
+$ conda activate CloverRec
+$ pip install -r requirements.txt
 ```
 
 ## Run
