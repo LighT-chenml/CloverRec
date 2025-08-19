@@ -165,7 +165,7 @@ class EmbServer:
         end_time = time.time()
         total_time = end_time - start_time
         total_time *= 1000
-        print("ev lookup time (ms): " + f"{total_time}")
+        # print("ev lookup time (ms): " + f"{total_time}")
 
         header = {}
         response = pickle.dumps({'header': header, 'data': ret, 'offset': ret_offset, 'to_cache_keys': to_cache_keys, 'to_cache_values': to_cache_values})
@@ -197,7 +197,6 @@ class EmbServer:
         end_time = time.time()
         total_time = end_time - start_time
         total_time *= 1000
-        # print("PIM module time (ms): " + f"{total_time}")
 
         return ret_offset, ret, to_cache_keys, to_cache_values
 

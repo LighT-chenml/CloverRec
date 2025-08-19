@@ -1,7 +1,0 @@
-pim_module.cpp
-setup.py
-pim_module.egg-info/PKG-INFO
-pim_module.egg-info/SOURCES.txt
-pim_module.egg-info/dependency_links.txt
-pim_module.egg-info/not-zip-safe
-pim_module.egg-info/top_level.txt

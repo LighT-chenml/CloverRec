@@ -8,4 +8,3 @@ scikit-learn
 tqdm
 torchrec-nightly
 torchx-nightly
-rpyc

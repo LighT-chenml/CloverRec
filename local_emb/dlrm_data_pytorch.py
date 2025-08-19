@@ -953,7 +953,6 @@ def generate_dist_input_batch(
                 r = ra.zipf(zipf_parameter, sparse_group_size)
                 r = r - 1
                 r = r % size
-                # sparse_group = np.unique(r)
                 sparse_group = r
             else:
                 raise (
@@ -1027,7 +1026,7 @@ def generate_synthetic_input_batch(
             # WARNING: if the distribution in the file is not consistent
             # with embedding table dimensions, below mod guards against out
             # of range access
-            sparse_group = np.unique(r).astype(np.int64)
+            sparse_group = r.astype(np.int64)
             minsg = np.min(sparse_group)
             maxsg = np.max(sparse_group)
             if (minsg < 0) or (size <= maxsg):

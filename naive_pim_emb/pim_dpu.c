@@ -44,15 +44,11 @@ void apply_emb()
 
     barrier_wait(&my_barrier);
 
-    // printf("%d num_indices %u num_index_groups %u num_group_per_tasklet %u start %u end %u\n", tasklet_id, num_indices, num_index_groups, num_group_per_tasklet, start, end);
-
     for (int i = 0; i < num_indices; ++i)
     {
         uint32_t gid = *((__mram_ptr uint32_t *)buffer + 4 + num_index_groups + i * 2);
         uint32_t index = *((__mram_ptr uint32_t *)buffer + 4 + num_index_groups + i * 2 + 1);
         uint32_t result_index = *((__mram_ptr uint32_t *)buffer + 4 + gid);
-
-        // printf("%d gid %u index %u result_index %u\n", tasklet_id, gid, index, result_index);
 
         if (result_index >= start_group && result_index < end_group)
         {

@@ -140,28 +140,6 @@ def unpack_batch(b):
         # Experiment with unweighted samples
         return b[0], b[1], b[2], b[3], torch.ones(b[3].size()), None
 
-
-def calculate_and_write_cdf(cdf_output_dir, arr_latency):
-    Path(cdf_output_dir).mkdir(parents=True, exist_ok=True)
-
-    # arr_latency.sort()
-    # reduce the number of point
-    # n_rows = len(arr_latency)
-    # n_points = 1000 # target number of points in this CDF
-    # arr_latency = arr_latency[0::(int(n_rows/n_points))]
-
-    # df = pd.DataFrame(arr_latency, columns =['latency_ms'])
-    # df['latency_ms'] = df['latency_ms'] * 1000
-    # # df['y'] = df.index.values # Get the index which will be y-axis
-    # # df['y'] = df['y'] + 1
-    # # df['y'] = df['y'] / df.shape[0]
-    # # df = df[['y', 'latency_ms']]
-    # output = os.path.join(cdf_output_dir, "b" + str(args.mini_batch_size) + "-cdf.csv")
-    # df.to_csv( output, sep=',', index=False)
-    # print("CDF Latency data points is written to: " + output )
-    
-    return arr_latency
-
 ### define dlrm in PyTorch ###
 class DLRM_Net(nn.Module):
     def create_emb(self, m, ln):
@@ -793,7 +771,6 @@ def run():
     use_gpu = args.use_gpu and torch.cuda.is_available()
 
     device = torch.device("cpu")
-    print("Using CPU...")
 
     ### prepare training data ###
     ln_bot = np.fromstring(args.arch_mlp_bot, dtype=int, sep="-")
@@ -948,7 +925,7 @@ def run():
         args.enable_profiling, use_cuda=use_gpu, record_shapes=True
     ) as prof:
         print("Testing for inference only")
-        model_metrics_dict, is_best, arr_time_latency = inference(
+        model_metrics_dict, is_best, arr_latency = inference(
             args,
             dlrm,
             best_acc_test,
@@ -959,10 +936,8 @@ def run():
         )
         
         seconds = 0
-        for latency in arr_time_latency:
+        for latency in arr_latency:
             seconds += latency
-
-        arr_latency = calculate_and_write_cdf(args.cdf_output_dir, arr_time_latency)
 
         avg_latency = seconds / len(arr_latency) * 1000
         

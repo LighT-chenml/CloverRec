@@ -625,7 +625,6 @@ def run():
         print("Using {} GPU(s)...".format(ngpus))
     else:
         device = torch.device("cpu")
-        print("Using CPU...")
 
     ### prepare training data ###
     ln_bot = np.fromstring(args.arch_mlp_bot, dtype=int, sep="-")

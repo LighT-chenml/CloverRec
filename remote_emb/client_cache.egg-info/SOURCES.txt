@@ -1,7 +1,0 @@
-client_cache.cpp
-client_cache_setup.py
-client_cache.egg-info/PKG-INFO
-client_cache.egg-info/SOURCES.txt
-client_cache.egg-info/dependency_links.txt
-client_cache.egg-info/not-zip-safe
-client_cache.egg-info/top_level.txt

@@ -47,15 +47,11 @@ void apply_emb()
 
     barrier_wait(&my_barrier);
 
-    // printf("%d num_indices %u num_index_groups %u num_group_per_tasklet %u start %u end %u\n", tasklet_id, num_indices, num_index_groups, num_group_per_tasklet, start, end);
-
     for (int i = 0; i < num_indices; ++i)
     {
         uint32_t gid = *((__mram_ptr uint32_t *)buffer + 4 + num_index_groups + i * 2);
         uint32_t index = *((__mram_ptr uint32_t *)buffer + 4 + num_index_groups + i * 2 + 1);
         uint32_t result_index = *((__mram_ptr uint32_t *)buffer + 4 + gid);
-
-        // printf("%d gid %u index %u result_index %u\n", tasklet_id, gid, index, result_index);
 
         if (result_index >= start_group && result_index < end_group)
         {
@@ -81,8 +77,6 @@ void apply_emb_dim_parallel()
     if (end_dim > emb_dim)
         end_dim = emb_dim;
 
-    // printf("start_dim %u end_dim %u\n", start_dim, end_dim);
-
     uint32_t num_group_per_tasklet = (num_index_groups  + TASKLET_NUM - 1) / TASKLET_NUM;
     uint32_t start_group = num_group_per_tasklet * tasklet_id;
     uint32_t end_group = start_group + num_group_per_tasklet;
@@ -101,15 +95,11 @@ void apply_emb_dim_parallel()
 
     barrier_wait(&my_barrier);
 
-    // printf("%d num_indices %u num_index_groups %u num_group_per_tasklet %u\n", tasklet_id, num_indices, num_index_groups, num_group_per_tasklet);
-
     for (int i = 0; i < num_indices; ++i)
     {
         uint32_t gid = *((__mram_ptr uint32_t *)buffer + 4 + num_index_groups + i * 2);
         uint32_t index = *((__mram_ptr uint32_t *)buffer + 4 + num_index_groups + i * 2 + 1);
         uint32_t result_index = *((__mram_ptr uint32_t *)buffer + 4 + gid);
-
-        // printf("%d gid %u index %u result_index %u\n", tasklet_id, gid, index, result_index);
 
         __mram_ptr float *ev = emb_base + index * emb_dim;
         __mram_ptr float *sum = result_base + result_index * emb_dim;
@@ -132,8 +122,6 @@ void apply_emb_lock()
     if (end > num_indices)
         end = num_indices;
 
-    // printf("start_dim %u end_dim %u\n", start_dim, end_dim);
-
     uint32_t num_group_per_tasklet = (num_index_groups  + TASKLET_NUM - 1) / TASKLET_NUM;
     uint32_t start_group = num_group_per_tasklet * tasklet_id;
     uint32_t end_group = start_group + num_group_per_tasklet;
@@ -152,15 +140,11 @@ void apply_emb_lock()
 
     barrier_wait(&my_barrier);
 
-    // printf("%d num_indices %u num_index_groups %u num_group_per_tasklet %u\n", tasklet_id, num_indices, num_index_groups, num_group_per_tasklet);
-
     for (int i = start; i < end; ++i)
     {
         uint32_t gid = *((__mram_ptr uint32_t *)buffer + 4 + num_index_groups + i * 2);
         uint32_t index = *((__mram_ptr uint32_t *)buffer + 4 + num_index_groups + i * 2 + 1);
         uint32_t result_index = *((__mram_ptr uint32_t *)buffer + 4 + gid);
-
-        // printf("%d gid %u index %u result_index %u\n", tasklet_id, gid, index, result_index);
 
         __mram_ptr float *ev = emb_base + index * emb_dim;
         __mram_ptr float *sum = result_base + result_index * emb_dim;
@@ -187,8 +171,6 @@ void apply_emb_ideal()
     if (end > num_indices)
         end = num_indices;
 
-    // printf("start_dim %u end_dim %u\n", start_dim, end_dim);
-
     uint32_t num_group_per_tasklet = (num_index_groups  + TASKLET_NUM - 1) / TASKLET_NUM;
     uint32_t start_group = num_group_per_tasklet * tasklet_id;
     uint32_t end_group = start_group + num_group_per_tasklet;
@@ -207,15 +189,11 @@ void apply_emb_ideal()
 
     barrier_wait(&my_barrier);
 
-    // printf("%d num_indices %u num_index_groups %u num_group_per_tasklet %u\n", tasklet_id, num_indices, num_index_groups, num_group_per_tasklet);
-
     for (int i = start; i < end; ++i)
     {
         uint32_t gid = *((__mram_ptr uint32_t *)buffer + 4 + num_index_groups + i * 2);
         uint32_t index = *((__mram_ptr uint32_t *)buffer + 4 + num_index_groups + i * 2 + 1);
         uint32_t result_index = *((__mram_ptr uint32_t *)buffer + 4 + gid);
-
-        // printf("%d gid %u index %u result_index %u\n", tasklet_id, gid, index, result_index);
 
         __mram_ptr float *ev = emb_base + index * emb_dim;
         __mram_ptr float *sum = result_base + result_index * emb_dim;

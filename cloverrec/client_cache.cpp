@@ -197,9 +197,6 @@ public:
         vector<vector<size_t>> new_indices;
         vector<vector<vector<float>>> result;
 
-        int hit_cnt = 0;
-        int miss_cnt = 0;
-
         for (int i = 0, table_offset = 0; i < offsets.size(); ++i)
         {
             auto &sparse_offset_group_batch = offsets[i];
@@ -226,14 +223,12 @@ public:
                     uint64_t key = index + table_offset;
                     if (cache->contains(key))
                     {
-                        hit_cnt++;
                         auto v = cache->get(key);
                         for (int l = 0; l < emb_dim; ++l)
                             sum[l] += v[l];
                     }
                     else
                     {
-                        miss_cnt++;
                         new_sparse_index_group_batch.push_back(index);
                     }
                 }
@@ -244,8 +239,6 @@ public:
             new_indices.push_back(new_sparse_index_group_batch);
             result.push_back(evs);
         }
-
-        printf("hit: %d  miss: %d  hit rate: %.2lf\n", hit_cnt, miss_cnt, 1.0 * hit_cnt / (hit_cnt + miss_cnt));
 
         int max_len = 0;
         for (int i = 0; i < offsets.size(); ++i)
@@ -274,8 +267,6 @@ public:
         {
             cache->put(keys[i], values[i]);
         }
-        
-        // printf("cur cache size: %d\n", cache->size());
     }
 };
 

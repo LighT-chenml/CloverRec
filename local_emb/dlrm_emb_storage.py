@@ -57,56 +57,19 @@ class EmbStorage():
             batch_size = len(sparse_offset_group_batch)
             evs = []
             
-            # start_time = time.time()
-            
             sparse_index_group_batch = self.P_l[k][sparse_index_group_batch]
             
-            # end_time = time.time()
-            # total_time = end_time - start_time
-            # total_time *= 1000
-            # print("permutation time (ms): " + f"{total_time}")
-            
             for i in range(batch_size):
-                
-                # start_time = time.time()
                 
                 start = sparse_offset_group_batch[i]
                 end = sparse_offset_group_batch[i + 1] if i + 1 < batch_size else len(sparse_index_group_batch)
                 
-                # end_time = time.time()
-                
-                # start_time = time.time()
-                
-                # print(sparse_index_group_batch[start:end])
-                
                 ev = E[sparse_index_group_batch[start:end]]
-                
-                # end_time = time.time()
-                # total_time = end_time - start_time
-                # total_time *= 1000
-                # total_lookup_time += total_time
-                
-                # start_time = time.time()
                 
                 # mode = "sum"
                 evs.append(ev.sum(dim=0))
-                
-                # end_time = time.time()
-                # total_time = end_time - start_time
-                # total_time *= 1000
-                # total_cal_time += total_time
-            
-            # start_time = time.time()
             
             V = torch.tensor(np.array(evs))
             ly.append(V)
-            
-            # end_time = time.time()
-            # total_time = end_time - start_time
-            # total_time *= 1000
-            # print("total_time (ms): " + f"{total_time * len(lS_i)}")
-            
-        # print("total_lookup_time (ms): " + f"{total_lookup_time}")
-        # print("total_cal_time (ms): " + f"{total_cal_time}")
 
         return ly

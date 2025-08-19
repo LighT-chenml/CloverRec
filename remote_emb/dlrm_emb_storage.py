@@ -149,7 +149,6 @@ class EmbStorage():
             offset_list.append(torch.add(sparse_index_group_batch, table_offset))
             table_offset += self.ln[k]
         offset_list = torch.cat(offset_list, dim=0) * emb_size
-        # print(len(offset_list))
 
         start_time = time.time()
 
@@ -160,11 +159,7 @@ class EmbStorage():
         total_time *= 1000
         self.transmission_time.append(total_time)
         
-        # start_time = time.time()
-        
         evs = torch.tensor(np.frombuffer(evs_bytes, dtype=np.float32)).view(int(len(evs_bytes) / emb_size), self.m)
-
-        # self.client_cache.update_cache(np.array(offset_list / emb_size), np.array(evs))
 
         if len(offset_list) > 0:
             to_cache_num = (int)(len(offset_list) * 0.0001)
@@ -172,21 +167,9 @@ class EmbStorage():
                 to_cache_num = 1
             random_list = np.random.randint(0, len(offset_list), to_cache_num)
             self.client_cache.update_cache(np.array(offset_list[random_list] / emb_size), np.array(evs[random_list]))
-
-        # end_time = time.time()
-        # total_time = end_time - start_time
-        # total_time *= 1000
-        # print("convertion time (ms): " + f"{total_time}")
-        
-        # end_time_g = time.time()
-        # total_time = end_time_g - start_time_g
-        # total_time *= 1000
-        # print("end to end time (ms): " + f"{total_time}")
         
         total_lookup_time = 0
         total_sum_time = 0
-        
-        # start_time_g = time.time()
         
         ly = []
         ev_offset = 0
@@ -201,25 +184,10 @@ class EmbStorage():
                 start = sparse_offset_group_batch[i]
                 end = sparse_offset_group_batch[i + 1]
                 
-                # start_time = time.time()
-                
                 ev = evs[start + ev_offset : end + ev_offset]
-                
-                # end_time = time.time()
-                # total_time = end_time - start_time
-                # total_time *= 1000
-                # total_lookup_time += total_time
-                
-                # start_time = time.time()
                 
                 # mode = "sum"
                 ev_batch.append(ev.sum(dim=0))
-                
-                # end_time = time.time()
-                # total_time = end_time - start_time
-                # total_time *= 1000
-                
-                # total_sum_time += total_time
             
             V = torch.add(torch.tensor(np.array(ev_batch)), cache_ly[k])
             ly.append(V)
@@ -229,8 +197,5 @@ class EmbStorage():
         total_time = end_time_g - start_time_g
         total_time *= 1000
         self.ev_lookup_time.append(total_time)
-
-        # print("lookup time (ms): " + f"{total_lookup_time}")
-        # print("sum time (ms): " + f"{total_sum_time}")
         
         return ly
