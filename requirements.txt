@@ -8,3 +8,5 @@ scikit-learn
 tqdm
 torchrec-nightly
 torchx-nightly
+cython
+pyverbs

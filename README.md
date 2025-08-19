@@ -25,7 +25,7 @@ To tackle these challenges, we propose CloverRec, a cost-efficient and high-perf
   - Compiler: g++ 11.4.0 or above
   - CUDA: 12.1
   - Python: 3.12
-  - Libraries: ibverbs, pthread, ldpu
+  - Libraries: ibverbs, pyverbs, ldpu
 
 ## Build
 
