@@ -1,6 +1,6 @@
 # CloverRec
 
-This is an open source repository for our paper in [ASPLOS 2026](https://www.asplos-conference.org/asplos2026/)
+This is an open source repository for our paper in [OSDI 2026](https://www.usenix.org/conference/osdi26)
 
 > **CloverRec: Cost-Efficient Recommendation Inference on Disaggregated Processing-in-Memory Systems**
 
