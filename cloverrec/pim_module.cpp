@@ -1185,11 +1185,11 @@ public:
         total_apply_emb_time.push_back(1.0 * end2end_duration.count() / 1000);
 
         float time_ratio = split_emb_time.back() / total_apply_emb_time.back() * 100;
-        if (split_emb_num > 0 && time_ratio > 5)
+        if (split_emb_num > 0 && time_ratio > 3)
         {
             split_emb_num--;
         }
-        else if (time_ratio < 3 && cur_redundant_emb_size < max_redundant_emb_size * 0.95)
+        else if (time_ratio < 1 && cur_redundant_emb_size < max_redundant_emb_size * 0.95)
         {
             split_emb_num++;
         }
