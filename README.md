@@ -17,7 +17,7 @@ Deep recommendation systems enhance user experiences by providing fast, high-qua
   - NVIDIA GPU (e.g., V100) on GPU server
   - UPMEM PIM DIMMs on PIM server
 - Software
-  - Operating System: Ubuntu 18.04 LTS
+  - Operating System: Ubuntu 22.04 LTS
   - Programming Language: C++ 11
   - CMake: 3.22 or above
   - Compiler: g++ 11.4.0 or above
