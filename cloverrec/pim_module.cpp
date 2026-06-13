@@ -50,9 +50,12 @@ std::vector<std::vector<T>> numpy_to_vector_2D(py::array_t<T> array)
 template <typename T>
 py::array_t<T> vector_to_numpy_1D(const std::vector<T> &vec)
 {
-    return py::array_t<T>(
-        vec.size(),
-        vec.data());
+    py::array_t<T> arr(vec.size());
+    if (!vec.empty())
+    {
+        std::memcpy(arr.mutable_data(), vec.data(), vec.size() * sizeof(T));
+    }
+    return arr;
 }
 
 template <typename T>
@@ -68,12 +71,12 @@ py::array_t<T> vector_to_numpy_2D(const vector<vector<T>> &vec)
         flattened.insert(flattened.end(), row.begin(), row.end());
     }
 
-    return py::array_t<T>(
-        {dim1, dim2},      // Shape (Three dimensions)
-        {dim2 * sizeof(T), // Strides for each dimension (row-major)
-         sizeof(T)},
-        flattened.data() // Pointer to the flat data
-    );
+    py::array_t<T> arr({dim1, dim2});
+    if (!flattened.empty())
+    {
+        std::memcpy(arr.mutable_data(), flattened.data(), flattened.size() * sizeof(T));
+    }
+    return arr;
 }
 
 template <typename T>
@@ -93,13 +96,12 @@ py::array_t<T> vector_to_numpy_3D(const vector<vector<vector<T>>> &vec)
         }
     }
 
-    return py::array_t<T>(
-        {dim1, dim2, dim3},       // Shape (Three dimensions)
-        {dim2 * dim3 * sizeof(T), // Strides for each dimension (row-major)
-         dim3 * sizeof(T),
-         sizeof(T)},
-        flattened.data() // Pointer to the flat data
-    );
+    py::array_t<T> arr({dim1, dim2, dim3});
+    if (!flattened.empty())
+    {
+        std::memcpy(arr.mutable_data(), flattened.data(), flattened.size() * sizeof(T));
+    }
+    return arr;
 }
 
 float cal_vec_avg_float(vector<float> &vec)
@@ -162,19 +164,17 @@ class PIMEmbStorage
 {
     const static int DPU_NUM = 1020;
     const uint32_t TASKLET_NUM = 16;
-    const float REDUNDANT_RATIO = 0.005;
-    const float SPLIT_EMB_NUM_RATIO = 0.0005;
-    const float MERGE_EMB_NUM_RATIO = 0.0001;
-
-    const uint32_t SELECT_EMB_ITER = 300;
-    const uint32_t SELECT_DPU_ITER = 100;
-
-    const uint32_t AGING_FREQ = 100;
-    const uint32_t DELTA_FREQ = 100;
 
 private:
     int exec_type;     // 0: sync 1: rank async 2: dpu async
     int transfer_type; // 0: all 1: rank 2: dpu
+
+    float redundant_ratio;
+    float split_emb_num_ratio;
+    float merge_emb_num_ratio;
+    uint32_t select_emb_iter;
+    uint32_t aging_freq;
+    uint32_t delta_freq;
 
     // dpu
     dpu::DpuSet dpuset = dpu::DpuSet::allocate(DPU_NUM);
@@ -224,6 +224,26 @@ private:
     vector<vector<uint32_t>> index_group_nums;
 
 public:
+    PIMEmbStorage()
+    {
+        redundant_ratio = 0.005;
+        split_emb_num_ratio = 0.0005;
+        merge_emb_num_ratio = 0.0001;
+        select_emb_iter = 300;
+        aging_freq = 100;
+        delta_freq = 100;
+    }
+
+    void configure(float redundant_ratio_, float split_emb_num_ratio_, float merge_emb_num_ratio_, uint32_t select_emb_iter_, uint32_t aging_freq_, uint32_t delta_freq_)
+    {
+        redundant_ratio = redundant_ratio_;
+        split_emb_num_ratio = split_emb_num_ratio_;
+        merge_emb_num_ratio = merge_emb_num_ratio_;
+        select_emb_iter = select_emb_iter_;
+        aging_freq = aging_freq_;
+        delta_freq = delta_freq_;
+    }
+
     void profiling()
     {
         auto avg_task_tranfer_time = cal_vec_avg_float(task_tranfer_time);
@@ -317,7 +337,7 @@ public:
         split_emb_num = 0;
         merge_emb_num = 0;
         cur_redundant_emb_size = 0;
-        max_redundant_emb_size = 1.0 * total_emb_num * REDUNDANT_RATIO;
+        max_redundant_emb_size = 1.0 * total_emb_num * redundant_ratio;
         for (int i = 0; i < total_emb_num; ++i)
             emb_freqs[i] = 0;
         for (int i = 0; i < dpus.size(); ++i)
@@ -387,7 +407,7 @@ public:
 
         global_total_index_num = 0;
 
-        max_redundant_emb_size = 1.0 * total_emb_num * REDUNDANT_RATIO;
+        max_redundant_emb_size = 1.0 * total_emb_num * redundant_ratio;
         cur_redundant_emb_size = 0;
         split_emb_num = 0;
         merge_emb_num = 0;
@@ -502,11 +522,11 @@ public:
 
         uint32_t ret_emb_id = total_emb_num;
         uint32_t ret_emb_freq = 0;
-        for (int i = 0; i < min(dpu_emb_nums[dpu_id], SELECT_EMB_ITER); ++i)
+        for (int i = 0; i < min(dpu_emb_nums[dpu_id], select_emb_iter); ++i)
         {
             uint32_t p;
 
-            if (dpu_emb_nums[dpu_id] <= SELECT_EMB_ITER)
+            if (dpu_emb_nums[dpu_id] <= select_emb_iter)
                 p = i;
             else
                 p = random_num_generation() % dpu_emb_nums[dpu_id];
@@ -685,10 +705,10 @@ public:
         uint32_t ret_emb_id = total_emb_num;
         uint32_t ret_delta_freq = 0;
 
-        for (int i = 0; i < min((uint32_t)redundant_emb_ids.size(), SELECT_EMB_ITER); ++i)
+        for (int i = 0; i < min((uint32_t)redundant_emb_ids.size(), select_emb_iter); ++i)
         {
             int p;
-            if (redundant_emb_ids.size() <= SELECT_EMB_ITER)
+            if (redundant_emb_ids.size() <= select_emb_iter)
             {
                 p = i;
             }
@@ -805,7 +825,7 @@ public:
         auto &ranks = dpuset.ranks();
 
         apply_emb_num++;
-        if (apply_emb_num % AGING_FREQ == 0)
+        if (aging_freq > 0 && apply_emb_num % aging_freq == 0)
             freq_base++; // aging
 
         auto offsets = numpy_to_vector_2D(lS_o);
@@ -1172,11 +1192,11 @@ public:
         CPU_cal_time.push_back(1.0 * duration.count() / 1000 + host_CPU_cal_time);
 
         if (split_emb_num == 0)
-            split_emb_num = total_index_num * SPLIT_EMB_NUM_RATIO;
+            split_emb_num = total_index_num * split_emb_num_ratio;
         split_emb();
 
         if (merge_emb_num == 0)
-            merge_emb_num = total_index_num * MERGE_EMB_NUM_RATIO;
+            merge_emb_num = total_index_num * merge_emb_num_ratio;
         merge_emb();
 
         auto end2end_end_time = chrono::high_resolution_clock::now();
@@ -1204,13 +1224,13 @@ public:
             merge_emb_num++;
         }
 
-        if (apply_emb_num > DELTA_FREQ * 2 && apply_emb_num % DELTA_FREQ == 0)
+        if (delta_freq > 0 && apply_emb_num > delta_freq * 2 && apply_emb_num % delta_freq == 0)
         {
-            vector<float> a(PIM_cal_time.begin() + apply_emb_num - DELTA_FREQ * 2, PIM_cal_time.begin() + apply_emb_num - DELTA_FREQ);
-            vector<float> b(PIM_cal_time.begin() + apply_emb_num - DELTA_FREQ, PIM_cal_time.begin() + apply_emb_num);
+            vector<float> a(PIM_cal_time.begin() + apply_emb_num - delta_freq * 2, PIM_cal_time.begin() + apply_emb_num - delta_freq);
+            vector<float> b(PIM_cal_time.begin() + apply_emb_num - delta_freq, PIM_cal_time.begin() + apply_emb_num);
             float delta_PIM_cal_time = cal_vec_avg_float(a) - cal_vec_avg_float(b);
-            a = vector<float>(CPU_cal_time.begin() + apply_emb_num - DELTA_FREQ * 2, CPU_cal_time.begin() + apply_emb_num - DELTA_FREQ);
-            b = vector<float>(CPU_cal_time.begin() + apply_emb_num - DELTA_FREQ, CPU_cal_time.begin() + apply_emb_num);
+            a = vector<float>(CPU_cal_time.begin() + apply_emb_num - delta_freq * 2, CPU_cal_time.begin() + apply_emb_num - delta_freq);
+            b = vector<float>(CPU_cal_time.begin() + apply_emb_num - delta_freq, CPU_cal_time.begin() + apply_emb_num);
             float delta_CPU_cal_time = cal_vec_avg_float(b) - cal_vec_avg_float(a);
             if (delta_PIM_cal_time < 0 || delta_PIM_cal_time < delta_CPU_cal_time)
             {
@@ -1268,6 +1288,7 @@ PYBIND11_MODULE(pim_module, m)
 
     py::class_<PIMEmbStorage>(m, "PIMEmbStorage")
         .def(py::init<>())
+        .def("configure", &PIMEmbStorage::configure, "Configure adaptive CloverRec parameters")
         .def("profiling", &PIMEmbStorage::profiling, "Profiling")
         .def("clear_profiling_data", &PIMEmbStorage::clear_profiling_data, "Clear Profiling Data")
         .def("initialize", &PIMEmbStorage::initialize, "Initialize PIMEmbStorage")

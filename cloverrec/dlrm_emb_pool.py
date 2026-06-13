@@ -23,6 +23,16 @@ from pim_module import PIMEmbStorage
 
 import time
 
+
+def ensure_mr_capacity(mr, payload_len, label):
+    required = payload_len + 8
+    if required > mr.length:
+        raise RuntimeError(
+            f"{label} payload requires {required} bytes, "
+            f"but RDMA MR is {mr.length} bytes. Increase --rdma-mr-size-mb."
+        )
+
+
 class EmbServer:
     def __init__(self, m, ln):
         self.SERVER_RECV_WR = 1
@@ -55,6 +65,14 @@ class EmbServer:
         start_time = time.time()
 
         self.pim_emb_storage = PIMEmbStorage()
+        self.pim_emb_storage.configure(
+            args.redundant_ratio,
+            args.split_emb_num_ratio,
+            args.merge_emb_num_ratio,
+            args.select_emb_iter,
+            args.aging_freq,
+            args.delta_freq,
+        )
         self.pim_emb_storage.initialize(m, ln, emb_l)
 
         end_time = time.time()
@@ -74,6 +92,9 @@ class EmbServer:
     def read_mr(self, length, offset):
         return self.mr.read(length, offset)
 
+    def send_sgl(self, payload_len):
+        return [SGE(self.mr.buf, payload_len + 8, self.mr.lkey)]
+
     def start_connection(self):
         
         self.conn = SKT(args.emb_pool_port, None)
@@ -89,8 +110,8 @@ class EmbServer:
         qp_init_attr = QPInitAttr(qp_type=IBV_QPT_RC, scq=self.cq, rcq=self.cq, cap=cap, sq_sig_all=True)
         self.qp = QP(self.pd, qp_init_attr)
 
-        gid = ctx.query_gid(port_num=1, index=1)
-        lid = ctx.query_port(port_num=1).lid
+        gid = ctx.query_gid(1, 1)
+        lid = ctx.query_port(1).lid
 
         # Handshake to exchange information such as QP Number
         remote_info = self.conn.handshake(gid=gid, lid=lid, qpn=self.qp.qp_num)
@@ -108,7 +129,7 @@ class EmbServer:
         self.qp.to_rts(qa)
         self.conn.handshake()
 
-        mr_size = 16 * 1024 * 1024
+        mr_size = args.rdma_mr_size_mb * 1024 * 1024
         self.mr = MR(self.pd, mr_size, IBV_ACCESS_LOCAL_WRITE | IBV_ACCESS_REMOTE_WRITE | IBV_ACCESS_REMOTE_READ)
         self.sgl = [SGE(self.mr.buf, self.mr.length, self.mr.lkey)]
 
@@ -148,6 +169,7 @@ class EmbServer:
 
         # load request
         request_len = int.from_bytes(self.read_mr(8, 0), 'little')
+        ensure_mr_capacity(self.mr, request_len, "emb_pool request")
         request_bytes = self.read_mr(request_len, 8)
 
         request = pickle.loads(request_bytes)
@@ -172,13 +194,14 @@ class EmbServer:
         response = pickle.dumps({'header': header, 'data': ret, 'offset': ret_offset, 'to_cache_keys': to_cache_keys, 'to_cache_values': to_cache_values})
 
         response_len = len(response)
+        ensure_mr_capacity(self.mr, response_len, "emb_pool response")
         self.mr.write(response_len.to_bytes(8, 'little'), 8, 0)
         self.mr.write(response, response_len, 8)
 
         # check client recv ready
         self.conn.handshake()
 
-        wr = SendWR(self.SERVER_SEND_WR, opcode=IBV_WR_SEND, num_sge=1, sg=self.sgl)
+        wr = SendWR(self.SERVER_SEND_WR, opcode=IBV_WR_SEND, num_sge=1, sg=self.send_sgl(response_len))
         self.qp.post_send(wr)
 
         # check server send ready
@@ -214,6 +237,33 @@ def dash_separated_ints(value):
 
     return value
 
+def positive_float(value):
+    try:
+        parsed = float(value)
+    except ValueError:
+        raise argparse.ArgumentTypeError("%s is not a valid float" % value)
+    if parsed < 0:
+        raise argparse.ArgumentTypeError("%s must be non-negative" % value)
+    return parsed
+
+def positive_int(value):
+    try:
+        parsed = int(value)
+    except ValueError:
+        raise argparse.ArgumentTypeError("%s is not a valid integer" % value)
+    if parsed <= 0:
+        raise argparse.ArgumentTypeError("%s must be positive" % value)
+    return parsed
+
+def non_negative_int(value):
+    try:
+        parsed = int(value)
+    except ValueError:
+        raise argparse.ArgumentTypeError("%s is not a valid integer" % value)
+    if parsed < 0:
+        raise argparse.ArgumentTypeError("%s must be non-negative" % value)
+    return parsed
+
 parser = argparse.ArgumentParser(
     description="Train Deep Learning Recommendation Model (DLRM)"
 )
@@ -223,7 +273,14 @@ parser.add_argument(
     "--arch-embedding-size", type=dash_separated_ints, default="4-3-2"
 )
 parser.add_argument("--rdma-wr-capacity", type=int, default=16)
+parser.add_argument("--rdma-mr-size-mb", type=positive_int, default=128)
 parser.add_argument("--emb-pool-port", type=int, default=1234)
+parser.add_argument("--redundant-ratio", type=positive_float, default=0.005)
+parser.add_argument("--split-emb-num-ratio", type=positive_float, default=0.0005)
+parser.add_argument("--merge-emb-num-ratio", type=positive_float, default=0.0001)
+parser.add_argument("--select-emb-iter", type=positive_int, default=300)
+parser.add_argument("--aging-freq", type=non_negative_int, default=100)
+parser.add_argument("--delta-freq", type=non_negative_int, default=100)
 
 global args
 args = parser.parse_args()
@@ -237,4 +294,3 @@ print("start emb pool")
 
 while True:
     server.start_connection()
-

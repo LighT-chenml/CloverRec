@@ -1,0 +1,9 @@
+name: CloverRec
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  # pyverbs is installed separately to match each server's RDMA/MLNX_OFED stack.
+  - pip:
+      - -r requirements-pim.txt

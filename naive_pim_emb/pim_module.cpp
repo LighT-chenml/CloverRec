@@ -50,9 +50,12 @@ std::vector<std::vector<T>> numpy_to_vector_2D(py::array_t<T> array)
 template <typename T>
 py::array_t<T> vector_to_numpy_1D(const std::vector<T> &vec)
 {
-    return py::array_t<T>(
-        vec.size(),
-        vec.data());
+    py::array_t<T> arr(vec.size());
+    if (!vec.empty())
+    {
+        std::memcpy(arr.mutable_data(), vec.data(), vec.size() * sizeof(T));
+    }
+    return arr;
 }
 
 template <typename T>
@@ -68,12 +71,12 @@ py::array_t<T> vector_to_numpy_2D(const vector<vector<T>> &vec)
         flattened.insert(flattened.end(), row.begin(), row.end());
     }
 
-    return py::array_t<T>(
-        {dim1, dim2},      // Shape (Three dimensions)
-        {dim2 * sizeof(T), // Strides for each dimension (row-major)
-         sizeof(T)},
-        flattened.data() // Pointer to the flat data
-    );
+    py::array_t<T> arr({dim1, dim2});
+    if (!flattened.empty())
+    {
+        std::memcpy(arr.mutable_data(), flattened.data(), flattened.size() * sizeof(T));
+    }
+    return arr;
 }
 
 template <typename T>
@@ -93,13 +96,12 @@ py::array_t<T> vector_to_numpy_3D(const vector<vector<vector<T>>> &vec)
         }
     }
 
-    return py::array_t<T>(
-        {dim1, dim2, dim3},       // Shape (Three dimensions)
-        {dim2 * dim3 * sizeof(T), // Strides for each dimension (row-major)
-         dim3 * sizeof(T),
-         sizeof(T)},
-        flattened.data() // Pointer to the flat data
-    );
+    py::array_t<T> arr({dim1, dim2, dim3});
+    if (!flattened.empty())
+    {
+        std::memcpy(arr.mutable_data(), flattened.data(), flattened.size() * sizeof(T));
+    }
+    return arr;
 }
 
 float cal_vec_avg_float(vector<float> &vec)

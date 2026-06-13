@@ -32,6 +32,12 @@ class EmbClient:
     def read_mr(self, length, offset):
         return self.mr.read(length, offset)
 
+    def poll_completions(self, expected):
+        completed = 0
+        while completed < expected:
+            wc_num, wc_list = self.cq.poll(num_entries=expected - completed)
+            completed += wc_num
+
     def connect(self, server_port, server_ip, mr_size, emb_size, wr_capacity):
         self.conn = CM(server_port, server_ip)
 
@@ -46,8 +52,8 @@ class EmbClient:
         qp_init_attr = QPInitAttr(qp_type=IBV_QPT_RC, scq=self.cq, rcq=self.cq, cap=cap, sq_sig_all=True)
         self.qp = QP(self.pd, qp_init_attr)
 
-        gid = ctx.query_gid(port_num=1, index=1)
-        lid = ctx.query_port(port_num=1).lid
+        gid = ctx.query_gid(1, 1)
+        lid = ctx.query_port(1).lid
 
         # Handshake to exchange information such as QP Number
         remote_info = self.conn.handshake(gid=gid, lid=lid, qpn=self.qp.qp_num)
@@ -86,7 +92,7 @@ class EmbClient:
 
                 self.qp.post_send(wr)
 
-            wc_num, wc_list = self.cq.poll(num_entries=num)
+            self.poll_completions(num)
         
             ret.extend(bytearray(self.read_mr(num * emb_size, 0)))
             

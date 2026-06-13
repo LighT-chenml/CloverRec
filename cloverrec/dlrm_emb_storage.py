@@ -24,6 +24,16 @@ import time
 # client cache
 from client_cache import ClientCache
 
+
+def ensure_mr_capacity(mr, payload_len, label):
+    required = payload_len + 8
+    if required > mr.length:
+        raise RuntimeError(
+            f"{label} payload requires {required} bytes, "
+            f"but RDMA MR is {mr.length} bytes. Increase --rdma-mr-size-mb."
+        )
+
+
 class EmbClient:
     def __init__(self):
         self.CLIENT_RECV_WR = 3
@@ -32,7 +42,10 @@ class EmbClient:
     def read_mr(self, length, offset):
         return self.mr.read(length, offset)
 
-    def connect(self, server_port, server_ip, wr_capacity):
+    def send_sgl(self, payload_len):
+        return [SGE(self.mr.buf, payload_len + 8, self.mr.lkey)]
+
+    def connect(self, server_port, server_ip, wr_capacity, mr_size_mb):
         self.conn = SKT(server_port, server_ip)
         self.conn.handshake()
 
@@ -46,8 +59,8 @@ class EmbClient:
         qp_init_attr = QPInitAttr(qp_type=IBV_QPT_RC, scq=self.cq, rcq=self.cq, cap=cap, sq_sig_all=True)
         self.qp = QP(self.pd, qp_init_attr)
 
-        gid = ctx.query_gid(port_num=1, index=1)
-        lid = ctx.query_port(port_num=1).lid
+        gid = ctx.query_gid(1, 1)
+        lid = ctx.query_port(1).lid
 
         # Handshake to exchange information such as QP Number
         remote_info = self.conn.handshake(gid=gid, lid=lid, qpn=self.qp.qp_num)
@@ -65,7 +78,7 @@ class EmbClient:
         self.qp.to_rts(qa)
         self.conn.handshake()
         
-        mr_size = 16 * 1024 * 1024
+        mr_size = mr_size_mb * 1024 * 1024
         self.mr = MR(self.pd, mr_size, IBV_ACCESS_LOCAL_WRITE | IBV_ACCESS_REMOTE_WRITE | IBV_ACCESS_REMOTE_READ)
         self.sgl = [SGE(self.mr.buf, self.mr.length, self.mr.lkey)]
 
@@ -78,13 +91,14 @@ class EmbClient:
         header = {}
         request = pickle.dumps({'header': header, 'data': input_data})
         request_len = len(request)
+        ensure_mr_capacity(self.mr, request_len, "emb_pool request")
         self.mr.write(request_len.to_bytes(8, 'little'), 8, 0)
         self.mr.write(request, request_len, 8)
 
         # check server recv ready
         self.conn.handshake()
 
-        wr = SendWR(self.CLIENT_SEND_WR, opcode=IBV_WR_SEND, num_sge=1, sg=self.sgl)
+        wr = SendWR(self.CLIENT_SEND_WR, opcode=IBV_WR_SEND, num_sge=1, sg=self.send_sgl(request_len))
         self.qp.post_send(wr)
 
         # check client send ready
@@ -105,6 +119,7 @@ class EmbClient:
 
         # return response
         response_len = int.from_bytes(self.read_mr(8, 0), 'little')
+        ensure_mr_capacity(self.mr, response_len, "emb_pool response")
         response = pickle.loads(self.read_mr(response_len, 8))
         return response
 
@@ -112,7 +127,7 @@ class EmbClient:
         self.conn.close()
 
 class EmbStorage():
-    def __init__(self, m, ln, num_indices_per_lookup, batch_size, emb_pool_ip, emb_pool_port, wr_capacity):
+    def __init__(self, m, ln, num_indices_per_lookup, batch_size, emb_pool_ip, emb_pool_port, wr_capacity, mr_size_mb):
         self.m = m
         self.ln = ln
         
@@ -126,7 +141,7 @@ class EmbStorage():
         flag = 0
         while flag != 2:
             try:
-                self.client.connect(emb_pool_port, emb_pool_ip, wr_capacity)
+                self.client.connect(emb_pool_port, emb_pool_ip, wr_capacity, mr_size_mb)
                 flag = 2
             except:
                 if flag == 0:

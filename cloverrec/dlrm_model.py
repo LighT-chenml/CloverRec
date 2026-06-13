@@ -86,6 +86,16 @@ import pandas as pd
 # are spawned during testing. So, we filter out those warnings.
 import warnings
 
+
+def ensure_mr_capacity(mr, payload_len, label):
+    required = payload_len + 8
+    if required > mr.length:
+        raise RuntimeError(
+            f"{label} payload requires {required} bytes, "
+            f"but RDMA MR is {mr.length} bytes. Increase --rdma-mr-size-mb."
+        )
+
+
 # data generation
 import dlrm_data_pytorch as dp
 
@@ -318,6 +328,9 @@ class GPUServer:
     def read_mr(self, length, offset):
         return self.mr.read(length, offset)
 
+    def send_sgl(self, payload_len):
+        return [SGE(self.mr.buf, payload_len + 8, self.mr.lkey)]
+
     def apply_bot_mlp(self, dense_x):
         device = torch.device("cuda", 0)
         with ThreadPoolExecutor(max_workers=2) as executor:
@@ -351,6 +364,7 @@ class GPUServer:
 
         # load request
         request_len = int.from_bytes(self.read_mr(8, 0), 'little')
+        ensure_mr_capacity(self.mr, request_len, "model request")
         request = pickle.loads(self.read_mr(request_len, 8))
         header = request['header']
         input_data = request['data']
@@ -375,13 +389,14 @@ class GPUServer:
         output_data = ret
         response = pickle.dumps({'header': header, 'data': output_data})
         response_len = len(response)
+        ensure_mr_capacity(self.mr, response_len, "model response")
         self.mr.write(response_len.to_bytes(8, 'little'), 8, 0)
         self.mr.write(response, response_len, 8)
 
         # check client recv ready
         self.conn.handshake()
 
-        wr = SendWR(self.SERVER_SEND_WR, opcode=IBV_WR_SEND, num_sge=1, sg=self.sgl)
+        wr = SendWR(self.SERVER_SEND_WR, opcode=IBV_WR_SEND, num_sge=1, sg=self.send_sgl(response_len))
         self.qp.post_send(wr)
 
         # check server send ready
@@ -406,8 +421,8 @@ class GPUServer:
         qp_init_attr = QPInitAttr(qp_type=IBV_QPT_RC, scq=self.cq, rcq=self.cq, cap=cap, sq_sig_all=True)
         self.qp = QP(self.pd, qp_init_attr)
 
-        gid = ctx.query_gid(port_num=1, index=1)
-        lid = ctx.query_port(port_num=1).lid
+        gid = ctx.query_gid(1, 1)
+        lid = ctx.query_port(1).lid
 
         # Handshake to exchange information such as QP Number
         remote_info = self.conn.handshake(gid=gid, lid=lid, qpn=self.qp.qp_num)
@@ -425,7 +440,7 @@ class GPUServer:
         self.qp.to_rts(qa)
         self.conn.handshake()
 
-        mr_size = 16 * 1024 * 1024
+        mr_size = args.rdma_mr_size_mb * 1024 * 1024
 
         self.mr = MR(self.pd, mr_size, IBV_ACCESS_LOCAL_WRITE | IBV_ACCESS_REMOTE_WRITE | IBV_ACCESS_REMOTE_READ)
         self.sgl = [SGE(self.mr.buf, self.mr.length, self.mr.lkey)]
@@ -572,6 +587,7 @@ def run():
     parser.add_argument("--lr-num-decay-steps", type=int, default=0)
     # rpc
     parser.add_argument("--server-port", type=int, default=8000)
+    parser.add_argument("--rdma-mr-size-mb", type=int, default=128)
 
     global args
     global nbatches

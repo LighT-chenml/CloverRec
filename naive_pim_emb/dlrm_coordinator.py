@@ -127,6 +127,16 @@ with warnings.catch_warnings():
 
 exc = getattr(builtins, "IOError", "FileNotFoundError")
 
+
+def ensure_mr_capacity(mr, payload_len, label):
+    required = payload_len + 8
+    if required > mr.length:
+        raise RuntimeError(
+            f"{label} payload requires {required} bytes, "
+            f"but RDMA MR is {mr.length} bytes. Increase --rdma-mr-size-mb."
+        )
+
+
 def dlrm_wrap(X, lS_o, lS_i, use_gpu, device, ndevices=1):
     with record_function("DLRM forward"):
         return dlrm(X, lS_o, lS_i)
@@ -258,7 +268,7 @@ class DLRM_Net(nn.Module):
 
             # create operators
             # self.emb_l, self.v_W_l = self.create_emb(m_spa, ln_emb)
-            self.emb_storage = EmbStorage(m_spa, ln_emb, args.num_indices_per_lookup, args.mini_batch_size, args.emb_pool_ip, args.emb_pool_port, args.rdma_wr_capacity)
+            self.emb_storage = EmbStorage(m_spa, ln_emb, args.num_indices_per_lookup, args.mini_batch_size, args.emb_pool_ip, args.emb_pool_port, args.rdma_wr_capacity, args.rdma_mr_size_mb)
 
             self.ev_lookup_time = []
             self.apply_emb_time = []
@@ -328,7 +338,10 @@ class GPUClient:
     def read_mr(self, length, offset):
         return self.mr.read(length, offset)
 
-    def connect(self, server_ip, server_port):
+    def send_sgl(self, payload_len):
+        return [SGE(self.mr.buf, payload_len + 8, self.mr.lkey)]
+
+    def connect(self, server_ip, server_port, mr_size_mb):
         self.conn = SKT(server_port, server_ip)
         self.conn.handshake()
 
@@ -342,8 +355,8 @@ class GPUClient:
         qp_init_attr = QPInitAttr(qp_type=IBV_QPT_RC, scq=self.cq, rcq=self.cq, cap=cap, sq_sig_all=True)
         self.qp = QP(self.pd, qp_init_attr)
 
-        gid = ctx.query_gid(port_num=1, index=1)
-        lid = ctx.query_port(port_num=1).lid
+        gid = ctx.query_gid(1, 1)
+        lid = ctx.query_port(1).lid
 
         # Handshake to exchange information such as QP Number
         remote_info = self.conn.handshake(gid=gid, lid=lid, qpn=self.qp.qp_num)
@@ -361,7 +374,7 @@ class GPUClient:
         self.qp.to_rts(qa)
         self.conn.handshake()
 
-        mr_size = 16 * 1024 * 1024
+        mr_size = mr_size_mb * 1024 * 1024
 
         self.mr = MR(self.pd, mr_size, IBV_ACCESS_LOCAL_WRITE | IBV_ACCESS_REMOTE_WRITE | IBV_ACCESS_REMOTE_READ)
         self.sgl = [SGE(self.mr.buf, self.mr.length, self.mr.lkey)]
@@ -373,13 +386,14 @@ class GPUClient:
         header = {'func_type': func_type}
         request = pickle.dumps({'header': header, 'data': input_data})
         request_len = len(request)
+        ensure_mr_capacity(self.mr, request_len, "model request")
         self.mr.write(request_len.to_bytes(8, 'little'), 8, 0)
         self.mr.write(request, request_len, 8)
 
         # check server recv ready
         self.conn.handshake()
 
-        wr = SendWR(self.CLIENT_SEND_WR, opcode=IBV_WR_SEND, num_sge=1, sg=self.sgl)
+        wr = SendWR(self.CLIENT_SEND_WR, opcode=IBV_WR_SEND, num_sge=1, sg=self.send_sgl(request_len))
         self.qp.post_send(wr)
 
         # check client send ready
@@ -400,6 +414,7 @@ class GPUClient:
 
         # return response
         response_len = int.from_bytes(self.read_mr(8, 0), 'little')
+        ensure_mr_capacity(self.mr, response_len, "model response")
         response = pickle.loads(self.read_mr(response_len, 8))
         return response
 
@@ -586,7 +601,7 @@ def try_connect():
     flag = 0
     while flag != 2:
         try:
-            conn.connect(args.server_ip, args.server_port)
+            conn.connect(args.server_ip, args.server_port, args.rdma_mr_size_mb)
             flag = 2
         except:
             if flag == 0:
@@ -723,6 +738,7 @@ def run():
     parser.add_argument("--emb-pool-ip", type=str, default='localhost')
     parser.add_argument("--emb-pool-port", type=int, default=8000)
     parser.add_argument("--rdma-wr-capacity", type=int, default=16)
+    parser.add_argument("--rdma-mr-size-mb", type=int, default=128)
 
     global args
     global nbatches
