@@ -21,6 +21,72 @@ The `scripts/run_smoke.sh` wrapper forwards to the Python launcher.
 The scripted workloads include synthetic `RM1`-`RM4` runs and an optional
 `KAGGLE` workload for the processed Kaggle/Criteo data path.
 
+## Server Access for Evaluators
+
+The artifact is evaluated on our preconfigured lab servers. Evaluators connect
+to the PM2 GPU server through Tailscale and authenticate with an SSH public key.
+
+1. Install Tailscale from <https://tailscale.com/download> and sign in.
+2. Open the [CloverRec Tailscale invitation link](https://login.tailscale.com/admin/invite/poqxLcZrEwiwuJxzh6uT11)
+   and accept the invitation. If the link has expired, contact the paper authors
+   for a new invitation.
+3. Send your **SSH public key** (for example, `~/.ssh/id_ed25519.pub`) to the
+   authors. If you do not have one, create it with `ssh-keygen -t ed25519`. The
+   authors will install the public key for user `cml` on PM2. Never send your
+   private key.
+4. After the authors confirm that the key has been installed, verify that PM2 is
+   visible with `tailscale status`, then connect with:
+
+```sh
+ssh cml@100.123.137.1
+cd /home/cml/CloverRec
+```
+
+Example VS Code Remote SSH configuration:
+
+```sshconfig
+Host CloverRec-PM2
+    HostName 100.123.137.1
+    User cml
+    Port 22
+```
+
+Only PM2 needs to be reached through Tailscale. The experiment launcher runs on
+PM2 and starts processes on the PIM server over the lab's internal network. In
+the commands below, `192.168.123.*` addresses are internal management/SSH
+addresses, while `10.0.0.*` addresses are InfiniBand/RDMA data-plane addresses.
+For example, the default run uses `--model-ip 10.0.0.5`,
+`--emb-pool-ip 10.0.0.11`, and `--emb-pool-host 192.168.123.7`.
+For a manually launched smoke run, connect from PM2 to the PIM server with
+`ssh 192.168.123.7`; `scripts/run_e2e.py` performs this step automatically.
+
+## Quick Artifact Evaluation (Recommended)
+
+The evaluation environment is already configured on PM2 and PM5. After logging
+in to PM2, one command checks both servers, builds all four systems, runs one
+representative RM1 point per system, and writes a CSV summary under `results/`:
+
+```sh
+scripts/run_artifact.sh quick
+```
+
+For the complete recommended RM1-RM4 knee matrix, run the optional second
+command:
+
+```sh
+scripts/run_artifact.sh full
+```
+
+The quick run is the recommended sanity check and normally takes a few minutes.
+The full run is intended to finish in under about one hour. Both commands manage
+the model and embedding-pool processes automatically; evaluators do not need to
+start services manually or enter any server addresses, Python paths, or ports.
+The final line prints the exact `summary.csv` path.
+
+The remaining sections document environment setup, individual roles, and custom
+experiment matrices for advanced use. They are not required for the standard
+artifact evaluation.
+
 ## Repository Layout
 
 - `cloverrec/`: CloverRec implementation. Important entry files are
@@ -44,35 +110,28 @@ The scripted workloads include synthetic `RM1`-`RM4` runs and an optional
 
 ## Hardware Setup
 
-The end-to-end experiment uses three logical roles:
+The end-to-end experiment uses up to three server roles:
 
 - model server: GPU server running `dlrm_model.py`
 - coordinator: host process running `dlrm_coordinator.py`
 - embedding pool: PIM or remote embedding server running `dlrm_emb_pool.py`
 
-The minimum hardware setup is:
+The current lab setup uses two V100 GPU servers and one UPMEM PIM server. Use the
+InfiniBand/RDMA IPs for CloverRec commands:
 
-- one GPU server for the model server; the coordinator can run on the same GPU
-  server, so a separate coordinator machine is optional
-- one UPMEM PIM server for the embedding-pool role
-- an RDMA-capable network between the GPU/coordinator server and the PIM server,
-  typically Mellanox InfiniBand or RoCE with working `ibverbs`/`pyverbs`
+- GPU/model/coordinator candidates: `10.0.0.3` and `10.0.0.5`
+- PIM embedding pool: `10.0.0.11`
 
-A larger setup may use two GPU servers, with one server running the model and
-another running the coordinator, but this is not required for the default
-artifact runs. Use the InfiniBand/RDMA IPs for CloverRec commands, for example:
-
-- GPU/model/coordinator RDMA IP: `10.0.0.5`
-- PIM embedding-pool RDMA IP: `10.0.0.11`
+The evaluator-facing default uses PM2 (`10.0.0.5`) for both the model server and
+coordinator, and PM5 (`10.0.0.11`) for the embedding pool. PM1 (`10.0.0.3`) is
+an optional GPU candidate and is not required for the default evaluation.
 
 Use the IP address assigned to the InfiniBand/RDMA NIC, not the management NIC.
 On most setups this is the address shown on an `ib*`, `ibp*`, or RDMA-backed
-interface in `ip -brief addr` / `rdma link`. The launcher also accepts
-management SSH targets such as `--emb-pool-host <pim-management-host>` when it
-needs to start a remote process, but `--model-ip` and `--emb-pool-ip` must be
-the RDMA data-plane addresses.
+interface in `ip -brief addr` / `rdma link`. The coordinator can run on either
+GPU server, including the same machine as the model server.
 
-## Requirements
+## Advanced: Recreating the Environment
 
 - Ubuntu 22.04 LTS
 - Python 3.10
@@ -127,7 +186,7 @@ scripts/check_env.sh --role coordinator
 scripts/check_env.sh --role emb_pool
 ```
 
-## Build
+## Advanced: Manual Build
 
 Build from the repository root. Build only the system you plan to run on the
 current machine.
@@ -158,7 +217,7 @@ original `1000000`. Increase `--num-batches` or `--table-size` for longer
 validation experiments. The `KAGGLE` workload uses real processed table counts
 and ignores `--table-size`.
 
-Expected runtime on a representative GPU-plus-PIM setup:
+Expected runtime on our three-server setup:
 
 - A single smoke coordinator run usually takes a few seconds to a few minutes,
   depending on workload, system, and batch size.
@@ -178,7 +237,7 @@ Expected runtime on a representative GPU-plus-PIM setup:
 - First-time setup can take longer because the Conda environments and native
   extensions must be created and built on the GPU/coordinator and PIM servers.
 
-## End-to-End Smoke Run
+## Advanced: Manual Role-by-Role Smoke Run
 
 Start the model server on a GPU server:
 
@@ -201,8 +260,8 @@ scripts/run_smoke.py \
   --workload RM1 \
   --batch-size 128 \
   --table-size 100000 \
-  --model-ip <gpu-rdma-ip> \
-  --emb-pool-ip <pim-rdma-ip>
+  --model-ip 10.0.0.5 \
+  --emb-pool-ip 10.0.0.11
 ```
 
 The same script supports `RM1`, `RM2`, `RM3`, `RM4`, and `KAGGLE`, and all four
@@ -223,7 +282,7 @@ scripts/run_smoke.py --system local_emb --role coordinator --workload RM1
 
 For `local_emb`, no embedding-pool process is needed.
 
-## End-to-End Matrix
+## Advanced: Custom End-to-End Matrix
 
 Use `scripts/run_e2e.py` for the regular end-to-end experiment matrix. It starts
 the model server, starts the embedding pool when the selected system needs one,
@@ -235,19 +294,18 @@ scripts/run_e2e.py \
   --systems cloverrec \
   --workloads RM1 \
   --batch-sizes 128 \
-  --model-ip <gpu-rdma-ip> \
-  --emb-pool-ip <pim-rdma-ip> \
-  --emb-pool-host <pim-ssh-host> \
-  --coordinator-python <coordinator-python> \
-  --model-python <model-python> \
-  --emb-pool-python <emb-pool-python>
+  --model-ip 10.0.0.5 \
+  --emb-pool-ip 10.0.0.11 \
+  --emb-pool-host 192.168.123.7 \
+  --coordinator-python /home/cml/anaconda3/envs/CloverRec/bin/python \
+  --model-python /home/cml/anaconda3/envs/CloverRec/bin/python \
+  --emb-pool-python /home/cml/miniconda3/envs/CloverRec/bin/python
 ```
 
 `--model-ip` and `--emb-pool-ip` are the InfiniBand/RDMA addresses used by the
 runtime. `--model-host` and `--emb-pool-host` are SSH targets used only by the
 launcher to start remote processes. Leave `--model-host local` when the model
-server runs on the coordinator machine, which is the expected configuration for
-the minimum two-server setup.
+server runs on the coordinator machine.
 
 When `--batch-sizes` is omitted, `scripts/run_e2e.py` uses the `knee` batch
 profile: each `(system, workload)` pair gets a small list of batch sizes chosen
@@ -269,12 +327,12 @@ scripts/run_e2e.py \
   --workloads RM1 RM2 RM3 RM4 \
   --num-batches 100 \
   --table-size 100000 \
-  --model-ip <gpu-rdma-ip> \
-  --emb-pool-ip <pim-rdma-ip> \
-  --emb-pool-host <pim-ssh-host> \
-  --coordinator-python <coordinator-python> \
-  --model-python <model-python> \
-  --emb-pool-python <emb-pool-python>
+  --model-ip 10.0.0.5 \
+  --emb-pool-ip 10.0.0.11 \
+  --emb-pool-host 192.168.123.7 \
+  --coordinator-python /home/cml/anaconda3/envs/CloverRec/bin/python \
+  --model-python /home/cml/anaconda3/envs/CloverRec/bin/python \
+  --emb-pool-python /home/cml/miniconda3/envs/CloverRec/bin/python
 ```
 
 For RM2 and RM4 the default profile includes smaller batch sizes than the old
@@ -293,19 +351,19 @@ scripts/run_e2e.py \
   --systems cloverrec remote_emb naive_pim_emb local_emb \
   --workloads KAGGLE \
   --kaggle-data-root data/Kaggle \
-  --model-ip <gpu-rdma-ip> \
-  --emb-pool-ip <pim-rdma-ip> \
-  --emb-pool-host <pim-ssh-host> \
-  --coordinator-python <coordinator-python> \
-  --model-python <model-python> \
-  --emb-pool-python <emb-pool-python>
+  --model-ip 10.0.0.5 \
+  --emb-pool-ip 10.0.0.11 \
+  --emb-pool-host 192.168.123.7 \
+  --coordinator-python /home/cml/anaconda3/envs/CloverRec/bin/python \
+  --model-python /home/cml/anaconda3/envs/CloverRec/bin/python \
+  --emb-pool-python /home/cml/miniconda3/envs/CloverRec/bin/python
 ```
 
 For PIM systems, run this after syncing the repository to the PIM server and
 creating the `environment-pim.yml` environment there. The script can build
 components automatically; pass `--skip-build` to reuse existing native modules.
 
-## CloverRec PIM Parameters
+## Advanced: CloverRec PIM Parameters
 
 The adaptive CloverRec PIM parameters can be passed through the embedding-pool
 role. Defaults match the previous hard-coded implementation.
@@ -326,13 +384,13 @@ scripts/run_smoke.py \
 These options map to the hot-embedding replication budget, split/merge rate, hot
 embedding sampling window, frequency aging interval, and adjustment interval.
 
-## Parsing Results
+## Advanced: Parsing Results
 
 Save coordinator output and parse it into JSON or CSV:
 
 ```sh
 scripts/run_smoke.py --system cloverrec --role coordinator --workload RM1 \
-  --model-ip <gpu-rdma-ip> --emb-pool-ip <pim-rdma-ip> | tee cloverrec_rm1.log
+  --model-ip 10.0.0.5 --emb-pool-ip 10.0.0.11 | tee cloverrec_rm1.log
 
 scripts/parse_results.py cloverrec_rm1.log
 scripts/parse_results.py --format csv cloverrec_rm1.log
