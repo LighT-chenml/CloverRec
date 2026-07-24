@@ -136,8 +136,6 @@ testing but need not reproduce the reported absolute throughput or latency.
 
 ## Software Requirements
 
-## Advanced: Recreating the Environment
-
 - Ubuntu 22.04 LTS
 - Python 3.10
 - g++ 11.4 or newer
