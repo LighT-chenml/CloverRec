@@ -21,71 +21,74 @@ The `scripts/run_smoke.sh` wrapper forwards to the Python launcher.
 The scripted workloads include synthetic `RM1`-`RM4` runs and an optional
 `KAGGLE` workload for the processed Kaggle/Criteo data path.
 
-## Server Access for Evaluators
+## Quick Start on Your Own Cluster
 
-The artifact is evaluated on our preconfigured lab servers. Evaluators connect
-to the PM2 GPU server through Tailscale and authenticate with an SSH public key.
+CloverRec uses three logical roles:
 
-1. Install Tailscale from <https://tailscale.com/download> and sign in.
-2. Open the [CloverRec Tailscale invitation link](https://login.tailscale.com/admin/invite/poqxLcZrEwiwuJxzh6uT11)
-   and accept the invitation. If the link has expired, contact the paper authors
-   for a new invitation.
-3. Send your **SSH public key** (for example, `~/.ssh/id_ed25519.pub`) to the
-   authors. If you do not have one, create it with `ssh-keygen -t ed25519`. The
-   authors will install the public key for user `cml` on PM2. Never send your
-   private key.
-4. After the authors confirm that the key has been installed, verify that PM2 is
-   visible with `tailscale status`, then connect with:
+- **model**: runs the DLRM MLP on a CUDA-capable GPU;
+- **coordinator**: drives requests and communicates with the other roles; and
+- **embedding pool**: runs the remote-memory or UPMEM PIM implementation.
 
-```sh
-ssh cml@100.123.137.1
-cd /home/cml/CloverRec
-```
+The model and coordinator may share one host, so a typical deployment uses one
+GPU/coordinator host and one UPMEM host. A three-host deployment is also
+supported. The coordinator must be able to reach the model and embedding-pool
+RDMA interfaces and to start remote roles over passwordless SSH.
 
-Example VS Code Remote SSH configuration:
-
-```sshconfig
-Host CloverRec-PM2
-    HostName 100.123.137.1
-    User cml
-    Port 22
-```
-
-Only PM2 needs to be reached through Tailscale. The experiment launcher runs on
-PM2 and starts processes on the PIM server over the lab's internal network. In
-the commands below, `192.168.123.*` addresses are internal management/SSH
-addresses, while `10.0.0.*` addresses are InfiniBand/RDMA data-plane addresses.
-For example, the default run uses `--model-ip 10.0.0.5`,
-`--emb-pool-ip 10.0.0.11`, and `--emb-pool-host 192.168.123.7`.
-For a manually launched smoke run, connect from PM2 to the PIM server with
-`ssh 192.168.123.7`; `scripts/run_e2e.py` performs this step automatically.
-
-## Quick Artifact Evaluation (Recommended)
-
-The evaluation environment is already configured on PM2 and PM5. After logging
-in to PM2, one command checks both servers, builds all four systems, runs one
-representative RM1 point per system, and writes a CSV summary under `results/`:
+Clone the same repository revision into the same absolute path on every remote
+host. The examples below use `/opt/CloverRec`; replace it and all network
+addresses with values from your cluster.
 
 ```sh
-scripts/run_artifact.sh quick
+git clone https://github.com/LighT-chenml/CloverRec.git /opt/CloverRec
+cd /opt/CloverRec
 ```
 
-For the complete recommended RM1-RM4 knee matrix, run the optional second
-command:
+Create the environments and build the artifact as described below. From the
+coordinator host, first check that the remote repository and Python interpreter
+are reachable:
 
 ```sh
-scripts/run_artifact.sh full
+ssh pim-user@pim-host \
+  'cd /opt/CloverRec && /opt/conda/envs/CloverRec/bin/python --version'
 ```
 
-The quick run is the recommended sanity check and normally takes a few minutes.
-The full run is intended to finish in under about one hour. Both commands manage
-the model and embedding-pool processes automatically; evaluators do not need to
-start services manually or enter any server addresses, Python paths, or ports.
-The final line prints the exact `summary.csv` path.
+Then run a small end-to-end check. `MODEL_IP` and `EMB_POOL_IP` are RDMA
+data-plane addresses; `EMB_POOL_HOST` is an SSH target used only to start and
+stop the remote embedding-pool process.
 
-The remaining sections document environment setup, individual roles, and custom
-experiment matrices for advanced use. They are not required for the standard
-artifact evaluation.
+```sh
+export MODEL_IP="10.10.0.10"                  # replace with the model RDMA IP
+export EMB_POOL_IP="10.10.0.20"               # replace with the PIM RDMA IP
+export EMB_POOL_HOST="pim-user@pim-host"       # replace with the PIM SSH target
+export REMOTE_REPO_ROOT="/opt/CloverRec"
+export COORDINATOR_PYTHON="/opt/conda/envs/CloverRec/bin/python"
+export MODEL_PYTHON="/opt/conda/envs/CloverRec/bin/python"
+export EMB_POOL_PYTHON="/opt/conda/envs/CloverRec/bin/python"
+
+"$COORDINATOR_PYTHON" scripts/run_e2e.py \
+  --systems cloverrec remote_emb naive_pim_emb local_emb \
+  --workloads RM1 \
+  --batch-profile smoke \
+  --num-batches 100 \
+  --table-size 100000 \
+  --model-ip "$MODEL_IP" \
+  --emb-pool-ip "$EMB_POOL_IP" \
+  --emb-pool-host "$EMB_POOL_HOST" \
+  --remote-repo-root "$REMOTE_REPO_ROOT" \
+  --coordinator-python "$COORDINATOR_PYTHON" \
+  --model-python "$MODEL_PYTHON" \
+  --emb-pool-python "$EMB_POOL_PYTHON"
+```
+
+The launcher builds the required components, starts the model and embedding-pool
+roles, runs the coordinator, stops the remote processes, and writes logs plus
+`summary.csv` under `results/e2e/`. Use `--skip-build` after the first successful
+build. If the model runs on a separate host, also pass
+`--model-host user@model-host` and ensure `--remote-repo-root` and
+`--model-python` are valid there. The lab-specific `scripts/run_artifact.sh`
+wrapper used during artifact
+evaluation is retained for provenance; new users should use `run_e2e.py` with
+explicit cluster parameters as shown above.
 
 ## Repository Layout
 
@@ -108,7 +111,7 @@ artifact evaluation.
   `RM1`-`RM4` workloads do not require this directory.
 - `results/`: generated logs and summary CSV files from local validation runs.
 
-## Hardware Setup
+## Hardware Topology
 
 The end-to-end experiment uses up to three server roles:
 
@@ -116,20 +119,22 @@ The end-to-end experiment uses up to three server roles:
 - coordinator: host process running `dlrm_coordinator.py`
 - embedding pool: PIM or remote embedding server running `dlrm_emb_pool.py`
 
-The current lab setup uses two V100 GPU servers and one UPMEM PIM server. Use the
-InfiniBand/RDMA IPs for CloverRec commands:
-
-- GPU/model/coordinator candidates: `10.0.0.3` and `10.0.0.5`
-- PIM embedding pool: `10.0.0.11`
-
-The evaluator-facing default uses PM2 (`10.0.0.5`) for both the model server and
-coordinator, and PM5 (`10.0.0.11`) for the embedding pool. PM1 (`10.0.0.3`) is
-an optional GPU candidate and is not required for the default evaluation.
-
 Use the IP address assigned to the InfiniBand/RDMA NIC, not the management NIC.
 On most setups this is the address shown on an `ib*`, `ibp*`, or RDMA-backed
 interface in `ip -brief addr` / `rdma link`. The coordinator can run on either
-GPU server, including the same machine as the model server.
+the same machine as the model server or on a separate host.
+
+| Role | Required hardware | Launcher address |
+| --- | --- | --- |
+| Model | NVIDIA GPU and CUDA | RDMA IP via `--model-ip`; optional SSH target via `--model-host` |
+| Coordinator | CPU host with RDMA access | Runs `scripts/run_e2e.py` locally |
+| Embedding pool | UPMEM DIMMs for `cloverrec`/`naive_pim_emb`; RDMA memory server for `remote_emb` | RDMA IP via `--emb-pool-ip`; SSH target via `--emb-pool-host` |
+
+For results comparable with the paper, use a 100 Gbps RDMA fabric and a UPMEM
+server with eight PIM DIMMs. Smaller configurations are useful for functional
+testing but need not reproduce the reported absolute throughput or latency.
+
+## Software Requirements
 
 ## Advanced: Recreating the Environment
 
@@ -140,14 +145,14 @@ GPU server, including the same machine as the model server.
 - Mellanox InfiniBand/RDMA stack with `ibverbs` and `pyverbs`
 - UPMEM SDK, `dpu-upmem-dpurte-clang`, and `libdpu` for PIM systems
 
-Create the Conda environment on each GPU/coordinator server:
+Create the Conda environment on every GPU/coordinator host:
 
 ```sh
 conda env create -f environment.yml
 conda activate CloverRec
 ```
 
-On the PIM embedding-pool server, use the CPU PyTorch environment to avoid
+On every PIM embedding-pool host, use the CPU PyTorch environment to avoid
 installing GPU CUDA wheels:
 
 ```sh
@@ -168,7 +173,7 @@ into the active Conda environment:
 scripts/install_pyverbs_from_apt.sh
 ```
 
-If the environment already exists, update it from the repository root:
+If an environment already exists, update it from the repository root:
 
 ```sh
 conda env update -f environment.yml --prune
@@ -176,7 +181,7 @@ conda activate CloverRec
 scripts/install_pyverbs_from_apt.sh
 ```
 
-Use `environment-pim.yml` in the `conda env update` command on the PIM server.
+Use `environment-pim.yml` in the `conda env update` command on each PIM server.
 
 Check each machine:
 
@@ -186,7 +191,7 @@ scripts/check_env.sh --role coordinator
 scripts/check_env.sh --role emb_pool
 ```
 
-## Advanced: Manual Build
+## Build
 
 Build from the repository root. Build only the system you plan to run on the
 current machine.
@@ -237,7 +242,7 @@ Expected runtime on our three-server setup:
 - First-time setup can take longer because the Conda environments and native
   extensions must be created and built on the GPU/coordinator and PIM servers.
 
-## Advanced: Manual Role-by-Role Smoke Run
+## Manual Role-by-Role Smoke Run
 
 Start the model server on a GPU server:
 
@@ -260,8 +265,8 @@ scripts/run_smoke.py \
   --workload RM1 \
   --batch-size 128 \
   --table-size 100000 \
-  --model-ip 10.0.0.5 \
-  --emb-pool-ip 10.0.0.11
+  --model-ip "$MODEL_IP" \
+  --emb-pool-ip "$EMB_POOL_IP"
 ```
 
 The same script supports `RM1`, `RM2`, `RM3`, `RM4`, and `KAGGLE`, and all four
@@ -282,7 +287,7 @@ scripts/run_smoke.py --system local_emb --role coordinator --workload RM1
 
 For `local_emb`, no embedding-pool process is needed.
 
-## Advanced: Custom End-to-End Matrix
+## End-to-End Experiment Matrix
 
 Use `scripts/run_e2e.py` for the regular end-to-end experiment matrix. It starts
 the model server, starts the embedding pool when the selected system needs one,
@@ -294,12 +299,13 @@ scripts/run_e2e.py \
   --systems cloverrec \
   --workloads RM1 \
   --batch-sizes 128 \
-  --model-ip 10.0.0.5 \
-  --emb-pool-ip 10.0.0.11 \
-  --emb-pool-host 192.168.123.7 \
-  --coordinator-python /home/cml/anaconda3/envs/CloverRec/bin/python \
-  --model-python /home/cml/anaconda3/envs/CloverRec/bin/python \
-  --emb-pool-python /home/cml/miniconda3/envs/CloverRec/bin/python
+  --model-ip "$MODEL_IP" \
+  --emb-pool-ip "$EMB_POOL_IP" \
+  --emb-pool-host "$EMB_POOL_HOST" \
+  --remote-repo-root "$REMOTE_REPO_ROOT" \
+  --coordinator-python "$COORDINATOR_PYTHON" \
+  --model-python "$MODEL_PYTHON" \
+  --emb-pool-python "$EMB_POOL_PYTHON"
 ```
 
 `--model-ip` and `--emb-pool-ip` are the InfiniBand/RDMA addresses used by the
@@ -327,12 +333,13 @@ scripts/run_e2e.py \
   --workloads RM1 RM2 RM3 RM4 \
   --num-batches 100 \
   --table-size 100000 \
-  --model-ip 10.0.0.5 \
-  --emb-pool-ip 10.0.0.11 \
-  --emb-pool-host 192.168.123.7 \
-  --coordinator-python /home/cml/anaconda3/envs/CloverRec/bin/python \
-  --model-python /home/cml/anaconda3/envs/CloverRec/bin/python \
-  --emb-pool-python /home/cml/miniconda3/envs/CloverRec/bin/python
+  --model-ip "$MODEL_IP" \
+  --emb-pool-ip "$EMB_POOL_IP" \
+  --emb-pool-host "$EMB_POOL_HOST" \
+  --remote-repo-root "$REMOTE_REPO_ROOT" \
+  --coordinator-python "$COORDINATOR_PYTHON" \
+  --model-python "$MODEL_PYTHON" \
+  --emb-pool-python "$EMB_POOL_PYTHON"
 ```
 
 For RM2 and RM4 the default profile includes smaller batch sizes than the old
@@ -351,19 +358,20 @@ scripts/run_e2e.py \
   --systems cloverrec remote_emb naive_pim_emb local_emb \
   --workloads KAGGLE \
   --kaggle-data-root data/Kaggle \
-  --model-ip 10.0.0.5 \
-  --emb-pool-ip 10.0.0.11 \
-  --emb-pool-host 192.168.123.7 \
-  --coordinator-python /home/cml/anaconda3/envs/CloverRec/bin/python \
-  --model-python /home/cml/anaconda3/envs/CloverRec/bin/python \
-  --emb-pool-python /home/cml/miniconda3/envs/CloverRec/bin/python
+  --model-ip "$MODEL_IP" \
+  --emb-pool-ip "$EMB_POOL_IP" \
+  --emb-pool-host "$EMB_POOL_HOST" \
+  --remote-repo-root "$REMOTE_REPO_ROOT" \
+  --coordinator-python "$COORDINATOR_PYTHON" \
+  --model-python "$MODEL_PYTHON" \
+  --emb-pool-python "$EMB_POOL_PYTHON"
 ```
 
 For PIM systems, run this after syncing the repository to the PIM server and
 creating the `environment-pim.yml` environment there. The script can build
 components automatically; pass `--skip-build` to reuse existing native modules.
 
-## Advanced: CloverRec PIM Parameters
+## CloverRec PIM Parameters
 
 The adaptive CloverRec PIM parameters can be passed through the embedding-pool
 role. Defaults match the previous hard-coded implementation.
@@ -384,13 +392,13 @@ scripts/run_smoke.py \
 These options map to the hot-embedding replication budget, split/merge rate, hot
 embedding sampling window, frequency aging interval, and adjustment interval.
 
-## Advanced: Parsing Results
+## Parsing Results
 
 Save coordinator output and parse it into JSON or CSV:
 
 ```sh
 scripts/run_smoke.py --system cloverrec --role coordinator --workload RM1 \
-  --model-ip 10.0.0.5 --emb-pool-ip 10.0.0.11 | tee cloverrec_rm1.log
+  --model-ip "$MODEL_IP" --emb-pool-ip "$EMB_POOL_IP" | tee cloverrec_rm1.log
 
 scripts/parse_results.py cloverrec_rm1.log
 scripts/parse_results.py --format csv cloverrec_rm1.log
