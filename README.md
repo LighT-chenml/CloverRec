@@ -107,8 +107,9 @@ explicit cluster parameters as shown above.
   GPU/coordinator machines and the PIM embedding-pool machine.
 - `requirements.txt` and `requirements-pim.txt`: pip dependency lists mirrored
   by the Conda environment files.
-- `data/Kaggle/`: optional processed Kaggle/Criteo workload files. Synthetic
-  `RM1`-`RM4` workloads do not require this directory.
+- `data/Kaggle/`: expected location for optional processed Kaggle/Criteo
+  workload files. The dataset is not redistributed with this repository.
+  Synthetic `RM1`-`RM4` workloads do not require this directory.
 - `results/`: generated logs and summary CSV files from local validation runs.
 
 ## Hardware Topology
@@ -406,6 +407,10 @@ The parser extracts throughput, average latency, embedding lookup time, apply
 embedding time, and available breakdown fields from the standard output.
 
 ## Dataset Notes
+
+The Criteo-Kaggle dataset is not redistributed with this repository. Obtain it
+under its applicable terms and place the processed files under `data/Kaggle`, or
+pass an alternative path to the launcher.
 
 The `KAGGLE` workload defaults to `data/Kaggle`, with
 `train.txt` as the raw-data path stem and
